@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/coverpage_enactus"
+            android:id="@+id/image_timetable"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="BSC"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-smallcaps"
+            android:id="@+id/text_course"
+            android:textStyle="bold"
+            />
+
+
+
+    </LinearLayout>
+    <Button
+        android:layout_gravity="bottom"
+        android:id="@+id/btn_change_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Course"
+        android:layout_marginBottom="10dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        />
+    <Button
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="bottom"
+        android:id="@+id/btn_upload_timetable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="upload"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.Button.Colored"
+        />
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/progress_bar"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

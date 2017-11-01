@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ic_timetable"
+        android:enabled="true"
+        android:icon="@drawable/icon_time_table"
+        android:title="Time Table"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/ic_paper"
+        android:enabled="true"
+        android:icon="@drawable/icon_question_paper"
+        android:title=" paper"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/ic_attendence"
+        android:enabled="true"
+        android:icon="@drawable/icon_attendence"
+        android:title=" Attendence"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/ic_events"
+        android:enabled="true"
+        android:icon="@drawable/icon_events"
+        android:title="Events"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/ic_deadlines"
+        android:enabled="true"
+        android:icon="@drawable/icon_deadline"
+        android:title="Deadline"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

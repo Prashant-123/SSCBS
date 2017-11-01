@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "464304965592",
+    "firebase_url": "https://sscbs-74a4d.firebaseio.com",
+    "project_id": "sscbs-74a4d",
+    "storage_bucket": "sscbs-74a4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464304965592:android:03e045b388868661",
+        "android_client_info": {
+          "package_name": "com.cbs.sscbs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464304965592-2fnmia6cfacs6h811rufjvpskl91go7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLyNc1aApEr6nU_t8xrs_EBxflnYvhpOg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

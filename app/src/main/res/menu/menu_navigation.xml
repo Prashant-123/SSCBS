@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+     <!--   <item
+            android:id="@+id/books"
+            android:icon="@drawable/ic_books"
+            android:title="NCERT BOOKS" />
+        <item
+            android:id="@+id/solutions"
+            android:icon="@drawable/ic_solutions"
+            android:title="ALL SOLUTIONS" />
+            -->
+
+        <item
+            android:id="@+id/college_gallery"
+            android:icon="@drawable/ic_gallery"
+            android:title="COLLEGE GALLERY" />
+        <item
+            android:id="@+id/about_college"
+            android:icon="@drawable/ic_college"
+            android:title="ABOUT COLLEGE" />
+
+        <item
+            android:id="@+id/correction"
+            android:icon="@drawable/ic_correction"
+            android:title="CORRECTION"
+            />
+        <item
+            android:id="@+id/rec_friend"
+            android:icon="@drawable/ic_share"
+            android:title="SHARE"
+            />
+        <item
+            android:id="@+id/rate_us"
+            android:icon="@drawable/ic_rate"
+            android:title="RATE IT"
+            />
+        <item
+            android:id="@+id/sign_out"
+            android:icon="@drawable/ic_sign_out"
+            android:title="Sign out"
+            />
+
+
+  </group>
+
+</menu>
