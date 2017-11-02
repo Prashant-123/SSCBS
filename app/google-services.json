@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "464304965592-8kovhkg4615v2250frmdcg6jrjvmm3is.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cbs.sscbs",
+            "certificate_hash": "0c277ff2537dda1ae01b7a3e7d2f48c02f00afa0"
+          }
+        },
+        {
+          "client_id": "464304965592-h7g3tbcskgan6ka4uhk0367sppmuaju2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cbs.sscbs",
+            "certificate_hash": "e6a48adaf8858dfb59fa8751e81a0a2db3072dd1"
+          }
+        },
+        {
           "client_id": "464304965592-2fnmia6cfacs6h811rufjvpskl91go7e.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464304965592-2fnmia6cfacs6h811rufjvpskl91go7e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

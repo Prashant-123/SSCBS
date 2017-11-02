@@ -23,8 +23,6 @@ class Attendence_Frag : Fragment() {
 
         activity.toolbar.setTitle("Attendance")
 
-
-
         return view
     }
 
