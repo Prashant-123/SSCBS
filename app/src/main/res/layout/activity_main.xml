@@ -70,8 +70,8 @@
 
             app:itemIconTint="@drawable/selector"
             android:background="@android:color/black"
-            android:elevation="8dp"
-            app:elevation="8dp"
+            android:elevation="10dp"
+            app:elevation="10dp"
             app:itemTextColor="@drawable/selector"
             />
 

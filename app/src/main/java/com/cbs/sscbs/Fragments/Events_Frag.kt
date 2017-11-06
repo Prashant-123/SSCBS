@@ -22,9 +22,6 @@ class Events_Frag : Fragment() {
         val view = inflater!!.inflate(R.layout.paper_fragment, container, false)
 
         activity.toolbar.setTitle("Events")
-
-
-
         return view
     }
 

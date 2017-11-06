@@ -11,7 +11,7 @@
         <ImageView
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:src="@drawable/coverpage_enactus"
             android:id="@+id/image_timetable"
             />
@@ -26,8 +26,6 @@
             android:id="@+id/text_course"
             android:textStyle="bold"
             />
-
-
 
     </LinearLayout>
     <Button
