@@ -4,12 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.WindowManager
-import android.widget.ImageView
-import butterknife.ButterKnife
-import com.cbs.sscbs.utils.TouchImageView
 import com.github.chrisbanes.photoview.PhotoView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fullimage_activity.*
 
 /**
  * Created by gauti on 29/10/17.
@@ -26,7 +22,7 @@ class FullScreenImage:AppCompatActivity(){
         Log.d("Fullscreen",intent.getStringExtra(CONSTANTS.imageurl))
 
         Picasso.with(applicationContext).load(intent.getStringExtra(CONSTANTS.imageurl)).fit()
-                .into(troops_image)
+               .into(troops_image)
 
 
         // initilizeFullScreen();

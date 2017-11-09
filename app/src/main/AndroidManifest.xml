@@ -34,7 +34,9 @@
         <activity android:name=".Notification_Activity" />
        <activity android:name=".FullScreenImage"
            android:theme="@style/Theme.AppCompat.NoActionBar"
-          />
+           android:screenOrientation="landscape"
+
+           />
 
     </application>
 
