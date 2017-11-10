@@ -26,15 +26,14 @@ class TimeTable_frag : Fragment() {
     lateinit var sharedpref:SharedPreferences
     internal var bundle: Bundle? = null
     var courselist:ArrayList<String> = ArrayList(Arrays.asList("Bsc 1","Bsc 2", "Bsc 3","BMS","BFIA"))
-    var courselist_bms:ArrayList<String> = ArrayList(Arrays.asList("First Year" , "Second Year" , "Third Year"))
-    var courselist_bms_year:ArrayList<String> = ArrayList(Arrays.asList("BMS-A" , "BMS-B" , "BMS-C","BMS-D"))
-    var courselist_bfia:ArrayList<String> = ArrayList(Arrays.asList("BFIA-A" , "BFIA-B"))
+    var years:ArrayList<String> = ArrayList(Arrays.asList("First Year" , "Second Year" , "Third Year"))
+    var bms_sections:ArrayList<String> = ArrayList(Arrays.asList("BMS-A" , "BMS-B" , "BMS-C","BMS-D"))
+    var bfia_sections:ArrayList<String> = ArrayList(Arrays.asList("BFIA-A" , "BFIA-B"))
 
-
+    var folder= ""
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.timetable_fragment, container, false)
-
         activity.toolbar.setTitle("Time Table")
         return view
     }
@@ -47,194 +46,94 @@ class TimeTable_frag : Fragment() {
             MaterialDialog.Builder(activity)
                     .title("Select Course")
                     .items(courselist)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which, text ->
-                        println("Created...")
-                        var selectedindes:Int = which
-                        text_course.text = courselist.get(which)
-                        getTimeTable(which)
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, selectCourse, text ->
+                        var selectedindes:Int = selectCourse
+                        text_course.text = courselist.get(selectCourse)
+                        if (selectCourse == 3 || selectCourse == 4)
+                        others(selectCourse)
+                        folder = getString(R.string.timetable)
+                        showTimeTable(selectCourse)
                         true
                     })
                     .show()
         }
-
     }
 
-    private fun getTimeTable(which: Int) {
-        firebasedb = FirebaseDatabase.getInstance()
-       // val tietable:Timetable = Timetable()
-        if(which == 3 ) {
+    private fun others(index: Int) {
             MaterialDialog.Builder(activity)
                     .title("Select Year")
-                    .items(courselist_bms)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which_bms, text ->
-                        println("Created...")
-                        //var which_bms
-                        var selectedindes:Int = which_bms
-                        text_course.text = courselist_bms.get(which_bms)
-                        getTimeTable_bms(which_bms)
+                    .items(years)
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, Year, text ->
+                        var selectedindes:Int = Year
+                        text_course.text = years.get(Year)
+                        if (index == 3)
+                            getTimeTable_bms(Year)
+                        if (index == 4)
+                            getTimeTable_bfia(Year)
                         true
                     })
                     .show()
-        }
-
-        else if(which == 4 ) {
-            MaterialDialog.Builder(activity)
-                    .title("Select Year")
-                    .items(courselist_bms)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which_bms, text ->
-                        println("Created...")
-                        //var which_bms
-                        var selectedindes:Int = which_bms
-                        text_course.text = courselist_bms.get(which_bms)
-                        getTimeTable_bfia(which_bms)
-                        true
-                    })
-                    .show()
-        }
-
-
-
-        firebaseref = firebasedb.getReference("timetable/${which}")
-       //progress_bar.visibility = View.VISIBLE
-
-        firebaseref.addValueEventListener(object :ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {
-               // progress_bar.visibility = View.INVISIBLE
-            }
-
-            override fun onDataChange(p0: DataSnapshot?) {
-
-                val url: String? = p0?.getValue(String::class.java)
-                Log.d("url","url:${url}")
-
-                               Picasso.with(context).load(url).into(image_timetable,object: Callback{
-                                   override fun onSuccess() {
-                                       image_timetable.setOnClickListener {
-                                           val intent: Intent = Intent(context, FullScreenImage::class.java)
-                                           intent.putExtra(CONSTANTS.imageurl, url)
-                                           startActivity(intent)
-                                       }
-                                   }
-                                   override fun onError() {
-                                       TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                                   }
-
-                               })
-                //progress_bar.visibility = View.INVISIBLE
-
-            }
-
-        })
     }
 
-
-    private fun getTimeTable_bms(which_bms: Int) {
-        firebasedb = FirebaseDatabase.getInstance()
-        // val tietable:Timetable = Timetable()
-
-        if(which_bms == 0 || which_bms==1|| which_bms==2) {
+    private fun getTimeTable_bms(index: Int) {
+        if(index == 0 || index==1|| index==2) {
+            if (index == 0)
+            {
+                folder = getString(R.string.bmsFirstYear)
+            }
+            if (index == 1)
+            {
+                folder = getString(R.string.bmsSecondYear)
+            }
+            if (index == 2)
+            {
+                folder = getString(R.string.bmsThirdYear)
+            }
 
             MaterialDialog.Builder(activity)
                     .title("Select Section")
-                    .items(courselist_bms_year)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which_bms_year, text ->
-                        println("Created...")
-                        //var which_bms
-                        var selectedindes:Int = which_bms_year
-                        text_course.text = courselist_bms_year.get(which_bms_year)
-                        getTimeTable_bms_year(which_bms_year)
+                    .items(bms_sections)
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, indexBmsSection, text ->
+                        var selectedindes:Int = indexBmsSection
+                        text_course.text = bms_sections.get(indexBmsSection)
+                        showTimeTable(indexBmsSection)
                         true
                     })
                     .show()
         }
-        //firebaseref = firebasedb.getReference("timetable_bms/${which_bms}")
-       // progress_bar.visibility = View.VISIBLE
-
-        firebaseref.addValueEventListener(object :ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {
-              // progress_bar.visibility = View.INVISIBLE
-            }
-
-            override fun onDataChange(p0: DataSnapshot?) {
-                val url: String? = p0?.getValue(String::class.java)
-                Log.d("url","url:${url}")
-
-                Picasso.with(context).load(url).into(image_timetable,object: Callback{
-                    override fun onSuccess() {
-                        image_timetable.setOnClickListener {
-                            val intent: Intent = Intent(context, FullScreenImage::class.java)
-                            intent.putExtra(CONSTANTS.imageurl, url)
-                            startActivity(intent)
-                        }
-                    }
-                    override fun onError() {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                })
-               // progress_bar.visibility = View.INVISIBLE
-
-            }
-
-        })
     }
 
-    private fun getTimeTable_bfia(which_bms: Int) {
-        firebasedb = FirebaseDatabase.getInstance()
-        // val tietable:Timetable = Timetable()
-
-        if(which_bms == 0 || which_bms==1|| which_bms==2) {
+    private fun getTimeTable_bfia(index: Int) {
+        if(index == 0 || index==1|| index==2) {
+            if (index == 0)
+            {
+                folder = getString(R.string.bfiaFirstYear)
+            }
+            if (index == 1)
+            {
+                folder = getString(R.string.bfiaSecondYear)
+            }
+            if (index == 2)
+            {
+                folder = getString(R.string.bfiaThirdYear)
+            }
 
             MaterialDialog.Builder(activity)
                     .title("Select Section")
-                    .items(courselist_bfia)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which_bfia, text ->
-                        println("Created...")
-                        //var which_bms
-                        var selectedindes:Int = which_bfia
-                        text_course.text = courselist_bfia.get(which_bfia)
-                        getTimeTable_bfia_year(which_bfia)
+                    .items(bfia_sections)
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, indexBmsSection, text ->
+                        var selectedindes:Int = indexBmsSection
+                        text_course.text = bms_sections.get(indexBmsSection)
+                        showTimeTable(indexBmsSection)
                         true
                     })
                     .show()
         }
-        //firebaseref = firebasedb.getReference("timetable_bfia/${which_bms}")
-        // progress_bar.visibility = View.VISIBLE
-
-        firebaseref.addValueEventListener(object :ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {
-                // progress_bar.visibility = View.INVISIBLE
-            }
-
-            override fun onDataChange(p0: DataSnapshot?) {
-                val url: String? = p0?.getValue(String::class.java)
-                Log.d("url","url:${url}")
-
-                Picasso.with(context).load(url).into(image_timetable,object: Callback{
-                    override fun onSuccess() {
-                        image_timetable.setOnClickListener {
-                            val intent: Intent = Intent(context, FullScreenImage::class.java)
-                            intent.putExtra(CONSTANTS.imageurl, url)
-                            startActivity(intent)
-                        }
-                    }
-                    override fun onError() {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                })
-                // progress_bar.visibility = View.INVISIBLE
-
-            }
-
-        })
     }
 
-    private fun getTimeTable_bms_year(which_bms_year: Int) {
+    private fun showTimeTable(number: Int) {
         firebasedb = FirebaseDatabase.getInstance()
-        // val tietable:Timetable = Timetable()
-
-        firebaseref = firebasedb.getReference("timetable_bms_section/${which_bms_year}")
+        firebaseref = firebasedb.getReference("${folder}/${number}")
        // progress_bar.visibility = View.VISIBLE
 
         firebaseref.addValueEventListener(object :ValueEventListener{
@@ -260,49 +159,11 @@ class TimeTable_frag : Fragment() {
 
                 })
                // progress_bar.visibility = View.INVISIBLE
-
             }
-
         })
     }
 
-    private fun getTimeTable_bfia_year(which_bms_year: Int) {
-        firebasedb = FirebaseDatabase.getInstance()
-        // val tietable:Timetable = Timetable()
-
-        firebaseref = firebasedb.getReference("timetable_bfia_section/${which_bms_year}")
-        // progress_bar.visibility = View.VISIBLE
-
-        firebaseref.addValueEventListener(object :ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {
-                // progress_bar.visibility = View.INVISIBLE
-            }
-
-            override fun onDataChange(p0: DataSnapshot?) {
-                val url: String? = p0?.getValue(String::class.java)
-                Log.d("url","url:${url}")
-
-                Picasso.with(context).load(url).into(image_timetable,object: Callback{
-                    override fun onSuccess() {
-                        image_timetable.setOnClickListener {
-                            val intent: Intent = Intent(context, FullScreenImage::class.java)
-                            intent.putExtra(CONSTANTS.imageurl, url)
-                            startActivity(intent)
-                        }
-                    }
-                    override fun onError() {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                })
-                // progress_bar.visibility = View.INVISIBLE
-
-            }
-
-        })
-    }
     companion object {
-
         fun newInstance(): TimeTable_frag {
             val fragment = TimeTable_frag()
             val bundle = Bundle()
