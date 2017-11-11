@@ -5,7 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/black"
     tools:context="com.cbs.sscbs.About_Activity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_about"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="wrap_content" />
 
 
     <LinearLayout
@@ -33,7 +43,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:id="@+id/about"
+        android:id="@+id/contact_us"
         android:layout_weight="1"
         android:layout_margin="8dp"
         android:background="@drawable/about">
@@ -41,7 +51,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="About us"
+            android:text="Contact Us"
             android:textColor="@android:color/white"
             android:textSize="40sp"
             android:textAlignment="center"
