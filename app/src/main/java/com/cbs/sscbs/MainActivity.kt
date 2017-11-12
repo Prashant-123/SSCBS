@@ -187,9 +187,9 @@ class MainActivity : AppCompatActivity() {
                 i.type = "text/plain"
                 i.putExtra(Intent.EXTRA_SUBJECT, "NCERT BOOK & SOLUTION")
                 var sAux = "\nLet me recommend you this application\n\n"
-                sAux = sAux + "https://play.google.com/store/apps/details?id=com.solutions.ncertbooks"
+                sAux = sAux + "https://play.googl"
                 i.putExtra(Intent.EXTRA_TEXT, sAux)
-                startActivity(Intent.createChooser(i, "Share this App :-"))
+                startActivity(Intent.createChooser(i, "Share this App \uD83C\uDF1D"))
             } catch (e: Exception) {
                 //e.toString();
             }
