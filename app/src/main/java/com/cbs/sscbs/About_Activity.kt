@@ -7,6 +7,8 @@ import kotlinx.android.synthetic.main.activity_about.*
 
 class About_Activity : AppCompatActivity() {
 
+    //OK
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
