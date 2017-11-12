@@ -2,10 +2,8 @@ package com.cbs.sscbs.Fragments
 
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +21,6 @@ import java.util.*
 class TimeTable_frag : Fragment() {
     lateinit var firebasedb: FirebaseDatabase
     lateinit var firebaseref: DatabaseReference
-    lateinit var sharedpref:SharedPreferences
     internal var bundle: Bundle? = null
     var courselist:ArrayList<String> = ArrayList(Arrays.asList("Bsc 1","Bsc 2", "Bsc 3","BMS","BFIA"))
     var years:ArrayList<String> = ArrayList(Arrays.asList("First Year" , "Second Year" , "Third Year"))
@@ -143,7 +140,7 @@ class TimeTable_frag : Fragment() {
 
             override fun onDataChange(p0: DataSnapshot?) {
                 val url: String? = p0?.getValue(String::class.java)
-                Log.d("url","url:${url}")
+                //Log.d("url","url:${url}")
 
                 Picasso.with(context).load(url).into(image_timetable,object: Callback{
                     override fun onSuccess() {

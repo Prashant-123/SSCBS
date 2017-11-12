@@ -28,8 +28,7 @@
         <activity
             android:name=".About_Activity"
             android:label="About Us"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".Gallery_Activity" />
         <activity android:name=".auth.AuthUiActivity" />
         <activity android:name=".auth.SignedInActivity" />
@@ -38,7 +37,6 @@
             android:name=".FullScreenImage"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Gallery_Activity"></activity>
     </application>
 
 </manifest>

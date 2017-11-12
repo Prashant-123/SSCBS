@@ -11,7 +11,7 @@
         android:id="@+id/ic_paper"
         android:enabled="true"
         android:icon="@drawable/icon_question_paper"
-        android:title=" paper"
+        android:title=" Q.Papers"
         app:showAsAction="ifRoom" />
 
     <item
