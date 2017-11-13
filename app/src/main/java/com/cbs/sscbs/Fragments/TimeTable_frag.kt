@@ -11,6 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.CONSTANTS
 import com.cbs.sscbs.FullScreenImage
 import com.cbs.sscbs.R
+import com.cbs.sscbs.TeachersMainActivity
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -39,7 +40,7 @@ class TimeTable_frag : Fragment() {
         super.onViewCreated(view, savedInstanceState)
        // progress_bar.visibility = View.INVISIBLE
 
-        btn_change_course.setOnClickListener {
+        students_card.setOnClickListener {
             MaterialDialog.Builder(activity)
                     .title("Select Course")
                     .items(courselist)
@@ -53,6 +54,12 @@ class TimeTable_frag : Fragment() {
                         true
                     })
                     .show()
+        }
+
+        teachers_card.setOnClickListener {
+            val intent: Intent = Intent(context, TeachersMainActivity::class.java)
+            //.putExtra(CONSTANTS.imageurl, url)
+            startActivity(intent)
         }
     }
 
@@ -153,7 +160,6 @@ class TimeTable_frag : Fragment() {
                     override fun onError() {
                         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
-
                 })
                // progress_bar.visibility = View.INVISIBLE
             }

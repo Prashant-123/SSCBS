@@ -4,11 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
 import java.io.File;
 import java.io.FileOutputStream;
 public class PhotoLoader  {

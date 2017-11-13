@@ -1,41 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <ImageView
-            android:layout_marginTop="30dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="381dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="4dp">
+
+            <ImageView
+                android:id="@+id/image_timetable"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/coverpage_enactus" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="6dp"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="#d02d06"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:id="@+id/tt_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:text="Question Papers"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tt_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/bfia_card"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:background="#d02d06"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.6"
+                                android:gravity="center"
+                                android:text="Bachelor of Business Studies (BFIA)"
+                                android:textColor="#ffffff"
+                                android:textSize="16dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="0.2"
+                        android:orientation="vertical">
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="75dp"
+                            android:background="#c3bfb5" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="75dp"
+                    android:layout_width="6dp"
+                    android:layout_height="80dp"
+                    android:background="#c3bfb5" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="0.2"
+                    android:orientation="vertical">
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:layout_marginTop="75dp"
+                        android:background="#c3bfb5" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/bsc_card"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:background="#d02d06"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.6"
+                                android:gravity="center"
+                                android:text="Bachelor of Science (Bsc(H))"
+                                android:textColor="#ffffff"
+                                android:textSize="16dp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/bms_card"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#d02d06"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.6"
+                        android:gravity="center"
+                        android:text="Bachelor of Management Studies(BMS)"
+                        android:textColor="#ffffff"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_upload_timetable"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/coverpage_enactus"
-            android:id="@+id/image_timetable"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="BSC"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-smallcaps"
-            android:id="@+id/text_course"
-            android:textStyle="bold"
-            />
-
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="50dp"
+            android:text="upload"
+            android:visibility="gone" />
     </LinearLayout>
-    <Button
-        android:layout_gravity="bottom"
-        android:id="@+id/btn_change_semester"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change Semester"
-        android:layout_marginBottom="10dp"
-        style="@style/Widget.AppCompat.Button.Colored"
-        />
-
-</android.support.design.widget.CoordinatorLayout>
+</ScrollView>

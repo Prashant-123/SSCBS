@@ -1,52 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <ImageView
-            android:layout_marginTop="30dp"
+            android:id="@+id/image_timetable"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/coverpage_enactus"
-            android:id="@+id/image_timetable"
-            />
+            android:layout_marginTop="30dp"
+            android:src="@drawable/coverpage_enactus" />
 
         <TextView
+            android:id="@+id/text_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="BSC"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-smallcaps"
-            android:id="@+id/text_course"
-            android:textStyle="bold"
-            />
+            android:text=""
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#d02d06"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:id="@+id/tt_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="TIME TABLE"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tt_choice"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="40dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/teachers_card"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="170dp"
+                        android:layout_height="100dp"
+                        android:background="#d02d06"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.6"
+                            android:gravity="center"
+                            android:text="Teacher's Time      Table"
+                            android:textColor="#ffffff"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="0.2"
+                android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="92dp"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="60dp"
+                    android:background="#c3bfb5" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal">
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/students_card"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="#d02d06"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.6"
+                            android:gravity="center"
+                            android:text="Student's Time    Table"
+                            android:textColor="#ffffff"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-    <Button
-        android:layout_gravity="bottom"
-        android:id="@+id/btn_change_course"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change Course"
-        android:layout_marginBottom="10dp"
-        style="@style/Widget.AppCompat.Button.Colored"
-        />
-    <Button
-        android:layout_marginBottom="50dp"
-        android:layout_gravity="bottom"
-        android:id="@+id/btn_upload_timetable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="upload"
-        android:visibility="gone"
-        style="@style/Widget.AppCompat.Button.Colored"
-        />
-
 
 </android.support.design.widget.CoordinatorLayout>

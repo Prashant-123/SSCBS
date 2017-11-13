@@ -29,6 +29,16 @@
             android:name=".About_Activity"
             android:label="About Us"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".Teachers"/>
+                <activity android:name=".TeachersMainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+
         <activity android:name=".Gallery_Activity" />
         <activity android:name=".auth.AuthUiActivity" />
         <activity android:name=".auth.SignedInActivity" />
