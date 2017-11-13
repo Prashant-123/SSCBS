@@ -3,11 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SSCBS.iml" filepath="$PROJECT_DIR$/SSCBS.iml" />
-      <module fileurl="file://C:\Users\Tanya\Desktop\12-10-17\SSCBS.iml" filepath="C:\Users\Tanya\Desktop\12-10-17\SSCBS.iml" />
-      <module fileurl="file://C:\Users\Tanya\Desktop\12-10-17\app\SSCBS-app.iml" filepath="C:\Users\Tanya\Desktop\12-10-17\app\SSCBS-app.iml" />
-      <module fileurl="file://C:\Users\Tanya\Desktop\12-10-17\StudioProjects-SSCBS.iml" filepath="C:\Users\Tanya\Desktop\12-10-17\StudioProjects-SSCBS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Tanya\Desktop\12-10-17\app\app.iml" filepath="C:\Users\Tanya\Desktop\12-10-17\app\app.iml" />
     </modules>
   </component>
 </project>
