@@ -32,6 +32,8 @@ class TeachersMainActivity : AppCompatActivity() {
         arrTeachers.add(Teacher("mv" , R.drawable.ag))
         arrTeachers.add(Teacher("neha" , R.drawable.ag))
 
+
+
         listView.adapter = CustomAdapter(applicationContext , arrTeachers)
     }
 }

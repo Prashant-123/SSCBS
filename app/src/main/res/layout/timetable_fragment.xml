@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -70,7 +71,7 @@
                     android:layout_weight="1">
 
                     <LinearLayout
-                        android:layout_width="170dp"
+                        android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:background="#d02d06"
                         android:orientation="vertical">
@@ -80,7 +81,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1.6"
                             android:gravity="center"
-                            android:text="Teacher's Time      Table"
+                            android:layout_gravity="center"
+                            android:text="Teacher's Time          Table"
                             android:textColor="#ffffff"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -136,7 +138,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1.6"
                             android:gravity="center"
-                            android:text="Student's Time    Table"
+                            android:text="Student's Time               Table"
                             android:textColor="#ffffff"
                             android:textSize="16dp"
                             android:textStyle="bold" />

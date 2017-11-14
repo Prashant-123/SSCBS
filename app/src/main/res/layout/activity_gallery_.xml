@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/clot"
     android:orientation="vertical"
     tools:context="com.cbs.sscbs.Gallery_Activity">
 
@@ -21,6 +22,272 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_height="wrap_content"/>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ag"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="Shaheed Sukhdev College of Bussiness Studies"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Unversity of Delhi"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="italic|bold"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Grade A Accredited By NAAC"
+                    android:textAllCaps="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INFRASTRUCTURE"
+            android:layout_marginLeft="30dp"
+            android:padding="8dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
+        <LinearLayout
+            android:id="@+id/th1"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="10dp">
+
+            <ViewFlipper
+                android:id="@+id/flipper1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="20dp">
+
+                <ImageView
+                    android:id="@+id/th1_f1_pic1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ag" />
+
+
+                <ImageView
+                    android:id="@+id/th1_f1_pic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coverpage_enactus" />
+
+            </ViewFlipper>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="COLLEGE EVENTS"
+            android:layout_marginLeft="30dp"
+            android:padding="8dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+
+        <LinearLayout
+            android:id="@+id/th2"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="10dp">
+
+            <ViewFlipper
+                android:id="@+id/flipper2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="20dp">
+
+                <ImageView
+                    android:id="@+id/th2_f2_pic1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ag" />
+
+
+                <ImageView
+                    android:id="@+id/th2_f2_pic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coverpage_enactus" />
+
+            </ViewFlipper>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OUR SOCIETIES"
+            android:layout_marginLeft="30dp"
+            android:padding="8dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+        <LinearLayout
+            android:id="@+id/th3"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="10dp">
+
+            <ViewFlipper
+                android:id="@+id/flipper3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="20dp">
+
+                <ImageView
+                    android:id="@+id/th3_f3_pic1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ag" />
+
+
+                <ImageView
+                    android:id="@+id/th3_f3_pic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coverpage_enactus" />
+
+            </ViewFlipper>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VICTORIES"
+            android:layout_marginLeft="30dp"
+            android:padding="8dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+        <LinearLayout
+            android:id="@+id/th4"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="10dp">
+
+            <ViewFlipper
+                android:id="@+id/flipper4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="20dp">
+
+                <ImageView
+                    android:id="@+id/th4_f4_pic1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ag" />
+
+
+                <ImageView
+                    android:id="@+id/th4_f4_pic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coverpage_enactus" />
+
+            </ViewFlipper>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SPORTS"
+            android:layout_marginLeft="30dp"
+            android:padding="8dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+        <LinearLayout
+            android:id="@+id/th5"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="10dp">
+
+            <ViewFlipper
+                android:id="@+id/flipper5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="20dp">
+
+                <ImageView
+                    android:id="@+id/th5_f5_pic1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ag" />
+
+
+                <ImageView
+                    android:id="@+id/th5_f5_pic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coverpage_enactus" />
+
+            </ViewFlipper>
+
+        </LinearLayout>
 
     </LinearLayout>
 

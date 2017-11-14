@@ -1,15 +1,15 @@
 package com.cbs.sscbs.Fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.R
+import com.cbs.sscbs.web
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.paper_fragment.*
 
@@ -64,43 +64,46 @@ class Paper_Frag : Fragment() {
                     .items(item)
                     .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which, text ->
 
-                        when (which) {
-                            0 -> Toast.makeText(activity, "Sem 1 selected", Toast.LENGTH_LONG).show()
-                            1 -> Toast.makeText(activity, "Sem 1 selected", Toast.LENGTH_LONG).show()
-                        }
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         */
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         */
+                        val intent: Intent = Intent(context, web::class.java)
+                        // intent.putExtra(CONSTANTS.imageurl, url)
+                        startActivity(intent)
+
                         true
                     })
                     .show()
-            Toast.makeText(activity, "Card", Toast.LENGTH_SHORT).show()
         }
 
-        bsc_card.setOnClickListener(View.OnClickListener {
-            val alert = AlertDialog.Builder(context)
-            alert.setTitle("Select Semester")
-            val inflater = layoutInflater
-            val alertLayout = inflater.inflate(R.layout.fragment_semester_frag, null)
-            alert.setView(alertLayout)
-            alert.setNegativeButton("Close") { dialog, id -> dialog.dismiss() }
-            alert.show()
-        })
+        bsc_card.setOnClickListener {
+            MaterialDialog.Builder(context)
+                    .title("BFIA")
+                    .items(item)
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which, text ->
 
-        bms_card.setOnClickListener(View.OnClickListener {
-            val alert = AlertDialog.Builder(context)
-            alert.setTitle("Select Semester")
-            val inflater = layoutInflater
-            val alertLayout = inflater.inflate(R.layout.fragment_semester_frag, null)
-            alert.setView(alertLayout)
-            alert.setNegativeButton("Close") { dialog, id -> dialog.dismiss() }
-            alert.show()
-        })
+                        val intent: Intent = Intent(context, web::class.java)
+                       // intent.putExtra(CONSTANTS.imageurl, url)
+                        startActivity(intent)
+
+                        true
+                    })
+                    .show()
+        }
+
+        bms_card.setOnClickListener {
+            MaterialDialog.Builder(context)
+                    .title("BFIA")
+                    .items(item)
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which, text ->
+
+                        val intent: Intent = Intent(context, web::class.java)
+                        // intent.putExtra(CONSTANTS.imageurl, url)
+                        startActivity(intent)
+
+                        true
+                    })
+                    .show()
+
+        }
+
 
     }
 

@@ -24,22 +24,24 @@
         </activity>
         <activity android:name=".LifeAtCbs" />
         <activity android:name=".Contact_us" />
+        <activity android:name=".Portal" />
         <activity android:name=".Facilities" />
         <activity
             android:name=".About_Activity"
             android:label="About Us"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Teachers"/>
-                <activity android:name=".TeachersMainActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Teachers" />
+        <activity android:name=".TeachersMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-
-        <activity android:name=".Gallery_Activity" />
+        <activity
+            android:name=".Gallery_Activity"
+            android:label="GALLERY"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
         <activity android:name=".auth.SignedInActivity" />
         <activity android:name=".Notification_Activity" />
@@ -47,6 +49,8 @@
             android:name=".FullScreenImage"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".web" />
+        <activity android:name=".TeacherIntent"></activity>
     </application>
 
 </manifest>
