@@ -80,9 +80,6 @@ class Gallery_Activity : AppCompatActivity() {
     fun setToolbar() {
         setSupportActionBar(toolbar_gallery)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-
-
         toolbar_gallery.setNavigationOnClickListener {
             onBackPressed()
             setTitle("Gallery")
