@@ -32,5 +32,5 @@
         android:layout_toRightOf="@+id/ivTeachers"
         android:text="Dr. Poonam Verma"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="25dp" />
+        android:textSize="20dp" />
 </RelativeLayout>

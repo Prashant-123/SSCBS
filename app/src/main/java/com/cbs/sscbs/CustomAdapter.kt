@@ -1,12 +1,16 @@
 package com.cbs.sscbs
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.cbs.sscbs.R.id.text
 import java.util.*
 
 /**
@@ -24,6 +28,7 @@ class CustomAdapter(var context: Context, var teacher: ArrayList<Teacher>) : Bas
             this.ivImage = row?.findViewById<ImageView>(R.id.ivTeachers) as ImageView
 
         }
+
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -36,6 +41,14 @@ class CustomAdapter(var context: Context, var teacher: ArrayList<Teacher>) : Bas
             view = layout.inflate(R.layout.teachers_item_list, parent, false)
             viewHolder = ViewHolder(view)
             view.tag = viewHolder
+
+//            viewHolder.text.setText("item "+position);
+//            viewHolder.image.setTag(data.get(position));
+//            viewHolder.image.setOnClickListener(this);
+//            viewHolder.text.setOnClickListener(this);
+//            viewHolder.DisplayImage(data.get(position), activity, holder.image);
+//            return vi;
+
         } else {
             view = convertView
             viewHolder = view.tag as ViewHolder
@@ -58,5 +71,6 @@ class CustomAdapter(var context: Context, var teacher: ArrayList<Teacher>) : Bas
     override fun getCount(): Int {
         return teacher.count()
     }
+
 
 }
