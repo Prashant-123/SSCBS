@@ -11,12 +11,12 @@ class web : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
 
-        val intent = intent
-        val bd = intent.extras
-        var add: String? = null
-        if (bd != null) {
-            add = bd.get("web_add") as String
-        }
+//        val intent = intent
+//        val bd = intent.extras
+//        var add: String? = null
+//        if (bd != null) {
+//            add = bd.get("web_add") as String
+//        }
 
 
         val browser = findViewById<WebView>(R.id.webView) as WebView
@@ -27,13 +27,13 @@ class web : AppCompatActivity() {
         browser.settings.setSupportMultipleWindows(true)
         browser.settings.useWideViewPort = true
         browser.isHorizontalScrollBarEnabled = true
-        browser.loadUrl("http://www.google.com")
+       // browser.loadUrl("http://www.google.com")
     }
 
-    private inner class MyBrowser : WebViewClient() {
+    private class MyBrowser : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             view.loadUrl(url)
-            return true
+            return false
         }
 
 

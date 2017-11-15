@@ -44,19 +44,6 @@ class Paper_Frag : Fragment() {
         item.add("Semester 6")
 
 
-//        bfia_card.setOnClickListener(View.OnClickListener {
-//            val alert = AlertDialog.Builder(context)
-//            alert.setTitle("Select Semester")
-//            val inflater = layoutInflater
-//            val alertLayout = inflater.inflate(R.layout.fragment_semester_frag, null)
-//            alert.setView(alertLayout)
-//            alert.setNegativeButton("Close") { dialog, id -> dialog.dismiss() }
-//            alert.show()
-//
-//
-//
-//
-//        })
 
         bfia_card.setOnClickListener {
             MaterialDialog.Builder(context)
@@ -64,9 +51,39 @@ class Paper_Frag : Fragment() {
                     .items(item)
                     .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which, text ->
 
+
+
+                        when(which)
+                        {
+                            0-> {
+                                val bundle = Bundle()
+//                                val url = "https://www.facebook.com"
+//                            bundle.putString("urlString", url)
+//                                val intent = Intent(context, web::class.java)
+//                            intent.putExtras(bundle)
+//                                    startActivity(intent)
+
+                                val intent: Intent = Intent(context, web::class.java)
+                                intent.putExtra("url" , "https://www.facebook.com")
+                                startActivity(intent)
+
+                            }
+//
+                        }
+
+
+
+//                        val bundle = Bundle()
+//                        val url = "http://www.google.com"
+//                        bundle.putString("urlString", url)
+//                        val intent = Intent(context, web::class.java)
+//                        intent.putExtras(bundle)
+//                        startActivity(intent)
+
                         val intent: Intent = Intent(context, web::class.java)
-                        // intent.putExtra(CONSTANTS.imageurl, url)
-                        startActivity(intent)
+                        intent.putExtra("url" , "https://www.google.com")
+                       startActivity(intent)
+
 
                         true
                     })
