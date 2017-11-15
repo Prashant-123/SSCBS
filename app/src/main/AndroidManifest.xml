@@ -49,7 +49,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".web" />
-        <activity android:name=".TeacherIntent"></activity>
+        <activity android:name=".TeacherIntent" />
     </application>
 
 </manifest>

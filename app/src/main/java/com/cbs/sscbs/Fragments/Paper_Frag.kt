@@ -14,10 +14,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.paper_fragment.*
 
 
-/**
- * Created by gautam on 19/2/17.
- */
-
 class Paper_Frag : Fragment() {
 
 
