@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     private fun setbottomnavigator(savedInstanceState: Bundle?) {
 
         if (savedInstanceState == null) {
-            val main_fragment = TimeTable_frag()
+            val main_fragment = Home_frag()
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.main_Frame, main_fragment).commit()
         }
