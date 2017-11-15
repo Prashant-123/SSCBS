@@ -27,7 +27,7 @@ class web : AppCompatActivity() {
         browser.settings.setSupportMultipleWindows(true)
         browser.settings.useWideViewPort = true
         browser.isHorizontalScrollBarEnabled = true
-        browser.loadUrl("http://www.google.com")
+        browser.loadUrl(add)
     }
 
     private inner class MyBrowser : WebViewClient() {

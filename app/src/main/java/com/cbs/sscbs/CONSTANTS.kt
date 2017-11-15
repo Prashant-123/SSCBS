@@ -5,8 +5,8 @@ package com.cbs.sscbs
  */
 class CONSTANTS {
     companion object {
-        val courseselected:String ="course"
-        val imageurl:String ="url"
+        val courseselected: String = "course"
+        val imageurl: String = "url"
 
     }
 }

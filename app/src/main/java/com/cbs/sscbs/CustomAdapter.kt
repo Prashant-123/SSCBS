@@ -12,12 +12,12 @@ import java.util.*
 /**
  * Created by Tanya on 11/10/2017.
  */
-class CustomAdapter(var context:Context , var teacher:ArrayList<Teacher>) :BaseAdapter (){
+class CustomAdapter(var context: Context, var teacher: ArrayList<Teacher>) : BaseAdapter() {
 
     private class ViewHolder(row: View?) {
 
-        var txtName : TextView
-        var ivImage : ImageView
+        var txtName: TextView
+        var ivImage: ImageView
 
         init {
             this.txtName = row?.findViewById<TextView>(R.id.txtName) as TextView
@@ -25,25 +25,23 @@ class CustomAdapter(var context:Context , var teacher:ArrayList<Teacher>) :BaseA
 
         }
     }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        var view : View?
+        var view: View?
         var viewHolder: ViewHolder
 
-        if(convertView == null)
-        {
+        if (convertView == null) {
             var layout = LayoutInflater.from(context)
-            view = layout.inflate(R.layout.teachers_item_list , parent, false)
+            view = layout.inflate(R.layout.teachers_item_list, parent, false)
             viewHolder = ViewHolder(view)
             view.tag = viewHolder
-        }
-        else
-        {
+        } else {
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
 
-        var teacher : Teacher = getItem(position) as Teacher
+        var teacher: Teacher = getItem(position) as Teacher
         viewHolder.txtName.text = teacher.name
         viewHolder.ivImage.setImageResource(teacher.image)
         return view as View

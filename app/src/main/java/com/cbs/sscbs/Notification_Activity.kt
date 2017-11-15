@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 /**
  * Created by gauti on 28/10/17.
  */
-class Notification_Activity :AppCompatActivity(){
+class Notification_Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

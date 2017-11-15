@@ -36,10 +36,10 @@ class MainActivity : AppCompatActivity() {
 
 
     lateinit var bottomNavigationView: BottomNavigationView
-    lateinit var mDrawerLayout:DrawerLayout
-    lateinit var mActionBarDrawerToggle:ActionBarDrawerToggle
-    lateinit var navigationView:NavigationView
-    lateinit var user:FirebaseUser
+    lateinit var mDrawerLayout: DrawerLayout
+    lateinit var mActionBarDrawerToggle: ActionBarDrawerToggle
+    lateinit var navigationView: NavigationView
+    lateinit var user: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         navigationView = findViewById(R.id.navigation_view)
         navigationView.setItemIconTintList(null)
         val header = navigationView.getHeaderView(0)
-        val userPic : ImageView = header.findViewById(R.id.user_profile_picture)
+        val userPic: ImageView = header.findViewById(R.id.user_profile_picture)
         val username: TextView = header.findViewById(R.id.user_display_name)
         if (user.getPhotoUrl() != null) {
             Glide.with(this)
@@ -214,6 +214,7 @@ class MainActivity : AppCompatActivity() {
     private fun showSnackbar(@StringRes errorMessageRes: Int) {
         Snackbar.make(drawerLayout, errorMessageRes, Snackbar.LENGTH_LONG).show()
     }
+
     private fun Rateus() {
 
 

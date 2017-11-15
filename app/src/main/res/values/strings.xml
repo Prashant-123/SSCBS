@@ -4,6 +4,22 @@
     <string name="college_gallery">Gallery</string>
     <string name="close">close</string>
 
+    //Web-Addresses
+
+    <string name="bfia_sem1"></string>
+    <string name="bfia_sem2"></string>
+    <string name="bfia_sem3"></string>
+    <string name="bfia_sem4"></string>
+    <string name="bfia_sem5"></string>
+    <string name="bfia_sem6"></string>
+    <string name="bsc_sem1">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/I%20SEM/</string>
+    <string name="bsc_sem2">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/II%20SEM/</string>
+    <string name="bsc_sem3">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/II%20YEAR/III%20SEM/</string>
+    <string name="bsc_sem4">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/II%20YEAR/IV%20SEM/</string>
+    <string name="bsc_sem5">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/III%20YEAR/V%20SEM/</string>
+    <string name="bsc_sem6">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/III%20YEAR/VI%20SEM/</string>
+
+
 
     //firebas ui strings
 

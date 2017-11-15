@@ -33,18 +33,18 @@ class About_Activity : AppCompatActivity() {
     }
 
     fun setToolbar() {
-       // setSupportActionBar(toolbar_about)
-       // setTitle("About Us")
-       // toolbar_about.setBackgroundColor(resources.getColor(R.color.white))
-     //   toolbar_about.setNavigationIcon(resources.getDrawable(R.drawable.back_arrow))
+        // setSupportActionBar(toolbar_about)
+        // setTitle("About Us")
+        // toolbar_about.setBackgroundColor(resources.getColor(R.color.white))
+        //   toolbar_about.setNavigationIcon(resources.getDrawable(R.drawable.back_arrow))
 
         setSupportActionBar(toolbar_about)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
 
-        toolbar_about.setNavigationOnClickListener{
-                onBackPressed()
+        toolbar_about.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 

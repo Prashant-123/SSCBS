@@ -17,7 +17,7 @@ class Teachers : AppCompatActivity() {
         setContentView(R.layout.activity_teachers)
         setSupportActionBar(toolbar)
 
-                teacher_relative.setOnClickListener {
+        teacher_relative.setOnClickListener {
 
             Toast.makeText(this, "OK", Toast.LENGTH_LONG).show()
         }
