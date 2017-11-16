@@ -11,7 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.CONSTANTS
 import com.cbs.sscbs.FullScreenImage
 import com.cbs.sscbs.R
-import com.cbs.sscbs.TeachersMainActivity
+import com.cbs.sscbs.TeachersTimeTable
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -57,7 +57,7 @@ class TimeTable_frag : Fragment() {
         }
 
         teachers_card.setOnClickListener {
-            val intent: Intent = Intent(context, TeachersMainActivity::class.java)
+            val intent: Intent = Intent(context, TeachersTimeTable::class.java)
             //.putExtra(CONSTANTS.imageurl, url)
             startActivity(intent)
         }

@@ -12,6 +12,10 @@
             -->
 
         <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_gallery"
+            android:title="HOME" />
+        <item
             android:id="@+id/college_gallery"
             android:icon="@drawable/ic_gallery"
             android:title="COLLEGE GALLERY" />
@@ -21,10 +25,14 @@
             android:title="ABOUT COLLEGE" />
 
         <item
-            android:id="@+id/correction"
+            android:id="@+id/feedback"
             android:icon="@drawable/ic_correction"
-            android:title="CORRECTION"
+            android:title="FEEDBACK"
             />
+        <item
+            android:id="@+id/developers"
+            android:icon="@drawable/ic_gallery"
+            android:title="DEVELOPERS" />
         <item
             android:id="@+id/rec_friend"
             android:icon="@drawable/ic_share"

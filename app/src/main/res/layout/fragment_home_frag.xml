@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/home_frag_layout"
     tools:context="com.cbs.sscbs.Fragments.Home_frag">
 
     <LinearLayout
@@ -41,18 +42,19 @@
 
     </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/main_quote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:text="'' Those who dare to envision \n ahead of their times \n are the ones who create a future \n bigger than their dreams ''"
-        android:textSize="22sp"
-        android:textStyle="italic|bold"
-        android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/main_quote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="'' Those who dare to envision \n ahead of their times \n are the ones who create a future \n bigger than their dreams ''"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="italic|bold"
+            android:paddingBottom="10dp"/>
 
     </LinearLayout>
 </ScrollView>

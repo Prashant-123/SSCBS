@@ -167,6 +167,12 @@ class MainActivity : AppCompatActivity() {
     private fun casebyid(id: Int) {
 
         when (id) {
+
+            R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+
+            }
             R.id.about_college -> {
                 val intent = Intent(this, About_Activity::class.java)
                 startActivity(intent)
@@ -175,8 +181,12 @@ class MainActivity : AppCompatActivity() {
                 val intent1 = Intent(this, Gallery_Activity::class.java)
                 startActivity(intent1)
             }
+            R.id.developers -> {
+                val intent = Intent(this, Developers::class.java)
+                startActivity(intent)
+            }
 
-            R.id.correction -> {
+            R.id.feedback -> {
                 val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", "gautamkumar268249@gmail.com", null))
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, " ")
