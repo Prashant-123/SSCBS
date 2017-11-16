@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -18,11 +19,10 @@ public class TeachersTimeTable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachers_time_table);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tt);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        SearchView sv = (SearchView) findViewById(R.id.mSearch);
+        final SearchView sv = (SearchView) findViewById(R.id.mSearch);
         RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler) ;
 
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -31,6 +31,12 @@ public class TeachersTimeTable extends AppCompatActivity {
         final MyAdapter adapter = new MyAdapter(this , getTeachers()) ;
         rv.setAdapter(adapter);
 
+        sv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sv.setIconified(false);
+            }
+        });
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -44,8 +50,6 @@ public class TeachersTimeTable extends AppCompatActivity {
             }
         });
      }
-
-
 
     private ArrayList<Teacher> getTeachers()
     {
@@ -61,7 +65,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         t = new Teacher() ;
         t.setName("Amrina Kausar") ; t.setPos("") ; t.setImg(R.drawable.amrina_kausar) ; teachers.add(t);
         t = new Teacher() ;
-        t.setName("Anamika Gupta") ; t.setPos("") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
+        t.setName("Anamika Gupta") ; t.setPos("You Lost It :)") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
         t = new Teacher() ;
         t.setName("Anuja Mathur") ; t.setPos("") ; t.setImg(R.drawable.anuja_mathur) ; teachers.add(t);
         t = new Teacher() ;
