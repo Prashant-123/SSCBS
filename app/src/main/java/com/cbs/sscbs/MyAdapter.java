@@ -38,7 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
     }
 
     @Override
-    public void onBindViewHolder(final MyHolder holder, int position) {
+    public void onBindViewHolder(final MyHolder holder, final int position) {
 
         holder.nameTxt.setText(teachers.get(position).getName());
         holder.img.setImageResource(teachers.get(position).getImg());
@@ -48,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
 
                 Intent intent = new Intent(v.getContext(), Sample.class);
                 intent.putExtra("intentName", teachers.get(pos).getName());
-                intent.putExtra("intentPos", teachers.get(pos).toString());
+                intent.putExtra("intentPos", pos);
                 intent.putExtra("intentQualification", teachers.get(pos).getPos());
                 c.startActivity(intent);
                 Snackbar.make(v, teachers.get(pos).getName(), Snackbar.LENGTH_SHORT).show();

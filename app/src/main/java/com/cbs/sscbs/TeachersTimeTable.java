@@ -18,8 +18,9 @@ public class TeachersTimeTable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachers_time_table);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tt);
         setSupportActionBar(toolbar);
+
 
         SearchView sv = (SearchView) findViewById(R.id.mSearch);
         RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler) ;
@@ -44,6 +45,8 @@ public class TeachersTimeTable extends AppCompatActivity {
         });
      }
 
+
+
     private ArrayList<Teacher> getTeachers()
     {
         ArrayList<Teacher> teachers = new ArrayList<>() ;
@@ -58,7 +61,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         t = new Teacher() ;
         t.setName("Amrina Kausar") ; t.setPos("") ; t.setImg(R.drawable.amrina_kausar) ; teachers.add(t);
         t = new Teacher() ;
-        t.setName("Anamika Gupta") ; t.setPos("You Lost It :)") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
+        t.setName("Anamika Gupta") ; t.setPos("") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
         t = new Teacher() ;
         t.setName("Anuja Mathur") ; t.setPos("") ; t.setImg(R.drawable.anuja_mathur) ; teachers.add(t);
         t = new Teacher() ;

@@ -141,7 +141,6 @@ class TimeTable_frag : Fragment() {
 
             override fun onDataChange(p0: DataSnapshot?) {
                 val url: String? = p0?.getValue(String::class.java)
-                //Log.d("url","url:${url}")
 
                 Picasso.with(context).load(url).into(image_timetable, object : Callback {
                     override fun onSuccess() {

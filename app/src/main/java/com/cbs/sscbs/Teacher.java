@@ -4,7 +4,8 @@ public class Teacher {
 
     private String name ;
     private String pos ;
-    private int img ;
+    private int img;
+    private int index ;
 
     public String getName() {
         return name;
@@ -22,9 +23,7 @@ public class Teacher {
         this.pos = pos;
     }
 
-    public int getImg() {
-        return img;
-    }
+    public int getImg() { return img; }
 
     public void setImg(int img) {
         this.img = img;
