@@ -29,7 +29,8 @@
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:id="@+id/mSearch"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
         </android.support.v7.widget.SearchView>
 
