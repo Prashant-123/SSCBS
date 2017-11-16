@@ -39,7 +39,7 @@
     <!-- strings for Auth UI demo activities -->
     <eat-comment />
     <string name="launch_title">SSCBS</string>
-    <string name="sign_in">Start</string>
+    <string name="sign_in">Get Started</string>
     <string name="green_theme">Green Theme</string>
     <string name="purple_theme">Purple Theme</string>
     <string name="dark_theme">Dark Theme</string>

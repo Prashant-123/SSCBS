@@ -15,8 +15,8 @@
             android:id="@+id/tt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ag" />
+            android:src="@drawable/logo"
+            android:scaleType="fitCenter" />
 
     </LinearLayout>
 

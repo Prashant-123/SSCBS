@@ -38,7 +38,7 @@ class TimeTable_frag : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // progress_bar.visibility = View.INVISIBLE
+        progress_br.visibility = View.INVISIBLE
 
         students_card.setOnClickListener {
             MaterialDialog.Builder(activity)
@@ -132,11 +132,11 @@ class TimeTable_frag : Fragment() {
     private fun showTimeTable(number: Int) {
         firebasedb = FirebaseDatabase.getInstance()
         firebaseref = firebasedb.getReference("${folder}/${number}")
-        // progress_bar.visibility = View.VISIBLE
+         progress_br.visibility = View.VISIBLE
 
         firebaseref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
-                // progress_bar.visibility = View.INVISIBLE
+                 progress_br.visibility = View.INVISIBLE
             }
 
             override fun onDataChange(p0: DataSnapshot?) {
@@ -155,7 +155,7 @@ class TimeTable_frag : Fragment() {
                         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
                 })
-                // progress_bar.visibility = View.INVISIBLE
+                 progress_br.visibility = View.INVISIBLE
             }
         })
     }

@@ -47,6 +47,11 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/progress_br"/>
+
         <LinearLayout
             android:id="@+id/tt_choice"
             android:layout_width="match_parent"

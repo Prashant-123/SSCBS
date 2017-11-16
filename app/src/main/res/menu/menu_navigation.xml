@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-     <!--   <item
-            android:id="@+id/books"
-            android:icon="@drawable/ic_books"
-            android:title="NCERT BOOKS" />
-        <item
-            android:id="@+id/solutions"
-            android:icon="@drawable/ic_solutions"
-            android:title="ALL SOLUTIONS" />
-            -->
 
         <item
             android:id="@+id/home"
-            android:icon="@drawable/ic_gallery"
+            android:icon="@drawable/ic_home"
             android:title="HOME" />
         <item
             android:id="@+id/college_gallery"
