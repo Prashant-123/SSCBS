@@ -28,13 +28,13 @@ class Sample : AppCompatActivity() {
         val tv2 = findViewById<TextView>(R.id.t_qua) as TextView
         tv2.text = intentQua
 
-        val intentPos = intent.extras!!.get("intentPos") as String
+        val intentPos = intent.extras!!.getInt("intentPos")
 
         showTimeTable(intentPos)
 
     }
 
-    fun showTimeTable(pos: String) {
+    fun showTimeTable(pos: Int) {
         firebasedb = FirebaseDatabase.getInstance()
         firebaseref = firebasedb.getReference("teacherTimetable/${pos}")
         progress_bar.visibility = View.VISIBLE
