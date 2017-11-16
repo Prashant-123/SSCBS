@@ -1,12 +1,14 @@
 package com.cbs.sscbs;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,15 @@ public class TeachersTimeTable extends AppCompatActivity {
         setContentView(R.layout.activity_teachers_time_table);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tt);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
 
         SearchView sv = (SearchView) findViewById(R.id.mSearch);
