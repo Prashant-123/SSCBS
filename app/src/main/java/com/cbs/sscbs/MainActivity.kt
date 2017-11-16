@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     fun setToolbar() {
         setSupportActionBar(toolbar)
-        setTitle("Time Table")
+        setTitle("Welcome to CBS")
     }
 
 
@@ -71,10 +71,9 @@ class MainActivity : AppCompatActivity() {
             ft.replace(R.id.main_Frame, main_fragment).commit()
         }
 
-
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
-        bottomNavigationView.setSelectedItemId(R.id.ic_timetable)
+        //bottomNavigationView.setSelectedItemId(R.id.ic_timetable)
         val fragmentManager = supportFragmentManager
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -110,8 +109,6 @@ class MainActivity : AppCompatActivity() {
                             val fm = fragmentManager.beginTransaction()
                             fm.replace(R.id.main_Frame, pf).commit()
                         }
-
-
                     }
                     true
                 })

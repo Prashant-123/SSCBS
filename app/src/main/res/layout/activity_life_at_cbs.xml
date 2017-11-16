@@ -12,15 +12,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="10dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play Video"
+                android:id="@+id/PlayButton"
+                android:layout_gravity="center"
+                android:background="@color/pink500"
+                android:fontFamily="sans-serif"/>
+
+        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
-            app:cardElevation="20dp"
-            android:layout_marginTop="20dp"
+            app:cardElevation="22dp"
+            android:layout_marginTop="22dp"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp">
+
 
             <VideoView
                 android:layout_width="match_parent"

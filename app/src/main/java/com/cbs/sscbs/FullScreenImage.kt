@@ -24,8 +24,6 @@ class FullScreenImage : AppCompatActivity() {
         Picasso.with(applicationContext).load(intent.getStringExtra(CONSTANTS.imageurl)).fit()
                 .into(troops_image)
 
-
-        // initilizeFullScreen();
     }
 
 }

@@ -15,7 +15,7 @@ public class CustomFilter extends Filter {
     public CustomFilter(ArrayList<Teacher> filterList, MyAdapter adapter)
     {
 
-        this.adapter = adapter ;
+        this.adapter = adapter;
         this.filterList = filterList ;
     }
     @Override
@@ -29,13 +29,11 @@ public class CustomFilter extends Filter {
 
             for(int i = 0 ; i < filterList.size() ; i++)
             {
-                if(filterList.get(i).getName("ag").toUpperCase().contains(charSequence))
+                if(filterList.get(i).getName().toUpperCase().contains(charSequence))
                 {
                     filteredTeacher.add(filterList.get(i)) ;
-
                 }
             }
-
             results.count = filteredTeacher.size() ;
             results.values = filteredTeacher ;
         }
@@ -47,7 +45,6 @@ public class CustomFilter extends Filter {
 
         return results ;
     }
-
     @Override
     protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 

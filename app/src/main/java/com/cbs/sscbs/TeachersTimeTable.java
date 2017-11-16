@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TeachersTimeTable extends AppCompatActivity {
 
-    SearchView sv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,16 +21,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        sv = (SearchView) findViewById(R.id.mSearch) ;
+        SearchView sv = (SearchView) findViewById(R.id.mSearch);
         RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler) ;
 
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -51,14 +42,13 @@ public class TeachersTimeTable extends AppCompatActivity {
                 return false;
             }
         });
-
-
      }
 
     private ArrayList<Teacher> getTeachers()
     {
         ArrayList<Teacher> teachers = new ArrayList<>() ;
-        Teacher t = new Teacher();t.setName("Abhishek Tandon"); ; t.setPos("") ; t.setImg(R.drawable.abhihek_tandon) ; teachers.add(t) ;
+        Teacher t;
+        t= new Teacher();t.setName("Abhishek Tandon"); ; t.setPos("") ; t.setImg(R.drawable.abhimanyu_verma) ; teachers.add(t) ;
         t = new Teacher() ;
         t.setName("Abhimanyu Verma"); ; t.setPos(""); ; t.setImg(R.drawable.abhimanyu_verma); ; teachers.add(t);
         t = new Teacher() ;
@@ -68,7 +58,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         t = new Teacher() ;
         t.setName("Amrina Kausar") ; t.setPos("") ; t.setImg(R.drawable.amrina_kausar) ; teachers.add(t);
         t = new Teacher() ;
-        t.setName("Anamika Gupta") ; t.setPos("") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
+        t.setName("Anamika Gupta") ; t.setPos("You Lost It :)") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
         t = new Teacher() ;
         t.setName("Anuja Mathur") ; t.setPos("") ; t.setImg(R.drawable.anuja_mathur) ; teachers.add(t);
         t = new Teacher() ;

@@ -1,16 +1,12 @@
 package com.cbs.sscbs;
 
-/**
- * Created by Tanya on 11/15/2017.
- */
-
 public class Teacher {
 
     private String name ;
     private String pos ;
     private int img ;
 
-    public String getName(String ag) {
+    public String getName() {
         return name;
     }
 
@@ -18,7 +14,7 @@ public class Teacher {
         this.name = name;
     }
 
-    public String getPos(String ok) {
+    public String getPos() {
         return pos;
     }
 
@@ -26,7 +22,7 @@ public class Teacher {
         this.pos = pos;
     }
 
-    public int getImg(int abhihek_tandon) {
+    public int getImg() {
         return img;
     }
 

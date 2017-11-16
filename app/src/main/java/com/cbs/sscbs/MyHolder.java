@@ -11,35 +11,19 @@ import android.widget.TextView;
 
 public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    ImageView img ;
+    ImageView img;
     TextView nameTxt , posTxt ;
-    ItemClickListener itemClickListener ;
+    ItemClickListener itemClickListener;
     public MyHolder(View itemView) {
         super(itemView);
 
         this.img = (ImageView) itemView.findViewById(R.id.teacherImage) ;
         this.nameTxt = (TextView) itemView.findViewById(R.id.nameTxt) ;
-        this.posTxt = (TextView) itemView.findViewById(R.id.posTxt) ;
-
         itemView.setOnClickListener(this);
-
     }
 
-//    public MyHolder( ViewGroup parent) {
-//        super(parent);
-//        // super(inflater.inflate(R.layout.fragment_channel, parent, false));
-//        itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Context context = v.getContext();
-//                Intent intent = new Intent(context, Sample.class);
-//                context.startActivity(intent);
-//            }
-//        });
-//    }
     @Override
     public void onClick(View view) {
-
         this.itemClickListener.onItemClick(view, getLayoutPosition());
     }
     public void setItemClickListener(ItemClickListener ic)

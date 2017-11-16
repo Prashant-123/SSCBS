@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Model" />
-        <activity android:name=".Sample"></activity>
+        <activity android:name=".Sample" />
         <activity android:name=".LifeAtCbs" />
         <activity android:name=".Contact_us" />
         <activity android:name=".Facilities" />
@@ -46,14 +47,12 @@
             android:name=".Developers"
             android:label="Developers"
             android:parentActivityName=".MainActivity" />
-
-               <activity
+        <activity
             android:name=".Gallery_Activity"
             android:label="GALLERY"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
         <activity android:name=".auth.SignedInActivity" />
-        <activity android:name=".Notification_Activity" />
         <activity
             android:name=".FullScreenImage"
             android:screenOrientation="landscape"
