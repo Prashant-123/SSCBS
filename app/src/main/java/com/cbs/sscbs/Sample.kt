@@ -29,7 +29,6 @@ class Sample : AppCompatActivity() {
         tv2.text = intentQua
 
         val intentPos = intent.extras!!.getInt("intentPos")
-
         showTimeTable(intentPos)
 
     }
@@ -46,7 +45,6 @@ class Sample : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot?) {
                 val url: String? = p0?.getValue(String::class.java)
-                //Log.d("url","url:${url}")
 
                 Picasso.with(this@Sample).load(url).into(tt, object : Callback {
                     override fun onSuccess() {

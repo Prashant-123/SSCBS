@@ -83,8 +83,6 @@ class MainActivity : AppCompatActivity() {
                             val f = TimeTable_frag()
                             val fragmentTransaction = fragmentManager.beginTransaction()
                             fragmentTransaction.replace(R.id.main_Frame, f).commit()
-
-
                         }
 
                         R.id.ic_paper -> {
