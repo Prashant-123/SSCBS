@@ -58,6 +58,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".web" />
+        <activity android:name=".SampleWEB"></activity>
     </application>
 
 </manifest>

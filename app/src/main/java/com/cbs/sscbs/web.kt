@@ -30,6 +30,7 @@ class web : AppCompatActivity() {
         browser.loadUrl(add)
     }
 
+
     private inner class MyBrowser : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             view.loadUrl(url)

@@ -33,7 +33,6 @@ class Gallery_Activity : AppCompatActivity() {
         viewFlipper.setFlipInterval(1500)
         viewFlipper.startFlipping()
 
-
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper2) as ViewFlipper
         fade_in = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
         fade_out = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)

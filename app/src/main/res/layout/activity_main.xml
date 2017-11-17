@@ -43,7 +43,6 @@
             android:layout_gravity="bottom"
             android:background="@android:color/black"
             android:elevation="10dp"
-
             app:elevation="10dp"
             app:itemBackground="@color/white"
             app:itemIconTint="@drawable/selector"

@@ -72,9 +72,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
+       BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
         //bottomNavigationView.setSelectedItemId(R.id.ic_timetable)
         val fragmentManager = supportFragmentManager
+        bottomNavigationView.menu.getItem(1).setChecked(false)
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -325,17 +326,5 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
     }
-
-    /*override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId){
-            R.id.ic_notification -> {
-                val intent:Intent = Intent(applicationContext,Notification_Activity::class.java)
-                startActivity(intent)
-
-            }
-
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
 
 }
