@@ -8,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.MaterialDialog
-import com.cbs.sscbs.CONSTANTS
-import com.cbs.sscbs.FullScreenImage
+import com.cbs.sscbs.*
 import com.cbs.sscbs.R
-import com.cbs.sscbs.TeachersTimeTable
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -51,6 +49,7 @@ class TimeTable_frag : Fragment() {
                             others(selectCourse)
                         folder = getString(R.string.timetable)
                         showTimeTable(selectCourse)
+
                         true
                     })
                     .show()
@@ -98,6 +97,7 @@ class TimeTable_frag : Fragment() {
                         var selectedindes: Int = indexBmsSection
                         text_course.text = bms_sections.get(indexBmsSection)
                         showTimeTable(indexBmsSection)
+
                         true
                     })
                     .show()
@@ -123,6 +123,7 @@ class TimeTable_frag : Fragment() {
                         var selectedindes: Int = indexBmsSection
                         text_course.text = bms_sections.get(indexBmsSection)
                         showTimeTable(indexBmsSection)
+
                         true
                     })
                     .show()
