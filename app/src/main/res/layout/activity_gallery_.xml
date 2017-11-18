@@ -34,6 +34,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="80dp"
+                android:id="@+id/logo"
                 android:layout_height="80dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/logo"/>
@@ -85,37 +86,15 @@
             android:textSize="18dp"
             android:textStyle="bold"
             />
-        <LinearLayout
-            android:id="@+id/th1"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_margin="10dp">
 
             <ViewFlipper
                 android:id="@+id/flipper1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="220dp"
                 android:layout_gravity="center"
-                android:layout_margin="20dp">
-
-                <ImageView
-                    android:id="@+id/th1_f1_pic1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ag" />
-
-
-                <ImageView
-                    android:id="@+id/th1_f1_pic2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/coverpage_enactus" />
+                android:layout_margin="15dp">
 
             </ViewFlipper>
-
-        </LinearLayout>
 
 
         <TextView
@@ -129,37 +108,14 @@
             android:textColor="@color/white"
             />
 
-        <LinearLayout
-            android:id="@+id/th2"
+        <ViewFlipper
+            android:id="@+id/flipper2"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_margin="10dp">
+            android:layout_gravity="center"
+            android:layout_margin="15dp">
 
-            <ViewFlipper
-                android:id="@+id/flipper2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="20dp">
-
-                <ImageView
-                    android:id="@+id/th2_f2_pic1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ag" />
-
-
-                <ImageView
-                    android:id="@+id/th2_f2_pic2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/coverpage_enactus" />
-
-            </ViewFlipper>
-
-        </LinearLayout>
+        </ViewFlipper>
 
 
         <TextView
@@ -172,36 +128,15 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             />
-        <LinearLayout
-            android:id="@+id/th3"
+
+        <ViewFlipper
+            android:id="@+id/flipper3"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_margin="10dp">
+            android:layout_gravity="center"
+            android:layout_margin="15dp">
 
-            <ViewFlipper
-                android:id="@+id/flipper3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="20dp">
-
-                <ImageView
-                    android:id="@+id/th3_f3_pic1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ag" />
-
-                <ImageView
-                    android:id="@+id/th3_f3_pic2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/coverpage_enactus" />
-
-            </ViewFlipper>
-
-        </LinearLayout>
+        </ViewFlipper>
 
 
         <TextView
@@ -214,35 +149,15 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             />
-        <LinearLayout
-            android:id="@+id/th4"
+
+        <ViewFlipper
+            android:id="@+id/flipper4"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_margin="10dp">
+            android:layout_gravity="center"
+            android:layout_margin="15dp">
 
-            <ViewFlipper
-                android:id="@+id/flipper4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="20dp">
-
-                <ImageView
-                    android:id="@+id/th4_f4_pic1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ag" />
-
-
-                <ImageView
-                    android:id="@+id/th4_f4_pic2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/coverpage_enactus" />
-            </ViewFlipper>
-        </LinearLayout>
+        </ViewFlipper>
 
 
         <TextView
@@ -255,35 +170,14 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             />
-        <LinearLayout
-            android:id="@+id/th5"
+
+        <ViewFlipper
+            android:id="@+id/flipper5"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_margin="10dp">
+            android:layout_gravity="center"
+            android:layout_margin="15dp">
 
-            <ViewFlipper
-                android:id="@+id/flipper5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="20dp">
-
-                <ImageView
-                    android:id="@+id/th5_f5_pic1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ag" />
-
-
-                <ImageView
-                    android:id="@+id/th5_f5_pic2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/coverpage_enactus" />
-
-            </ViewFlipper>
-        </LinearLayout>
+        </ViewFlipper>
     </LinearLayout>
 </ScrollView>
