@@ -26,19 +26,22 @@ class Gallery_Activity : AppCompatActivity() {
         setToolbar()
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper1) as ViewFlipper
-        showImage(R.id.flipper1, "infrastructure", 2)
+        showImage(R.id.flipper1, "infrastructure", 6)
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper2) as ViewFlipper
-        showImage(R.id.flipper2, "events", 3)
+        showImage(R.id.flipper2, "highlights", 6)
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper3) as ViewFlipper
-        showImage(R.id.flipper3, "society", 3)
+        showImage(R.id.flipper3, "events", 3)
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper4) as ViewFlipper
-        showImage(R.id.flipper4, "victories", 3)
+        showImage(R.id.flipper4, "society", 5)
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper5) as ViewFlipper
-        showImage(R.id.flipper5, "sports", 3)
+        showImage(R.id.flipper5, "victories", 2)
+
+        viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper6) as ViewFlipper
+        showImage(R.id.flipper6, "sports", 2)
 
     }
 
