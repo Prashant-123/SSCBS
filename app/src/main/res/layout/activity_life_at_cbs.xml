@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c7"
+    android:background="@drawable/clot"
     tools:context="com.cbs.sscbs.LifeAtCbs">
 
     <LinearLayout
@@ -17,15 +17,6 @@
             android:layout_height="wrap_content"
             app:cardElevation="10dp">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Play Video"
-                android:id="@+id/PlayButton"
-                android:layout_gravity="center"
-                android:background="@color/pink500"
-                android:fontFamily="sans-serif"/>
-
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -33,7 +24,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
             app:cardElevation="22dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="30dp"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp">
 
@@ -49,12 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="
-⁠⁠⁠⁠⁠To begin with some clichéd, always enchanted phrases that raise University of Delhi to a pedestal of eminent universities of the world, take my word for it, this fact can never be overstated. University of Delhi is indeed one of the finest places to be at, SSCBS is another."
+⁠⁠⁠⁠⁠To begin with some cliched, always enchanted phrases that raise University of Delhi to a pedestal of eminent universities of the world, take my word for it, this fact can never be overstated. University of Delhi is indeed one of the finest places to be at, SSCBS is another."
             android:layout_margin="30dp"
             android:gravity="center"
             android:textSize="20sp"
             android:lineSpacingExtra="2.5dp"
-            android:textColor="@color/brown"
+            android:textColor="@color/white"
             android:textStyle="bold"/>
 
     </LinearLayout>
