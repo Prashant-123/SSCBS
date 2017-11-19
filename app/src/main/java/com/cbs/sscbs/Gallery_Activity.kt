@@ -2,6 +2,7 @@ package com.cbs.sscbs
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -60,14 +61,18 @@ class Gallery_Activity : AppCompatActivity() {
         {
         firebasedb = FirebaseDatabase.getInstance()
         firebaseref = firebasedb.getReference("${folder}/${i}")
+            progressbarEnable()
+
 
         firebaseref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
+                progressbarDisable()
             }
 
             override fun onDataChange(p0: DataSnapshot?) {
                 val url: String? = p0?.getValue(String::class.java)
                 setImageInFlipr(findViewById(id), url)
+                progressbarDisable()
             }
         })}
 }
@@ -83,6 +88,27 @@ class Gallery_Activity : AppCompatActivity() {
         frame.setAutoStart(true)
         frame.setFlipInterval(1500)
         frame.startFlipping()
+    }
+
+    private fun progressbarEnable()
+    {
+        pr1.visibility = View.VISIBLE
+        pr2.visibility = View.VISIBLE
+        pr3.visibility = View.VISIBLE
+        pr4.visibility = View.VISIBLE
+        pr5.visibility = View.VISIBLE
+        pr6.visibility = View.VISIBLE
+
+    }
+
+    private fun progressbarDisable()
+    {
+        pr1.visibility = View.INVISIBLE
+        pr2.visibility = View.INVISIBLE
+        pr3.visibility = View.INVISIBLE
+        pr4.visibility = View.INVISIBLE
+        pr5.visibility = View.INVISIBLE
+        pr6.visibility = View.INVISIBLE
     }
 
 }

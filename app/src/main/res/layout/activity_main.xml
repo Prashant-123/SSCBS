@@ -45,8 +45,6 @@
             android:elevation="10dp"
             app:elevation="10dp"
             app:itemBackground="@color/white"
-            app:itemIconTint="@drawable/selector"
-            app:itemTextColor="@drawable/selector"
             app:layout_anchor="@+id/viewPager"
             app:layout_anchorGravity="bottom|center"
             app:menu="@menu/bottom_navigation_main" />

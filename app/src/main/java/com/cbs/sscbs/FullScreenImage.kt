@@ -2,7 +2,6 @@ package com.cbs.sscbs
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.WindowManager
 import com.github.chrisbanes.photoview.PhotoView
 import com.squareup.picasso.Picasso
@@ -18,8 +17,6 @@ class FullScreenImage : AppCompatActivity() {
 
         setContentView(R.layout.fullimage_activity)
         val troops_image: PhotoView = findViewById(R.id.troops_image)
-
-        Log.d("Fullscreen", intent.getStringExtra(CONSTANTS.imageurl))
 
         Picasso.with(applicationContext).load(intent.getStringExtra(CONSTANTS.imageurl)).fit()
                 .into(troops_image)

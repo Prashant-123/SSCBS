@@ -2,7 +2,6 @@ package com.cbs.sscbs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
                 intent.putExtra("intentPos", pos);
                 intent.putExtra("intentQualification", teachers.get(pos).getPos());
                 c.startActivity(intent);
-                Snackbar.make(v, teachers.get(pos).getName(), Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(v, teachers.get(pos).getName(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }

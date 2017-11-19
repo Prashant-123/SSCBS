@@ -50,6 +50,7 @@ class Sample : AppCompatActivity() {
                     override fun onSuccess() {
                         tt.setOnClickListener {
                             val intent: Intent = Intent(this@Sample, FullScreenImage::class.java)
+                            intent.putExtra(CONSTANTS.imageurl, url)
                             startActivity(intent)
                         }
                     }

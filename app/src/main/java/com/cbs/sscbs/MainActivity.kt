@@ -75,8 +75,7 @@ class MainActivity : AppCompatActivity() {
        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
         //bottomNavigationView.setSelectedItemId(R.id.ic_timetable)
         val fragmentManager = supportFragmentManager
-        bottomNavigationView.menu.getItem(1).setChecked(false)
-
+        //bottomNavigationView.menu.getItem(0).setChecked(false)
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 BottomNavigationView.OnNavigationItemSelectedListener { item ->
                     when (item.itemId) {
