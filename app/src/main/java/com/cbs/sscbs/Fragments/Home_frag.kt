@@ -1,24 +1,13 @@
 package com.cbs.sscbs.Fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.cbs.sscbs.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [Home_frag.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [Home_frag.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Home_frag : Fragment() {
 
     internal var bundle: Bundle? = null
@@ -30,7 +19,6 @@ class Home_frag : Fragment() {
         activity.toolbar.setTitle("Welcome to CBS")
         return view
     }
-
 
     companion object {
 
