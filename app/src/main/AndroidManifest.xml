@@ -29,9 +29,12 @@
         <activity
             android:name=".TeachersTimeTable"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity android:name=".Model" />
-        <activity android:name=".Sample" />
+        <activity android:name=".Sample"
+            android:label="Info"/>
         <activity android:name=".LifeAtCbs" />
         <activity android:name=".Facilities" />
         <activity
@@ -56,6 +59,7 @@
         <activity android:name=".Contact_us"
             android:parentActivityName=".LifeAtCbs"
             android:label="Contact-Us"></activity>
+
     </application>
 
 </manifest>

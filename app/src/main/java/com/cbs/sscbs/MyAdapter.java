@@ -48,7 +48,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
                 Intent intent = new Intent(v.getContext(), Sample.class);
                 intent.putExtra("intentName", teachers.get(pos).getName());
                 intent.putExtra("intentPos", pos);
-                intent.putExtra("intentQualification", teachers.get(pos).getPos());
+                intent.putExtra("intentQualification",teachers.get(pos).getQualification());
+                intent.putExtra("intentEmail" , teachers.get(pos).getEmail()) ;
                 c.startActivity(intent);
                 //Snackbar.make(v, teachers.get(pos).getName(), Snackbar.LENGTH_SHORT).show();
             }

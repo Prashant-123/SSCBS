@@ -6,6 +6,8 @@ public class Teacher {
     private String pos ;
     private int img;
     private int index ;
+    private String qualification ;
+    private String email ;
 
     public String getName() {
         return name;
@@ -28,4 +30,23 @@ public class Teacher {
     public void setImg(int img) {
         this.img = img;
     }
+
+    public String getQualification()
+    {
+        return qualification ;
+    }
+    public void setQualification(String text )
+    {
+    this.qualification = text ;
+    }
+    public String getEmail()
+    {
+        return email ;
+    }
+    public void setEmail(String email )
+    {
+        this.email = email ;
+    }
 }
+
+

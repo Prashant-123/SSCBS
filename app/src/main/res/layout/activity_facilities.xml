@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c7"
+
     tools:context="com.cbs.sscbs.Facilities">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="# INFRASTRUCTURE\n"
+            android:text="INFRASTRUCTURE\n"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
@@ -34,21 +34,12 @@
             android:text=" A strong infrastructure base is imperative for providing a learning environment of international standards.\n\n"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <TextView
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="*  The college has a well equipped Audio Visual Hall and Conference Room with modern teaching aids such as LCD projector, overhead projector, personal address and conference system.\n   *  Each classroom is equipped with its own overhead projector.\n   *  The college has four well equipped computer laboratories.\n\n"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="16sp"
-            android:textStyle="italic|bold"
-            android:textColor="@color/brown"/>
 
         <TextView
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="# WIFI CONNECTIVITY\n\n"
+            android:text="WIFI CONNECTIVITY\n\n"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -68,7 +59,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="# AUDIO-VIDEO ROOM\n\n"
+            android:text="AUDIO-VIDEO ROOM\n\n"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -87,7 +78,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="# LIBRARY\n\n"
+            android:text="LIBRARY\n\n"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -107,7 +98,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="# TRANSPORT\n\n"
+            android:text="TRANSPORT\n\n"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -121,6 +112,7 @@
             android:textSize="16sp"
             tools:textStyle="bold|italic"
             android:textColor="@color/brown"/>
+
     </LinearLayout>
 
 </ScrollView>
