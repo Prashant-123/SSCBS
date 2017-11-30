@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name=".TeachersTimeTable"
-            android:label="@string/app_name"
+            android:label="Teacher's Time Table"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
@@ -59,7 +59,10 @@
         <activity android:name=".Contact_us"
             android:parentActivityName=".LifeAtCbs"
             android:label="Contact-Us"></activity>
-        <activity android:name=".Events"></activity>
+        <activity android:name=".Events"
+            android:label="Events"
+            >
+        </activity>
         <activity android:name=".CreateEvent"></activity>
 
     </application>

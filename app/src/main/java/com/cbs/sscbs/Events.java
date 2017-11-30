@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,8 @@ public class Events extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_events);
+        setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
