@@ -1,10 +1,12 @@
 package com.cbs.sscbs.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.cbs.sscbs.Events
 import com.cbs.sscbs.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,12 +21,18 @@ class Events_Frag : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.paper_fragment, container, false)
+        val view = inflater!!.inflate(R.layout.activity_events, container, false)
 
         activity.toolbar.setTitle("Events")
         return view
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val intent: Intent = Intent(context, Events::class.java)
+        startActivity(intent)
+    }
 
     companion object {
 
