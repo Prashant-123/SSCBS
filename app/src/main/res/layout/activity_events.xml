@@ -33,7 +33,6 @@
         android:id="@+id/addEventButton"
         app:fabSize="normal"
         android:onClick="login"
-        android:src="@drawable/edit"
         android:layout_gravity="bottom|end"
         android:layout_margin="30dp"/>
 

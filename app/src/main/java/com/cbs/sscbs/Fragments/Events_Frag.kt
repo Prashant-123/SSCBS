@@ -39,7 +39,6 @@ class Events_Frag : Fragment() {
         fun newInstance(): Events_Frag {
             val fragment = Events_Frag()
             val bundle = Bundle()
-            //bundle.putString(CONSTANT.fabintent,CONSTANT.fabintent);
             fragment.arguments = bundle
             return fragment
         }

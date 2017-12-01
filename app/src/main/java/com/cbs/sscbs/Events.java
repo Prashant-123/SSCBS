@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -54,14 +55,14 @@ public class Events extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
-        databaseRef.child("events").orderByChild("sot").addChildEventListener(new ChildEventListener() {
+        databaseRef.child("EventThings").orderByChild("sot").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 DataClass newData = dataSnapshot.getValue(DataClass.class);
                // if(newData.getOrganiser().toString().compareTo("Blitz")==0)
-                newData.setImg(R.drawable.event_button);
+                //newData.setImg(R.drawable.event_button);
                 data.add(newData);
                 adapter.notifyDataSetChanged();
             }
@@ -125,11 +126,16 @@ public class Events extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                     DocumentReference mDocRef = FirebaseFirestore.getInstance().document("username/society");
+                Log.i("tag", "Log-1");
                     mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                            Log.i("tag", "Log-2");
                             if (documentSnapshot.exists()) {
+
+                                Log.i("tag", "Log-3");
                                 String u = documentSnapshot.getString(USERNAME);
                                 String p = documentSnapshot.getString(PASSWORD);
                                 if (username.getText().toString().equals(u)&& password.getText().toString().equals(p))

@@ -104,7 +104,7 @@ public class CreateEvent extends AppCompatActivity {
         String ctr = String.valueOf(count);
         Log.i("tag", "count:  "+count);
 
-        databaseRef.child("events").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+        databaseRef.child("EventThings").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(CreateEvent.this, "Event Created", Toast.LENGTH_SHORT).show();
