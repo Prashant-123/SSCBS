@@ -23,16 +23,13 @@ class Events_Frag : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.activity_events, container, false)
 
+        val intent: Intent = Intent(context, Events::class.java)
+        startActivity(intent)
         activity.toolbar.setTitle("Events")
+
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val intent: Intent = Intent(context, Events::class.java)
-        startActivity(intent)
-    }
 
     companion object {
 
