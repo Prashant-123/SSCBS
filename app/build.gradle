@@ -9,6 +9,7 @@ android {
     defaultConfig {
         applicationId "com.cbs.sscbs"
         minSdkVersion 16
+        multiDexEnabled true
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -35,6 +36,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.android.support:multidex:1.0.1'
 
     // Single target that includes all FirebaseUI libraries above
     compile 'com.google.firebase:firebase-core:11.4.2'
