@@ -95,6 +95,7 @@ public class CreateEvent extends AppCompatActivity {
         EditText et3 = (EditText) findViewById(R.id.newVenue);
 
 
+
         DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot , img);
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();

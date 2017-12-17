@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,7 @@ public class Events extends AppCompatActivity {
     public static final String PASSWORD = "password";
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
+    ImageView imageView ;
 
     int count, i=1;
     public ArrayList<DataClass> data = new ArrayList<>();
@@ -61,8 +64,13 @@ public class Events extends AppCompatActivity {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 DataClass newData = dataSnapshot.getValue(DataClass.class);
-               // if(newData.getOrganiser().toString().compareTo("Blitz")==0)
-                //newData.setImg(R.drawable.event_button);
+                if(newData.getOrganiser().toString().compareTo("Blitz")==0)
+                {newData.setImg(R.drawable.event_button);}
+                else
+                { newData.setImg(R.drawable.contact_logo); }
+//                String imageUri = "https://i.imgur.com/tGbaZCY.jpg";
+//                imageView = (ImageView) findViewById(R.id.eventImage);
+//                Picasso.with(getApplicationContext()).load(imageUri).into(imageView);
                 data.add(newData);
                 adapter.notifyDataSetChanged();
             }

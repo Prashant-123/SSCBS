@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -68,7 +70,7 @@ import java.util.List;
             this.date.setText(currentObject.getTime());
             this.organiser.setText(currentObject.getOrganiser());
             this.venue.setText(currentObject.getVenue());
-            //this.img.setImageResource((currentObject.getImg()));
+            this.img.setImageResource((currentObject.getImg()));
             this.currentObject = currentObject;
         }
     }
