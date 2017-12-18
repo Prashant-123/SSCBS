@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu>
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/DeadlineMenu"
+        android:title="DeadLines" />
+    <item
+        android:id="@+id/GrievancesMenu"
+        android:title="Grievances"/>
+    <item
+        android:id="@+id/BookingslotsMenu"
+        android:title="Booking slots" />
 </menu>

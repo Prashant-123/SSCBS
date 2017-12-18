@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -92,15 +93,18 @@ class MainActivity : AppCompatActivity() {
 
                         }
                         R.id.ic_events -> {
-                            val nf = Events_Frag()
-                            val nm = fragmentManager.beginTransaction()
-                            nm.replace(R.id.main_Frame, nf).commit()
+//                            val nf = Events_Frag()
+//                            val nm = fragmentManager.beginTransaction()
+//                            nm.replace(R.id.main_Frame, nf).commit()
+
+                            val intent: Intent = Intent(this, Events::class.java)
+                            startActivity(intent)
                         }
 
-                        R.id.ic_deadlines -> {
-                            val pf = DeadLine_Frag()
-                            val fm = fragmentManager.beginTransaction()
-                            fm.replace(R.id.main_Frame, pf).commit()
+                        R.id.ic_home -> {
+                            val main_fragment = Home_frag()
+                            val ft = supportFragmentManager.beginTransaction()
+                            ft.replace(R.id.main_Frame, main_fragment).commit()
                         }
                         R.id.ic_attendence -> {
                             val pf = Attendence_Frag()
@@ -325,5 +329,38 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
     }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+        super.onOptionsItemSelected(item)
+
+        when (id) {
+
+            R.id.DeadlineMenu -> {
+                val intent = Intent(this,Deadlines::class.java)
+                startActivity(intent)
+                return true
+            }
+
+            R.id.GrievancesMenu -> {
+                val intent2 = Intent(this, Grievances::class.java)
+                startActivity(intent2)
+                return true
+            }
+
+            R.id.BookingslotsMenu -> {
+                val intent3 = Intent(this, Bookings::class.java)
+                startActivity(intent3)
+                return true
+            }
+
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
 
 }

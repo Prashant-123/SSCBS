@@ -1,8 +1,13 @@
 package com.cbs.sscbs;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -19,6 +25,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cbs.sscbs.Fragments.TimeTable_frag;
+import com.cbs.sscbs.utils.BottomNavigationViewHelper;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,9 +46,9 @@ public class Events extends AppCompatActivity {
     public static final String PASSWORD = "password";
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
-    ImageView imageView ;
+    ImageView imageView;
 
-    int count, i=1;
+    int count, i = 1;
     public ArrayList<DataClass> data = new ArrayList<>();
 
     @Override
@@ -49,6 +57,8 @@ public class Events extends AppCompatActivity {
         setContentView(R.layout.activity_events);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_events);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,16 +74,18 @@ public class Events extends AppCompatActivity {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 DataClass newData = dataSnapshot.getValue(DataClass.class);
-                if(newData.getOrganiser().toString().compareTo("Blitz")==0)
-                {newData.setImg(R.drawable.event_button);}
-                else
-                { newData.setImg(R.drawable.contact_logo); }
+                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
+                    newData.setImg(R.drawable.icon);
+                } else {
+                    newData.setImg(R.drawable.contact_logo);
+                }
 //                String imageUri = "https://i.imgur.com/tGbaZCY.jpg";
 //                imageView = (ImageView) findViewById(R.id.eventImage);
 //                Picasso.with(getApplicationContext()).load(imageUri).into(imageView);
                 data.add(newData);
                 adapter.notifyDataSetChanged();
             }
+
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
@@ -95,7 +107,26 @@ public class Events extends AppCompatActivity {
             }
         });
 
+//        BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//        navigationView.setOnNavigationItemReselectedListener(onNavigationItemReselectedListener);
+
     }
+
+//    private BottomNavigationView.OnNavigationItemReselectedListener onNavigationItemReselectedListener = new
+//            BottomNavigationView.OnNavigationItemReselectedListener() {
+//                @Override
+//                public void onNavigationItemReselected(@NonNull MenuItem item) {
+//                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+//                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    switch ((item.getItemId())) {
+//                        case R.id.ic_timetable:
+//                            fragmentTransaction.replace(R.id.main_Frame, new TimeTable_frag).commit();
+//                            break;
+//                        default:
+//                            Toast.makeText(getApplicationContext() ,"Hi",Toast.LENGTH_SHORT).show(); ;
+//                    }
+//                }
+//            }
 
     public void login(View view)
     {
@@ -168,6 +199,8 @@ public class Events extends AppCompatActivity {
         intent.putExtra("COUNT", i);
         startActivity(intent);
     }
+
+
 
 
 }
