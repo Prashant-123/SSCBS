@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/ic_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+
+    <item
         android:id="@+id/ic_timetable"
         android:enabled="true"
         android:icon="@drawable/icon_time_table"
@@ -23,10 +29,5 @@
         android:enabled="true"
         android:icon="@drawable/icon_events"
         android:title="Events" />
-    <item
-        android:id="@+id/ic_deadlines"
-        android:enabled="true"
-        android:icon="@drawable/icon_deadline"
-        android:title="Deadline" />
 
 </menu>

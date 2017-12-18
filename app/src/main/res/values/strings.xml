@@ -3,8 +3,7 @@
     <string name="about_college">About College</string>
     <string name="college_gallery">Gallery</string>
     <string name="close">close</string>
-    <string-array name="event_images">
-            </string-array>
+    <string-array name="event_images"></string-array>
 
     //Web-Addresses
 

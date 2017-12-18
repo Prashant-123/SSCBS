@@ -3,6 +3,11 @@
     package="com.cbs.sscbs">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+
     <uses-permission
         android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
         android:protectionLevel="signature" />
@@ -28,13 +33,12 @@
         </activity>
         <activity
             android:name=".TeachersTimeTable"
-            android:label="Teacher's Time Table"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:label="Teacher&apos;s Time Table"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Model" />
-        <activity android:name=".Sample"
-            android:label="Info"/>
+        <activity
+            android:name=".Sample"
+            android:label="Info" />
         <activity android:name=".LifeAtCbs" />
         <activity android:name=".Facilities" />
         <activity
@@ -56,10 +60,27 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".web" />
-        <activity android:name=".Contact_us"
-            android:parentActivityName=".LifeAtCbs"
-            android:label="Contact-Us"></activity>
-        <activity android:name=".CreateEvent"></activity>
+        <activity
+            android:name=".Contact_us"
+            android:label="Contact-Us"
+            android:parentActivityName=".LifeAtCbs" />
+        <activity
+            android:name=".Events"
+            android:label="Events" />
+        <activity android:name=".CreateEvent"
+            android:label="Create New Event"/>
+        <activity
+            android:name=".Deadlines"
+            android:label="Deadlines"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Grievances"
+            android:label="Grievances"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Bookings"
+            android:label="All Bookings"
+            android:parentActivityName=".MainActivity" />
 
     </application>
 
