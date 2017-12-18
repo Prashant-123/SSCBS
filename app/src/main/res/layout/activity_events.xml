@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/addEventButton"
         app:fabSize="normal"
-        android:onClick="login"
         android:layout_gravity="bottom|end"
         android:layout_margin="30dp"/>
 

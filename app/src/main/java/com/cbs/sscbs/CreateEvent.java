@@ -66,9 +66,7 @@ public class CreateEvent extends AppCompatActivity {
             date_x = dayOfMonth; month_x = month; year_x = year;
              dateStr = " "+date_x+" "+ theMonth(month_x)+ " "+ year_x + ", ";
             int newMonth = month+1;
-
             sot = year +""+ newMonth + "-" + dayOfMonth;
-
             Log.i("tag", sot);
              updateTime();
         }
@@ -94,24 +92,20 @@ public class CreateEvent extends AppCompatActivity {
         EditText et2 = (EditText) findViewById(R.id.newOrganiser);
         EditText et3 = (EditText) findViewById(R.id.newVenue);
 
-
-
-        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot , img);
+        Intent intent = getIntent();
+        int count = intent.getIntExtra("COUNT", 0);
+        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot , img, count);
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
 
-        Intent intent = getIntent();
-        int count = intent.getIntExtra("COUNT", 0);
         String ctr = String.valueOf(count);
-        Log.i("tag", "count:  "+count);
-
+        Log.i("tag", "count:  " + count);
         databaseRef.child("EventThings").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(CreateEvent.this, "Event Created", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Events.class);
-                startActivity(intent);
-                finish();
+                onBackPressed();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

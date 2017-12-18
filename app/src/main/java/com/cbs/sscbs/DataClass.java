@@ -8,6 +8,16 @@ public class DataClass {
 
     private String title, organiser, venue, time, sot;
     private int img;
+
+    public int getDelId() {
+        return delId;
+    }
+
+    public void setDelId(int delId) {
+        this.delId = delId;
+    }
+
+    private int delId;
     public DataClass() {}
 
     public String getSot() {
@@ -18,13 +28,14 @@ public class DataClass {
         this.sot = sot;
     }
 
-    public DataClass(String title, String organiser, String venue, String time, String sot , int img) {
+    public DataClass(String title, String organiser, String venue, String time, String sot , int img, int delId) {
         this.title = title;
         this.organiser = organiser;
         this.venue = venue;
         this.time = time;
         this.sot = sot;
         this.img = img ;
+        this.delId = delId;
     }
 
     public int getImg() { return img; }

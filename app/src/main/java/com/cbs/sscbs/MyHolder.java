@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
  * Created by Tanya on 11/15/2017.
  */
@@ -31,6 +29,5 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
     public void setItemClickListener(ItemClickListener ic)
     {
         this.itemClickListener  = ic ;
-
     }
 }

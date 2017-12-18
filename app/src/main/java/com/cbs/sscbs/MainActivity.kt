@@ -92,9 +92,8 @@ class MainActivity : AppCompatActivity() {
 
                         }
                         R.id.ic_events -> {
-                            val nf = Events_Frag()
-                            val nm = fragmentManager.beginTransaction()
-                            nm.replace(R.id.main_Frame, nf).commit()
+                            val nf = Events_Fragment()
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_Frame, nf).commit();
                         }
 
                         R.id.ic_deadlines -> {

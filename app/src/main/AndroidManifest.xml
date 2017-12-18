@@ -59,10 +59,6 @@
         <activity android:name=".Contact_us"
             android:parentActivityName=".LifeAtCbs"
             android:label="Contact-Us"></activity>
-        <activity android:name=".Events"
-            android:label="Events"
-            >
-        </activity>
         <activity android:name=".CreateEvent"></activity>
 
     </application>

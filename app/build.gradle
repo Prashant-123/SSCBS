@@ -9,7 +9,6 @@ android {
     defaultConfig {
         applicationId "com.cbs.sscbs"
         minSdkVersion 16
-        multiDexEnabled true
         targetSdkVersion 26
         versionCode 1
         multiDexEnabled true
