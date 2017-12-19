@@ -38,13 +38,20 @@
         <activity android:name=".Model" />
         <activity
             android:name=".Sample"
-            android:label="Info" />
-        <activity android:name=".LifeAtCbs" />
-        <activity android:name=".Facilities" />
+            android:label="Info"
+            android:parentActivityName=".TeachersTimeTable"/>
+
+
         <activity
             android:name=".About_Activity"
             android:label="About Us"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".LifeAtCbs"
+            android:label="Life At CBS"
+            android:parentActivityName=".About_Activity"/>
+        <activity android:name=".Facilities"
+            android:label="Facilities"
+            android:parentActivityName=".About_Activity" />
         <activity
             android:name=".Developers"
             android:label="Developers"
@@ -62,13 +69,12 @@
         <activity android:name=".web" />
         <activity
             android:name=".Contact_us"
-            android:label="Contact-Us"
-            android:parentActivityName=".LifeAtCbs" />
-        <activity
-            android:name=".Events"
-            android:label="Events" />
+            android:label="Contact Details"
+            android:parentActivityName=".About_Activity" />
+
         <activity android:name=".CreateEvent"
-            android:label="Create New Event"/>
+            android:label="Create New Event"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".Deadlines"
             android:label="Deadlines"

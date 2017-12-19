@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/addEventButton"
         app:fabSize="normal"
+        android:src="@drawable/icon_events"
         android:layout_gravity="bottom|end"
         android:layout_margin="30dp"/>
     </android.support.design.widget.CoordinatorLayout>

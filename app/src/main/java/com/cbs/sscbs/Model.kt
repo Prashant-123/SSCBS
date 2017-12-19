@@ -13,14 +13,14 @@ class Model : AppCompatActivity() {
         setContentView(R.layout.activity_model)
 
 
-        findViewById<View>(R.id.teacheremail_text).setOnClickListener {
-            val sub = "Get-Lost"
-            val body = "Body"
-            val intent = Intent(Intent.ACTION_VIEW)
-            val data = Uri.parse("mailto:pk021998@gmail.com?subject=$sub&body=$body")
-            intent.data = data
-            startActivity(intent)
-        }
+//        findViewById<View>(R.id.teacheremail_text).setOnClickListener {
+//            val sub = "Get-Lost"
+//            val body = "Body"
+//            val intent = Intent(Intent.ACTION_VIEW)
+//            val data = Uri.parse("mailto:pk021998@gmail.com?subject=$sub&body=$body")
+//            intent.data = data
+//            startActivity(intent)
+//        }
 
     }
 }

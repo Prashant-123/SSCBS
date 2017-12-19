@@ -6,13 +6,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class Grievances extends AppCompatActivity {
 
@@ -29,6 +35,7 @@ public class Grievances extends AppCompatActivity {
 
    // public File filen = null ;
 
+    File pic;
     ImageView imageView ;
     Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
 
@@ -94,6 +101,20 @@ public class Grievances extends AppCompatActivity {
                 final Bitmap bmp = (Bitmap)bundle.get("data");
                 imageView.setImageBitmap(bmp);
 
+//                try {
+//                    File root = Environment.getExternalStorageDirectory();
+//                    if (root.canWrite()){
+//                        pic = new File(root, "pic.png");
+//                        FileOutputStream out = new FileOutputStream(pic);
+//                        bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+//                        out.flush();
+//                        out.close();
+//                    }
+//                } catch (IOException e) {
+//                    Log.e("BROKEN", "Could not write file " + e.getMessage());
+//                }
+//
+
             }else if(requestCode==SELECT_FILE){
 
                 Uri selectImageUri = data.getData();
@@ -112,6 +133,7 @@ public class Grievances extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("mailto","pk021998@gmail.com",null));
         intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
         intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
+        //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pic));
         startActivity(Intent.createChooser(intent,"Send Email Using"));
     }
 }

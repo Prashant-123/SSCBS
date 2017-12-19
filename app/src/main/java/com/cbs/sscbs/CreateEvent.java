@@ -105,8 +105,6 @@ public class CreateEvent extends AppCompatActivity {
                 selectImage();
             }
         });
-
-
     }
 
     private void selectImage()

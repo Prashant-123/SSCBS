@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/clot">
 
@@ -9,6 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_contact_us"
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="#610B21"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -21,7 +31,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="30dp"
             android:id="@+id/call">
 
@@ -106,13 +116,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="Website"
+                    android:id="@+id/website"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
@@ -142,7 +154,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="70dp"
                 android:id="@+id/address"
                 android:orientation="vertical">
 

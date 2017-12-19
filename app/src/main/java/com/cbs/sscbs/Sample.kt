@@ -3,6 +3,7 @@ package com.cbs.sscbs
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
 import com.google.firebase.database.*
@@ -17,6 +18,10 @@ class Sample : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sample)
+        val toolbar = findViewById<View>(R.id.toolbar_grievances) as Toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
 
 
@@ -24,13 +29,15 @@ class Sample : AppCompatActivity() {
         val tv1 = findViewById<TextView>(R.id.t_naam) as TextView
         tv1.text = intentName
 
+        toolbar.setTitle(intentName)
+
         val intentQua = intent.extras!!.get("intentQualification") as String
         val tv2 = findViewById<TextView>(R.id.t_qua) as TextView
         tv2.text = intentQua
 
-        val intentEmail = intent.extras!!.get("intentEmail") as String
-        val tv3 = findViewById<TextView>(R.id.teacheremail_text) as TextView
-        tv3.text = intentEmail
+//        val intentEmail = intent.extras!!.get("intentEmail") as String
+//        val tv3 = findViewById<TextView>(R.id.teacheremail_text) as TextView
+//        tv3.text = intentEmail
 
         val intentPos = intent.extras!!.getInt("intentPos")
         showTimeTable(intentPos)
@@ -67,3 +74,4 @@ class Sample : AppCompatActivity() {
         })
     }
 }
+
