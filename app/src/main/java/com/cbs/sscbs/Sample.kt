@@ -35,9 +35,9 @@ class Sample : AppCompatActivity() {
         val tv2 = findViewById<TextView>(R.id.t_qua) as TextView
         tv2.text = intentQua
 
-//        val intentEmail = intent.extras!!.get("intentEmail") as String
-//        val tv3 = findViewById<TextView>(R.id.teacheremail_text) as TextView
-//        tv3.text = intentEmail
+       val intentEmail = intent.extras!!.get("intentEmail") as String
+        val tv3 = findViewById<TextView>(R.id.teacheremail_text) as TextView
+        tv3.text = intentEmail
 
         val intentPos = intent.extras!!.getInt("intentPos")
         showTimeTable(intentPos)
