@@ -44,28 +44,32 @@
         android:layout_gravity="center"/>
 
 
+    <TextView
+        android:id="@+id/desTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:text="Event Description:" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:id="@+id/subLayout"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/desTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:text="Event Description:" />
 
-        <TextView
+
+        <EditText
             android:id="@+id/eventDescription"
-            android:layout_width="250dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Your description"
+            android:textSize="14dp"
+            android:hint="Your description"
 
             />
 
@@ -78,14 +82,16 @@
             android:layout_marginTop="10dp"
             android:text="Registration Link(If Any):" />
 
-        <TextView
+        <EditText
             android:id="@+id/registrationLink"
-            android:layout_width="wrap_content"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
+            android:gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Reg Link" />
+            android:hint="Reg Link"
+            android:textSize="14dp"/>
 
         <TextView
             android:id="@+id/imageTitle"
@@ -94,6 +100,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Upload Event Image (If Any)" />
 
         <ImageView
@@ -107,6 +114,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:id="@+id/uploadBtn"
+            android:onClick="uploadEventImage"
             android:text="Upload Event Image" />
 
         <TextView
@@ -118,21 +127,24 @@
             android:layout_marginTop="10dp"
             android:text="Organiser Contact Details" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Mobile Number" />
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:hint="Mobile Number" />
 
 
     </LinearLayout>
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/newTime"
+        android:gravity="center"
         android:textAlignment="textStart"
         android:backgroundTint="#FFFFFF"
         android:hint="Select Date and Time"
@@ -144,8 +156,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Save"
+        android:layout_marginBottom="20dp"
         android:id="@+id/saveBtn"
         android:onClick="save"/>
-    
+
 </LinearLayout>
 </ScrollView>
