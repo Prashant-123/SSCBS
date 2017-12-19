@@ -57,8 +57,7 @@ import java.util.List;
 //                }
 
                 Log.i("TAG", "Dlete-ID: "+ current.getDelId());
-                Intent intent = new Intent().putExtra("ctr", pos);
-                Log.i("TAG", "Position: " + pos+1);
+                Intent intent = new Intent().putExtra("ctr", current.getDelId());
                 del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
             }
         });

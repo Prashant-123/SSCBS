@@ -5,25 +5,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.io.File;
-
 public class Grievances extends AppCompatActivity {
 
-//    public static final int MY_REQUEST_CAMERA = 10 ;
-//    public static final int MY_REQUEST_WRITE_CAMERA = 11 ;
+//    public static final int MY_REQUEST_CAMERA = 10;
+//    public static final int MY_REQUEST_WRITE_CAMERA = 11;
 //    public static final int CAPTURE_CAMERA = 12 ;
 //
 //    public static final int MY_REQUEST_READ_GALLERY = 13 ;
@@ -114,19 +108,12 @@ public class Grievances extends AppCompatActivity {
 
     public void sendMail(View view) {
 
-        EditText subject = (EditText)findViewById(R.id.subject) ;
+        EditText subject = (EditText)findViewById(R.id.subject);
         EditText body = (EditText) findViewById(R.id.body);
-
         String emailBody = body.getText().toString().trim();
         String emailSubject = subject.getText().toString().trim();
 
-//        Intent intent = new Intent(Grievances.this , MailActivity.class);
-//        intent.putExtra("body" , emailBody);
-//        intent.putExtra("subject" , emailSubject);
-//        startActivity(intent);
-
-
-        Intent intent = new Intent(Intent.ACTION_SEND,Uri.fromParts("mailto","pk021998@gmail.com",null));
+        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("mailto","pk021998@gmail.com",null));
         intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
         intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
         startActivity(Intent.createChooser(intent,"Send Email Using"));

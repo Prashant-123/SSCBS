@@ -48,6 +48,7 @@ public class Events_Fragment extends Fragment{
     private DatabaseReference databaseRef;
     ImageView imageView ;
     int count, i=1;
+
     public ArrayList<DataClass> data = new ArrayList<>();
 
     public Events_Fragment() {
