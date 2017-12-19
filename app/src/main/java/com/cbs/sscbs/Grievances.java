@@ -32,7 +32,6 @@ public class Grievances extends AppCompatActivity {
     ImageView imageView ;
     Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +42,6 @@ public class Grievances extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         imageView = (ImageView) findViewById(R.id.imgComplaint ) ;
-
     }
 
 
@@ -54,8 +52,6 @@ public class Grievances extends AppCompatActivity {
                 selectImage();
             }
         });
-
-
     }
 
     private void selectImage()

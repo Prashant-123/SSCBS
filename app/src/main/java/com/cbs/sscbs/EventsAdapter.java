@@ -1,16 +1,12 @@
 package com.cbs.sscbs;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -48,17 +44,12 @@ import java.util.List;
             @Override
             public void onItemClick(View v, int pos) {
 
-                FirebaseDatabase del = FirebaseDatabase.getInstance();
-                String delPos = String.valueOf(pos);
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    if (ds.getKey() == delPos)
-//                        Log.i("TAG", "Item-Clicked: " + delPos);
-//                    del.getReference("EventThings").child(delPos).removeValue();
-//                }
 
-                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
-                Intent intent = new Intent().putExtra("ctr", current.getDelId());
-                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
+
+//                FirebaseDatabase del = FirebaseDatabase.getInstance();
+//                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
+//                Intent intent = new Intent().putExtra("ctr", current.getDelId());
+//                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
             }
         });
     }
@@ -104,14 +95,34 @@ import java.util.List;
         public void setItemClickListener(ItemClickListener ic) {
             this.itemClickListener = ic;
         }
-
-//        public void deleteEvent(int pos){
-//            FirebaseDatabase del = FirebaseDatabase.getInstance();
-//            String delPos = String.valueOf(pos);
-//            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                if (ds.getKey() == delPos)
-//                    del.getReference("EventThings").child(delPos).removeValue();
-//            }
-//        }
     }
+
+//    public void inflateDescription()
+//    {
+//        LayoutInflater inflater = getLayoutInflater();
+//        View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
+//
+//        final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
+//        final TextView link = alertLayout1.findViewById(R.id.tvLink);
+//        final TextView mobNo = alertLayout1.findViewById(R.id.tvMobno);
+//
+//        AlertDialog.Builder alert1 = new AlertDialog.Builder(getContext());
+//        alert1.setTitle("Event-Description");
+//        alert1.setView(alertLayout1);
+//        alert1.setCancelable(true);
+//
+//        alert1.setNegativeButton("Hello!!!", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(getContext(), "Negative-Button", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        alert1.setPositiveButton("Goto-Link", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(getContext(), "Wuhoo...", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }

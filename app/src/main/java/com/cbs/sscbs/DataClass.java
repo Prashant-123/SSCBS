@@ -6,17 +6,15 @@ package com.cbs.sscbs;
 
 public class DataClass {
 
-    private String title, organiser, venue, time, sot;
+    private String title, organiser, venue, time, sot, desc, link, mobNo;
     private int img;
 
     public int getDelId() {
         return delId;
     }
-
     public void setDelId(int delId) {
         this.delId = delId;
     }
-
     private int delId;
     public DataClass() {}
 
@@ -28,7 +26,31 @@ public class DataClass {
         this.sot = sot;
     }
 
-    public DataClass(String title, String organiser, String venue, String time, String sot , int img, int delId) {
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getMobNo() {
+        return mobNo;
+    }
+
+    public void setMobNo(String mobNo) {
+        this.mobNo = mobNo;
+    }
+
+    public DataClass(String title, String organiser, String venue, String time, String sot , int img, int delId, String desc, String link, String mobNo) {
         this.title = title;
         this.organiser = organiser;
         this.venue = venue;
@@ -36,6 +58,9 @@ public class DataClass {
         this.sot = sot;
         this.img = img ;
         this.delId = delId;
+        this.desc = desc;
+        this.link = link;
+        this.mobNo = mobNo;
     }
 
     public int getImg() { return img; }

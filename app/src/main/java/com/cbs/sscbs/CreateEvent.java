@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -205,10 +204,13 @@ public class CreateEvent extends AppCompatActivity {
         EditText et1 = (EditText) findViewById(R.id.newTitle);
         EditText et2 = (EditText) findViewById(R.id.newOrganiser);
         EditText et3 = (EditText) findViewById(R.id.newVenue);
+        EditText desc = (EditText) findViewById(R.id.eventDescription);
+        EditText link = (EditText) findViewById(R.id.registrationLink);
+        EditText mobNo = (EditText) findViewById(R.id.mobNo);
 
         Intent intent = getIntent();
         int count = intent.getIntExtra("COUNT", 0);
-        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot , img, count);
+        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot , img, count, desc.getText().toString(), link.getText().toString(), mobNo.getText().toString());
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
 

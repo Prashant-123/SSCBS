@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cbs.sscbs.CreateEvent;
@@ -73,14 +74,11 @@ public class Events_Fragment extends Fragment{
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 DataClass newData = dataSnapshot.getValue(DataClass.class);
-                //newData.setDelId(i);
+
                 if(newData.getOrganiser().toString().compareTo("Blitz")==0)
                 {newData.setImg(R.drawable.about);}
                 else
                 { newData.setImg(R.drawable.contact_logo); }
-//                String imageUri = "https://i.imgur.com/tGbaZCY.jpg";
-//                imageView = (ImageView) findViewById(R.id.eventImage);
-//                Picasso.with(getApplicationContext()).load(imageUri).into(imageView);
                 data.add(newData);
                 adapter.notifyDataSetChanged();
             }
@@ -113,6 +111,8 @@ public class Events_Fragment extends Fragment{
             @Override
             public void onClick(View v)
             {
+
+                //inflateDescription();
                 LayoutInflater inflater = getLayoutInflater();
                 View alertLayout = inflater.inflate(R.layout.fragment_login, null);
                 final EditText username = alertLayout.findViewById(R.id.User);
@@ -138,6 +138,7 @@ public class Events_Fragment extends Fragment{
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         Toast.makeText(getContext(), "Log-In Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -252,6 +253,24 @@ public class Events_Fragment extends Fragment{
         Intent intent = new Intent(getContext(), CreateEvent.class);
         intent.putExtra("COUNT", i);
         startActivity(intent);
+    }
+
+    public void inflateDescription()
+    {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
+
+        final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
+        final TextView link = alertLayout1.findViewById(R.id.tvLink);
+        final TextView mobNo = alertLayout1.findViewById(R.id.tvMobno);
+
+        AlertDialog.Builder alert1 = new AlertDialog.Builder(getContext());
+        alert1.setTitle("Event-Description");
+        alert1.setView(alertLayout1);
+        alert1.setCancelable(true);
+
+        AlertDialog dialog = alert1.create();
+        dialog.show();
     }
 
 }
