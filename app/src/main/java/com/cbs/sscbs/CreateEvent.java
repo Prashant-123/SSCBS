@@ -35,7 +35,7 @@ public class CreateEvent extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
-    String dateStr,timeStr, et4;
+    String dateStr,timeStr1,timeStr2, et4;
     final Calendar cal = Calendar.getInstance();
     final Calendar time = Calendar.getInstance();
     int year_x, month_x, date_x;
@@ -179,23 +179,41 @@ public class CreateEvent extends AppCompatActivity {
             int newMonth = month+1;
             sot = year +""+ newMonth + "-" + dayOfMonth;
             Log.i("tag", sot);
-             updateTime();
+             updateTime(0);
+            updateTime(1);
         }
     };
+    TimePickerDialog.OnTimeSetListener t=null;
+    private void updateTime(int i)
+    { new TimePickerDialog(this, t, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), false).show();
+    time(i);}
 
-    private void updateTime()
-    { new TimePickerDialog(this, t, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), false).show(); }
+    private void time(final int i) {
+         t = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                time.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                time.set(Calendar.MINUTE, minute);
+                int hour = hourOfDay % 12;
+                if(i==0)
+                timeStr1 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
+                if(i==1)
+                    timeStr2 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
+                et4= dateStr + timeStr1 + timeStr2;
+            }
+        };
+    }
 
-    TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            time.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            time.set(Calendar.MINUTE, minute);
-            int hour = hourOfDay % 12;
-            timeStr = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
-            et4= dateStr + timeStr;
-        }
-    };
+//    TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
+//        @Override
+//        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//            time.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//            time.set(Calendar.MINUTE, minute);
+//            int hour = hourOfDay % 12;
+//            timeStr = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
+//            et4= dateStr + timeStr;
+//        }
+//    };
 
     public void save(View view)
     {

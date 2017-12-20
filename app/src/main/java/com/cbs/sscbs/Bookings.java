@@ -1,10 +1,30 @@
 package com.cbs.sscbs;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class Bookings extends AppCompatActivity {
+
+    private FirebaseDatabase database;
+    private DatabaseReference databaseRef;
+    ImageView imageView ;
+    int count, i=1;
+
+    RecyclerView recyclerView;
+
+    public ArrayList<DataClass> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,5 +35,10 @@ public class Bookings extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
+
+
+
     }
+
 }
