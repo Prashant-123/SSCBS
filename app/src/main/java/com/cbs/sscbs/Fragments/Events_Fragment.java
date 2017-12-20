@@ -90,17 +90,7 @@ public class Events_Fragment extends Fragment{
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 //                Toast.makeText(getContext(), "Event-Deleted", Toast.LENGTH_SHORT).show();
-//                Intent intent = getIntent();
-//                Intent intent = getActivity().getIntent();
-//                int recyclerCtr = intent.getIntExtra("ctr", 0);
-//                data.remove(recyclerCtr);
-//                adapter.notifyItemRemoved(recyclerCtr);
-//                //adapter.notifyDataSetChanged();
 
-//                data.remove(recyclerCtr);
-//                recyclerView.removeViewAt(recyclerCtr);
-//                adapter.notifyItemRemoved(recyclerCtr);
-//                adapter.notifyItemRangeChanged(recyclerCtr, data.size());
 
                 DataClass p0 = dataSnapshot.getValue(DataClass.class);
                 for(int i = 0; i < data.size(); i++) {
