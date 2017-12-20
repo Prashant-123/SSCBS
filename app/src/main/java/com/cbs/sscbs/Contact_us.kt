@@ -49,8 +49,9 @@ class Contact_us : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.address).setOnClickListener {
-            val uri = String.format(Locale.ENGLISH, ":%f,%f", 28.7327, 77.1188)
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            //val uri = String.format(Locale.ENGLISH, ":%f,%f", 28.7327, 77.1188)
+            val geoUri = "http://maps.google.com/maps?q=loc:$28.7327,$77.1188 ($ Dr. K.N. Katju Marg, Sector 16, Rohini, New Delhi, Delhi 110089)"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
             startActivity(intent)
         }
 

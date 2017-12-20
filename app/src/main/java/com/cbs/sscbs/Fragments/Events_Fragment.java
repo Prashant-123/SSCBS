@@ -50,6 +50,8 @@ public class Events_Fragment extends Fragment{
     ImageView imageView ;
     int count, i=1;
 
+    RecyclerView recyclerView;
+
     public ArrayList<DataClass> data = new ArrayList<>();
 
     public Events_Fragment() {
@@ -58,8 +60,7 @@ public class Events_Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View myView = inflater.inflate(R.layout.activity_events, container, false);
-
-        RecyclerView recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
+ recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         final EventsAdapter adapter = new EventsAdapter(getContext(), data);
@@ -90,11 +91,25 @@ public class Events_Fragment extends Fragment{
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 //                Toast.makeText(getContext(), "Event-Deleted", Toast.LENGTH_SHORT).show();
 //                Intent intent = getIntent();
-                Intent intent = getActivity().getIntent();
-                int recyclerCtr = intent.getIntExtra("ctr", 0);
-                data.remove(recyclerCtr);
-                adapter.notifyItemRemoved(recyclerCtr);
-                //adapter.notifyDataSetChanged();
+//                Intent intent = getActivity().getIntent();
+//                int recyclerCtr = intent.getIntExtra("ctr", 0);
+//                data.remove(recyclerCtr);
+//                adapter.notifyItemRemoved(recyclerCtr);
+//                //adapter.notifyDataSetChanged();
+
+//                data.remove(recyclerCtr);
+//                recyclerView.removeViewAt(recyclerCtr);
+//                adapter.notifyItemRemoved(recyclerCtr);
+//                adapter.notifyItemRangeChanged(recyclerCtr, data.size());
+
+                DataClass p0 = dataSnapshot.getValue(DataClass.class);
+                for(int i = 0; i < data.size(); i++) {
+                    if(data.get(i).getDelId() == p0.getDelId()) {
+                        data.remove(i);
+                        adapter.notifyItemRemoved(i);
+                        adapter.notifyItemRangeChanged(i, data.size());
+                    }
+                }
             }
 
             @Override

@@ -1,12 +1,16 @@
 package com.cbs.sscbs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -43,13 +47,13 @@ import java.util.List;
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                FirebaseDatabase del = FirebaseDatabase.getInstance();
+
+                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
+                Intent intent = new Intent().putExtra("ctr", current.getDelId());
+                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
 
 
-
-//                FirebaseDatabase del = FirebaseDatabase.getInstance();
-//                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
-//                Intent intent = new Intent().putExtra("ctr", current.getDelId());
-//                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
             }
         });
     }

@@ -35,7 +35,7 @@ public class Grievances extends AppCompatActivity {
 
    // public File filen = null ;
 
-    File pic;
+    File pic = null;
     ImageView imageView ;
     Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
 
@@ -101,19 +101,19 @@ public class Grievances extends AppCompatActivity {
                 final Bitmap bmp = (Bitmap)bundle.get("data");
                 imageView.setImageBitmap(bmp);
 
-//                try {
-//                    File root = Environment.getExternalStorageDirectory();
-//                    if (root.canWrite()){
-//                        pic = new File(root, "pic.png");
-//                        FileOutputStream out = new FileOutputStream(pic);
-//                        bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
-//                        out.flush();
-//                        out.close();
-//                    }
-//                } catch (IOException e) {
-//                    Log.e("BROKEN", "Could not write file " + e.getMessage());
-//                }
-//
+                try {
+                    File root = Environment.getExternalStorageDirectory();
+                    if (root.canWrite()){
+                        pic = new File(root,"pic.png");
+                        FileOutputStream out = new FileOutputStream(pic);
+                        bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+                        out.flush();
+                        out.close();
+                    }
+                } catch (IOException e) {
+                    Log.e("BROKEN", "Could not write file " + e.getMessage());
+                }
+
 
             }else if(requestCode==SELECT_FILE){
 
@@ -124,16 +124,24 @@ public class Grievances extends AppCompatActivity {
     }
 
     public void sendMail(View view) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText subject = (EditText)findViewById(R.id.subject);
+                EditText body = (EditText) findViewById(R.id.body);
+                String emailBody = body.getText().toString().trim();
+                String emailSubject = subject.getText().toString().trim();
 
-        EditText subject = (EditText)findViewById(R.id.subject);
-        EditText body = (EditText) findViewById(R.id.body);
-        String emailBody = body.getText().toString().trim();
-        String emailSubject = subject.getText().toString().trim();
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pk021998@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
+                intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("https://www.google.co.in/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
+                intent.setType("image/png");
+                startActivity(Intent.createChooser(intent,"Send Email Using"));
+            }
+        });
 
-        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("mailto","pk021998@gmail.com",null));
-        intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
-        intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
-        //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pic));
-        startActivity(Intent.createChooser(intent,"Send Email Using"));
+
     }
 }
