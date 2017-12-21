@@ -60,7 +60,7 @@ public class Events_Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View myView = inflater.inflate(R.layout.activity_events, container, false);
- recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
+        recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         final EventsAdapter adapter = new EventsAdapter(getContext(), data);
@@ -89,8 +89,6 @@ public class Events_Fragment extends Fragment{
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                Toast.makeText(getContext(), "Event-Deleted", Toast.LENGTH_SHORT).show();
-
 
                 DataClass p0 = dataSnapshot.getValue(DataClass.class);
                 for(int i = 0; i < data.size(); i++) {
@@ -262,6 +260,7 @@ public class Events_Fragment extends Fragment{
 
     public void inflateDescription()
     {
+
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
 

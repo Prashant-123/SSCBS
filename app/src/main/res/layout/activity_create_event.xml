@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/uploadBtn"
-            android:onClick="uploadEventImage"
+            android:onClick="btnBrowse"
             android:text="Upload Event Image" />
 
         <ImageView
@@ -160,7 +160,7 @@
         android:text="Save"
         android:layout_marginBottom="20dp"
         android:id="@+id/saveBtn"
-        android:onClick="save"/>
+        android:onClick="btnUploadClick"/>
 
 </LinearLayout>
 </ScrollView>

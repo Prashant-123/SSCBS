@@ -6,7 +6,24 @@ package com.cbs.sscbs;
 
 public class DataClass {
 
-    private String title, organiser, venue, time, sot, desc, link, mobNo;
+    private String title;
+    private String organiser;
+    private String venue;
+    private String time;
+    private String sot;
+    private String desc;
+    private String link;
+    private String mobNo;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    private String imageUrl;
     private int img;
 
     public int getDelId() {
@@ -50,7 +67,7 @@ public class DataClass {
         this.mobNo = mobNo;
     }
 
-    public DataClass(String title, String organiser, String venue, String time, String sot , int img, int delId, String desc, String link, String mobNo) {
+    public DataClass(String title, String organiser, String venue, String time, String sot , int img, int delId, String desc, String link, String mobNo, String imageUrl) {
         this.title = title;
         this.organiser = organiser;
         this.venue = venue;
@@ -60,6 +77,7 @@ public class DataClass {
         this.delId = delId;
         this.desc = desc;
         this.link = link;
+        this.imageUrl = imageUrl;
         this.mobNo = mobNo;
     }
 

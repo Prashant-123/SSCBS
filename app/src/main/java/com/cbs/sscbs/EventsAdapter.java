@@ -1,16 +1,20 @@
 package com.cbs.sscbs;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -22,7 +26,7 @@ import java.util.List;
 
     private List<DataClass> objectList;
     private LayoutInflater inflater;
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public EventsAdapter(Context context, List<DataClass> objectList) {
         inflater = LayoutInflater.from(context);
@@ -39,7 +43,7 @@ import java.util.List;
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Context c;
+        final Context c;
 
         final DataClass current = objectList.get(position);
 //        holder.img.setImageResource(objectList.get(position).getImg());
@@ -47,11 +51,14 @@ import java.util.List;
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+
+                inflateDescription(v.getContext(), String.valueOf(current.getDelId()));
+
                 FirebaseDatabase del = FirebaseDatabase.getInstance();
 
-                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
-                Intent intent = new Intent().putExtra("ctr", current.getDelId());
-                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
+//                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
+//                Intent intent = new Intent().putExtra("ctr", current.getDelId());
+//                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
 
 
             }
@@ -101,32 +108,65 @@ import java.util.List;
         }
     }
 
-//    public void inflateDescription()
-//    {
-//        LayoutInflater inflater = getLayoutInflater();
-//        View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
-//
-//        final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
-//        final TextView link = alertLayout1.findViewById(R.id.tvLink);
-//        final TextView mobNo = alertLayout1.findViewById(R.id.tvMobno);
-//
-//        AlertDialog.Builder alert1 = new AlertDialog.Builder(getContext());
-//        alert1.setTitle("Event-Description");
-//        alert1.setView(alertLayout1);
-//        alert1.setCancelable(true);
-//
-//        alert1.setNegativeButton("Hello!!!", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(getContext(), "Negative-Button", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        alert1.setPositiveButton("Goto-Link", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(getContext(), "Wuhoo...", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    public void inflateDescription(final Context c, String pos)
+    {
+        LayoutInflater inflater = LayoutInflater.from(c);
+        View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
+
+        final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
+        final TextView link = alertLayout1.findViewById(R.id.tvLink);
+        link.setMovementMethod(LinkMovementMethod.getInstance());
+        final TextView mobNo = alertLayout1.findViewById(R.id.tvMobno);
+
+        DatabaseReference descRef = database.getReference("EventThings").child(pos).child("desc");
+        DatabaseReference linkRef = database.getReference("EventThings").child(pos).child("link");
+        DatabaseReference mobNoRef = database.getReference("EventThings").child(pos).child("mobNo");
+
+        descRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String d = dataSnapshot.getValue(String.class);
+                desc.setText(d);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        linkRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String l = dataSnapshot.getValue(String.class);
+                link.setText(l);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        mobNoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String m = dataSnapshot.getValue(String.class);
+                mobNo.setText(m);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
+        AlertDialog.Builder alert1 = new AlertDialog.Builder(c);
+        alert1.setTitle("Event-Description");
+        alert1.setView(alertLayout1);
+        alert1.setCancelable(true);
+
+        AlertDialog dialog = alert1.create();
+        dialog.show();
+    }
+
 }
