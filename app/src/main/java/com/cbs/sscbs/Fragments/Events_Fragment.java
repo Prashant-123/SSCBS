@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.cbs.sscbs.CreateEvent;
 import com.cbs.sscbs.DataClass;
 import com.cbs.sscbs.EventsAdapter;
+import com.cbs.sscbs.MainActivity;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -41,26 +42,25 @@ import java.util.ArrayList;
  * Created by Prashant on 18-12-2017.
  */
 
-public class Events_Fragment extends Fragment{
+public class Events_Fragment extends Fragment {
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public ArrayList<DataClass> data = new ArrayList<>();
+    ImageView imageView;
+    int count, i = 1;
+    RecyclerView recyclerView;
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
-    ImageView imageView ;
-    int count, i=1;
-
-    RecyclerView recyclerView;
-
-    public ArrayList<DataClass> data = new ArrayList<>();
 
     public Events_Fragment() {
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View myView = inflater.inflate(R.layout.activity_events, container, false);
- recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
+        recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         final EventsAdapter adapter = new EventsAdapter(getContext(), data);
@@ -75,14 +75,47 @@ public class Events_Fragment extends Fragment{
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 DataClass newData = dataSnapshot.getValue(DataClass.class);
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i).getTime().toString() == newData.getTime().toString()) {
+                        Toast.makeText(getContext(), "Not Applicable", Toast.LENGTH_SHORT).show();
+                           break;
+                    }
+                    else {
+                        if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
+                            newData.setImg(R.drawable.about);
+                        } else {
+                            newData.setImg(R.drawable.contact_logo);
+                        }
+                        data.add(newData);
+                        adapter.notifyDataSetChanged();
 
-                if(newData.getOrganiser().toString().compareTo("Blitz")==0)
-                {newData.setImg(R.drawable.about);}
-                else
-                { newData.setImg(R.drawable.contact_logo); }
-                data.add(newData);
-                adapter.notifyDataSetChanged();
+                    }
+                }
+
+
+//                data.add(newData);
+//                adapter.notifyDataSetChanged();
+
+//                if (data.size() != 0) {
+//                    for (int i = 0; i < data.size(); i++) {
+//                        Log.i("new time",databaseRef.child("EventThings").child("time").toString());
+//                        Log.i("old time" , data.get(i).getTime().toString());
+//
+//                        if (newData.getTime().toString().compareTo(data.get(i).getTime().toString()) == 0) {
+//                            Toast.makeText(getContext(), "Not Applicable", Toast.LENGTH_SHORT).show();
+//                            break;
+//                        } else {
+//                            data.add(newData);
+//                            adapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }
+//                else {
+//                    data.add(newData);
+//                    adapter.notifyDataSetChanged();
+//                }
             }
+
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
@@ -93,8 +126,8 @@ public class Events_Fragment extends Fragment{
 
 
                 DataClass p0 = dataSnapshot.getValue(DataClass.class);
-                for(int i = 0; i < data.size(); i++) {
-                    if(data.get(i).getDelId() == p0.getDelId()) {
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i).getDelId() == p0.getDelId()) {
                         data.remove(i);
                         adapter.notifyItemRemoved(i);
                         adapter.notifyItemRangeChanged(i, data.size());
@@ -114,8 +147,7 @@ public class Events_Fragment extends Fragment{
         FloatingActionButton fb = (FloatingActionButton) myView.findViewById(R.id.addEventButton);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 //inflateDescription();
                 LayoutInflater inflater = getLayoutInflater();
@@ -166,12 +198,10 @@ public class Events_Fragment extends Fragment{
                                     Log.i("tag", "Log-3");
                                     String u = documentSnapshot.getString(USERNAME);
                                     String p = documentSnapshot.getString(PASSWORD);
-                                    if (username.getText().toString().equals(u)&& password.getText().toString().equals(p))
-                                    {
+                                    if (username.getText().toString().equals(u) && password.getText().toString().equals(p)) {
                                         Toast.makeText(getContext(), "Authentication Successfull", Toast.LENGTH_SHORT).show();
                                         createEvent();
-                                    }
-                                    else
+                                    } else
                                         Toast.makeText(getContext(), "You Lost it :)", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -188,8 +218,7 @@ public class Events_Fragment extends Fragment{
     }
 
 
-    public void login(View view)
-    {
+    public void login(View view) {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.fragment_login, null);
         final EditText username = alertLayout.findViewById(R.id.User);
@@ -237,12 +266,10 @@ public class Events_Fragment extends Fragment{
                             Log.i("tag", "Log-3");
                             String u = documentSnapshot.getString(USERNAME);
                             String p = documentSnapshot.getString(PASSWORD);
-                            if (username.getText().toString().equals(u)&& password.getText().toString().equals(p))
-                            {
+                            if (username.getText().toString().equals(u) && password.getText().toString().equals(p)) {
                                 Toast.makeText(getContext(), "Authentication Successfull", Toast.LENGTH_SHORT).show();
                                 createEvent();
-                            }
-                            else
+                            } else
                                 Toast.makeText(getContext(), "You Lost it :)", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -253,15 +280,13 @@ public class Events_Fragment extends Fragment{
         dialog.show();
     }
 
-    public void createEvent()
-    {
+    public void createEvent() {
         Intent intent = new Intent(getContext(), CreateEvent.class);
         intent.putExtra("COUNT", i);
         startActivity(intent);
     }
 
-    public void inflateDescription()
-    {
+    public void inflateDescription() {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
 

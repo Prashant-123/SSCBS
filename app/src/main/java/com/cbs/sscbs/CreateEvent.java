@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cbs.sscbs.Fragments.Events_Fragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -226,6 +227,8 @@ public class CreateEvent extends AppCompatActivity {
 
         Intent intent = getIntent();
         int count = intent.getIntExtra("COUNT", 0);
+        Log.i("venue" ,et3.getText().toString() );
+        //send(et4);
         DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot , img, count, desc.getText().toString(), link.getText().toString(), mobNo.getText().toString());
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
@@ -246,6 +249,13 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
     }
+
+//     void send(String et4) {
+//        Intent i = new Intent(this, Events_Fragment.class);
+//        startActivity(i , et4);
+//
+//
+//    }
 
     public static String theMonth(int month){
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
