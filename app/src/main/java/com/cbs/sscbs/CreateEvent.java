@@ -26,7 +26,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Fragments.Events_Fragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -42,25 +41,43 @@ import java.util.Calendar;
 
 public class CreateEvent extends AppCompatActivity {
 
-    private FirebaseDatabase database;
-    private StorageReference storageReference;
-    private DatabaseReference databaseRef;
-    private Uri imgUri;
-
-    public static final String FB_STORAGE_PATH = "eventPics/";
+    public static final String FB_STORAGE_PATH = "image/";
     public static final String FB_DATABASE_PATH = "image";
     public static final int REQUEST_CODE = 1234;
-
-    String dateStr,timeStr1,timeStr2, et4;
     final Calendar cal = Calendar.getInstance();
     final Calendar time = Calendar.getInstance();
+    String dateStr, timeStr1, timeStr2, et4;
     int year_x, month_x, date_x;
-
-    String sot;
+    String sot, URL = "ok";
     int img;
     Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
     ImageView image;
     TextView imageName;
+    TimePickerDialog.OnTimeSetListener t = null;
+    private FirebaseDatabase database;
+    private StorageReference storageReference;
+    private DatabaseReference databaseRef;
+    private Uri imgUri;
+    private DatePickerDialog.OnDateSetListener dpickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            date_x = dayOfMonth;
+            month_x = month;
+            year_x = year;
+            dateStr = " " + date_x + " " + theMonth(month_x) + " " + year_x + ", ";
+            int newMonth = month + 1;
+            sot = year + "" + newMonth + "-" + dayOfMonth;
+            Log.i("tag", sot);
+            updateTime(0);
+            updateTime(1);
+        }
+    };
+
+    public static String theMonth(int month) {
+        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month];
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +169,6 @@ public class CreateEvent extends AppCompatActivity {
 
     }
 
-
 //    @Override
 //    public void onActivityResult(int requestCode , int resultCode , Intent data) {
 //        super.onActivityResult(requestCode,resultCode,data);
@@ -191,6 +207,7 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected Dialog onCreateDialog(int id)
     {
@@ -199,22 +216,20 @@ public class CreateEvent extends AppCompatActivity {
         return null;
     }
 
-    private DatePickerDialog.OnDateSetListener dpickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            date_x = dayOfMonth; month_x = month; year_x = year;
-            dateStr = " "+date_x+" "+ theMonth(month_x)+ " "+ year_x + ", ";
-            int newMonth = month+1;
-            sot = year +""+ newMonth + "-" + dayOfMonth;
-            Log.i("tag", sot);
-            updateTime(0);
-            updateTime(1);
-        }
-    };
-    TimePickerDialog.OnTimeSetListener t=null;
     private void updateTime(int i)
     { new TimePickerDialog(this, t, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), false).show();
         time(i);}
+
+//    TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
+//        @Override
+//        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//            time.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//            time.set(Calendar.MINUTE, minute);
+//            int hour = hourOfDay % 12;
+//            timeStr = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
+//            et4= dateStr + timeStr;
+//        }
+//    };
 
     private void time(final int i) {
         t = new TimePickerDialog.OnTimeSetListener() {
@@ -232,16 +247,12 @@ public class CreateEvent extends AppCompatActivity {
         };
     }
 
-//    TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
-//        @Override
-//        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//            time.set(Calendar.HOUR_OF_DAY, hourOfDay);
-//            time.set(Calendar.MINUTE, minute);
-//            int hour = hourOfDay % 12;
-//            timeStr = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
-//            et4= dateStr + timeStr;
-//        }
-//    };
+//     void send(String et4) {
+//        Intent i = new Intent(this, Events_Fragment.class);
+//        startActivity(i , et4);
+//
+//
+//    }
 
     public void save(View view)
     {
@@ -252,11 +263,52 @@ public class CreateEvent extends AppCompatActivity {
         EditText link = (EditText) findViewById(R.id.registrationLink);
         EditText mobNo = (EditText) findViewById(R.id.mobNo);
 
+
+        if (imgUri != null) {
+            final ProgressDialog dialogue = new ProgressDialog(this);
+            dialogue.setTitle("Uploading...");
+            dialogue.show();
+
+            StorageReference ref = storageReference.child(FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri));
+            ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    dialogue.dismiss();
+                    Toast.makeText(CreateEvent.this, "Image-Uploaded", Toast.LENGTH_SHORT).show();
+                    URL = taskSnapshot.getDownloadUrl().toString();
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    Toast.makeText(CreateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    dialogue.setMessage("Uploaded " + (int) progress + "%");
+
+                }
+            });
+        }
+
+
+
+
+
+
+
+
         Intent intent = getIntent();
         int count = intent.getIntExtra("COUNT", 0);
         Log.i("venue" ,et3.getText().toString() );
         //send(et4);
-        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot , img, count, desc.getText().toString(), link.getText().toString(), mobNo.getText().toString());
+        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot, img, count, desc.getText().toString(), link.getText().toString(), mobNo.getText().toString(), URL);
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
 
@@ -276,19 +328,6 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
     }
-
-//     void send(String et4) {
-//        Intent i = new Intent(this, Events_Fragment.class);
-//        startActivity(i , et4);
-//
-//
-//    }
-
-    public static String theMonth(int month){
-        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month];
-    }
-
 
     public void btnBrowse(View view){
         Intent intent = new Intent();
@@ -319,36 +358,6 @@ public class CreateEvent extends AppCompatActivity {
     }
 
     public void btnUploadClick(View view){
-        if (imgUri!= null){
-            final ProgressDialog dialogue = new ProgressDialog(this);
-            dialogue.setTitle("Uploading...");
-            dialogue.show();
 
-            StorageReference ref = storageReference.child(FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri));
-            ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    dialogue.dismiss();
-                    Toast.makeText(CreateEvent.this, "Image-Uploaded", Toast.LENGTH_SHORT).show();
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                    Toast.makeText(CreateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    double progress = (100 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
-                    dialogue.setMessage("Uploaded "+ (int)progress+ "%");
-
-                }
-            });
-        }
     }
 }
