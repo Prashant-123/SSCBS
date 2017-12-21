@@ -48,10 +48,11 @@ public class CreateEvent extends AppCompatActivity {
     final Calendar time = Calendar.getInstance();
     String dateStr, timeStr1, timeStr2, et4;
     int year_x, month_x, date_x;
-    String sot, URL = "ok";
+    String sot;
     int img;
     Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
     ImageView image;
+    String address;
     TextView imageName;
     TimePickerDialog.OnTimeSetListener t = null;
     private FirebaseDatabase database;
@@ -256,14 +257,6 @@ public class CreateEvent extends AppCompatActivity {
 
     public void save(View view)
     {
-        EditText et1 = (EditText) findViewById(R.id.newTitle);
-        EditText et2 = (EditText) findViewById(R.id.newOrganiser);
-        EditText et3 = (EditText) findViewById(R.id.newVenue);
-        EditText desc = (EditText) findViewById(R.id.eventDescription);
-        EditText link = (EditText) findViewById(R.id.registrationLink);
-        EditText mobNo = (EditText) findViewById(R.id.mobNo);
-
-
         if (imgUri != null) {
             final ProgressDialog dialogue = new ProgressDialog(this);
             dialogue.setTitle("Uploading...");
@@ -276,7 +269,44 @@ public class CreateEvent extends AppCompatActivity {
 
                     dialogue.dismiss();
                     Toast.makeText(CreateEvent.this, "Image-Uploaded", Toast.LENGTH_SHORT).show();
-                    URL = taskSnapshot.getDownloadUrl().toString();
+
+                    EditText et1 = (EditText) findViewById(R.id.newTitle);
+                    EditText et2 = (EditText) findViewById(R.id.newOrganiser);
+                    EditText et3 = (EditText) findViewById(R.id.newVenue);
+                    EditText desc = (EditText) findViewById(R.id.eventDescription);
+                    EditText link = (EditText) findViewById(R.id.registrationLink);
+                    EditText mobNo = (EditText) findViewById(R.id.mobNo);
+
+
+                    Intent intent = getIntent();
+                    int count = intent.getIntExtra("COUNT", 0);
+                    Log.i("venue" ,et3.getText().toString() );
+                    //send(et4);
+                    DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot, img, count, desc.getText().toString(), link.getText().toString(), mobNo.getText().toString(), taskSnapshot.getDownloadUrl().toString());
+                    database = FirebaseDatabase.getInstance();
+                    databaseRef = database.getReference();
+
+                    String ctr = String.valueOf(count);
+                    Log.i("tag", "count:  " + count);
+                    databaseRef.child("EventThings").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(CreateEvent.this, "Event Created", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(CreateEvent.this, "Internal Error Occurred. \n Try Again", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+
+
+
+
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -296,37 +326,6 @@ public class CreateEvent extends AppCompatActivity {
                 }
             });
         }
-
-
-
-
-
-
-
-
-        Intent intent = getIntent();
-        int count = intent.getIntExtra("COUNT", 0);
-        Log.i("venue" ,et3.getText().toString() );
-        //send(et4);
-        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot, img, count, desc.getText().toString(), link.getText().toString(), mobNo.getText().toString(), URL);
-        database = FirebaseDatabase.getInstance();
-        databaseRef = database.getReference();
-
-        String ctr = String.valueOf(count);
-        Log.i("tag", "count:  " + count);
-        databaseRef.child("EventThings").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(CreateEvent.this, "Event Created", Toast.LENGTH_SHORT).show();
-                onBackPressed();
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CreateEvent.this, "Internal Error Occurred. \n Try Again", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public void btnBrowse(View view){
@@ -355,9 +354,5 @@ public class CreateEvent extends AppCompatActivity {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return MimeTypeMap.getFileExtensionFromUrl(contentResolver.getType(uri));
-    }
-
-    public void btnUploadClick(View view){
-
     }
 }

@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.cbs.sscbs.CreateEvent;
 import com.cbs.sscbs.DataClass;
 import com.cbs.sscbs.EventsAdapter;
-import com.cbs.sscbs.MainActivity;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -75,22 +74,22 @@ public class Events_Fragment extends Fragment {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 DataClass newData = dataSnapshot.getValue(DataClass.class);
-                for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getTime().toString() == newData.getTime().toString()) {
-                        Toast.makeText(getContext(), "Not Applicable", Toast.LENGTH_SHORT).show();
-                           break;
-                    }
-                    else {
-                        if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
-                            newData.setImg(R.drawable.about);
-                        } else {
-                            newData.setImg(R.drawable.contact_logo);
-                        }
-                        data.add(newData);
-                        adapter.notifyDataSetChanged();
+//                for (int i = 0; i < data.size(); i++) {
+//                    if (data.get(i).getTime().toString() == newData.getTime().toString()) {
+//                        Toast.makeText(getContext(), "Not Applicable", Toast.LENGTH_SHORT).show();
+//                           break;
+//                    }
+//                    else {
+//                    }
+//                }
 
-                    }
+                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
+                    newData.setImg(R.drawable.about);
+                } else {
+                    newData.setImg(R.drawable.contact_logo);
                 }
+                data.add(newData);
+                adapter.notifyDataSetChanged();
 
 
 //                data.add(newData);

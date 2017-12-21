@@ -3,7 +3,6 @@ package com.cbs.sscbs;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,10 +52,9 @@ import java.util.List;
             @Override
             public void onItemClick(View v, int pos) {
 
-                inflateDescription(v.getContext(), String.valueOf(current.getDelId()));
+                inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
 
-                FirebaseDatabase del = FirebaseDatabase.getInstance();
-
+//                FirebaseDatabase del = FirebaseDatabase.getInstance();
 //                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
 //                Intent intent = new Intent().putExtra("ctr", current.getDelId());
 //                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
@@ -108,19 +107,21 @@ import java.util.List;
         }
     }
 
-    public void inflateDescription(final Context c, String pos)
+    public void inflateDescription(final Context c, String pos, String url)
     {
         LayoutInflater inflater = LayoutInflater.from(c);
         View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
 
         final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
         final TextView link = alertLayout1.findViewById(R.id.tvLink);
-        link.setMovementMethod(LinkMovementMethod.getInstance());
         final TextView mobNo = alertLayout1.findViewById(R.id.tvMobno);
+        final ImageView imageView = (ImageView)alertLayout1.findViewById(R.id.imageEvent);
 
         DatabaseReference descRef = database.getReference("EventThings").child(pos).child("desc");
         DatabaseReference linkRef = database.getReference("EventThings").child(pos).child("link");
         DatabaseReference mobNoRef = database.getReference("EventThings").child(pos).child("mobNo");
+
+        Picasso.with(c).load(url).into(imageView);
 
         descRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -158,7 +159,6 @@ import java.util.List;
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
 
         AlertDialog.Builder alert1 = new AlertDialog.Builder(c);
         alert1.setTitle("Event-Description");
