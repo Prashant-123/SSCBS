@@ -5,186 +5,185 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_create"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#610B21"
-        android:minHeight="?attr/actionBarSize"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <EditText
-        android:id="@+id/newTitle"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:hint="Enter Title" />
-
-    <EditText
-        android:id="@+id/newOrganiser"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:hint="Enter Organiser" />
-
-
-
-    <EditText
-        android:id="@+id/newVenue"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:hint="Enter Venue" />
-
-
-    <TextView
-        android:id="@+id/desTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="10dp"
-        android:text="Event Description:" />
-
     <LinearLayout
-        android:id="@+id/subLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#610B21"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         <EditText
-            android:id="@+id/eventDescription"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:hint="Your description"
-            android:textSize="14dp"
-
-            />
-
-        <TextView
-            android:id="@+id/registrationTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Registration Link(If Any):" />
-
-        <EditText
-            android:id="@+id/registrationLink"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:hint="Reg Link"
-            android:textSize="14dp"/>
-
-        <TextView
-            android:id="@+id/imageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Upload Event Image (If Any)" />
-
-
-
-        <Button
-            android:id="@+id/uploadBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="btnBrowse"
-            android:text="Upload Event Image" />
-
-        <ImageView
-            android:id="@+id/newEventImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp" />
-        <TextView
-            android:id="@+id/ContactTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Organiser Contact Details" />
-
-        <EditText
-            android:id="@+id/mobNo"
+            android:id="@+id/newTitle"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:hint="Mobile Number"
-            android:textSize="14dp" />
+            android:layout_marginTop="30dp"
+            android:hint="Enter Title" />
 
+        <EditText
+            android:id="@+id/newOrganiser"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:hint="Enter Organiser" />
+
+
+
+        <EditText
+            android:id="@+id/newVenue"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:hint="Enter Venue" />
+
+
+        <TextView
+            android:id="@+id/desTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:text="Event Description:" />
+
+        <LinearLayout
+            android:id="@+id/subLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/eventDescription"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="Your description"
+                android:textSize="14dp"
+
+                />
+
+            <TextView
+                android:id="@+id/registrationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Registration Link(If Any):" />
+
+            <EditText
+                android:id="@+id/registrationLink"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="Reg Link"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/imageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Upload Event Image (If Any)" />
+
+
+            <Button
+                android:id="@+id/uploadBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="btnBrowse"
+                android:text="Upload Event Image" />
+
+            <ImageView
+                android:id="@+id/newEventImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/ContactTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Organiser Contact Details" />
+
+            <EditText
+                android:id="@+id/mobNo"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="Mobile Number"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/newTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center"
+            android:hint="Select Date and Time"
+            android:textAlignment="textStart"
+            tools:ignore="RtlCompat" />
+
+        <Button
+            android:id="@+id/startTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center"
+            android:hint="Start Time"
+            android:textAlignment="textStart"
+            tools:ignore="RtlCompat" />
+
+        <Button
+            android:id="@+id/endTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center"
+            android:hint="EndTime"
+            android:textAlignment="textStart"
+            tools:ignore="RtlCompat" />
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:onClick="save"
+            android:text="Save" />
 
     </LinearLayout>
-    <Button
-        android:id="@+id/newTime"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#FFFFFF"
-        android:gravity="center"
-        android:hint="Select Date and Time"
-        android:textAlignment="textStart"
-        tools:ignore="RtlCompat" />
-
-    <Button
-        android:id="@+id/startTime"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#FFFFFF"
-        android:gravity="center"
-        android:hint="Start Time"
-        android:textAlignment="textStart"
-        tools:ignore="RtlCompat" />
-
-    <Button
-        android:id="@+id/endTime"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#FFFFFF"
-        android:gravity="center"
-        android:hint="EndTime"
-        android:textAlignment="textStart"
-        tools:ignore="RtlCompat" />
-
-    <Button
-        android:id="@+id/saveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:onClick="save"
-        android:text="Save" />
-
-</LinearLayout>
 </ScrollView>

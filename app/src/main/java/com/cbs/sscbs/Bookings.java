@@ -2,6 +2,8 @@ package com.cbs.sscbs;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -33,6 +35,8 @@ public class Bookings extends AppCompatActivity {
 
 
         recyclerView = (RecyclerView) findViewById(R.id.bookingRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         final BookingsAdapter adapter = new BookingsAdapter(getApplicationContext(), data);
         recyclerView.setAdapter(adapter);
 

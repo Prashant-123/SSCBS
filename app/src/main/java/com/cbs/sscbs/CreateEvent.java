@@ -78,7 +78,7 @@ public class CreateEvent extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-         dpickerListener = new DatePickerDialog.OnDateSetListener() {
+        dpickerListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 date_x = dayOfMonth;
@@ -100,10 +100,10 @@ public class CreateEvent extends AppCompatActivity {
 
 
 
-                storageReference = FirebaseStorage.getInstance().getReference();
-                databaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        databaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
 
-                image = (ImageView) findViewById(R.id.newEventImage);
+        image = (ImageView) findViewById(R.id.newEventImage);
 
         LinearLayout layout0 = (LinearLayout) findViewById(R.id.subLayout);
         layout0.setVisibility(View.GONE);
@@ -313,7 +313,7 @@ public class CreateEvent extends AppCompatActivity {
                     EditText mobNo = (EditText) findViewById(R.id.mobNo);
 
                     //ok
-                    
+
                     Intent intent = getIntent();
                     int count = intent.getIntExtra("COUNT", 0);
                     Log.i("venue" ,et3.getText().toString() );
