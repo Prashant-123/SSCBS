@@ -17,8 +17,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cbs.sscbs.CreateEvent;
@@ -46,7 +44,6 @@ public class Events_Fragment extends Fragment {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public ArrayList<DataClass> data = new ArrayList<>();
-    ImageView imageView;
     int count, i = 1;
     RecyclerView recyclerView;
     private FirebaseDatabase database;
@@ -74,14 +71,6 @@ public class Events_Fragment extends Fragment {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 DataClass newData = dataSnapshot.getValue(DataClass.class);
-//                for (int i = 0; i < data.size(); i++) {
-//                    if (data.get(i).getTime().toString() == newData.getTime().toString()) {
-//                        Toast.makeText(getContext(), "Not Applicable", Toast.LENGTH_SHORT).show();
-//                           break;
-//                    }
-//                    else {
-//                    }
-//                }
 
                 if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
                     newData.setImg(R.drawable.about);
@@ -91,28 +80,6 @@ public class Events_Fragment extends Fragment {
                 data.add(newData);
                 adapter.notifyDataSetChanged();
 
-
-//                data.add(newData);
-//                adapter.notifyDataSetChanged();
-
-//                if (data.size() != 0) {
-//                    for (int i = 0; i < data.size(); i++) {
-//                        Log.i("new time",databaseRef.child("EventThings").child("time").toString());
-//                        Log.i("old time" , data.get(i).getTime().toString());
-//
-//                        if (newData.getTime().toString().compareTo(data.get(i).getTime().toString()) == 0) {
-//                            Toast.makeText(getContext(), "Not Applicable", Toast.LENGTH_SHORT).show();
-//                            break;
-//                        } else {
-//                            data.add(newData);
-//                            adapter.notifyDataSetChanged();
-//                        }
-//                    }
-//                }
-//                else {
-//                    data.add(newData);
-//                    adapter.notifyDataSetChanged();
-//                }
             }
 
             @Override
@@ -121,8 +88,6 @@ public class Events_Fragment extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                Toast.makeText(getContext(), "Event-Deleted", Toast.LENGTH_SHORT).show();
-
 
                 DataClass p0 = dataSnapshot.getValue(DataClass.class);
                 for (int i = 0; i < data.size(); i++) {
@@ -148,7 +113,6 @@ public class Events_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //inflateDescription();
                 LayoutInflater inflater = getLayoutInflater();
                 View alertLayout = inflater.inflate(R.layout.fragment_login, null);
                 final EditText username = alertLayout.findViewById(R.id.User);
@@ -283,23 +247,6 @@ public class Events_Fragment extends Fragment {
         Intent intent = new Intent(getContext(), CreateEvent.class);
         intent.putExtra("COUNT", i);
         startActivity(intent);
-    }
-
-    public void inflateDescription() {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
-
-        final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
-        final TextView link = alertLayout1.findViewById(R.id.tvLink);
-        final TextView mobNo = alertLayout1.findViewById(R.id.tvMobno);
-
-        AlertDialog.Builder alert1 = new AlertDialog.Builder(getContext());
-        alert1.setTitle("Event-Description");
-        alert1.setView(alertLayout1);
-        alert1.setCancelable(true);
-
-        AlertDialog dialog = alert1.create();
-        dialog.show();
     }
 
 }

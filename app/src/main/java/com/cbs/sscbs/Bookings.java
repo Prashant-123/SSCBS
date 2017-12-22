@@ -31,6 +31,13 @@ public class Bookings extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
+        recyclerView = (RecyclerView) findViewById(R.id.rView);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        final EventsAdapter adapter = new EventsAdapter(this, data);
+        recyclerView.setAdapter(adapter);
+
     }
 
 }
