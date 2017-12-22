@@ -312,7 +312,8 @@ public class CreateEvent extends AppCompatActivity {
                     EditText link = (EditText) findViewById(R.id.registrationLink);
                     EditText mobNo = (EditText) findViewById(R.id.mobNo);
 
-
+                    //ok
+                    
                     Intent intent = getIntent();
                     int count = intent.getIntExtra("COUNT", 0);
                     Log.i("venue" ,et3.getText().toString() );
