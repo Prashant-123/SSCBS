@@ -49,6 +49,7 @@ public class CreateEvent extends AppCompatActivity {
     String dateStr, timeStr1, timeStr2, et4, sot;
     int year_x, month_x, date_x;
     int img;
+    Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
     ImageView image;
     TimePickerDialog.OnTimeSetListener t = null;
     private FirebaseDatabase database;

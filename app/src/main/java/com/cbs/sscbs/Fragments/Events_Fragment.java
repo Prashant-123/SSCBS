@@ -45,9 +45,11 @@ public class Events_Fragment extends Fragment {
     public static final String PASSWORD = "password";
     public ArrayList<DataClass> data = new ArrayList<>();
     int count, i = 1;
+    int flag = 0;
     RecyclerView recyclerView;
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
+    DataClass newData;
 
     public Events_Fragment() {
     }
@@ -70,7 +72,14 @@ public class Events_Fragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
-                DataClass newData = dataSnapshot.getValue(DataClass.class);
+                 newData = dataSnapshot.getValue(DataClass.class);
+
+                 for(int i = 0 ; i < data.size();i++){
+                     if (newData.getTime().toString().compareTo(data.get(i).getTime().toString())==0){
+                         Toast.makeText(getContext(), "dasa", Toast.LENGTH_LONG).show();
+                         break;
+                     }
+                 }
 
                 if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
                     newData.setImg(R.drawable.about);
@@ -113,6 +122,7 @@ public class Events_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //inflateDescription();
                 LayoutInflater inflater = getLayoutInflater();
                 View alertLayout = inflater.inflate(R.layout.fragment_login, null);
                 final EditText username = alertLayout.findViewById(R.id.User);
@@ -247,6 +257,30 @@ public class Events_Fragment extends Fragment {
         Intent intent = new Intent(getContext(), CreateEvent.class);
         intent.putExtra("COUNT", i);
         startActivity(intent);
+    }
+
+    public void getTime()
+    {
+//        for(int i = 0 ; i <data.size();i++){
+//            DatabaseReference timeRef = database.getReference("EventThings").child(String.valueOf(i)).child("desc");
+//
+//            timeRef.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    String m = dataSnapshot.getValue(String.class);
+//                    if(m.toString().compareTo()==0){
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                    System.out.println("The read failed: " + databaseError.getCode());
+//                }
+//            });
+
+  //      }
+
     }
 
 }
