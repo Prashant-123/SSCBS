@@ -17,11 +17,11 @@ import java.util.List;
 
 public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyViewHolder> {
 
-    private List<DataClass> objectList;
+    private List<BookingsDataClass> objectList;
     private LayoutInflater inflater;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    public BookingsAdapter(Context context, List<DataClass> objectList) {
+    public BookingsAdapter(Context context, List<BookingsDataClass> objectList) {
         inflater = LayoutInflater.from(context);
         this.objectList = objectList;
     }
@@ -38,7 +38,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Context c;
 
-        final DataClass current = objectList.get(position);
+        final BookingsDataClass current = objectList.get(position);
         holder.setData(current, position);
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -59,13 +59,12 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            this.date = (TextView) itemView.findViewById(R.id.date);
-            this.venue = (TextView) itemView.findViewById(R.id.venue);
-            itemView.setOnClickListener(this);
+            this.date = (TextView) itemView.findViewById(R.id.date_bookings);
+            this.venue = (TextView) itemView.findViewById(R.id.venue_bookings);
 
         }
 
-        public void setData(DataClass currentObject, int position) {
+        public void setData(BookingsDataClass currentObject, int position) {
             this.date.setText(currentObject.getTime());
             this.venue.setText(currentObject.getVenue());
         }
