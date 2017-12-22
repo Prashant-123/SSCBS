@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cbs.sscbs.Bookings;
 import com.cbs.sscbs.CreateEvent;
 import com.cbs.sscbs.DataClass;
 import com.cbs.sscbs.EventsAdapter;
@@ -67,25 +68,28 @@ public class Events_Fragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
+
+
         databaseRef.child("EventThings").orderByChild("sot").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
+                Intent intent = new Intent(getContext(), Bookings.class);
+                intent.putExtra("childCount", count);
                  newData = dataSnapshot.getValue(DataClass.class);
-
-                 for(int i = 0 ; i < data.size();i++){
-                     if (newData.getTime().toString().compareTo(data.get(i).getTime().toString())==0){
-                         Toast.makeText(getContext(), "dasa", Toast.LENGTH_LONG).show();
-                         break;
-                     }
-                 }
-
-                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
-                    newData.setImg(R.drawable.about);
-                } else {
-                    newData.setImg(R.drawable.contact_logo);
-                }
+//                 for(int i = 0 ; i < data.size();i++){
+//                     if (newData.getTime().toString().compareTo(data.get(i).getTime().toString())==0){
+//                         Toast.makeText(getContext(), "dasa", Toast.LENGTH_LONG).show();
+//                         break;
+//                     }
+//                 }
+//
+//                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
+//                    newData.setImg(R.drawable.about);
+//                } else {
+//                    newData.setImg(R.drawable.contact_logo);
+//                }
                 data.add(newData);
                 adapter.notifyDataSetChanged();
 

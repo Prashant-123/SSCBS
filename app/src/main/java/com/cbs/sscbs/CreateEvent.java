@@ -46,6 +46,10 @@ public class CreateEvent extends AppCompatActivity {
     final Calendar cal = Calendar.getInstance();
     final Calendar time = Calendar.getInstance();
 
+    private int CalendarHour, CalendarMinute;
+    String format;
+    Calendar calendar;
+    TimePickerDialog timepickerdialog;
     String dateStr, timeStr1, timeStr2, et4, sot;
     int year_x, month_x, date_x;
     int img;
@@ -56,20 +60,8 @@ public class CreateEvent extends AppCompatActivity {
     private StorageReference storageReference;
     private DatabaseReference databaseRef;
     private Uri imgUri;
-    private DatePickerDialog.OnDateSetListener dpickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            date_x = dayOfMonth;
-            month_x = month;
-            year_x = year;
-            dateStr = " " + date_x + " " + theMonth(month_x) + " " + year_x + ", ";
-            int newMonth = month + 1;
-            sot = year + "" + newMonth + "-" + dayOfMonth;
-            Log.i("tag", sot);
-            updateTime(0);
-            updateTime(1);
-        }
-    };
+
+    DatePickerDialog.OnDateSetListener dpickerListener;
 
     public static String theMonth(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -84,6 +76,29 @@ public class CreateEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+         dpickerListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                date_x = dayOfMonth;
+                month_x = month;
+                year_x = year;
+
+                dateStr = " " + date_x + " " + theMonth(month_x) + " " + year_x + ", ";
+                int newMonth = month + 1;
+                sot = year + "" + newMonth + "-" + dayOfMonth;
+                Log.i("tag", sot);
+                et4 = dateStr;
+                Toast.makeText(CreateEvent.this, dateStr, Toast.LENGTH_SHORT).show();
+//            updateTime(0);
+//            updateTime(1);
+            }
+        };
+
+
+
+
 
                 storageReference = FirebaseStorage.getInstance().getReference();
                 databaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
@@ -128,6 +143,112 @@ public class CreateEvent extends AppCompatActivity {
         month_x = cal.get(Calendar.MONTH);
         date_x = cal.get(Calendar.DAY_OF_MONTH);
         showDialoguOnButtonClick();
+
+
+
+        findViewById(R.id.startTime).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                calendar = Calendar.getInstance();
+                CalendarHour = calendar.get(Calendar.HOUR_OF_DAY);
+                CalendarMinute = calendar.get(Calendar.MINUTE);
+
+
+                timepickerdialog = new TimePickerDialog(v.getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                if (hourOfDay == 0) {
+
+                                    hourOfDay += 12;
+
+                                    format = "AM";
+                                }
+                                else if (hourOfDay == 12) {
+
+                                    format = "PM";
+
+                                }
+                                else if (hourOfDay > 12) {
+
+                                    hourOfDay -= 12;
+
+                                    format = "PM";
+
+                                }
+                                else {
+
+                                    format = "AM";
+                                }
+
+                                timeStr1 = hourOfDay + ":" + minute + format;
+//                                Toast.makeText(CreateEvent.this, timeStr1, Toast.LENGTH_SHORT).show();
+                            }
+                        }, CalendarHour, CalendarMinute, false);
+                timepickerdialog.show();
+
+            }
+        });
+
+
+
+
+
+
+        findViewById(R.id.endTime).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                calendar = Calendar.getInstance();
+                CalendarHour = calendar.get(Calendar.HOUR_OF_DAY);
+                CalendarMinute = calendar.get(Calendar.MINUTE);
+
+
+                timepickerdialog = new TimePickerDialog(v.getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                if (hourOfDay == 0) {
+
+                                    hourOfDay += 12;
+
+                                    format = "AM";
+                                }
+                                else if (hourOfDay == 12) {
+
+                                    format = "PM";
+
+                                }
+                                else if (hourOfDay > 12) {
+
+                                    hourOfDay -= 12;
+
+                                    format = "PM";
+
+                                }
+                                else {
+
+                                    format = "AM";
+                                }
+
+                                timeStr2 = hourOfDay + ":" + minute + format;
+//                                Toast.makeText(CreateEvent.this, timeStr2, Toast.LENGTH_SHORT).show();
+                            }
+                        }, CalendarHour, CalendarMinute, false);
+                timepickerdialog.show();
+
+            }
+        });
+
     }
 
     public void showDialoguOnButtonClick()
@@ -148,11 +269,8 @@ public class CreateEvent extends AppCompatActivity {
         return null;
     }
 
-    private void updateTime(int i)
+    private void updateTime(final int i)
     { new TimePickerDialog(this, t, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), false).show();
-        time(i);}
-
-    private void time(final int i) {
         t = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -163,13 +281,16 @@ public class CreateEvent extends AppCompatActivity {
                     timeStr1 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
                 if(i==1)
                     timeStr2 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
-                et4= dateStr + timeStr1 + timeStr2;
+                et4= timeStr1 + timeStr2;
             }
         };
     }
 
     public void save(View view)
     {
+        et4 = dateStr + timeStr1 + timeStr2;
+        Toast.makeText(this, et4, Toast.LENGTH_SHORT).show();
+
         if (imgUri != null) {
             final ProgressDialog dialogue = new ProgressDialog(this);
             dialogue.setTitle("Uploading...");
@@ -182,6 +303,7 @@ public class CreateEvent extends AppCompatActivity {
 
                     dialogue.dismiss();
                     Toast.makeText(CreateEvent.this, "Image-Uploaded", Toast.LENGTH_SHORT).show();
+
 
                     EditText et1 = (EditText) findViewById(R.id.newTitle);
                     EditText et2 = (EditText) findViewById(R.id.newOrganiser);
