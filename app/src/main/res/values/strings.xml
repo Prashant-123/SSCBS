@@ -24,6 +24,10 @@
     //firebas ui strings
 
 
+    <string name="description_image_2">Image 2</string>
+    <string name="description_zoom_touch_close">Expanded image (touch to close)</string>
+    <string name="description_image_1">Image 1</string>
+
     <string name="name_chat">ChatActivity</string>
     <string name="name_image">Storage Image Demo</string>
     <string name="bmsFirstYear">bmsFirstYear</string>

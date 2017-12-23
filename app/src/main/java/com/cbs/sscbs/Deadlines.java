@@ -17,7 +17,7 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-public class Deadlines extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
+public class Deadlines extends AppCompatActivity {
 
     Button button ;
     @Override
@@ -29,37 +29,37 @@ public class Deadlines extends AppCompatActivity implements TimePickerDialog.OnT
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        button = (Button)findViewById(R.id.timePicker);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(),"timePicker");
-
-            }
-        });
+//        button = (Button)findViewById(R.id.timePicker);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogFragment timePicker = new TimePickerFragment();
+//                timePicker.show(getSupportFragmentManager(),"timePicker");
+//
+//            }
+//        });
     }
 
     private void setToolbar() {
 
     }
 
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-        calendar.set(Calendar.MINUTE,minute);
-        startAlarm(calendar);
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private void startAlarm(Calendar time) {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(),AlertReciever.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext() , 1, intent ,0);
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP , time.getTimeInMillis(),pendingIntent);
-
-    }
+//
+//    @Override
+//    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+//        calendar.set(Calendar.MINUTE,minute);
+//        startAlarm(calendar);
+//    }
+//
+//    @TargetApi(Build.VERSION_CODES.KITKAT)
+//    private void startAlarm(Calendar time) {
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        Intent intent = new Intent(getApplicationContext(),AlertReciever.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext() , 1, intent ,0);
+//
+//        alarmManager.setExact(AlarmManager.RTC_WAKEUP , time.getTimeInMillis(),pendingIntent);
+//
+//    }
 }

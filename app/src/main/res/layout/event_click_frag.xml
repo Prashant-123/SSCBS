@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -16,31 +17,45 @@
             android:layout_gravity="center"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvDesc"
+            android:gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#610B21"
             android:layout_gravity="center"
             android:text="Description"
-            android:textSize="18dp"
-            android:layout_marginTop="20dp"/>
+            android:textSize="16dp"
+            android:textStyle="bold|italic"
+           />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Link"
             android:linksClickable="true"
             android:layout_gravity="center"
             android:textSize="18dp"
-            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#610B21"
             android:id="@+id/tvLink"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mobile No"
             android:textSize="18dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#610B21"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:id="@+id/tvMobno"/>
 
     </LinearLayout>

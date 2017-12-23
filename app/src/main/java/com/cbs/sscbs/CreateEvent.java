@@ -214,10 +214,10 @@ public class CreateEvent extends AppCompatActivity {
                         }, CalendarHour, CalendarMinute, false);
                 //startAlarm(calendar);
                 timepickerdialog.show();
-                Calendar c = Calendar.getInstance();
-                c.set(Calendar.HOUR_OF_DAY, CalendarHour);
-                c.set(Calendar.MINUTE, CalendarMinute);
-                startAlarm(c);
+//                Calendar c = Calendar.getInstance();
+//                c.set(Calendar.HOUR_OF_DAY, CalendarHour);
+//                c.set(Calendar.MINUTE, CalendarMinute);
+//                startAlarm(c);
             }
 
         });
