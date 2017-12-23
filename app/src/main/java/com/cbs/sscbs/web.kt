@@ -11,14 +11,6 @@ class web : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
 
-        val intent = intent
-        val bd = intent.extras
-        var add: String? = null
-        if (bd != null) {
-            add = bd.get("web_add") as String
-        }
-
-
         val browser = findViewById<WebView>(R.id.webView) as WebView
         browser.settings.javaScriptEnabled = true
         browser.webViewClient = MyBrowser()
@@ -27,7 +19,7 @@ class web : AppCompatActivity() {
         browser.settings.setSupportMultipleWindows(true)
         browser.settings.useWideViewPort = true
         browser.isHorizontalScrollBarEnabled = true
-        browser.loadUrl(add)
+        browser.loadUrl("http://sscbs.bestbookbuddies.com/cgi-bin/koha/question-papers.pl")
     }
 
 

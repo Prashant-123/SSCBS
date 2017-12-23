@@ -78,6 +78,7 @@ public class Events_Fragment extends Fragment {
 
                 Intent intent = new Intent(getContext(), Bookings.class);
                 intent.putExtra("childCount", count);
+                Toast.makeText(getContext(), "Children-- " + count, Toast.LENGTH_SHORT).show();
                  newData = dataSnapshot.getValue(DataClass.class);
 //                 for(int i = 0 ; i < data.size();i++){
 //                     if (newData.getTime().toString().compareTo(data.get(i).getTime().toString())==0){
