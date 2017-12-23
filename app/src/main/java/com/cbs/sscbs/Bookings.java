@@ -68,7 +68,7 @@ public class Bookings extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String t = dataSnapshot.getValue(String.class);
                              String a = t.substring(18, 26);
-                             String b = t.substring(26, 32);
+                             String b = t.substring(26, 30);
                              String time = a + " to " + b;
 
 

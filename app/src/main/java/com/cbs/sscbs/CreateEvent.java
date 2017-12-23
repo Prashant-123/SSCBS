@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -181,31 +180,35 @@ public class CreateEvent extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
+//
+//                                if (hourOfDay == 0) {
+//
+//                                    hourOfDay += 12;
+//
+//                                    format = "AM";
+//                                }
+//                                else if (hourOfDay == 12) {
+//
+//                                    format = "PM";
+//
+//                                }
+//                                else if (hourOfDay > 12) {
+//
+//                                    hourOfDay -= 12;
+//
+//                                    format = "PM";
+//
+//                                }
+//                                else {
+//
+//                                    format = "AM";
+//                                }
 
-                                if (hourOfDay == 0) {
+                                int hour = hourOfDay%12;
 
-                                    hourOfDay += 12;
+                                timeStr1 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
 
-                                    format = "AM";
-                                }
-                                else if (hourOfDay == 12) {
 
-                                    format = "PM";
-
-                                }
-                                else if (hourOfDay > 12) {
-
-                                    hourOfDay -= 12;
-
-                                    format = "PM";
-
-                                }
-                                else {
-
-                                    format = "AM";
-                                }
-
-                                timeStr1 = hourOfDay + ":" + minute + format;
 //                                Toast.makeText(CreateEvent.this, timeStr1, Toast.LENGTH_SHORT).show();
                             }
                         }, CalendarHour, CalendarMinute, false);
@@ -231,35 +234,36 @@ public class CreateEvent extends AppCompatActivity {
 
                 timepickerdialog = new TimePickerDialog(v.getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
-
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                if (hourOfDay == 0) {
+                                int hour = hourOfDay%12;
 
-                                    hourOfDay += 12;
+                                timeStr2 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
 
-                                    format = "AM";
-                                }
-                                else if (hourOfDay == 12) {
-
-                                    format = "PM";
-
-                                }
-                                else if (hourOfDay > 12) {
-
-                                    hourOfDay -= 12;
-
-                                    format = "PM";
-
-                                }
-                                else {
-
-                                    format = "AM";
-                                }
-
-                                timeStr2 = hourOfDay + ":" + minute + format;
+//                                if (hourOfDay == 0) {
+//
+//                                    hourOfDay += 12;
+//
+//                                    format = "AM";
+//                                }
+//                                else if (hourOfDay == 12) {
+//
+//                                    format = "PM";
+//
+//                                }
+//                                else if (hourOfDay > 12) {
+//
+//                                    hourOfDay -= 12;
+//
+//                                    format = "PM";
+//
+//                                }
+//                                else {
+//
+//                                    format = "AM";
+//                                }
 //                                Toast.makeText(CreateEvent.this, timeStr2, Toast.LENGTH_SHORT).show();
                             }
                         }, CalendarHour, CalendarMinute, false);
