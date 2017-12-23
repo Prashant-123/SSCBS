@@ -88,14 +88,14 @@ public class CreateEvent extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        notificationBtn = (Button) findViewById(R.id.notificationBtn);
-        mNotificationHelper = new NotificationHelper(this);
-        notificationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendOnChannel1("hi" , "bye");
-            }
-        });
+//        notificationBtn = (Button) findViewById(R.id.notificationBtn);
+//        mNotificationHelper = new NotificationHelper(this);
+//        notificationBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sendOnChannel1("hi" , "bye");
+//            }
+//        });
         dpickerListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -269,10 +269,10 @@ public class CreateEvent extends AppCompatActivity {
 
     }
 
-    private void sendOnChannel1(String title , String message) {
-        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(title,message);
-        mNotificationHelper.getManager().notify(1,nb.build());
-    }
+//    private void sendOnChannel1(String title , String message) {
+//        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(title,message);
+//        mNotificationHelper.getManager().notify(1,nb.build());
+//    }
 
     public void showDialoguOnButtonClick()
     {
