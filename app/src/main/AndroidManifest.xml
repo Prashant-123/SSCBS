@@ -95,6 +95,7 @@
         <service android:name=".NotifyService" />
 
         <receiver android:name=".AlarmReceiver"/>
+        <receiver android:name=".AlertReciever" />
 
     </application>
 

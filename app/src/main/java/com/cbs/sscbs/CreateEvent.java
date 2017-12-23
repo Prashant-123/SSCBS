@@ -212,9 +212,14 @@ public class CreateEvent extends AppCompatActivity {
 //                                Toast.makeText(CreateEvent.this, timeStr1, Toast.LENGTH_SHORT).show();
                             }
                         }, CalendarHour, CalendarMinute, false);
+                //startAlarm(calendar);
                 timepickerdialog.show();
-                startAlarm(time);
+                Calendar c = Calendar.getInstance();
+                c.set(Calendar.HOUR_OF_DAY, CalendarHour);
+                c.set(Calendar.MINUTE, CalendarMinute);
+                startAlarm(c);
             }
+
         });
 
 
