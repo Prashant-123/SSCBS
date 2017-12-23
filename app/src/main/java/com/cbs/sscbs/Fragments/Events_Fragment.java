@@ -75,6 +75,7 @@ public class Events_Fragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
+
                 Intent intent = new Intent(getContext(), Bookings.class);
                 intent.putExtra("childCount", count);
                  newData = dataSnapshot.getValue(DataClass.class);

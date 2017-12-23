@@ -1,21 +1,28 @@
 package com.cbs.sscbs;
 
+import android.annotation.TargetApi;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,7 +68,10 @@ public class CreateEvent extends AppCompatActivity {
     private DatabaseReference databaseRef;
     private Uri imgUri;
 
+    Button notificationBtn ;
     DatePickerDialog.OnDateSetListener dpickerListener;
+
+    private NotificationHelper mNotificationHelper;
 
     public static String theMonth(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -78,6 +88,14 @@ public class CreateEvent extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        notificationBtn = (Button) findViewById(R.id.notificationBtn);
+        mNotificationHelper = new NotificationHelper(this);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendOnChannel1("hi" , "bye");
+            }
+        });
         dpickerListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -191,7 +209,7 @@ public class CreateEvent extends AppCompatActivity {
                             }
                         }, CalendarHour, CalendarMinute, false);
                 timepickerdialog.show();
-
+                startAlarm(time);
             }
         });
 
@@ -251,6 +269,11 @@ public class CreateEvent extends AppCompatActivity {
 
     }
 
+    private void sendOnChannel1(String title , String message) {
+        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(title,message);
+        mNotificationHelper.getManager().notify(1,nb.build());
+    }
+
     public void showDialoguOnButtonClick()
     {
         findViewById(R.id.newTime).setOnClickListener(new View.OnClickListener() {
@@ -282,8 +305,19 @@ public class CreateEvent extends AppCompatActivity {
                 if(i==1)
                     timeStr2 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
                 et4= timeStr1 + timeStr2;
+
             }
         };
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void startAlarm(Calendar time) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(),AlertReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext() , 1, intent ,0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP , time.getTimeInMillis(),pendingIntent);
+
     }
 
     public void save(View view)
