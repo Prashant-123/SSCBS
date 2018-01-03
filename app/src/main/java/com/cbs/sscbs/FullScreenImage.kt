@@ -3,6 +3,7 @@ package com.cbs.sscbs
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
+import com.cbs.sscbs.DataClass.CONSTANTS
 import com.github.chrisbanes.photoview.PhotoView
 import com.squareup.picasso.Picasso
 

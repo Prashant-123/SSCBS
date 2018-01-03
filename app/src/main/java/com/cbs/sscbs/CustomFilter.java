@@ -2,6 +2,8 @@ package com.cbs.sscbs;
 
 import android.widget.Filter;
 
+import com.cbs.sscbs.DataClass.Teacher;
+
 import java.util.ArrayList;
 
 /**
@@ -10,9 +12,9 @@ import java.util.ArrayList;
 
 public class CustomFilter extends Filter {
 
-    MyAdapter adapter ;
+    TeachersAdapter adapter ;
     ArrayList<Teacher> filterList ;
-    public CustomFilter(ArrayList<Teacher> filterList, MyAdapter adapter)
+    public CustomFilter(ArrayList<Teacher> filterList, TeachersAdapter adapter)
     {
 
         this.adapter = adapter;

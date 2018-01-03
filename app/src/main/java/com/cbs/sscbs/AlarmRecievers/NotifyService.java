@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.AlarmRecievers;
 
 import android.app.Service;
 
@@ -10,13 +10,10 @@ import android.R;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-
-import com.cbs.sscbs.SecondActivity;
 
 public class NotifyService extends Service{
 

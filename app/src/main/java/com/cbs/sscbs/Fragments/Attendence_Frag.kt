@@ -8,15 +8,10 @@ import android.view.ViewGroup
 import com.cbs.sscbs.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-/**
- * Created by gautam on 19/2/17.
- */
-
 class Attendence_Frag : Fragment() {
 
 
     internal var bundle: Bundle? = null
-
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.paper_fragment, container, false)

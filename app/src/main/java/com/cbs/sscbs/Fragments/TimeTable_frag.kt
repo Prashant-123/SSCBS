@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.*
+import com.cbs.sscbs.DataClass.CONSTANTS
 import com.cbs.sscbs.R
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback

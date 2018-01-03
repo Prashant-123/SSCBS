@@ -1,9 +1,10 @@
-package com.cbs.sscbs
+package com.cbs.sscbs.utils
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.cbs.sscbs.R
 
 class web : AppCompatActivity() {
 

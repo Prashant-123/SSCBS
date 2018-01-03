@@ -1,12 +1,4 @@
-package com.cbs.sscbs;
-
-import android.app.Service;
-
-/**
- * Created by Tanya on 12/21/2017.
- */
-
-import java.util.Calendar;
+package com.cbs.sscbs.AlarmRecievers;
 
 import android.app.Service;
 import android.content.Intent;
@@ -14,7 +6,11 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.cbs.sscbs.AlarmTask;
+import java.util.Calendar;
+
+/**
+ * Created by Tanya on 12/21/2017.
+ */
 
 public class ScheduleService extends Service{
     /**

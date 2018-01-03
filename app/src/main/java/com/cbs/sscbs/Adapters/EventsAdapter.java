@@ -1,28 +1,17 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.Adapters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Matrix;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.chrisbanes.photoview.PhotoView;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
+import com.cbs.sscbs.DataClass.DataClass;
+import com.cbs.sscbs.ItemClickListener;
+import com.cbs.sscbs.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 //
-// import static com.cbs.sscbs.CONSTANTS.imageurl;
+// import static com.cbs.sscbs.DataClass.CONSTANTS.imageurl;
 
 /**
  * Created by Prashant on 25-11-2017.

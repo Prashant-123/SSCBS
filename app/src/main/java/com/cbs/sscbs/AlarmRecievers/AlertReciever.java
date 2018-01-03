@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.AlarmRecievers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

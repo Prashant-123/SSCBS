@@ -67,7 +67,7 @@
             android:name=".FullScreenImage"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".web" />
+        <activity android:name=".utils.web" />
         <activity
             android:name=".Contact_us"
             android:label="Contact Details"
@@ -89,13 +89,13 @@
             android:label="All Bookings"
             android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".SecondActivity" />
+        <activity android:name=".AlarmRecievers.SecondActivity" />
 
-        <service android:name=".ScheduleService" />
-        <service android:name=".NotifyService" />
+        <service android:name=".AlarmRecievers.ScheduleService" />
+        <service android:name=".AlarmRecievers.NotifyService" />
 
-        <receiver android:name=".AlarmReceiver"/>
-        <receiver android:name=".AlertReciever" />
+        <receiver android:name=".AlarmRecievers.AlarmReceiver"/>
+        <receiver android:name=".AlarmRecievers.AlertReciever" />
 
     </application>
 

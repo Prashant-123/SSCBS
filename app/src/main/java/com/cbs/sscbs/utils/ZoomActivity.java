@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.utils;
 
 import android.animation.Animator;
 import android.support.v4.app.FragmentActivity;

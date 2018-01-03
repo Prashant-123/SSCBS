@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.AlarmRecievers;
 
 /**
  * Created by Tanya on 12/21/2017.
@@ -10,8 +10,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-
-import com.cbs.sscbs.NotifyService;
 
 public class AlarmTask implements Runnable {
     // The date selected for the alarm

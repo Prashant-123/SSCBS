@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 import com.cbs.sscbs.Bookings;
 import com.cbs.sscbs.CreateEvent;
-import com.cbs.sscbs.DataClass;
-import com.cbs.sscbs.EventsAdapter;
+import com.cbs.sscbs.DataClass.DataClass;
+import com.cbs.sscbs.Adapters.EventsAdapter;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;

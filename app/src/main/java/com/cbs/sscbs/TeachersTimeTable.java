@@ -10,6 +10,8 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.cbs.sscbs.DataClass.Teacher;
+
 import java.util.ArrayList;
 
 public class TeachersTimeTable extends AppCompatActivity {
@@ -38,7 +40,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setItemAnimator(new DefaultItemAnimator());
 
-        final MyAdapter adapter = new MyAdapter(this , getTeachers()) ;
+        final TeachersAdapter adapter = new TeachersAdapter(this , getTeachers()) ;
         rv.setAdapter(adapter);
 
         sv.setOnClickListener(new View.OnClickListener() {

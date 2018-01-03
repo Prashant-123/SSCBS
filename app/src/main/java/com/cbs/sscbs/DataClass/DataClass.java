@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.DataClass;
 
 /**
  * Created by Prashant on 25-11-2017.
@@ -6,14 +6,8 @@ package com.cbs.sscbs;
 
 public class DataClass {
 
-    private String title;
-    private String organiser;
-    private String venue;
-    private String time;
-    private String sot;
-    private String desc;
-    private String link;
-    private String mobNo;
+    private String title, organiser, venue, time, sot, desc, link, mobNo, imageUrl;
+    private int img, delId;
 
     public String getImageUrl() {
         return imageUrl;
@@ -23,16 +17,12 @@ public class DataClass {
         this.imageUrl = imageUrl;
     }
 
-    private String imageUrl;
-    private int img;
-
     public int getDelId() {
         return delId;
     }
     public void setDelId(int delId) {
         this.delId = delId;
     }
-    private int delId;
     public DataClass() {}
 
     public String getSot() {
@@ -64,20 +54,6 @@ public class DataClass {
     }
 
     public void setMobNo(String mobNo) {
-        this.mobNo = mobNo;
-    }
-
-    public DataClass(String title, String organiser, String venue, String time, String sot , int img, int delId, String desc, String link, String mobNo, String imageUrl) {
-        this.title = title;
-        this.organiser = organiser;
-        this.venue = venue;
-        this.time = time;
-        this.sot = sot;
-        this.img = img ;
-        this.delId = delId;
-        this.desc = desc;
-        this.link = link;
-        this.imageUrl = imageUrl;
         this.mobNo = mobNo;
     }
 
@@ -118,4 +94,20 @@ public class DataClass {
     public void setTime(String time) {
         this.time = time;
     }
+
+
+    public DataClass(String title, String organiser, String venue, String time, String sot , int img, int delId, String desc, String link, String mobNo, String imageUrl) {
+        this.title = title;
+        this.organiser = organiser;
+        this.venue = venue;
+        this.time = time;
+        this.sot = sot;
+        this.img = img ;
+        this.delId = delId;
+        this.desc = desc;
+        this.link = link;
+        this.imageUrl = imageUrl;
+        this.mobNo = mobNo;
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.DataClass;
 
 public class Teacher {
 

@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.AlarmRecievers;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.cbs.sscbs.Fragments.Events_Fragment;
+import com.cbs.sscbs.R;
 
 import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 

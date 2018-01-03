@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.AlarmRecievers;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -10,6 +10,9 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+
+import com.cbs.sscbs.MainActivity;
+import com.cbs.sscbs.R;
 
 /**
  * Created by Tanya on 12/22/2017.

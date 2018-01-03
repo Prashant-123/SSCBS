@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.DataClass;
 
 /**
  * Created by Prashant on 22-12-2017.

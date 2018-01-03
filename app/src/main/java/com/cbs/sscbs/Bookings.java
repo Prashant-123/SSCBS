@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
+import com.cbs.sscbs.Adapters.BookingsAdapter;
+import com.cbs.sscbs.DataClass.BookingsDataClass;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,8 +26,6 @@ public class Bookings extends AppCompatActivity {
     ImageView imageView ;
     int count, i=1;
 
-    String venue1, time1;
-
     RecyclerView recyclerView;
 
     public ArrayList<BookingsDataClass> data = new ArrayList<>();
@@ -40,7 +40,6 @@ public class Bookings extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-
         recyclerView = (RecyclerView) findViewById(R.id.bookingRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -53,8 +52,8 @@ public class Bookings extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        int child = intent.getIntExtra("childCount", 0);
-        for (int i=1; i<=2; i++) {
+//        int child = intent.getIntExtra("childCount", 0);
+        for (int i=1; i<=6; i++) {
             DatabaseReference venue = database.getReference("EventThings").child(String.valueOf(i)).child("venue");
             final DatabaseReference time = database.getReference("EventThings").child(String.valueOf(i)).child("time");
 

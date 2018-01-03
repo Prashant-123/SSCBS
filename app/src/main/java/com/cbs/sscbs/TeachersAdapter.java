@@ -9,19 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.cbs.sscbs.DataClass.Teacher;
+
 import java.util.ArrayList;
 
 /**
  * Created by Tanya on 11/15/2017.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filterable {
+public class TeachersAdapter extends RecyclerView.Adapter<MyHolder> implements Filterable {
 
     Context c;
     ArrayList<Teacher> teachers , filterList;
     CustomFilter filter;
 
-    public MyAdapter(Context ctx , ArrayList<Teacher> teachers)
+    public TeachersAdapter(Context ctx , ArrayList<Teacher> teachers)
     {
         this.c = ctx ;
         this.teachers = teachers ;
