@@ -52,6 +52,8 @@ import java.util.List;
     private List<DataClass> objectList;
     private LayoutInflater inflater;
      ImageView imageView;
+
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public EventsAdapter(Context context, List<DataClass> objectList) {
