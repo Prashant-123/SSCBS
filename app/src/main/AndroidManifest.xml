@@ -99,7 +99,16 @@
         <receiver android:name=".AlarmRecievers.AlarmReceiver" />
         <receiver android:name=".AlarmRecievers.AlertReciever" />
 
-        <activity android:name=".Studentteach"></activity>
+        <activity android:name=".Studentteach" />
+        <activity android:name=".STA" />
+        <activity
+            android:name=".STa"
+            android:label="@string/title_activity_sta"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".st" />
+        <activity android:name=".Student" />
+        <activity android:name=".Teacher" />
+        <activity android:name=".Admin"></activity>
     </application>
 
 </manifest>

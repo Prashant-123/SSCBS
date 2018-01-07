@@ -11,11 +11,11 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_about"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#610B21"
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="#610B21"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_height="wrap_content" />
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
     <LinearLayout
