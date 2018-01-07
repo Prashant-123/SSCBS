@@ -16,9 +16,16 @@
         android:background="#610B21"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_height="wrap_content" />
+
+    <ViewSwitcher
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </ViewSwitcher>
+
     <Button
+        android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time Picker"
-        android:id="@+id/timePicker"/>
+        android:text="Time Picker" />
 </LinearLayout>

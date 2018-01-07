@@ -3,11 +3,14 @@
     package="com.cbs.sscbs">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
     <uses-permission
         android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
         android:protectionLevel="signature" />
@@ -24,8 +27,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:label="Home">
+            android:label="Home"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,17 +43,17 @@
         <activity
             android:name=".Sample"
             android:label="Info"
-            android:parentActivityName=".TeachersTimeTable"/>
-
-
+            android:parentActivityName=".TeachersTimeTable" />
         <activity
             android:name=".About_Activity"
             android:label="About Us"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".LifeAtCbs"
+        <activity
+            android:name=".LifeAtCbs"
             android:label="Life At CBS"
-            android:parentActivityName=".About_Activity"/>
-        <activity android:name=".Facilities"
+            android:parentActivityName=".About_Activity" />
+        <activity
+            android:name=".Facilities"
             android:label="Facilities"
             android:parentActivityName=".About_Activity" />
         <activity
@@ -72,10 +75,10 @@
             android:name=".Contact_us"
             android:label="Contact Details"
             android:parentActivityName=".About_Activity" />
-
-        <activity android:name=".CreateEvent"
+        <activity
+            android:name=".CreateEvent"
             android:label="Create New Event"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Deadlines"
             android:label="Deadlines"
@@ -88,15 +91,15 @@
             android:name=".Bookings"
             android:label="All Bookings"
             android:parentActivityName=".MainActivity" />
-
         <activity android:name=".AlarmRecievers.SecondActivity" />
 
         <service android:name=".AlarmRecievers.ScheduleService" />
         <service android:name=".AlarmRecievers.NotifyService" />
 
-        <receiver android:name=".AlarmRecievers.AlarmReceiver"/>
+        <receiver android:name=".AlarmRecievers.AlarmReceiver" />
         <receiver android:name=".AlarmRecievers.AlertReciever" />
 
+        <activity android:name=".Studentteach"></activity>
     </application>
 
 </manifest>
