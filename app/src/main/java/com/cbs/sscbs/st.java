@@ -3,6 +3,7 @@ package com.cbs.sscbs;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
 public class st extends AppCompatActivity {
@@ -12,7 +13,9 @@ public class st extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_st);
     }
-      public void adminac()
+ 
+
+    public void adminac()
       {
           Intent adm = new Intent(this,Admin.class);
         startActivity(adm);}
