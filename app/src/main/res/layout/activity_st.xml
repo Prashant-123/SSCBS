@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#610B21"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        android:background="@drawable/AA"
+        android:alpha="0.8"
+        android:id="@+id/admin"
+        android:text="Admin"
+        android:onClick="adminac"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+
+        android:onClick="teacherac"
+        android:id="@+id/teacher"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        android:background="@drawable/teachers"
+        android:alpha="0.8"
+        android:text="Teachers"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Students"
+        android:id="@+id/stud"
+        android:textSize="40dp"
+        android:onClick="studac"
+        android:alpha="0.9"
+        android:textColor="@color/white"
+        android:background="@drawable/stud"
+        />
+
+</LinearLayout>
