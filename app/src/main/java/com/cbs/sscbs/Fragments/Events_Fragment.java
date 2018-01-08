@@ -76,9 +76,9 @@ public class Events_Fragment extends Fragment {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
 
-                Intent intent = new Intent(getContext(), Bookings.class);
-                intent.putExtra("childCount", count);
-                Toast.makeText(getContext(), "Children-- " + count, Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getContext(), Bookings.class);
+//                intent.putExtra("childCount", count);
+//                Toast.makeText(getContext(), "Children-- " + count, Toast.LENGTH_SHORT).show();
                  newData = dataSnapshot.getValue(DataClass.class);
 //                 for(int i = 0 ; i < data.size();i++){
 //                     if (newData.getTime().toString().compareTo(data.get(i).getTime().toString())==0){
@@ -87,11 +87,11 @@ public class Events_Fragment extends Fragment {
 //                     }
 //                 }
 //
-//                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
-//                    newData.setImg(R.drawable.about);
-//                } else {
-//                    newData.setImg(R.drawable.contact_logo);
-//                }
+                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
+                    newData.setImg(R.drawable.about);
+                } else {
+                    newData.setImg(R.drawable.contact_logo);
+                }
                 data.add(newData);
                 adapter.notifyDataSetChanged();
 
