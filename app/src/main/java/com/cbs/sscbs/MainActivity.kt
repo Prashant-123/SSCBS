@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                             ft.replace(R.id.main_Frame, main_fragment).commit()
                         }
                         R.id.ic_attendence -> {
-                            val pf = Attendence_Frag()
+                            val pf = Attendance_Frag()
                             val fm = fragmentManager.beginTransaction()
                             fm.replace(R.id.main_Frame, pf).commit()
                         }
