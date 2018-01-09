@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.Attendance;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

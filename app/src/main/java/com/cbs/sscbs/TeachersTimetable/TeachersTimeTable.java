@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.TeachersTimetable;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.cbs.sscbs.DataClass.Teacher;
+import com.cbs.sscbs.R;
 
 import java.util.ArrayList;
 

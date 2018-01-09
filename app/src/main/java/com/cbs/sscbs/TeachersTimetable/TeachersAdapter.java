@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.TeachersTimetable;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.cbs.sscbs.Others.CustomFilter;
 import com.cbs.sscbs.DataClass.Teacher;
+import com.cbs.sscbs.R;
+import com.cbs.sscbs.utils.ItemClickListener;
 
 import java.util.ArrayList;
 
@@ -20,7 +23,8 @@ import java.util.ArrayList;
 public class TeachersAdapter extends RecyclerView.Adapter<MyHolder> implements Filterable {
 
     Context c;
-    ArrayList<Teacher> teachers , filterList;
+    public ArrayList<Teacher> teachers;
+    ArrayList<Teacher> filterList;
     CustomFilter filter;
 
     public TeachersAdapter(Context ctx , ArrayList<Teacher> teachers)

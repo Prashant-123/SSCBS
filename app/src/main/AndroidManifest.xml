@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Others.MainActivity"
             android:label="SSCBS"
             android:launchMode="singleTop">
             <intent-filter>
@@ -36,67 +36,66 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TeachersTimeTable"
+            android:name=".TeachersTimetable.TeachersTimeTable"
             android:label="Teacher&apos;s Time Table"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Model" />
+        <activity android:name=".TeachersTimetable.Model" />
         <activity
-            android:name=".Sample"
+            android:name=".TeachersTimetable.Sample"
             android:label="Info"
-            android:parentActivityName=".TeachersTimeTable" />
+            android:parentActivityName=".TeachersTimetable.TeachersTimeTable" />
         <activity
-            android:name=".About_Activity"
+            android:name=".Others.About_Activity"
             android:label="About Us"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".LifeAtCbs"
+            android:name=".Others.LifeAtCbs"
             android:label="Life At CBS"
-            android:parentActivityName=".About_Activity" />
-        <activity android:name=".AttendanceMain"
+            android:parentActivityName=".Others.About_Activity" />
+        <activity android:name=".Attendance.AttendanceMain"
             android:label="Attendance"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".Others.MainActivity"/>
         <activity
-            android:name=".Facilities"
+            android:name=".Others.Facilities"
             android:label="Facilities"
-            android:parentActivityName=".About_Activity" />
+            android:parentActivityName=".Others.About_Activity" />
         <activity
-            android:name=".Developers"
+            android:name=".Others.Developers"
             android:label="Developers"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Gallery_Activity"
+            android:name=".Others.Gallery_Activity"
             android:label="GALLERY"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
         <activity android:name=".auth.SignedInActivity" />
         <activity
-            android:name=".FullScreenImage"
+            android:name=".Others.FullScreenImage"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".utils.web" />
         <activity
-            android:name=".Contact_us"
+            android:name=".Others.Contact_us"
             android:label="Contact Details"
-            android:parentActivityName=".About_Activity" />
+            android:parentActivityName=".Others.About_Activity" />
         <activity
-            android:name=".CreateEvent"
+            android:name=".Others.CreateEvent"
             android:label="Create New Event"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Deadlines"
+            android:name=".Others.Deadlines"
             android:label="Deadlines"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Grievances"
+            android:name=".Others.Grievances"
             android:label="Grievances"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Bookings"
+            android:name=".Others.Bookings"
             android:label="All Bookings"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".Student" />
-        <activity android:name=".Teacher" />
-        <activity android:name=".Admin"></activity>
+            android:parentActivityName=".Others.MainActivity" />
+        <activity android:name=".Others.Student" />
+        <activity android:name=".Others.Teacher" />
     </application>
 
 </manifest>

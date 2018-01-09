@@ -1,4 +1,4 @@
-package com.cbs.sscbs
+package com.cbs.sscbs.TeachersTimetable
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
 import com.cbs.sscbs.DataClass.CONSTANTS
+import com.cbs.sscbs.Others.FullScreenImage
+import com.cbs.sscbs.R
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso

@@ -1,4 +1,4 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.Attendance;
 
 /**
  * Created by Prashant on 31-12-2017.
@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.cbs.sscbs.R;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 

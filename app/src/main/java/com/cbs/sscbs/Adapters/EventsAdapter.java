@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cbs.sscbs.DataClass.DataClass;
-import com.cbs.sscbs.ItemClickListener;
+import com.cbs.sscbs.utils.ItemClickListener;
 import com.cbs.sscbs.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

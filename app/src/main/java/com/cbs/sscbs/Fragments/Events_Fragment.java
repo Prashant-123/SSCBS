@@ -19,8 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Bookings;
-import com.cbs.sscbs.CreateEvent;
+import com.cbs.sscbs.Others.CreateEvent;
 import com.cbs.sscbs.DataClass.DataClass;
 import com.cbs.sscbs.Adapters.EventsAdapter;
 import com.cbs.sscbs.R;
@@ -265,28 +264,6 @@ public class Events_Fragment extends Fragment {
         startActivity(intent);
     }
 
-    public void getTime()
-    {
-//        for(int i = 0 ; i <data.size();i++){
-//            DatabaseReference timeRef = database.getReference("EventThings").child(String.valueOf(i)).child("desc");
-//
-//            timeRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    String m = dataSnapshot.getValue(String.class);
-//                    if(m.toString().compareTo()==0){
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    System.out.println("The read failed: " + databaseError.getCode());
-//                }
-//            });
 
-  //      }
-
-    }
 
 }

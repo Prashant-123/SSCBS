@@ -1,9 +1,12 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.TeachersTimetable;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.cbs.sscbs.R;
+import com.cbs.sscbs.utils.ItemClickListener;
 
 /**
  * Created by Tanya on 11/15/2017.

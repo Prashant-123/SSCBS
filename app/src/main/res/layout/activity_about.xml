@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/clot"
-    tools:context="com.cbs.sscbs.About_Activity">
+    tools:context="com.cbs.sscbs.Others.About_Activity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_about"

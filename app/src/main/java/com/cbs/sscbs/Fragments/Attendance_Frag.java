@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -92,7 +93,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                     if (username.getText().toString().equals(u) && password.getText().toString().equals(p)) {
                                         Toast.makeText(getContext(), "Authentication Successfull", Toast.LENGTH_SHORT).show();
                                         //createEvent();
+
                                         showClass();
+
                                     } else
                                         Toast.makeText(getContext(), "You Lost it :)", Toast.LENGTH_SHORT).show();
                                 }
@@ -108,12 +111,42 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     }
 
     public void showClass() {
-//        Intent intent = new Intent(getContext(), CreateEvent.class);
-//        //intent.putExtra("COUNT", i);
-//        startActivity(intent);
 
-        
-
+        new MaterialDialog.Builder(getContext())
+                .title("Select Class")
+                .items(new String[]{"Bsc", "Bms", "Bfia"})
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+                        showSub();
+                        return true;
+                    }
+                })
+                .show();
     }
+
+    public void showSub()
+    {
+        new MaterialDialog.Builder(getContext())
+                .title("Select Class")
+                .items(new String[]{"asfe", "Bms", "Bfia"})
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+                        return true;
+                    }
+                })
+                .show();
+    }
+
+
     }
 

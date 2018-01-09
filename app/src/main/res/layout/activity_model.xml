@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    tools:context="com.cbs.sscbs.Model">
+    tools:context="com.cbs.sscbs.TeachersTimetable.Model">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
