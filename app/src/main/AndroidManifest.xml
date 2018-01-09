@@ -27,7 +27,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Home"
+            android:label="SSCBS"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -94,21 +94,6 @@
             android:name=".Bookings"
             android:label="All Bookings"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".AlarmRecievers.SecondActivity" />
-
-        <service android:name=".AlarmRecievers.ScheduleService" />
-        <service android:name=".AlarmRecievers.NotifyService" />
-
-        <receiver android:name=".AlarmRecievers.AlarmReceiver" />
-        <receiver android:name=".AlarmRecievers.AlertReciever" />
-
-        <activity android:name=".Studentteach" />
-        <activity android:name=".STA" />
-        <activity
-            android:name=".STa"
-            android:label="@string/title_activity_sta"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".st" />
         <activity android:name=".Student" />
         <activity android:name=".Teacher" />
         <activity android:name=".Admin"></activity>

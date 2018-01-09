@@ -1,7 +1,5 @@
 package com.cbs.sscbs.Fragments
 
-import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,16 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.Toast
-import com.cbs.sscbs.CreateEvent
+import com.cbs.sscbs.AttendanceMain
 import com.cbs.sscbs.R
-import com.cbs.sscbs.auth.AuthUiActivity
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.attendence_fragment.*
@@ -45,9 +37,6 @@ class Attendence_Frag : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        GoogleSignInOptions() gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestEmail()
-        .build();
         faculty.setOnClickListener{
 
 
@@ -98,7 +87,7 @@ class Attendence_Frag : Fragment() {
 
 
     fun createEvent() {
-        val intent = Intent(context, CreateEvent::class.java)
+        val intent = Intent(context, AttendanceMain::class.java)
         intent.putExtra("COUNT", i)
         startActivity(intent)
     }
