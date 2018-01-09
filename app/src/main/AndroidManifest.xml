@@ -52,6 +52,9 @@
             android:name=".LifeAtCbs"
             android:label="Life At CBS"
             android:parentActivityName=".About_Activity" />
+        <activity android:name=".AttendanceMain"
+            android:label="Attendance"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".Facilities"
             android:label="Facilities"

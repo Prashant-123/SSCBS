@@ -15,39 +15,44 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:textColor="@color/white"
-        android:textSize="40dp"
-        android:background="@drawable/AA"
-        android:alpha="0.8"
-        android:id="@+id/admin"
-        android:text="Admin"
-        android:onClick="adminac"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Btn"
+        android:background="@drawable/contact_logo"
+        android:onClick="a"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_weight="1"
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="40dp"-->
+        <!--android:background="@drawable/aa"-->
+        <!--android:id="@+id/admin"-->
+        <!--android:text="Admin"-->
+        <!--android:onClick="a"-->
+        <!--/>-->
 
-        android:onClick="teacherac"
-        android:id="@+id/teacher"
-        android:textColor="@color/white"
-        android:textSize="40dp"
-        android:background="@drawable/teachers"
-        android:alpha="0.8"
-        android:text="Teachers"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:text="Students"
-        android:id="@+id/stud"
-        android:textSize="40dp"
-        android:onClick="studac"
-        android:alpha="0.9"
-        android:textColor="@color/white"
-        android:background="@drawable/stud"
-        />
+    <!--<Button-->
+        <!--android:id="@+id/teacher"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/teachers1"-->
+        <!--android:onClick="t"-->
+        <!--android:text="Teachers"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="40dp" />-->
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="Students"-->
+        <!--android:id="@+id/stud"-->
+        <!--android:textSize="40dp"-->
+        <!--android:onClick="s"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:background="@drawable/stud"-->
+        <!--/>-->
 
 </LinearLayout>

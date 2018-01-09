@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent1)
             }
             R.id.developers -> {
-                val intent = Intent(this, Developers::class.java)
+                val intent = Intent(this, st::class.java)
                 startActivity(intent)
             }
 
