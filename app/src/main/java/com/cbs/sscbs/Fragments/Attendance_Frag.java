@@ -1,6 +1,7 @@
 package com.cbs.sscbs.Fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.cbs.sscbs.Attendance.AttendanceMain;
+import com.cbs.sscbs.Others.About_Activity;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,7 +41,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<String> classList = new ArrayList<>();
-    ArrayList<String> subList = new ArrayList<>();
 
     static String TAG = "TAG";
     public Attendance_Frag() {
@@ -118,7 +120,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 dialog.show();
             }
         });
-
+        
         db.collection("Teachers").document("KR").collection("Class")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -126,7 +128,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
-                               // Log.d(TAG, document.getId() + " => " + document.getData());
+                                // Log.d(TAG, document.getId() + " => " + document.getData());
                                 classList.add(document.getId());
                             }
                         } else {
@@ -134,41 +136,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         }
                     }
                 });
-//
-//        db.collection("Teachers").document("KR").collection("Class/Bsc-2/Subjects")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (DocumentSnapshot document : task.getResult()) {
-//                                // Log.d(TAG, document.getId() + " => " + document.getData());
-//                                subList.add(document.getId());
-//                            }
-//                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-//
-//        for(int i = 0 ; i < classList.size(); i++) {
-//            db.collection("Teachers").document("KR").collection("Class").document(classList.get(i)).collection("Subjects")
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (DocumentSnapshot document : task.getResult()) {
-//                                    //Log.d(TAG, document.getId() + " => " + document.getData());
-//                                    subList.add(document.getId())
-//                                }
-//                            } else {
-//                                Log.d(TAG, "Error getting documents: ", task.getException());
-//                            }
-//                        }
-//                    });
-//            break;
-//        }
+
+
         return myView;
     }
 
@@ -195,7 +164,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public void showSub(final int which)
     {
         Log.i(TAG, String.valueOf(which)+ "inside");
-
+       final ArrayList<String> subList = new ArrayList<>();
         db.collection("Teachers").document("KR").collection("Class").document(classList.get(which)).collection("Subjects")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -207,30 +176,25 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
                                 subList.add(document.getId());
                             }
-                            for(int i = 0 ; i < subList.size();i++)
-                            Log.i(TAG,subList.get(i));
+                            new MaterialDialog.Builder(getContext())
+                                    .title("Select Subject")
+                                    .items(subList)
+                                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+                                            Intent intent = new Intent(getContext(), AttendanceMain.class);
+                                            startActivity(intent);
+                                            return true;
+                                        }
+                                    })
+                                    .show();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
-        Log.i(TAG,"Hi there");
-        for(int i = 0 ; i < subList.size();i++){
-            Log.i(TAG,"out " + subList.get(i));}
-        new MaterialDialog.Builder(getContext())
-                .title("Select Subject")
-                .items(subList)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
-                        return true;
-                    }
-                })
-                .show();
+
     }
 
 
