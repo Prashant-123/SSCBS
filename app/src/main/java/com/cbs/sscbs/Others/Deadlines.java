@@ -1,34 +1,22 @@
 package com.cbs.sscbs.Others;
 
-import android.annotation.TargetApi;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.cbs.sscbs.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Deadlines extends AppCompatActivity {
 
@@ -46,36 +34,40 @@ public class Deadlines extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        db.collection("Teachers").document("KR").collection("Class")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => " + c.getTime());
 
-        db.collection("Teachers").document("KR").collection("Class").document("Bsc-1").collection("Subjects")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+        db.collection("Teachers/KR/Class/Bsc-1/Subjects/C++/Day").document(formattedDate).set("");
+
+        readData();
     }
 
+    private List<StudentsRecord> recordList = new ArrayList<>();
+    private void readData() {
+
+       StudentsRecord record;
+
+        InputStream is = getResources().openRawResource(R.raw.cl);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            while ((line= bufferedReader.readLine())!=null){
+
+                String[] tokens = line.split(",");
+
+                StudentsRecord studentsRecord = new StudentsRecord();
+                studentsRecord.setName(tokens[0]);
+                studentsRecord.setRollno(tokens[1]);
+                studentsRecord.setAttendence(tokens[3]);
+                recordList.add(studentsRecord);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
