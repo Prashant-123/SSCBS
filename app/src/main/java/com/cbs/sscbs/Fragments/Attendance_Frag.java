@@ -120,7 +120,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 dialog.show();
             }
         });
-        
+
         db.collection("Teachers").document("KR").collection("Class")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -136,8 +136,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         }
                     }
                 });
-
-
         return myView;
     }
 
@@ -149,10 +147,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
                         Log.i(TAG, String.valueOf(which));
                         showSub(which);
                         return true;
@@ -199,4 +193,3 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
 
     }
-
