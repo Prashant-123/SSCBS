@@ -4,7 +4,7 @@ package com.cbs.sscbs.Others;
  * Created by Prashant on 10-01-2018.
  */
 
-class StudentsRecord {
+public class StudentsRecord {
 
     String name;
     String attendence;

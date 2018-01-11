@@ -5,23 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cbs.sscbs.Attendance.AttendanceMain;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,10 +33,12 @@ import java.util.ArrayList;
 
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
+    private String name;
+    private String email;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("Faculty-Names");
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     ArrayList<String> classList = new ArrayList<>();
 
     static String TAG = "TAG";
@@ -54,24 +55,11 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 Log.i(TAG,"Faculty");
                 LayoutInflater inflater = getLayoutInflater();
-                View alertLayout = inflater.inflate(R.layout.fragment_login, null);
-                final EditText username = alertLayout.findViewById(R.id.User);
-                final EditText password = alertLayout.findViewById(R.id.Pass);
-                final CheckBox cbToggle = alertLayout.findViewById(R.id.cb_show_pass);
-
-                cbToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked)
-                            password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                        else
-                            password.setInputType(129);
-                    }
-                });
+                View alertLayout = inflater.inflate(R.layout.verify, null);
+                final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setTitle("Sign-In");
+                alert.setTitle("Verify Credentials");
                 alert.setView(alertLayout);
                 alert.setCancelable(false);
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -79,39 +67,54 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Toast.makeText(getContext(), "Log-In Cancelled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                alert.setPositiveButton("Log In", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (currentUser != null) {
+                            name = currentUser.getDisplayName();
+                            email = currentUser.getEmail();
+                            Log.wtf(TAG, name + "   " +email);
+                        }
+                        Log.wtf(TAG, faculty_name.getText().toString());
 
-                        DocumentReference mDocRef = FirebaseFirestore.getInstance().document("username/society");
-                        Log.i("tag", "Log-1");
-                        mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                                Log.i("tag", "Log-2");
-                                if (documentSnapshot.exists()) {
-
-                                    Log.i("tag", "Log-3");
-                                    String u = documentSnapshot.getString(USERNAME);
-                                    String p = documentSnapshot.getString(PASSWORD);
-                                    if (username.getText().toString().equals(u) && password.getText().toString().equals(p)) {
-                                        Toast.makeText(getContext(), "Authentication Successfull", Toast.LENGTH_SHORT).show();
-                                        //createEvent();
-
-                                        showClass();
-
-                                    } else
-                                        Toast.makeText(getContext(), "You Lost it :)", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        collectionReference.whereEqualTo("name", name)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (name.equals(faculty_name.getText().toString()))
+                                        {
+                                            Toast.makeText(getContext(), "Logged in as "+ email, Toast.LENGTH_LONG).show();
+                                            showClass();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(getContext(), "Enter Correct name,OR \n Log-in with your College ID", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+//                            final ArrayList<String> subList = new ArrayList<>();
+//                            db.collection("Teachers").document("KR").collection("Class").document(classList.get(which)).collection("Subjects")
+//                                    .get()
+//                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                            if (task.isSuccessful()) {
+//                                                for (DocumentSnapshot document : task.getResult()) {
+//                                                    //Log.d(TAG, document.getId() + " => " + document.getData());
+//                                                    subList.add(document.getId());
+//                                                }
+//
+//                                            } else {
+//                                                Log.d(TAG, "Error getting documents: ", task.getException());
+//                                            }
+//                                        }
+//                                    });
                     }
                 });
                 AlertDialog dialog = alert.create();
@@ -119,7 +122,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             }
         });
 
-        db.collection("Teachers").document("KR").collection("Class")
+        db.collection("TeacherTest/Kavita Rastogi/Class")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -157,7 +160,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     {
         Log.i(TAG, String.valueOf(which)+ "inside");
        final ArrayList<String> subList = new ArrayList<>();
-        db.collection("Teachers").document("KR").collection("Class").document(classList.get(which)).collection("Subjects")
+        db.collection("TeacherTest/Kavita Rastogi/Class/" + (classList.get(which)) + "/Subjects")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -167,6 +170,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                             for (DocumentSnapshot document : task.getResult()) {
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
                                 subList.add(document.getId());
+                                Log.wtf(TAG, subList.toString());
                             }
                             new MaterialDialog.Builder(getContext())
                                     .title("Select Subject")
