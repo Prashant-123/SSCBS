@@ -130,16 +130,16 @@ public class AttendanceMain extends AppCompatActivity {
                 studentsRecord.setAttendence(tokens[3]);
                 Log.wtf(TAG,tokens[1]);
 
-                int getRoll = Integer.parseInt(tokens[1]);
-                int getAtt = Integer.parseInt(tokens[3]);
+//                int getRoll = Integer.parseInt(tokens[1]);
+//                int getAtt = Integer.parseInt(tokens[3]);
                 recordList.add(studentsRecord);
 
                 Log.i(TAG , "Creatd " + studentsRecord);
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("name",tokens[0]);
-                data.put("RollNo",getRoll);
-                data.put("attendence",getAtt);
+                data.put("RollNo",tokens[1]);
+                data.put("attendence",tokens[3]);
                 db.collection("Years").document("2017-18").collection(months).document(getMonth)
                         .collection(day).document(formattedDate).collection(classes).document("Bsc-1")
                         .collection(teachers).document("Tanvi Goyal").collection(subjects).document("C++")
