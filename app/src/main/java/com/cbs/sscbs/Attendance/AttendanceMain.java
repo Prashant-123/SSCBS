@@ -55,7 +55,7 @@ public class AttendanceMain extends AppCompatActivity {
 
 
     String getMonth = formattedDate.substring(3, 6);
-        CollectionReference dbSt = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Students");
+    CollectionReference dbSt = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Students");
 
 
     String months = "Months" ;
@@ -78,37 +78,34 @@ public class AttendanceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         button1 = (FloatingActionButton) findViewById(R.id.save_at);
         setContentView(R.layout.common_rv);
-
-
-
-
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
       adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
-        readData();
+//        readData();
         adapter.notifyDataSetChanged();
 //
-//            dbSt.orderBy("roll").get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                    if (task.isSuccessful()) {
-//                        for (DocumentSnapshot document : task.getResult()) {
-//                            AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , (long) document.getData().get("roll"),0  );
-//                            data.add(attendanceDataClass);
-//                            adapter.notifyDataSetChanged();
-//                        }
-//                    } else {
-//                        Log.i(TAG, "Error getting documents: ", task.getException());
-//                    }}
-//                });
+            dbSt.orderBy("RollNo").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , (long) document.getData().get("RollNo"),0  );
+                            showdata.add(attendanceDataClass);
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Log.i(TAG, "Error getting documents: ", task.getException());
+                    }}
+                });
 
     }
 
     private List<StudentsRecord> recordList = new ArrayList<>();
+
     private void readData() {
 
         StudentsRecord record;
@@ -121,7 +118,7 @@ public class AttendanceMain extends AppCompatActivity {
             bufferedReader.readLine();
             while ((line= bufferedReader.readLine())!=null){
 
-                Log.i(TAG,line);
+                Log.i(TAG,"Line: " + line);
                 String[] tokens = line.split(",");
 
                 StudentsRecord studentsRecord = new StudentsRecord();
@@ -130,11 +127,7 @@ public class AttendanceMain extends AppCompatActivity {
                 studentsRecord.setAttendence(tokens[3]);
                 Log.wtf(TAG,tokens[1]);
 
-//                int getRoll = Integer.parseInt(tokens[1]);
-//                int getAtt = Integer.parseInt(tokens[3]);
                 recordList.add(studentsRecord);
-
-//                Log.i(TAG , "Creatd " + studentsRecord);
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("name",tokens[0]);
@@ -145,24 +138,20 @@ public class AttendanceMain extends AppCompatActivity {
                         .collection(teachers).document("Tanvi Goyal").collection(subjects).document("C++")
                         .collection(students).document(tokens[0]).set(data);
 
-
-                dbSt.orderBy("RollNo").get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (DocumentSnapshot document : task.getResult()) {
-                                        AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , (long) document.getData().get("RollNo"),0  );
-                                        showdata.add(attendanceDataClass);
-                                        adapter.notifyDataSetChanged();
-
-
-
-                                    }
-                                } else {
-                                    Log.i(TAG, "Error getting documents: ", task.getException());
-                                }}
-                        });
+//                dbSt.orderBy("RollNo").get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (DocumentSnapshot document : task.getResult()) {
+//                                        AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , (long) document.getData().get("RollNo"),0  );
+//                                        showdata.add(attendanceDataClass);
+//                                        adapter.notifyDataSetChanged();
+//                                    }
+//                                } else {
+//                                    Log.i(TAG, "Error getting documents: ", task.getException());
+//                                }}
+//                        });
 
             }
         } catch (IOException e) {
@@ -207,7 +196,5 @@ public class AttendanceMain extends AppCompatActivity {
                             });
                     i++;
                 }
-
     }
-
 }

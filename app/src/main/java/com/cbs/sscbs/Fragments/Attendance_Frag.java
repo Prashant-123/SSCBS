@@ -36,8 +36,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     private String name;
     private String email;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers");
+    FirebaseFirestore C_list = FirebaseFirestore.getInstance();
+    CollectionReference T_list = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers");
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     ArrayList<String> classList = new ArrayList<>();
     ArrayList<String> teachersList = new ArrayList<>();
@@ -67,46 +67,56 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                //----------------------------------Setting up Firebase---------------------------------
+                T_list
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        teachersList.add(document.getId());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+
+                C_list.collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        classList.add(document.getId());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+                //---------------------------------------------------------------------------------------
 
                 alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (currentUser != null) {
+                        if (currentUser != null)
                             name = currentUser.getDisplayName();
-                            email = currentUser.getEmail();
-                            Log.wtf(TAG, name + "   " +email);
-                        }
-//                        Log.wtf(TAG, faculty_name.getText().toString());
-
-                        collectionReference
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (DocumentSnapshot documentSnapshot: task.getResult()) {
-                                                Log.wtf(TAG, documentSnapshot.getId());
-                                                teachersList.add(documentSnapshot.getId());
-
-                                            }
-                                        }
-                                    }
-                                });
-
 
                         for(int i = 0 ; i < teachersList.size();i++){
-                            Log.wtf(TAG,teachersList.get(i)+ "hfhjh");
-                            Log.wtf(TAG,faculty_name.getText().toString()+ "vddf");
                             if(teachersList.get(i).equals(faculty_name.getText().toString())){
                                 Log.wtf(TAG,"Done");
+                                showClass();
                             }
                             else{
-                                Log.wtf(TAG,"REtry");
+//                                Log.wtf(TAG,"Retry");
                             }
                         }
 //                            final ArrayList<String> subList = new ArrayList<>();
@@ -133,21 +143,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             }
         });
 
-        db.collection("TeacherTest/Kavita Rastogi/Class")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                // Log.d(TAG, document.getId() + " => " + document.getData());
-                                classList.add(document.getId());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
         return myView;
     }
 
@@ -159,7 +154,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        Log.i(TAG, String.valueOf(which));
                         showSub(which);
                         return true;
                     }
@@ -169,19 +163,19 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     public void showSub(final int which)
     {
-        Log.i(TAG, String.valueOf(which)+ "inside");
+//        Log.i(TAG, String.valueOf(which)+ "inside");
        final ArrayList<String> subList = new ArrayList<>();
-        db.collection("TeacherTest/Kavita Rastogi/Class/" + (classList.get(which)) + "/Subjects")
+        C_list.collection("TeacherTest/Kavita Rastogi/Class/" + (classList.get(which)) + "/Subjects")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Log.i(TAG,classList.get(which));
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
                                 subList.add(document.getId());
-                                Log.wtf(TAG, subList.toString());
+                                Log.i(TAG, "Sub. List:  " + subList.toString());
+//                                Log.wtf(TAG, subList.toString());
                             }
                             new MaterialDialog.Builder(getContext())
                                     .title("Select Subject")
@@ -189,7 +183,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                     .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
                                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-
                                             Intent intent = new Intent(getContext(), AttendanceMain.class);
                                             startActivity(intent);
                                             return true;
@@ -201,8 +194,5 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         }
                     }
                 });
-
     }
-
-
-    }
+}
