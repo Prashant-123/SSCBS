@@ -19,10 +19,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Bookings;
-import com.cbs.sscbs.CreateEvent;
-import com.cbs.sscbs.DataClass;
-import com.cbs.sscbs.EventsAdapter;
+import com.cbs.sscbs.Others.CreateEvent;
+import com.cbs.sscbs.DataClass.DataClass;
+import com.cbs.sscbs.Adapters.EventsAdapter;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -76,9 +75,9 @@ public class Events_Fragment extends Fragment {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
 
-                Intent intent = new Intent(getContext(), Bookings.class);
-                intent.putExtra("childCount", count);
-                Toast.makeText(getContext(), "Children-- " + count, Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getContext(), Bookings.class);
+//                intent.putExtra("childCount", count);
+//                Toast.makeText(getContext(), "Children-- " + count, Toast.LENGTH_SHORT).show();
                  newData = dataSnapshot.getValue(DataClass.class);
 //                 for(int i = 0 ; i < data.size();i++){
 //                     if (newData.getTime().toString().compareTo(data.get(i).getTime().toString())==0){
@@ -87,11 +86,11 @@ public class Events_Fragment extends Fragment {
 //                     }
 //                 }
 //
-//                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
-//                    newData.setImg(R.drawable.about);
-//                } else {
-//                    newData.setImg(R.drawable.contact_logo);
-//                }
+                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
+                    newData.setImg(R.drawable.about);
+                } else {
+                    newData.setImg(R.drawable.contact_logo);
+                }
                 data.add(newData);
                 adapter.notifyDataSetChanged();
 
@@ -265,28 +264,6 @@ public class Events_Fragment extends Fragment {
         startActivity(intent);
     }
 
-    public void getTime()
-    {
-//        for(int i = 0 ; i <data.size();i++){
-//            DatabaseReference timeRef = database.getReference("EventThings").child(String.valueOf(i)).child("desc");
-//
-//            timeRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    String m = dataSnapshot.getValue(String.class);
-//                    if(m.toString().compareTo()==0){
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    System.out.println("The read failed: " + databaseError.getCode());
-//                }
-//            });
 
-  //      }
-
-    }
 
 }
