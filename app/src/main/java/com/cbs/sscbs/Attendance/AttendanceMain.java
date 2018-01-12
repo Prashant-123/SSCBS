@@ -134,7 +134,7 @@ public class AttendanceMain extends AppCompatActivity {
 //                int getAtt = Integer.parseInt(tokens[3]);
                 recordList.add(studentsRecord);
 
-                Log.i(TAG , "Creatd " + studentsRecord);
+//                Log.i(TAG , "Creatd " + studentsRecord);
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("name",tokens[0]);

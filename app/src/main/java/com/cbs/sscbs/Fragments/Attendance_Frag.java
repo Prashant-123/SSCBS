@@ -37,9 +37,10 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     private String email;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("Faculty-Names");
+    CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers");
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     ArrayList<String> classList = new ArrayList<>();
+    ArrayList<String> teachersList = new ArrayList<>();
 
     static String TAG = "TAG";
     public Attendance_Frag() {
@@ -80,24 +81,34 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                             email = currentUser.getEmail();
                             Log.wtf(TAG, name + "   " +email);
                         }
-                        Log.wtf(TAG, faculty_name.getText().toString());
+//                        Log.wtf(TAG, faculty_name.getText().toString());
 
-                        collectionReference.whereEqualTo("name", name)
+                        collectionReference
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (name.equals(faculty_name.getText().toString()))
-                                        {
-                                            Toast.makeText(getContext(), "Logged in as "+ email, Toast.LENGTH_LONG).show();
-                                            showClass();
-                                        }
-                                        else
-                                        {
-                                            Toast.makeText(getContext(), "Enter Correct name,OR \n Log-in with your College ID", Toast.LENGTH_LONG).show();
+                                        if (task.isSuccessful()) {
+                                            for (DocumentSnapshot documentSnapshot: task.getResult()) {
+                                                Log.wtf(TAG, documentSnapshot.getId());
+                                                teachersList.add(documentSnapshot.getId());
+
+                                            }
                                         }
                                     }
                                 });
+
+
+                        for(int i = 0 ; i < teachersList.size();i++){
+                            Log.wtf(TAG,teachersList.get(i)+ "hfhjh");
+                            Log.wtf(TAG,faculty_name.getText().toString()+ "vddf");
+                            if(teachersList.get(i).equals(faculty_name.getText().toString())){
+                                Log.wtf(TAG,"Done");
+                            }
+                            else{
+                                Log.wtf(TAG,"REtry");
+                            }
+                        }
 //                            final ArrayList<String> subList = new ArrayList<>();
 //                            db.collection("Teachers").document("KR").collection("Class").document(classList.get(which)).collection("Subjects")
 //                                    .get()
