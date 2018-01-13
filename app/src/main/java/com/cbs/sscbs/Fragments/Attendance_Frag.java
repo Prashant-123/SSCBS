@@ -25,7 +25,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Prashant on 09-01-2018.
@@ -35,6 +37,10 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     private String name;
     private String email;
+    Calendar c = Calendar.getInstance();
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+    String formattedDate = df.format(c.getTime());
+    String getMonth = formattedDate.substring(3, 6);
 
     FirebaseFirestore C_list = FirebaseFirestore.getInstance();
     CollectionReference T_list = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers");
@@ -87,7 +93,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                             }
                         });
 
-                C_list.collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/")
+                C_list.collection("Years/2017-18/Months/" + getMonth + "/Day/" + "11-Jan-2018" + "/Class/")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override

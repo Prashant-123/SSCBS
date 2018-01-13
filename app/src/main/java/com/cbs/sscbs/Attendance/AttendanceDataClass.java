@@ -9,13 +9,13 @@ import android.widget.CheckBox;
 public class AttendanceDataClass {
 
     private String name;
-    private long roll;
+    private String roll;
     private boolean checked;
 
-    private int attendance;
+    private String attendance;
     private CheckBox checkBox;
 
-    public long getRoll() {
+    public String getRoll() {
         return roll;
     }
 
@@ -36,15 +36,15 @@ public class AttendanceDataClass {
     public void setChecked(boolean checked) {
         this.checked = checked;
     }
-    public void setRoll(long roll) {
+    public void setRoll(String roll) {
         this.roll = roll;
     }
 
-    public int getAttendance() {
+    public String getAttendance() {
         return attendance;
     }
 
-    public void setAttendance(int attendance) {
+    public void setAttendance(String attendance) {
         this.attendance = attendance;
     }
 
@@ -57,7 +57,7 @@ public class AttendanceDataClass {
     }
 
 
-    public AttendanceDataClass(String name, long roll, int attendance)
+    public AttendanceDataClass(String name, String roll, String attendance)
     {
         this.roll = roll;
         this.attendance = attendance;
