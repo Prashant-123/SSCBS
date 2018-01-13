@@ -24,10 +24,10 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
 
 
 
-    public static ArrayList<Long> saveRoll = new ArrayList<>();
+    public static ArrayList<String> saveRoll = new ArrayList<>();
     private List<AttendanceDataClass> objectList;
     private LayoutInflater inflater;
-    private long checkedRoll;
+    private String checkedRoll;
     private static final String TAG = "TAG";
     FirebaseFirestore db1 = FirebaseFirestore.getInstance();
     CollectionReference db = FirebaseFirestore.getInstance().collection("2018-19/Month/Course/Day/Subject/Student/Student Details");
@@ -51,7 +51,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 objectList.get(holder.getAdapterPosition()).setChecked(b);
-                checkedRoll = objectList.get(holder.getAdapterPosition()).getRoll();
+                checkedRoll = objectList.get(holder.getAdapterPosition()).getRoll().toString();
 
                 if (objectList.get(holder.getAdapterPosition()).isChecked())
                 {
