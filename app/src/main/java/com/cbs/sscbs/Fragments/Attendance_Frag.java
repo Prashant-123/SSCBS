@@ -1,7 +1,6 @@
 package com.cbs.sscbs.Fragments;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -14,7 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.cbs.sscbs.Attendance.AttendanceMain;
+import com.cbs.sscbs.Attendance.ClassListRecord;
+import com.cbs.sscbs.Attendance.ClassListTypeRecord;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,9 +25,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Prashant on 09-01-2018.
@@ -42,26 +50,63 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     String formattedDate = df.format(c.getTime());
     String getMonth = formattedDate.substring(3, 6);
 
-    FirebaseFirestore C_list = FirebaseFirestore.getInstance();
-    CollectionReference T_list = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers");
+    String months = "Months";
+    String date = "Date";
+    String classes = "Class";
+    String classType = "Class-Type";
+    String groups = "Groups";
+
+    //FirebaseFirestore C_list = FirebaseFirestore.getInstance();
+//    CollectionReference T_list = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers");
+    CollectionReference years_list = FirebaseFirestore.getInstance().collection("Year");
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     ArrayList<String> classList = new ArrayList<>();
     ArrayList<String> teachersList = new ArrayList<>();
+    ArrayList<String> yearsList = new ArrayList<>();
+    ArrayList<String> classesList = new ArrayList<>();
+
+
+    FirebaseFirestore day = FirebaseFirestore.getInstance();
 
     static String TAG = "TAG";
+
     public Attendance_Frag() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
-        RelativeLayout relativeLayout = (RelativeLayout)myView.findViewById(R.id.faculty);
+        RelativeLayout relativeLayout = (RelativeLayout) myView.findViewById(R.id.faculty);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG,"Faculty");
+                Log.i(TAG, "Faculty");
                 LayoutInflater inflater = getLayoutInflater();
+
+
+                //----------------------------------Setting up Firebase---------------------------------
+
+
+                years_list.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                yearsList.add(documentSnapshot.getId());
+                            }
+                        } else
+                            Log.wtf(TAG, "Error getting academic session");
+                    }
+                });
+
+                Log.i(TAG,yearsList.size()+"Das");
+                for (int i = 0; i < yearsList.size(); i++) {
+                    Log.wtf(TAG, yearsList.get(i).toString());
+                }
+
+                Log.wtf(TAG, formattedDate);
+
                 View alertLayout = inflater.inflate(R.layout.verify, null);
                 final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
 
@@ -76,37 +121,69 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
+//
+                Map<String, Object> city = new HashMap<>();
+                city.put("name", "Los Angeles");
+                city.put("state", "CA");
+                city.put("country", "USA");
 
-                //----------------------------------Setting up Firebase---------------------------------
-                T_list
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (DocumentSnapshot document : task.getResult()) {
-                                        teachersList.add(document.getId());
-                                    }
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                }
-                            }
-                        });
+                day.collection("Year").document("2017-18")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate).set(city);
 
-                C_list.collection("Years/2017-18/Months/" + getMonth + "/Day/" + "11-Jan-2018" + "/Class/")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (DocumentSnapshot document : task.getResult()) {
-                                        classList.add(document.getId());
-                                    }
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                }
+                readClassList();
+
+                CollectionReference class_list = FirebaseFirestore.getInstance().collection("Year").document("2017-18")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate).collection(classes);
+
+
+                class_list.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                classesList.add(documentSnapshot.getId());
+
+                                showClass();
                             }
-                        });
+                        } else
+                            Log.wtf(TAG, "Error getting classes record");
+                    }
+                });
+                Log.i(TAG,classesList.size()+"xad");
+
+                for (int i = 0; i < classesList.size(); i++) {
+                    Log.wtf(TAG, "hi " + classesList.get(i).toString());
+                }
+
+//                T_list
+//                        .get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (DocumentSnapshot document : task.getResult()) {
+//                                        teachersList.add(document.getId());
+//                                    }
+//                                } else {
+//                                    Log.d(TAG, "Error getting documents: ", task.getException());
+//                                }
+//                            }
+//                        });
+//
+//                C_list.collection("Years/2017-18/Months/" + getMonth + "/Day/" + "11-Jan-2018" + "/Class/")
+//                        .get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (DocumentSnapshot document : task.getResult()) {
+//                                        classList.add(document.getId());
+//                                    }
+//                                } else {
+//                                    Log.d(TAG, "Error getting documents: ", task.getException());
+//                                }
+//                            }
+//                        });
                 //---------------------------------------------------------------------------------------
 
                 alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
@@ -116,12 +193,11 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         if (currentUser != null)
                             name = currentUser.getDisplayName();
 
-                        for(int i = 0 ; i < teachersList.size();i++){
-                            if(teachersList.get(i).equals(faculty_name.getText().toString())){
-                                Log.wtf(TAG,"Done");
+                        for (int i = 0; i < teachersList.size(); i++) {
+                            if (teachersList.get(i).equals(faculty_name.getText().toString())) {
+                                Log.wtf(TAG, "Done");
                                 showClass();
-                            }
-                            else{
+                            } else {
 //                                Log.wtf(TAG,"Retry");
                             }
                         }
@@ -152,53 +228,270 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         return myView;
     }
 
+    private List<ClassListRecord> classRecordList = new ArrayList<>();
+
+    private void readClassList() {
+
+        InputStream is = getResources().openRawResource(R.raw.classlist);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+
+                Log.i(TAG, "Line: " + line);
+                String[] tokens = line.split(",");
+
+                //int roll = Integer.parseInt(tokens[1]);
+
+                ClassListRecord classListRecord = new ClassListRecord();
+                classListRecord.setClasses(tokens[0]);
+
+                Log.wtf(TAG, tokens[0]);
+
+                classRecordList.add(classListRecord);
+
+                Map<String, Object> city = new HashMap<>();
+                city.put("name", "Los Angeles");
+                city.put("state", "CA");
+                city.put("country", "USA");
+                day.collection("Year").document("2017-18")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate)
+                        .collection(classes).document(tokens[0]).set(city);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showClass() {
 
+       final ClassListRecord classListRecord = new ClassListRecord();
+        final ArrayList<String> classesType = new ArrayList<>();
         new MaterialDialog.Builder(getContext())
                 .title("Select Your Class")
-                .items(classList)
+                .items(classesList)
                 .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        showSub(which);
+                    public boolean onSelection(MaterialDialog dialog, View view, final int which, CharSequence text) {
+
+                        Map<String, Object> city = new HashMap<>();
+                        city.put("name", "Los Angeles");
+                        city.put("state", "CA");
+                        city.put("country", "USA");
+
+                        day.collection("Year").document("2017-18")
+                                .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                .collection(classes).document(classListRecord.getClasses()).set(city);
+                        
+                        readClassListType(which);
+
+
+                        CollectionReference class_Type = FirebaseFirestore.getInstance().collection("Year").document("2017-18")
+                                .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                .collection(classes).document(classListRecord.getClasses()).collection(classType);
+
+                        class_Type.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                        classesType.add(documentSnapshot.getId());
+
+                                    }
+                                } else
+                                    Log.wtf(TAG, "Error getting classes record");
+
+                                final ClassListTypeRecord classListTypeRecord = new ClassListTypeRecord();
+                                new MaterialDialog.Builder(getContext())
+                                        .title("Select Your Class Type")
+                                        .items(classesType)
+                                        .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                                            @Override
+                                            public boolean onSelection(MaterialDialog dialog, View view, final int whichClassType,
+                                                                       CharSequence text) {
+
+                                                if(whichClassType == 0 ) {
+                                                    String[] tokens = new String[2];
+                                                     List<String> classGrpList = new ArrayList<>();
+
+                                                     tokens[0]="Group-1";
+                                                     tokens[1] = "Group-2";
+
+
+                                                    Map<String, Object> city = new HashMap<>();
+                                                    city.put("name", "Los Angeles");
+                                                    city.put("state", "CA");
+                                                    city.put("country", "USA");
+                                                    day.collection("Year").document("2017-18")
+                                                            .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                            .collection(classes).document(classListRecord.getClasses())
+                                                            .collection(classType).document(classListTypeRecord.getClassType())
+                                                            .collection(groups).document(tokens[0]).set(city);
+
+                                                    CollectionReference grp_Type = FirebaseFirestore.getInstance()
+                                                            .collection("Year").document("2017-18")
+                                                            .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                            .collection(classes).document(classListRecord.getClasses())
+                                                            .collection(classType).document(classListTypeRecord.getClassType())
+                                                            .collection(groups);
+
+
+                                                    final ArrayList<String> grpList = new ArrayList<>();
+                                                    grp_Type.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                                                    grpList.add(documentSnapshot.getId());
+                                                                }
+                                                            } else
+                                                                Log.wtf(TAG, "Error getting classes record");
+                                                        }
+                                                    });
+                                                    Log.i(TAG,grpList.size()+"xad");
+
+                                                    for (int i = 0; i < grpList.size(); i++) {
+                                                        Log.wtf(TAG, "hi " + grpList.get(i).toString());
+                                                    }
+
+                                                    new MaterialDialog.Builder(getContext())
+                                                            .title("Select Your Group ")
+                                                            .items(grpList)
+                                                            .itemsCallbackSingleChoice(-1,
+                                                                    new MaterialDialog.ListCallbackSingleChoice() {
+                                                                @Override
+                                                                public boolean onSelection(MaterialDialog dialog, View view,
+                                                                                           final int whichClassType, CharSequence text) {
+                                                                    return true;
+                                                                }
+                                                            }).show();
+                                                }else{
+
+                                                    Map<String, Object> city = new HashMap<>();
+                                                    city.put("name", "Los Angeles");
+                                                    city.put("state", "CA");
+                                                    city.put("country", "USA");
+
+                                                    day.collection("Year").document("2017-18")
+                                                            .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                            .collection(classes).document(classListRecord.getClasses())
+                                                            .collection(classType).document(classListTypeRecord.getClassType()).set(city);
+
+                                                   // readSubjeccts(classListRecord.getClasses());
+
+                                                }
+
+                                                return true;
+                                            }
+                                        }).show();
+
+                            }
+                        });
+                        Log.i(TAG,classesType.size()+"xad");
+
+                        for (int i = 0; i < classesType.size(); i++) {
+                            Log.wtf(TAG, "hi " + classesType.get(i).toString());
+                        }
+
+                        //    showSub(which);
                         return true;
                     }
                 })
                 .show();
     }
 
-    public void showSub(final int which)
-    {
-//        Log.i(TAG, String.valueOf(which)+ "inside");
-       final ArrayList<String> subList = new ArrayList<>();
-        C_list.collection("TeacherTest/Kavita Rastogi/Class/" + (classList.get(which)) + "/Subjects")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                subList.add(document.getId());
-                                Log.i(TAG, "Sub. List:  " + subList.toString());
-//                                Log.wtf(TAG, subList.toString());
-                            }
-                            new MaterialDialog.Builder(getContext())
-                                    .title("Select Subject")
-                                    .items(subList)
-                                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                                        @Override
-                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                            Intent intent = new Intent(getContext(), AttendanceMain.class);
-                                            startActivity(intent);
-                                            return true;
-                                        }
-                                    })
-                                    .show();
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+
+    private void showGrp() {
+
+
+
+
     }
+
+    private List<ClassListTypeRecord> classTypeRecordList = new ArrayList<>();
+    private void readClassListType(int which) {
+
+        InputStream is = getResources().openRawResource(R.raw.classlisttypes);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+
+                Log.i(TAG, "Line: " + line);
+                String[] tokens = line.split(",");
+
+                //int roll = Integer.parseInt(tokens[1]);
+
+                ClassListTypeRecord classListTypeRecord = new ClassListTypeRecord();
+                classListTypeRecord.setClassType(tokens[0]);
+
+                Log.wtf(TAG, tokens[0]);
+
+                classTypeRecordList.add(classListTypeRecord);
+
+                Map<String, Object> city = new HashMap<>();
+                city.put("name", "Los Angeles");
+                city.put("state", "CA");
+                city.put("country", "USA");
+                day.collection("Year").document("2017-18")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate)
+                        .collection(classes).document(String.valueOf(which)).collection(classType).document(tokens[0]).set(city);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+//
+//    private void showClassType(int which) {
+//        new MaterialDialog.Builder(getContext())
+//                .title("Select Your Class Type")
+//                .items(classesType)
+//                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+//                    @Override
+//                    public boolean onSelection(MaterialDialog dialog, View view, final int which, CharSequence text) {
+//                        return true;
+//                    }
+//                }).show();
+//
+//                    }
+
+
+//
+//    public void showSub(final int which) {
+////        Log.i(TAG, String.valueOf(which)+ "inside");
+//        final ArrayList<String> subList = new ArrayList<>();
+//        C_list.collection("TeacherTest/Kavita Rastogi/Class/" + (classList.get(which)) + "/Subjects")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (DocumentSnapshot document : task.getResult()) {
+//                                //Log.d(TAG, document.getId() + " => " + document.getData());
+//                                subList.add(document.getId());
+//                                Log.i(TAG, "Sub. List:  " + subList.toString());
+////                                Log.wtf(TAG, subList.toString());
+//                            }
+//                            new MaterialDialog.Builder(getContext())
+//                                    .title("Select Subject")
+//                                    .items(subList)
+//                                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+//                                        @Override
+//                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+//                                            Intent intent = new Intent(getContext(), AttendanceMain.class);
+//                                            startActivity(intent);
+//                                            return true;
+//                                        }
+//                                    })
+//                                    .show();
+//                        } else {
+//                            Log.d(TAG, "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
+//    }
 }
