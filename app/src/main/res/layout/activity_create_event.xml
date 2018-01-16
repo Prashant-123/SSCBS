@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_create"
             android:layout_width="match_parent"
@@ -17,6 +17,15 @@
             android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <EditText
             android:id="@+id/newTitle"
             android:layout_width="250dp"
@@ -50,13 +59,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
-            android:text="Event Description:" />
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Set Event Description" />
 
         <LinearLayout
             android:id="@+id/subLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+
             android:orientation="vertical">
 
 
@@ -78,6 +92,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
                 android:layout_marginTop="10dp"
                 android:text="Registration Link(If Any):" />
 
@@ -99,6 +116,9 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
                 android:layout_marginTop="10dp"
                 android:text="Upload Event Image (If Any)" />
 
@@ -124,6 +144,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
                 android:layout_marginTop="10dp"
                 android:text="Organiser Contact Details" />
 
@@ -148,6 +171,9 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="#FFFFFF"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#610B21"
+            android:textSize="16dp"
             android:hint="Select Date and Time"
             android:textAlignment="textStart"
             tools:ignore="RtlCompat" />
@@ -160,6 +186,9 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="#FFFFFF"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#610B21"
+            android:textSize="16dp"
             android:hint="Start Time"
             android:textAlignment="textStart"
             tools:ignore="RtlCompat" />
@@ -172,7 +201,11 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="#FFFFFF"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#610B21"
+            android:textSize="16dp"
             android:hint="EndTime"
+            android:layout_marginBottom="10dp"
             android:textAlignment="textStart"
             tools:ignore="RtlCompat" />
 
@@ -197,4 +230,7 @@
 
 
     </LinearLayout>
-</ScrollView>
+
+    </ScrollView>
+
+</LinearLayout>
