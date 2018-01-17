@@ -125,7 +125,6 @@ class TimeTable_frag : Fragment() {
                         var selectedindes: Int = indexBmsSection
                         text_course.text = bms_sections.get(indexBmsSection)
                         showTimeTable(indexBmsSection)
-
                         true
                     })
                     .show()
