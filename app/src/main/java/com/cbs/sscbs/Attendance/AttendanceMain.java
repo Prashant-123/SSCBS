@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.cbs.sscbs.Others.StudentsRecord;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,10 +51,9 @@ public class AttendanceMain extends AppCompatActivity {
     Calendar c = Calendar.getInstance();
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
     String formattedDate = df.format(c.getTime());
-
-
     String getMonth = formattedDate.substring(3, 6);
-    CollectionReference dbSt = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Students");
+
+    CollectionReference dbSt = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Ok");
 
 
     String months = "Months" ;
@@ -81,7 +79,7 @@ public class AttendanceMain extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-      adapter = new AttendanceAdapter(this, showdata);
+        adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
 //        readData();
@@ -93,7 +91,7 @@ public class AttendanceMain extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         for (DocumentSnapshot document : task.getResult()) {
-                            AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , (long) document.getData().get("RollNo"),0  );
+                            AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , document.getData().get("RollNo").toString(),"ok"  );
                             showdata.add(attendanceDataClass);
                             adapter.notifyDataSetChanged();
                         }
@@ -121,9 +119,11 @@ public class AttendanceMain extends AppCompatActivity {
                 Log.i(TAG,"Line: " + line);
                 String[] tokens = line.split(",");
 
+                int roll = Integer.parseInt(tokens[1]);
+
                 StudentsRecord studentsRecord = new StudentsRecord();
                 studentsRecord.setName(tokens[0]);
-                studentsRecord.setRollno(tokens[1]);
+                studentsRecord.setRollno(roll);
                 studentsRecord.setAttendence(tokens[3]);
                 Log.wtf(TAG,tokens[1]);
 
@@ -162,8 +162,8 @@ public class AttendanceMain extends AppCompatActivity {
     public void Save(View v){
         int i= 0 ;
         while(i< AttendanceAdapter.saveRoll.size()) {
-        final long roll = AttendanceAdapter.saveRoll.get(i);
-            dbSt.whereEqualTo("roll", roll).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        final String roll = AttendanceAdapter.saveRoll.get(i).toString();
+            dbSt.whereEqualTo("RollNo", roll).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -171,9 +171,9 @@ public class AttendanceMain extends AppCompatActivity {
                         db.runTransaction(new Transaction.Function<Void>() {
                             @Override
                             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                                final DocumentReference sfDocRef = db.collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Students").document(document.getId());
+                                final DocumentReference sfDocRef = db.collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Ok").document(document.getId());
                                 DocumentSnapshot snapshot = transaction.get(sfDocRef);
-                                double newAttendence = (snapshot.getDouble("attendence")) + 1;
+                                String newAttendence = snapshot.get("attendence").toString();
                                 transaction.update(sfDocRef, "attendence", newAttendence);
                                 Log.i(TAG, "Attendence updated");
                                 return null;

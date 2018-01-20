@@ -1,7 +1,6 @@
 package com.cbs.sscbs.Fragments;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -14,7 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.cbs.sscbs.Attendance.AttendanceMain;
+import com.cbs.sscbs.Attendance.Bsc2Subjects;
+import com.cbs.sscbs.Attendance.ClassListRecord;
+import com.cbs.sscbs.Attendance.ClassListTypeRecord;
+import com.cbs.sscbs.Attendance.StudentsRecord;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +27,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Prashant on 09-01-2018.
@@ -33,29 +45,68 @@ import java.util.ArrayList;
 
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
-    private String name;
-    private String email;
+    static String TAG = "TAG";
+    Calendar c = Calendar.getInstance();
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+    String formattedDate = df.format(c.getTime());
+    String getMonth = formattedDate.substring(3, 6);
 
-    FirebaseFirestore C_list = FirebaseFirestore.getInstance();
-    CollectionReference T_list = FirebaseFirestore.getInstance().collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers");
+    Map<String, Object> default_map = new HashMap<>();
+
+    String months = "Months";
+    String date = "Date";
+    String classes = "Class";
+    String classType = "Class-Type";
+    String groups = "Groups";
+    String subjects = "Subjects";
+    String students = "Students";
+
+    CollectionReference years_list = FirebaseFirestore.getInstance().collection("Year");
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
     ArrayList<String> classList = new ArrayList<>();
     ArrayList<String> teachersList = new ArrayList<>();
+    ArrayList<String> yearsList = new ArrayList<>();
+    ArrayList<String> classesList = new ArrayList<>();
 
-    static String TAG = "TAG";
+    String name ;
+    FirebaseFirestore day = FirebaseFirestore.getInstance();
+
+    private List<ClassListRecord> classRecordList = new ArrayList<>();
+    private List<Bsc2Subjects> bsc2SubjectsList = new ArrayList<>();
+    private List<ClassListTypeRecord> classTypeRecordList = new ArrayList<>();
+
     public Attendance_Frag() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
-        RelativeLayout relativeLayout = (RelativeLayout)myView.findViewById(R.id.faculty);
+        RelativeLayout relativeLayout = (RelativeLayout) myView.findViewById(R.id.faculty);
+        default_map.put("default", "");
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG,"Faculty");
+                Log.i(TAG, "Faculty");
                 LayoutInflater inflater = getLayoutInflater();
+
+
+                //----------------------------------Setting up Firebase---------------------------------
+
+
+                years_list.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                yearsList.add(documentSnapshot.getId());
+                            }
+                        } else
+                            Log.wtf(TAG, "Error getting academic session");
+                    }
+                });
+
                 View alertLayout = inflater.inflate(R.layout.verify, null);
                 final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
 
@@ -71,36 +122,30 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     }
                 });
 
-                //----------------------------------Setting up Firebase---------------------------------
-                T_list
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (DocumentSnapshot document : task.getResult()) {
-                                        teachersList.add(document.getId());
-                                    }
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                }
-                            }
-                        });
 
-                C_list.collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (DocumentSnapshot document : task.getResult()) {
-                                        classList.add(document.getId());
-                                    }
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                }
+                //Get the list of all classes.
+                day.collection("Year").document("2015-16")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate).set(default_map);
+
+                readClassList();
+
+                CollectionReference class_list = FirebaseFirestore.getInstance().collection("Year").document("2016-17")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate).collection(classes);
+
+
+                class_list.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                classesList.add(documentSnapshot.getId());
+                                showClass();
                             }
-                        });
+                        } else
+                            Log.wtf(TAG, "Error getting classes record");
+                    }
+                });
+
                 //---------------------------------------------------------------------------------------
 
                 alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
@@ -110,32 +155,13 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         if (currentUser != null)
                             name = currentUser.getDisplayName();
 
-                        for(int i = 0 ; i < teachersList.size();i++){
-                            if(teachersList.get(i).equals(faculty_name.getText().toString())){
-                                Log.wtf(TAG,"Done");
+                        for (int i = 0; i < teachersList.size(); i++) {
+                            if (teachersList.get(i).equals(faculty_name.getText().toString())) {
+                                Log.wtf(TAG, "Done");
                                 showClass();
-                            }
-                            else{
-//                                Log.wtf(TAG,"Retry");
+                            } else {
                             }
                         }
-//                            final ArrayList<String> subList = new ArrayList<>();
-//                            db.collection("Teachers").document("KR").collection("Class").document(classList.get(which)).collection("Subjects")
-//                                    .get()
-//                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                            if (task.isSuccessful()) {
-//                                                for (DocumentSnapshot document : task.getResult()) {
-//                                                    //Log.d(TAG, document.getId() + " => " + document.getData());
-//                                                    subList.add(document.getId());
-//                                                }
-//
-//                                            } else {
-//                                                Log.d(TAG, "Error getting documents: ", task.getException());
-//                                            }
-//                                        }
-//                                    });
                     }
                 });
                 AlertDialog dialog = alert.create();
@@ -146,53 +172,322 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         return myView;
     }
 
+    private void readClassList() {
+
+        InputStream is = getResources().openRawResource(R.raw.classlist);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+
+                Log.i(TAG, "Line: " + line);
+                String[] tokens = line.split(",");
+
+                //int roll = Integer.parseInt(tokens[1]);
+
+                ClassListRecord classListRecord = new ClassListRecord();
+                classListRecord.setClasses(tokens[0]);
+
+                Log.wtf(TAG, tokens[0]);
+
+                classRecordList.add(classListRecord);
+
+                Map<String, Object> city = new HashMap<>();
+                city.put("name", "Los Angeles");
+                city.put("state", "CA");
+                city.put("country", "USA");
+                day.collection("Year").document("2015-16")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate)
+                        .collection(classes).document(tokens[0]).set(city);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showClass() {
 
+        final ArrayList<String> classesType = new ArrayList<>();
         new MaterialDialog.Builder(getContext())
                 .title("Select Your Class")
-                .items(classList)
+                .items(classesList)
                 .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        showSub(which);
+                    public boolean onSelection(MaterialDialog dialog, View view, final int which, CharSequence text) {
+
+                        //Get the type of class - lab,Theory.
+                        day.collection("Year").document("2015-16")
+                                .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                .collection(classes).document(classesList.get(which)).set(default_map);
+
+                        readClassListType(which);
+
+                        CollectionReference class_Type = FirebaseFirestore.getInstance().collection("Year").document("2015-16")
+                                .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                .collection(classes).document(classesList.get(which)).collection(classType);
+
+                        class_Type.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                        classesType.add(documentSnapshot.getId());
+
+                                    }
+                                } else
+                                    Log.wtf(TAG, "Error getting classes record");
+
+                                new MaterialDialog.Builder(getContext())
+                                        .title("Select Your Class Type")
+                                        .items(classesType)
+                                        .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                                            @Override
+                                            public boolean onSelection(MaterialDialog dialog, View view, final int whichClassType,
+                                                                       CharSequence text) {
+
+                                                if (whichClassType == 0) {
+
+                                                    //Get the group no.
+                                                    day.collection("Year").document("2015-16")
+                                                            .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                            .collection(classes).document(classesList.get(which))
+                                                            .collection(classType).document(classesType.get(whichClassType))
+                                                            .collection(groups).document("Group-1").set(default_map);
+
+                                                    CollectionReference grp_Type = FirebaseFirestore.getInstance()
+                                                            .collection("Year").document("2015-16")
+                                                            .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                            .collection(classes).document(classesList.get(which))
+                                                            .collection(classType).document(classesType.get(whichClassType))
+                                                            .collection(groups);
+
+                                                    final ArrayList<String> grpList = new ArrayList<>();
+                                                    grp_Type.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                                                    Log.wtf(TAG, "asf" + documentSnapshot.getId().toString());
+                                                                    grpList.add(documentSnapshot.getId());
+                                                                    new MaterialDialog.Builder(getContext())
+                                                                            .title("Select Your Group ")
+                                                                            .items(grpList)
+                                                                            .itemsCallbackSingleChoice(-1,
+                                                                                    new MaterialDialog.ListCallbackSingleChoice() {
+                                                                                        @Override
+                                                                                        public boolean onSelection(MaterialDialog dialog, View view,
+                                                                                                                   final int whichClassType, CharSequence text) {
+
+                                                                                            //Get the respective subjects of the class .
+                                                                                            day.collection("Year").document("2015-16")
+                                                                                                    .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                                                                    .collection(classes).document(classesList.get(which))
+                                                                                                    .collection(classType).document(classesType.get(whichClassType))
+                                                                                                    .collection(groups).document("Group-1")
+                                                                                                    .set(default_map);
+
+                                                                                            final ArrayList<String> bsc2Sub = new ArrayList<>();
+
+                                                                                            readBSc2Subjects(which,whichClassType);
+
+                                                                                            CollectionReference sub_type = FirebaseFirestore.getInstance()
+                                                                                                    .collection("Year").document("2015-16")
+                                                                                                    .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                                                                    .collection(classes).document(classesList.get(which)).collection(classType)
+                                                                                                    .document(classesType.get(whichClassType))
+                                                                                                    .collection(groups).document("Group-1").collection(subjects);
+
+
+                                                                                            sub_type.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                                                @Override
+                                                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                                                    if (task.isSuccessful()) {
+                                                                                                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                                                                                            bsc2Sub.add(documentSnapshot.getId());
+                                                                                                            new MaterialDialog.Builder(getContext())
+                                                                                                                    .title("Select Your Subjects")
+                                                                                                                    .items(bsc2Sub)
+                                                                                                                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                                                                                                                        @Override
+                                                                                                                        public boolean onSelection(MaterialDialog dialog, View view, final int whichSubType,
+                                                                                                                                                   CharSequence text) {
+
+                                                                                                                            //Get the students of the class.
+                                                                                                                            final ArrayList<String> studentsRecords = new ArrayList<>();
+                                                                                                                            day.collection("Year").document("2015-16")
+                                                                                                                                    .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                                                                                                    .collection(classes).document(classesList.get(which))
+                                                                                                                                    .collection(classType).document(classesType.get(whichClassType))
+                                                                                                                                    .collection(groups).document("Group-1")
+                                                                                                                                    .collection(subjects).document(bsc2Sub.get(whichSubType))
+                                                                                                                                    .set(default_map);
+
+                                                                                                                            getStudentsList(which,whichClassType,whichSubType,bsc2Sub);
+
+                                                                                                                            CollectionReference studentsList = FirebaseFirestore.getInstance()
+                                                                                                                                    .collection("Year").document("2015-16")
+                                                                                                                                    .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                                                                                                    .collection(classes).document(classesList.get(which)).collection(classType)
+                                                                                                                                    .document(classesType.get(whichClassType))
+                                                                                                                                    .collection(groups).document("Group-1")
+                                                                                                                                    .collection(subjects).document(bsc2Sub.get(whichSubType)).collection(students);
+
+                                                                                                                            studentsList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                                                                                @Override
+                                                                                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                                                                                    if (task.isSuccessful()) {
+                                                                                                                                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                                                                                                                            studentsRecords.add(documentSnapshot.getId());
+                                                                                                                                        }
+                                                                                                                                    } else
+                                                                                                                                        Log.wtf(TAG, "Error getting classes record");
+
+                                                                                                                                    for(int i = 0 ; i<studentsRecords.size();i++){
+                                                                                                                                        Log.wtf(TAG,studentsRecords.get(i));
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            });
+
+                                                                                                                            return true;
+                                                                                                                        }
+                                                                                                                    }).show();
+
+                                                                                                        }
+                                                                                                    } else
+                                                                                                        Log.wtf(TAG, "Error getting classes record");
+                                                                                                }
+                                                                                            });
+                                                                                            return true;
+                                                                                        }
+                                                                                    }).show();
+                                                                }
+                                                            } else
+                                                                Log.wtf(TAG, "Error getting classes record");
+                                                        }
+                                                    });
+                                                } else {
+
+                                                    day.collection("Year").document("2015-16")
+                                                            .collection(months).document(getMonth).collection(date).document(formattedDate)
+                                                            .collection(classes).document(classesList.get(which))
+                                                            .collection(classType).document(classesType.get(whichClassType)).set(default_map);
+
+                                                }
+
+                                                return true;
+                                            }
+                                        }).show();
+
+                            }
+                        });
                         return true;
                     }
                 })
                 .show();
     }
 
-    public void showSub(final int which)
-    {
-//        Log.i(TAG, String.valueOf(which)+ "inside");
-       final ArrayList<String> subList = new ArrayList<>();
-        C_list.collection("TeacherTest/Kavita Rastogi/Class/" + (classList.get(which)) + "/Subjects")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                subList.add(document.getId());
-                                Log.i(TAG, "Sub. List:  " + subList.toString());
-//                                Log.wtf(TAG, subList.toString());
-                            }
-                            new MaterialDialog.Builder(getContext())
-                                    .title("Select Subject")
-                                    .items(subList)
-                                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                                        @Override
-                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                            Intent intent = new Intent(getContext(), AttendanceMain.class);
-                                            startActivity(intent);
-                                            return true;
-                                        }
-                                    })
-                                    .show();
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+    private List<StudentsRecord> studentsList = new ArrayList<>();
+    private void getStudentsList(int which, int whichClassType, int whichSubType,ArrayList<String> bs2Sub) {
+
+        InputStream is = getResources().openRawResource(R.raw.cl);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+
+                Log.i(TAG, "Line: " + line);
+                String[] tokens = line.split(",");
+
+                int roll = Integer.parseInt(tokens[1]);
+
+                StudentsRecord studentsRecord = new StudentsRecord();
+                studentsRecord.setName(tokens[0]);
+                studentsRecord.setRollno(roll);
+
+                Log.wtf(TAG, tokens[0]);
+
+                studentsList.add(studentsRecord);
+
+                day.collection("Year").document("2015-16")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate)
+                        .collection(classes).document(classesList.get(which))
+                        .collection(classType).document("Lab")
+                        .collection(groups).document("Group-1")
+                        .collection(subjects).document(bs2Sub.get(whichSubType))
+                        .collection(students).document(tokens[0]).set(default_map);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    private void readBSc2Subjects(int which, int whichClassType) {
+
+        InputStream is = getResources().openRawResource(R.raw.bsc2_subjects);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+
+                Log.i(TAG, "Line: " + line);
+                String[] tokens = line.split(",");
+
+                //int roll = Integer.parseInt(tokens[1]);
+
+                Bsc2Subjects bsc2Subjects = new Bsc2Subjects();
+                bsc2Subjects.setbsc2Subjects(tokens[0]);
+
+                Log.wtf(TAG, tokens[0]);
+
+                bsc2SubjectsList.add(bsc2Subjects);
+
+                day.collection("Year").document("2015-16")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate)
+                        .collection(classes).document(classesList.get(which))
+                        .collection(classType).document("Lab")
+                        .collection(groups).document("Group-1")
+                        .collection(subjects).document(tokens[0]).set(default_map);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readClassListType(int which) {
+
+        InputStream is = getResources().openRawResource(R.raw.classlisttypes);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+
+                Log.i(TAG, "Line: " + line);
+                String[] tokens = line.split(",");
+
+                //int roll = Integer.parseInt(tokens[1]);
+
+                ClassListTypeRecord classListTypeRecord = new ClassListTypeRecord();
+                classListTypeRecord.setClassType(tokens[0]);
+
+                Log.wtf(TAG, tokens[0]);
+
+                classTypeRecordList.add(classListTypeRecord);
+
+                day.collection("Year").document("2015-16")
+                        .collection(months).document(getMonth).collection(date).document(formattedDate)
+                        .collection(classes).document(classesList.get(which)).collection(classType).document(tokens[0]).set(default_map);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

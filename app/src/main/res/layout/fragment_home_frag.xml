@@ -52,7 +52,9 @@
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="italic|bold"
-            android:paddingBottom="10dp"/>
+            />
+
+
 
     </LinearLayout>
 </ScrollView>

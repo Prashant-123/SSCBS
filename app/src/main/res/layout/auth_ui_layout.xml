@@ -1,42 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auth.AuthUiActivity">
 
-    <ScrollView
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="#610B21"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:paddingBottom="32dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
 
             <TextView
                 style="@style/Base.TextAppearance.AppCompat.Headline"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:drawableTop="@drawable/firebase_auth_120dp"
-                android:text="@string/launch_title" />
+                android:drawableTop="@drawable/icon"
+                android:gravity="center"
+                android:elevation="20dp"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" SSCBS is an official app for the students of Shaheed Sukhdev College of Bussiness Studies . It helps students be up to date with all the college related announcements, events,timetable,attendence and much more .."
+                android:gravity="center"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <Button
                 android:id="@+id/sign_in"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_margin="16dp"
+                android:layout_margin="10dp"
                 android:text="@string/sign_in" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Non SSCBite ? Tap to view upcoming events"/>
+
+            <Button
+                android:id="@+id/onlyevents"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="220dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="Upcoming Events" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/settings"
+                android:visibility="invisible">
 
             <TextView
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
@@ -80,8 +129,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/auth_providers_header" />
 
             <CheckBox
@@ -123,8 +172,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/tos_header" />
 
             <RadioGroup
@@ -151,8 +200,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/privacy_policy_header" />
 
             <RadioGroup
@@ -179,8 +228,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/logo_header" />
 
             <RadioGroup
@@ -214,8 +263,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/extra_facebook_scopes" />
 
             <CheckBox
@@ -237,8 +286,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/extra_google_scopes" />
 
             <CheckBox
@@ -259,8 +308,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/other_options_header" />
 
             <CheckBox
@@ -286,6 +335,5 @@
 
         </LinearLayout>
 
-    </ScrollView>
-
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

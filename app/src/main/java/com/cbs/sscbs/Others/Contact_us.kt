@@ -31,7 +31,7 @@ class Contact_us : AppCompatActivity() {
             val sub = ""
             val body = ""
             val intent = Intent(Intent.ACTION_VIEW)
-            val data = Uri.parse("mailto:sscbs@gmail.com?subject=$sub&body=$body")
+            val data = Uri.parse("mailto:cbs@sscbsdu.ac.in?subject=$sub&body=$body")
             intent.data = data
             startActivity(Intent.createChooser(intent, "Send Email Using"))
         }

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.cbs.sscbs.Attendance.StudentsRecord;
 import com.cbs.sscbs.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -117,7 +118,7 @@ public class Deadlines extends AppCompatActivity {
     private List<StudentsRecord> recordList = new ArrayList<>();
     private void readData() {
 
-       StudentsRecord record;
+        StudentsRecord record;
 
         InputStream is = getResources().openRawResource(R.raw.cl);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -127,25 +128,40 @@ public class Deadlines extends AppCompatActivity {
             bufferedReader.readLine();
             while ((line= bufferedReader.readLine())!=null){
 
-                Log.i(TAG,line);
+                Log.i(TAG,"Line: " + line);
                 String[] tokens = line.split(",");
+
+                int roll = Integer.parseInt(tokens[1]);
 
                 StudentsRecord studentsRecord = new StudentsRecord();
                 studentsRecord.setName(tokens[0]);
-                studentsRecord.setRollno(tokens[1]);
+                studentsRecord.setRollno(roll);
                 studentsRecord.setAttendence(tokens[3]);
-                recordList.add(studentsRecord);
+                Log.wtf(TAG,tokens[1]);
 
-                Log.i(TAG , "Creatd " + studentsRecord);
+                recordList.add(studentsRecord);
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("name",tokens[0]);
-                data.put("RollNo",tokens[1]);
+                data.put("RollNo",roll);
                 data.put("attendence",tokens[3]);
-                db.collection("Years").document("2017-18").collection(months).document(getMonth)
-                        .collection(day).document(formattedDate).collection(classes).document("Bsc-1")
-                        .collection(teachers).document("Tanvi Goyal").collection(subjects).document("C++")
-                        .collection(students).document(tokens[0]).set(data);
+                db.collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Ok").document(tokens[0]).set(data);
+
+//                dbSt.orderBy("RollNo").get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (DocumentSnapshot document : task.getResult()) {
+//                                        AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , (long) document.getData().get("RollNo"),0  );
+//                                        showdata.add(attendanceDataClass);
+//                                        adapter.notifyDataSetChanged();
+//                                    }
+//                                } else {
+//                                    Log.i(TAG, "Error getting documents: ", task.getException());
+//                                }}
+//                        });
+
             }
         } catch (IOException e) {
             e.printStackTrace();

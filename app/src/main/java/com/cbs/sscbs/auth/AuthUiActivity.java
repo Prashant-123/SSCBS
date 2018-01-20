@@ -192,7 +192,7 @@ public class AuthUiActivity extends AppCompatActivity {
         }
 
         if (isGoogleMisconfigured() || isFacebookMisconfigured() || isTwitterMisconfigured()) {
-            showSnackbar(R.string.configuration_required);
+           // showSnackbar(R.string.configuration_required);
         }
     }
 

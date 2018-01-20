@@ -1,4 +1,4 @@
-package com.cbs.sscbs.Others;
+package com.cbs.sscbs.Attendance;
 
 /**
  * Created by Prashant on 10-01-2018.
@@ -8,7 +8,7 @@ public class StudentsRecord {
 
     String name;
     String attendence;
-    String rollno;
+    int rollno;
     String total;
 
     public String getName() {
@@ -27,11 +27,11 @@ public class StudentsRecord {
         this.attendence = attendence;
     }
 
-    public String getRollno() {
+    public int getRollno() {
         return rollno;
     }
 
-    public void setRollno(String rollno) {
+    public void setRollno(int rollno) {
         this.rollno = rollno;
     }
 
@@ -43,8 +43,8 @@ public class StudentsRecord {
         this.total = total;
     }
 
-    @Override
-    public String toString(){
-        return "StudentsRecord { " + " name " + name + " attendence " + attendence + " rollno " + rollno + " total " + total + " } ";
-    }
+//    @Override
+//    public String toString(){
+//        return "StudentsRecord { " + " name " + name + " attendence " + attendence + " rollno " + rollno + " total " + total + " } ";
+//    }
 }

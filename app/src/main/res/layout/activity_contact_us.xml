@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:textColor="@android:color/darker_gray"
-                    android:text="sscbs@gmail.com"/>
+                    android:text="cbs@sscbsdu.ac.in"/>
 
             </LinearLayout>
         </LinearLayout>
