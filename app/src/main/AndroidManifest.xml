@@ -52,9 +52,10 @@
             android:name=".Others.LifeAtCbs"
             android:label="Life At CBS"
             android:parentActivityName=".Others.About_Activity" />
-        <activity android:name=".Attendance.AttendanceMain"
+        <activity
+            android:name=".Attendance.AttendanceMain"
             android:label="Attendance"
-            android:parentActivityName=".Others.MainActivity"/>
+            android:parentActivityName=".Others.MainActivity" />
         <activity
             android:name=".Others.Facilities"
             android:label="Facilities"
@@ -96,6 +97,7 @@
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.Student" />
         <activity android:name=".Others.Teacher" />
+        <activity android:name=".Attendance.TeacherCourseDetails"></activity>
     </application>
 
 </manifest>

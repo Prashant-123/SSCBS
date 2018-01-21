@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.cbs.sscbs.Attendance.TeacherCourseDetails">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_course_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#610B21"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/getClassSpinner"
+        android:layout_margin="20dp">
+
+    </Spinner>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/getSubSpinner"
+        android:layout_margin="20dp">
+
+    </Spinner>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/getTypeSpinner"
+        android:layout_margin="20dp"
+        android:visibility="gone">
+
+    </Spinner>
+
+</LinearLayout>

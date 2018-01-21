@@ -7,7 +7,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.cbs.sscbs.Adapters.BookingsAdapter;
 import com.cbs.sscbs.DataClass.BookingsDataClass;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 
 public class Bookings extends AppCompatActivity {
 
+    private static final String TAG ="TAG" ;
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
     ImageView imageView ;
@@ -54,7 +57,7 @@ public class Bookings extends AppCompatActivity {
 
         Intent intent = getIntent();
 //        int child = intent.getIntExtra("childCount", 0);
-        for (int i=1; i<=6; i++) {
+        for (int i=1; i<=2; i++) {
             DatabaseReference venue = database.getReference("EventThings").child(String.valueOf(i)).child("venue");
             final DatabaseReference time = database.getReference("EventThings").child(String.valueOf(i)).child("time");
 
@@ -62,20 +65,20 @@ public class Bookings extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     final String v = dataSnapshot.getValue(String.class);
+                    Log.wtf(TAG,v);
 
                     time.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String t = dataSnapshot.getValue(String.class);
-                             String a = t.substring(18, 26);
-                             String b = t.substring(26, 30);
-                             String time = a + " to " + b;
+//                             String a = t.substring(18, 26);
+//                             String b = t.substring(26, 30);
+//                             String time = a + " to " + b;
 
-
-//                            Toast.makeText(Bookings.this, time1, Toast.LENGTH_SHORT).show();
-                            BookingsDataClass newData = new BookingsDataClass(v, time);
-                            data.add(newData);
-                            adapter.notifyDataSetChanged();
+                            Toast.makeText(Bookings.this, t, Toast.LENGTH_LONG).show();
+//                            BookingsDataClass newData = new BookingsDataClass(v, time);
+//                            data.add(newData);
+//                            adapter.notifyDataSetChanged();
                         }
 
                         @Override

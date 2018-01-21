@@ -356,7 +356,9 @@ public class CreateEvent extends AppCompatActivity {
                     int count = intent.getIntExtra("COUNT", 0);
                     Log.i("venue" ,et3.getText().toString() );
                     //send(et4);
-                    DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(), et3.getText().toString(), et4, sot, img, count, desc.getText().toString(), link.getText().toString(), mobNo.getText().toString(), taskSnapshot.getDownloadUrl().toString());
+                    DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(),
+                            et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
+                            link.getText().toString(), mobNo.getText().toString(), taskSnapshot.getDownloadUrl().toString());
                     database = FirebaseDatabase.getInstance();
                     databaseRef = database.getReference();
 
