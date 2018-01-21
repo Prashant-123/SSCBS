@@ -78,6 +78,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //    private List<Bsc2Subjects> bsc2SubjectsList = new ArrayList<>();
 //    private List<ClassListTypeRecord> classTypeRecordList = new ArrayList<>();
 
+    FirebaseFirestore stu = FirebaseFirestore.getInstance();
+
     static String TAG = "TAG";
     Map<String, Object> default_map = new HashMap<>();
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -191,16 +193,23 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                });
 //
 //
-//                //Get the list of all classes.
-//                day.collection("Year").document("2015-16")
-//                        .collection(months).document(getMonth).collection(date).document(formattedDate).set(default_map);
-//
-//                readClassList();
-//
-//                CollectionReference class_list = FirebaseFirestore.getInstance().collection("Year").document("2016-17")
-//                        .collection(months).document(getMonth).collection(date).document(formattedDate).collection(classes);
-//
-//
+                //Get the list of all classes.
+                stu.collection("Students").document("Bsc-II")
+                        .set(default_map);
+
+        readBscIIStudents();
+
+        CollectionReference courses = FirebaseFirestore.getInstance().collection("Students").document("Bsc-II").collection("StudentsList");
+        courses.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        Log.wtf(TAG,documentSnapshot.getId());
+                    }
+                }
+            }
+        });
 //                class_list.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //                    @Override
 //                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -238,6 +247,39 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //        });
 
         return myView;
+    }
+
+    private List<StudentsRecord> stuRecordList = new ArrayList<>();
+    private void readBscIIStudents() {
+        InputStream is = getResources().openRawResource(R.raw.bsc_ii_classlist);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        String line;
+        try {
+            bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] tokens = line.split(",");
+
+                Log.wtf(TAG,tokens[1]);
+                StudentsRecord stuRecord = new StudentsRecord();
+                stuRecord.setName(tokens[1]);
+
+                stuRecordList.add(stuRecord);
+
+                Map<String, Object> city = new HashMap<>();
+                city.put("name", tokens[1]);
+                city.put("roll", tokens[0]);
+                city.put("group", "");
+                for(int i = 2 ; i <=6 ;i++) {
+                    stu.collection("Students").document("Bsc-II")
+                            .collection("StudentsList").document(tokens[1])
+                            .collection("Subjects").document(tokens[i]).set(default_map);
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 //
 //    private void readClassList() {

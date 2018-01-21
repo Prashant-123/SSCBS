@@ -1,5 +1,6 @@
 package com.cbs.sscbs.Attendance;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -144,6 +145,18 @@ String Classes = "Classes";
                                                                                 android.R.layout.simple_spinner_item, type);
                                                                         areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                                         typeSpinner.setAdapter(areasAdapter);
+                                                                        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                                            @Override
+                                                                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                                                Intent intent = new Intent(getApplicationContext(),AttendanceMain.class);
+                                                                                startActivity(intent);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
                                                             }
@@ -175,4 +188,6 @@ String Classes = "Classes";
         });
 
     }
+
+
 }
