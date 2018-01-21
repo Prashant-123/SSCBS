@@ -97,7 +97,9 @@
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.Student" />
         <activity android:name=".Others.Teacher" />
-        <activity android:name=".Attendance.TeacherCourseDetails"></activity>
+        <activity android:name=".Attendance.TeacherCourseDetails"
+            android:parentActivityName=".Others.MainActivity"/>
+        <activity android:name=".Others.StoreData"/>
     </application>
 
 </manifest>
