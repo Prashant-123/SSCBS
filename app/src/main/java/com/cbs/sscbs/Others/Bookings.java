@@ -52,7 +52,6 @@ public class Bookings extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         database = FirebaseDatabase.getInstance();
-        databaseRef = database.getReference();
 
 
         Intent intent = getIntent();
