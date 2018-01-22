@@ -4,12 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.cbs.sscbs.Attendance.StudentsRecord;
-import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -17,11 +13,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +35,7 @@ public class StoreData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         stu.collection("Students").document("Bsc-II").set(default_map);
-        readBscIIStudents();
+//        readBscIIStudents();
         CollectionReference courses = FirebaseFirestore.getInstance().collection("Students").document("Bsc-II").collection("StudentsList");
         courses.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -60,31 +51,31 @@ public class StoreData extends AppCompatActivity {
     }
 
     private List<StudentsRecord> stuRecordList = new ArrayList<>();
-    private void readBscIIStudents() {
-       InputStream is = getResources().openRawResource(R.raw.bsc_ii_classlist);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-
-        String line;
-        try {
-            bufferedReader.readLine();
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] tokens = line.split(",");
-
-                Log.wtf(TAG,tokens[1]);
-                StudentsRecord stuRecord = new StudentsRecord();
-                stuRecord.setName(tokens[1]);
-
-                stuRecordList.add(stuRecord);
-
-                Map<String, Object> city = new HashMap<>();
-                city.put("name", tokens[1]);
-                city.put("roll", tokens[0]);
-                city.put("group", "");
-                stu.collection("Students").document("Bsc-II").collection("StudentsList").document(tokens[1]).set(city);
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void readBscIIStudents() {
+//       InputStream is = getResources().openRawResource(R.raw.bsc_ii_classlist);
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+//
+//        String line;
+//        try {
+//            bufferedReader.readLine();
+//            while ((line = bufferedReader.readLine()) != null) {
+//                String[] tokens = line.split(",");
+//
+//                Log.wtf(TAG,tokens[1]);
+//                StudentsRecord stuRecord = new StudentsRecord();
+//                stuRecord.setName(tokens[1]);
+//
+//                stuRecordList.add(stuRecord);
+//
+//                Map<String, Object> city = new HashMap<>();
+//                city.put("name", tokens[1]);
+//                city.put("roll", tokens[0]);
+//                city.put("group", "");
+//                stu.collection("Students").document("Bsc-II").collection("StudentsList").document(tokens[1]).set(city);
+//
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

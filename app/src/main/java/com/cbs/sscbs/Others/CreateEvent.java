@@ -1,18 +1,13 @@
 package com.cbs.sscbs.Others;
 
-import android.annotation.TargetApi;
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -30,14 +25,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-//import com.cbs.sscbs.AlarmRecievers.AlertReciever;
-//import com.cbs.sscbs.AlarmRecievers.NotificationHelper;
 import com.cbs.sscbs.DataClass.DataClass;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -45,18 +41,26 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+//import com.cbs.sscbs.AlarmRecievers.AlertReciever;
+//import com.cbs.sscbs.AlarmRecievers.NotificationHelper;
 
 public class CreateEvent extends AppCompatActivity {
 
     public static final String FB_STORAGE_PATH = "image/";
     public static final String FB_DATABASE_PATH = "image";
     public static final int REQUEST_CODE = 1234;
+    private static final String TAG = "TAG";
+
+    ArrayList<String> venues = new ArrayList<>();
+    ArrayList<String> TimeThings = new ArrayList<>();
 
     final Calendar cal = Calendar.getInstance();
     final Calendar time = Calendar.getInstance();
 
-    private int CalendarHour, CalendarMinute;
+    private int CalendarHour, CalendarMinute, child;
     String format;
     Calendar calendar;
     TimePickerDialog timepickerdialog;
@@ -66,15 +70,13 @@ public class CreateEvent extends AppCompatActivity {
     Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
     ImageView image;
     TimePickerDialog.OnTimeSetListener t = null;
-    private FirebaseDatabase database;
+    private FirebaseDatabase database, db;
     private StorageReference storageReference;
     private DatabaseReference databaseRef;
     private Uri imgUri;
 
     Button notificationBtn ;
     DatePickerDialog.OnDateSetListener dpickerListener;
-
-//    private NotificationHelper mNotificationHelper;
 
     public static String theMonth(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -89,16 +91,47 @@ public class CreateEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getChild();
+
+        Log.i("TAG", "Child: " + child);
+
+        db = FirebaseDatabase.getInstance();
+        for (int i=1; i<=4; i++) {
+            DatabaseReference venue = db.getReference("EventThings").child(String.valueOf(i)).child("venue");
+            final DatabaseReference time = db.getReference("EventThings").child(String.valueOf(i)).child("time");
+
+            venue.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final String v = dataSnapshot.getValue(String.class);
+                    venues.add(v);
+
+                    time.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            String t = dataSnapshot.getValue(String.class);
+//                            String a = t.substring(19, 24);
+//                            String b = t.substring(26, 30);
+//                            String time = a + " to " + b;
+//                            TimeThings.add(time);
+//                            Log.wtf("TAG", v + " -> "+ time);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            System.out.println("The read failed: " + databaseError.getCode());
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+        }
 
 
-//        notificationBtn = (Button) findViewById(R.id.notificationBtn);
-//        mNotificationHelper = new NotificationHelper(this);
-//        notificationBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sendOnChannel1("hi" , "bye");
-//            }
-//        });
         Toast.makeText(getApplicationContext(), "check", Toast.LENGTH_SHORT).show();
         dpickerListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -106,15 +139,11 @@ public class CreateEvent extends AppCompatActivity {
                 date_x = dayOfMonth;
                 month_x = month;
                 year_x = year;
-
                 dateStr = " " + date_x + " " + theMonth(month_x) + " " + year_x + ", ";
                 int newMonth = month + 1;
                 sot = year + "" + newMonth + "-" + dayOfMonth;
-                Log.i("tag", sot);
                 et4 = dateStr;
                 Toast.makeText(CreateEvent.this, dateStr, Toast.LENGTH_SHORT).show();
-//            updateTime(0);
-//            updateTime(1);
             }
         };
 
@@ -210,26 +239,13 @@ public class CreateEvent extends AppCompatActivity {
 
                                 int hour = hourOfDay%12;
 
-                                timeStr1 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
-
-
-//                                Toast.makeText(CreateEvent.this, timeStr1, Toast.LENGTH_SHORT).show();
+                                timeStr1 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am-" : "pm-");
                             }
                         }, CalendarHour, CalendarMinute, false);
-                //startAlarm(calendar);
                 timepickerdialog.show();
-//                Calendar c = Calendar.getInstance();
-//                c.set(Calendar.HOUR_OF_DAY, CalendarHour);
-//                c.set(Calendar.MINUTE, CalendarMinute);
-//                startAlarm(c);
             }
 
         });
-
-
-
-
-
 
         findViewById(R.id.endTime).setOnClickListener(new View.OnClickListener() {
 
@@ -251,29 +267,6 @@ public class CreateEvent extends AppCompatActivity {
 
                                 timeStr2 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
 
-//                                if (hourOfDay == 0) {
-//
-//                                    hourOfDay += 12;
-//
-//                                    format = "AM";
-//                                }
-//                                else if (hourOfDay == 12) {
-//
-//                                    format = "PM";
-//
-//                                }
-//                                else if (hourOfDay > 12) {
-//
-//                                    hourOfDay -= 12;
-//
-//                                    format = "PM";
-//
-//                                }
-//                                else {
-//
-//                                    format = "AM";
-//                                }
-//                                Toast.makeText(CreateEvent.this, timeStr2, Toast.LENGTH_SHORT).show();
                             }
                         }, CalendarHour, CalendarMinute, false);
                 timepickerdialog.show();
@@ -282,12 +275,6 @@ public class CreateEvent extends AppCompatActivity {
         });
 
     }
-
-//    private void sendOnChannel1(String title , String message) {
-//        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(title,message);
-//        mNotificationHelper.getManager().notify(1,nb.build());
-//    }
-
     public void showDialoguOnButtonClick()
     {
         findViewById(R.id.newTime).setOnClickListener(new View.OnClickListener() {
@@ -324,7 +311,7 @@ public class CreateEvent extends AppCompatActivity {
         };
     }
 
-    public void save(View view)
+    public void save(final View view)
     {
         et4 = dateStr + timeStr1 + timeStr2;
         Toast.makeText(this, et4, Toast.LENGTH_SHORT).show();
@@ -350,33 +337,37 @@ public class CreateEvent extends AppCompatActivity {
                     EditText link = (EditText) findViewById(R.id.registrationLink);
                     EditText mobNo = (EditText) findViewById(R.id.mobNo);
 
-                    //ok
+                    if (et3.getText().equals(venues))
+                    {
+                        Toast.makeText(CreateEvent.this, "Already Exist", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Intent intent = getIntent();
+                        int count = intent.getIntExtra("COUNT", 0);
+                        Log.i("venue" ,et3.getText().toString() );
+                        //send(et4);
+                        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(),
+                                et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
+                                link.getText().toString(), mobNo.getText().toString(), taskSnapshot.getDownloadUrl().toString());
+                        database = FirebaseDatabase.getInstance();
+                        databaseRef = database.getReference();
 
-                    Intent intent = getIntent();
-                    int count = intent.getIntExtra("COUNT", 0);
-                    Log.i("venue" ,et3.getText().toString() );
-                    //send(et4);
-                    DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(),
-                            et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
-                            link.getText().toString(), mobNo.getText().toString(), taskSnapshot.getDownloadUrl().toString());
-                    database = FirebaseDatabase.getInstance();
-                    databaseRef = database.getReference();
+                        String ctr = String.valueOf(count);
+                        Log.i("tag", "count:  " + count);
+                        databaseRef.child("EventThings").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(CreateEvent.this, "Event Created", Toast.LENGTH_SHORT).show();
+                                onBackPressed();
 
-                    String ctr = String.valueOf(count);
-                    Log.i("tag", "count:  " + count);
-                    databaseRef.child("EventThings").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(CreateEvent.this, "Event Created", Toast.LENGTH_SHORT).show();
-                            onBackPressed();
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(CreateEvent.this, "Internal Error Occurred. \n Try Again", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(CreateEvent.this, "Internal Error Occurred. \n Try Again", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -404,6 +395,23 @@ public class CreateEvent extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select-File"), REQUEST_CODE);
     }
+
+    public int getChild() {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EventThings");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                child = (int) dataSnapshot.getChildrenCount();
+                Log.i(TAG, ""+ child);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return child;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
