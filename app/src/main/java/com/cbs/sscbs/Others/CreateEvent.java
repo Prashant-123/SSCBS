@@ -44,8 +44,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-//import com.cbs.sscbs.AlarmRecievers.AlertReciever;
-//import com.cbs.sscbs.AlarmRecievers.NotificationHelper;
 
 public class CreateEvent extends AppCompatActivity {
 
@@ -79,7 +77,8 @@ public class CreateEvent extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener dpickerListener;
 
     public static String theMonth(int month) {
-        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String[] monthNames = {"January", "February", "March", "April", "May",
+                "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
     }
 
