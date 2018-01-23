@@ -86,10 +86,54 @@ public class Events_Fragment extends Fragment {
 //                     }
 //                 }
 //
-                if (newData.getOrganiser().toString().compareTo("Blitz") == 0) {
-                    newData.setImg(R.drawable.about);
-                } else {
-                    newData.setImg(R.drawable.contact_logo);
+                if (newData.getOrganiser().toString().compareToIgnoreCase("Blitz") == 0) {
+                    newData.setImg(R.drawable.blitzlogo);
+                } else if(newData.getOrganiser().toString().compareToIgnoreCase("Anthropos") == 0){
+                    newData.setImg(R.drawable.anthroposlogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("Cbsmun") == 0){
+                    newData.setImg(R.drawable.cbsmunlogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("cdc") == 0){
+                    newData.setImg(R.drawable.cdclogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("Communique") == 0){
+                    newData.setImg(R.drawable.communiquelogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("Dhwani") == 0){
+                    newData.setImg(R.drawable.dhwanilogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("ecovision") == 0){
+                    newData.setImg(R.drawable.ecovisionlogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("enactus") == 0){
+                    newData.setImg(R.drawable.enactuslogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("grandeur") == 0){
+                    newData.setImg(R.drawable.grandeurlogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("kartavya") == 0){
+                    newData.setImg(R.drawable.kartavyalogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("kriti") == 0){
+                    newData.setImg(R.drawable.kritilogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("markit") == 0){
+                    newData.setImg(R.drawable.markitlogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("nucleus") == 0){
+                    newData.setImg(R.drawable.nucleuslogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("synergy") == 0){
+                    newData.setImg(R.drawable.synergylogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("verve") == 0){
+                    newData.setImg(R.drawable.vervelogo);
+                }
+                else if(newData.getOrganiser().toString().compareToIgnoreCase("yuva") == 0){
+                    newData.setImg(R.drawable.yuvalogo);
+                }else {
+                    newData.setImg(R.drawable.otherslogo);
                 }
                 data.add(newData);
                 adapter.notifyDataSetChanged();
