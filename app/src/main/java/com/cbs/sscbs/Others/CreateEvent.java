@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -106,8 +107,10 @@ public class CreateEvent extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                             String time = dataSnapshot.getValue(String.class);
-                            String t = time.substring(19, 26);
+                            String t = time.substring(18, 20) + time.substring(23, 25);
+                            String d = time.substring(0, 16);
                             TimeThings.add(t);
+                            TimeThings.add(d);
                                 }
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
@@ -210,7 +213,6 @@ public class CreateEvent extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
                 calendar = Calendar.getInstance();
                 CalendarHour = calendar.get(Calendar.HOUR_OF_DAY);
                 CalendarMinute = calendar.get(Calendar.MINUTE);
@@ -224,7 +226,6 @@ public class CreateEvent extends AppCompatActivity {
                             }
                         }, CalendarHour, CalendarMinute, false);
                 timepickerdialog.show();
-
             }
         });
 
@@ -247,9 +248,7 @@ public class CreateEvent extends AppCompatActivity {
         return null;
     }
 
-
-
-    public void save(final View view)
+    public void save(View view)
     {
         final EditText et3 = (EditText) findViewById(R.id.newVenue);
         final EditText et1 = (EditText) findViewById(R.id.newTitle);
@@ -259,13 +258,15 @@ public class CreateEvent extends AppCompatActivity {
         final EditText mobNo = (EditText) findViewById(R.id.mobNo);
 
         et4 = dateStr + timeStr1 + timeStr2;
-        String date = et4.substring(0, 17);
-        String time = et4.substring(19);
+        String date = et4.substring(0, 16);
+        String time = et4.substring(18, 20) + et4.substring(23, 25);
         String v = et3.getText().toString();
+        Log.i(TAG, TimeThings.toString());
+        Log.wtf(TAG, date + "   "+ time);
         if (VenueThings.contains(v)&&TimeThings.contains(date)&&TimeThings.contains(time))
         {
-            Log.wtf(TAG, "NEECE");
-            Toast.makeText(CreateEvent.this, "Already Exist", Toast.LENGTH_SHORT).show();
+            Log.wtf(TAG, "Neece");
+            Snackbar.make(view, "This location is already booked for the time you selected.", Snackbar.LENGTH_SHORT);
         } else {
             if (imgUri != null) {
                 final ProgressDialog dialogue = new ProgressDialog(this);
