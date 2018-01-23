@@ -60,7 +60,7 @@ public class CreateEvent extends AppCompatActivity {
     final Calendar cal = Calendar.getInstance();
     final Calendar time = Calendar.getInstance();
 
-    private int CalendarHour, CalendarMinute, child;
+    private static int CalendarHour, CalendarMinute, child;
     String format;
     Calendar calendar;
     TimePickerDialog timepickerdialog;
@@ -91,30 +91,44 @@ public class CreateEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getChild();
+       // getChild();
 
-        Log.i("TAG", "Child: " + child);
+        Log.i(TAG, "asdes"+ child);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EventThings");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                child = (int) dataSnapshot.getChildrenCount();
+                Log.i("TAG", "Child: " + child);
 
-        db = FirebaseDatabase.getInstance();
-        for (int i=1; i<=4; i++) {
-            DatabaseReference venue = db.getReference("EventThings").child(String.valueOf(i)).child("venue");
-            final DatabaseReference time = db.getReference("EventThings").child(String.valueOf(i)).child("time");
+                db = FirebaseDatabase.getInstance();
+                for (int i=1; i<=child; i++) {
+                    DatabaseReference venue = db.getReference("EventThings").child(String.valueOf(i)).child("venue");
+                    final DatabaseReference time = db.getReference("EventThings").child(String.valueOf(i)).child("time");
 
-            venue.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    final String v = dataSnapshot.getValue(String.class);
-                    venues.add(v);
-
-                    time.addValueEventListener(new ValueEventListener() {
+                    venue.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-//                            String t = dataSnapshot.getValue(String.class);
-//                            String a = t.substring(19, 24);
-//                            String b = t.substring(26, 30);
-//                            String time = a + " to " + b;
-//                            TimeThings.add(time);
-//                            Log.wtf("TAG", v + " -> "+ time);
+                            final String v = dataSnapshot.getValue(String.class);
+                            venues.add(v);
+                            Log.wtf(TAG,v);
+
+                            time.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                            String t = dataSnapshot.getValue(String.class);
+                            String a = t.substring(19);
+                            String b = t.substring(26, 30);
+                            String time = a + " to " + b;
+                            TimeThings.add(time);
+                            Log.wtf("TAG", v + " -> "+ time);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    System.out.println("The read failed: " + databaseError.getCode());
+                                }
+                            });
                         }
 
                         @Override
@@ -123,13 +137,14 @@ public class CreateEvent extends AppCompatActivity {
                         }
                     });
                 }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
-                }
-            });
-        }
+
+
 
 
         Toast.makeText(getApplicationContext(), "check", Toast.LENGTH_SHORT).show();

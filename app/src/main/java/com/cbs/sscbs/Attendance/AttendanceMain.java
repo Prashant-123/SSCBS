@@ -57,7 +57,6 @@ public class AttendanceMain extends AppCompatActivity {
 //    CollectionReference db32 = FirebaseFirestore.getInstance().collection("TeacherTest/Kavita Rastogi/Class/Bsc-1/Subjects/C++/Day/10-Jan-2018/Students");
 
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
-
      AttendanceAdapter adapter= null;
 
     @Override
@@ -71,7 +70,7 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
-        db.collection("Students")
+        db.collection("/Students/Bsc-II/StudentsList/")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -79,9 +78,10 @@ public class AttendanceMain extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-//                                AttendanceDataClass attendanceDataClass =
-//                                    new AttendanceDataClass(document.getData().get("name").toString() ,
-//                                            document.getData().get("roll").toString(),"ok"  );
+                                AttendanceDataClass attendanceDataClass =
+                                    new AttendanceDataClass(document.getData().get("name").toString() ,
+                                            document.getData().get("roll").toString(),document.getData().get("group").toString() );
+                                        showdata.add(attendanceDataClass);
                                         adapter.notifyDataSetChanged();
                             }
                         } else {
