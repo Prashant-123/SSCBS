@@ -164,16 +164,12 @@ public class Events_Fragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                         DocumentReference mDocRef = FirebaseFirestore.getInstance().document("username/society");
-                        Log.i("tag", "Log-1");
                         mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                Log.i("tag", "Log-2");
                                 if (documentSnapshot.exists()) {
-
-                                    Log.i("tag", "Log-3");
                                     String u = documentSnapshot.getString(USERNAME);
                                     String p = documentSnapshot.getString(PASSWORD);
                                     if (username.getText().toString().equals(u) && password.getText().toString().equals(p)) {

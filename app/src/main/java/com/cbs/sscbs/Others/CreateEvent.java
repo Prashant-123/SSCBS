@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,33 +46,28 @@ import java.util.Calendar;
 
 public class CreateEvent extends AppCompatActivity {
 
-    public static final String FB_STORAGE_PATH = "image/";
-    public static final String FB_DATABASE_PATH = "image";
+    public static final String FB_STORAGE_PATH = "image/", FB_DATABASE_PATH = "image", TAG = "TAG";
     public static final int REQUEST_CODE = 1234;
-    private static final String TAG = "TAG";
 
-    ArrayList<String> venues = new ArrayList<>();
+    ArrayList<String> VenueThings = new ArrayList<>();
     ArrayList<String> TimeThings = new ArrayList<>();
 
     final Calendar cal = Calendar.getInstance();
     final Calendar time = Calendar.getInstance();
 
     private static int CalendarHour, CalendarMinute, child;
-    String format;
     Calendar calendar;
     TimePickerDialog timepickerdialog;
     String dateStr, timeStr1, timeStr2, et4, sot;
-    int year_x, month_x, date_x;
-    int img;
-    Integer REQUEST_CAMERA =  1 , SELECT_FILE = 0 ;
+    int year_x, month_x, date_x, img;
     ImageView image;
+
     TimePickerDialog.OnTimeSetListener t = null;
     private FirebaseDatabase database, db;
     private StorageReference storageReference;
     private DatabaseReference databaseRef;
     private Uri imgUri;
 
-    Button notificationBtn ;
     DatePickerDialog.OnDateSetListener dpickerListener;
 
     public static String theMonth(int month) {
@@ -90,46 +84,37 @@ public class CreateEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-       // getChild();
-
-        Log.i(TAG, "asdes"+ child);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EventThings");
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 child = (int) dataSnapshot.getChildrenCount();
-                Log.i("TAG", "Child: " + child);
 
                 db = FirebaseDatabase.getInstance();
                 for (int i=1; i<=child; i++) {
-                    DatabaseReference venue = db.getReference("EventThings").child(String.valueOf(i)).child("venue");
+                    final DatabaseReference venue = db.getReference("EventThings").child(String.valueOf(i)).child("venue");
                     final DatabaseReference time = db.getReference("EventThings").child(String.valueOf(i)).child("time");
 
                     venue.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             final String v = dataSnapshot.getValue(String.class);
-                            venues.add(v);
-                            Log.wtf(TAG,v);
+                            VenueThings.add(v);
 
                             time.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                            String t = dataSnapshot.getValue(String.class);
-                            String a = t.substring(19);
-                            String b = t.substring(26, 30);
-                            String time = a + " to " + b;
-                            TimeThings.add(time);
-                            Log.wtf("TAG", v + " -> "+ time);
+                            String time = dataSnapshot.getValue(String.class);
+                            String t = time.substring(19, 26);
+                            TimeThings.add(t);
                                 }
-
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
                                     System.out.println("The read failed: " + databaseError.getCode());
                                 }
                             });
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             System.out.println("The read failed: " + databaseError.getCode());
@@ -141,10 +126,6 @@ public class CreateEvent extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-
-
 
         Toast.makeText(getApplicationContext(), "check", Toast.LENGTH_SHORT).show();
         dpickerListener = new DatePickerDialog.OnDateSetListener() {
@@ -161,13 +142,8 @@ public class CreateEvent extends AppCompatActivity {
             }
         };
 
-
-
-
-
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
-
         image = (ImageView) findViewById(R.id.newEventImage);
 
         LinearLayout layout0 = (LinearLayout) findViewById(R.id.subLayout);
@@ -208,51 +184,20 @@ public class CreateEvent extends AppCompatActivity {
         month_x = cal.get(Calendar.MONTH);
         date_x = cal.get(Calendar.DAY_OF_MONTH);
         showDialoguOnButtonClick();
-
-
-
         findViewById(R.id.startTime).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
                 calendar = Calendar.getInstance();
                 CalendarHour = calendar.get(Calendar.HOUR_OF_DAY);
                 CalendarMinute = calendar.get(Calendar.MINUTE);
-
-
                 timepickerdialog = new TimePickerDialog(v.getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
 
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-//
-//                                if (hourOfDay == 0) {
-//
-//                                    hourOfDay += 12;
-//
-//                                    format = "AM";
-//                                }
-//                                else if (hourOfDay == 12) {
-//
-//                                    format = "PM";
-//
-//                                }
-//                                else if (hourOfDay > 12) {
-//
-//                                    hourOfDay -= 12;
-//
-//                                    format = "PM";
-//
-//                                }
-//                                else {
-//
-//                                    format = "AM";
-//                                }
-
                                 int hour = hourOfDay%12;
-
                                 timeStr1 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am-" : "pm-");
                             }
                         }, CalendarHour, CalendarMinute, false);
@@ -269,18 +214,13 @@ public class CreateEvent extends AppCompatActivity {
                 calendar = Calendar.getInstance();
                 CalendarHour = calendar.get(Calendar.HOUR_OF_DAY);
                 CalendarMinute = calendar.get(Calendar.MINUTE);
-
-
                 timepickerdialog = new TimePickerDialog(v.getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-
                                 int hour = hourOfDay%12;
-
                                 timeStr2 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
-
                             }
                         }, CalendarHour, CalendarMinute, false);
                 timepickerdialog.show();
@@ -307,59 +247,42 @@ public class CreateEvent extends AppCompatActivity {
         return null;
     }
 
-    private void updateTime(final int i)
-    { new TimePickerDialog(this, t, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), false).show();
-        t = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                time.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                time.set(Calendar.MINUTE, minute);
-                int hour = hourOfDay % 12;
-                if(i==0)
-                    timeStr1 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
-                if(i==1)
-                    timeStr2 = String.format("%02d:%02d%s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "am" : "pm");
-                et4= timeStr1 + timeStr2;
 
-            }
-        };
-    }
 
     public void save(final View view)
     {
+        final EditText et3 = (EditText) findViewById(R.id.newVenue);
+        final EditText et1 = (EditText) findViewById(R.id.newTitle);
+        final EditText et2 = (EditText) findViewById(R.id.newOrganiser);
+        final EditText desc = (EditText) findViewById(R.id.eventDescription);
+        final EditText link = (EditText) findViewById(R.id.registrationLink);
+        final EditText mobNo = (EditText) findViewById(R.id.mobNo);
+
         et4 = dateStr + timeStr1 + timeStr2;
-        Toast.makeText(this, et4, Toast.LENGTH_SHORT).show();
+        String date = et4.substring(0, 17);
+        String time = et4.substring(19);
+        String v = et3.getText().toString();
+        if (VenueThings.contains(v)&&TimeThings.contains(date)&&TimeThings.contains(time))
+        {
+            Log.wtf(TAG, "NEECE");
+            Toast.makeText(CreateEvent.this, "Already Exist", Toast.LENGTH_SHORT).show();
+        } else {
+            if (imgUri != null) {
+                final ProgressDialog dialogue = new ProgressDialog(this);
+                dialogue.setTitle("Uploading...");
+                dialogue.show();
 
-        if (imgUri != null) {
-            final ProgressDialog dialogue = new ProgressDialog(this);
-            dialogue.setTitle("Uploading...");
-            dialogue.show();
+                StorageReference ref = storageReference.child(FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri));
+                ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-            StorageReference ref = storageReference.child(FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri));
-            ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        dialogue.dismiss();
+                        Toast.makeText(CreateEvent.this, "Image-Uploaded", Toast.LENGTH_SHORT).show();
 
-                    dialogue.dismiss();
-                    Toast.makeText(CreateEvent.this, "Image-Uploaded", Toast.LENGTH_SHORT).show();
-
-
-                    EditText et1 = (EditText) findViewById(R.id.newTitle);
-                    EditText et2 = (EditText) findViewById(R.id.newOrganiser);
-                    EditText et3 = (EditText) findViewById(R.id.newVenue);
-                    EditText desc = (EditText) findViewById(R.id.eventDescription);
-                    EditText link = (EditText) findViewById(R.id.registrationLink);
-                    EditText mobNo = (EditText) findViewById(R.id.mobNo);
-
-                    if (et3.getText().equals(venues))
-                    {
-                        Toast.makeText(CreateEvent.this, "Already Exist", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
                         Intent intent = getIntent();
                         int count = intent.getIntExtra("COUNT", 0);
                         Log.i("venue" ,et3.getText().toString() );
-                        //send(et4);
                         DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(),
                                 et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
                                 link.getText().toString(), mobNo.getText().toString(), taskSnapshot.getDownloadUrl().toString());
@@ -373,7 +296,6 @@ public class CreateEvent extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(CreateEvent.this, "Event Created", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
-
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -381,25 +303,22 @@ public class CreateEvent extends AppCompatActivity {
                                 Toast.makeText(CreateEvent.this, "Internal Error Occurred. \n Try Again", Toast.LENGTH_SHORT).show();
                             }
                         });
+
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(CreateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        dialogue.setMessage("Uploaded " + (int) progress + "%");
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                    Toast.makeText(CreateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    dialogue.setMessage("Uploaded " + (int) progress + "%");
-
-                }
-            });
+                    }
+                });
+            }
         }
     }
 
@@ -409,23 +328,6 @@ public class CreateEvent extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select-File"), REQUEST_CODE);
     }
-
-    public int getChild() {
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EventThings");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                child = (int) dataSnapshot.getChildrenCount();
-                Log.i(TAG, ""+ child);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        return child;
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
