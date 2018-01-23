@@ -13,6 +13,10 @@
     <string name="bfia_sem4"></string>
     <string name="bfia_sem5"></string>
     <string name="bfia_sem6"></string>
+
+    <string name="contribute_text">I WANT TO CONTRIBUTE</string>
+    <string name="contribute_message">Dear user, let\'s work on this app together.</string>
+    <string name="repository_text">Go to SSCBS App repository and Contribute !</string>
     <string name="bsc_sem1">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/I%20SEM/</string>
     <string name="bsc_sem2">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/II%20SEM/</string>
     <string name="bsc_sem3">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/II%20YEAR/III%20SEM/</string>
