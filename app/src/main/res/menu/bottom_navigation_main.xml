@@ -12,11 +12,7 @@
         android:enabled="true"
         android:icon="@drawable/icon_time_table"
         android:title="Time Table" />
-    <item
-        android:id="@+id/ic_paper"
-        android:enabled="true"
-        android:icon="@drawable/icon_question_paper"
-        android:title=" Q.Papers" />
+
 
     <item
         android:id="@+id/ic_attendence"
@@ -29,5 +25,11 @@
         android:enabled="true"
         android:icon="@drawable/icon_events"
         android:title="Events" />
+
+    <item
+        android:id="@+id/ic_updates"
+        android:enabled="true"
+        android:icon="@drawable/icon_events"
+        android:title="Updates" />
 
 </menu>

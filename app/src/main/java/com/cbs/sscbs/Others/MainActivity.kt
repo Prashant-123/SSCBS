@@ -27,6 +27,7 @@ import com.cbs.sscbs.Fragments.*
 import com.cbs.sscbs.R
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
+import com.cbs.sscbs.utils.web
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -87,8 +88,8 @@ class MainActivity : AppCompatActivity() {
                             fragmentTransaction.replace(R.id.main_Frame, f).commit()
                         }
 
-                        R.id.ic_paper -> {
-                            val fragment = Paper_Frag()
+                        R.id.ic_updates -> {
+                            val fragment = Home_frag()
                             val fragmentTransactions = fragmentManager.beginTransaction()
                             fragmentTransactions.replace(R.id.main_Frame, fragment).commit()
 
@@ -338,8 +339,8 @@ class MainActivity : AppCompatActivity() {
 
         when (id) {
 
-            R.id.DeadlineMenu -> {
-                val intent = Intent(this, Deadlines::class.java)
+            R.id.QuespprMenu-> {
+                val intent: Intent = Intent(this, web::class.java)
                 startActivity(intent)
                 return true
             }
@@ -350,11 +351,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
-            R.id.BookingslotsMenu -> {
-                val intent3 = Intent(this, Bookings::class.java)
-                startActivity(intent3)
-                return true
-            }
+//            R.id.BookingslotsMenu -> {
+//                val intent3 = Intent(this, Bookings::class.java)
+//                startActivity(intent3)
+//                return true
+//            }
 
             else -> return super.onOptionsItemSelected(item)
         }

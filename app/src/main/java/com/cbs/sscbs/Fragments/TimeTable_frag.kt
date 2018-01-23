@@ -1,6 +1,7 @@
 package com.cbs.sscbs.Fragments
 
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -18,6 +19,12 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
 import java.util.*
+import android.widget.Toast
+import android.content.DialogInterface
+import java.time.Clock.tick
+import android.R.id.button1
+import android.widget.Button
+
 
 class TimeTable_frag : Fragment() {
     lateinit var firebasedb: FirebaseDatabase
@@ -134,11 +141,11 @@ class TimeTable_frag : Fragment() {
     private fun showTimeTable(number: Int) {
         firebasedb = FirebaseDatabase.getInstance()
         firebaseref = firebasedb.getReference("${folder}/${number}")
-         progress_br.visibility = View.VISIBLE
+        progress_br.visibility = View.VISIBLE
 
         firebaseref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
-                 progress_br.visibility = View.INVISIBLE
+                progress_br.visibility = View.INVISIBLE
             }
 
             override fun onDataChange(p0: DataSnapshot?) {
@@ -147,9 +154,23 @@ class TimeTable_frag : Fragment() {
                 Picasso.with(context).load(url).into(image_timetable, object : Callback {
                     override fun onSuccess() {
                         image_timetable.setOnClickListener {
-                            val intent: Intent = Intent(context, FullScreenImage::class.java)
-                            intent.putExtra(CONSTANTS.imageurl, url)
-                            startActivity(intent)
+
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("Select")
+                            builder.setItems(arrayOf<CharSequence>("View Image", "Download")
+                            ) { dialog, which ->
+                                // The 'which' argument contains the index position
+                                // of the selected item
+                                when (which) {
+                                    0 -> {
+                                        val intent: Intent = Intent(context, FullScreenImage::class.java)
+                                        intent.putExtra(CONSTANTS.imageurl, url)
+                                        startActivity(intent)
+                                    }
+                                    1 -> Toast.makeText(context, "Download  clicked", 0).show()
+                                }
+                            }
+                            builder.create().show()
                         }
                     }
 
@@ -157,7 +178,7 @@ class TimeTable_frag : Fragment() {
                         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
                 })
-                 progress_br.visibility = View.INVISIBLE
+                progress_br.visibility = View.INVISIBLE
             }
         })
     }
