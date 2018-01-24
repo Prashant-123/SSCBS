@@ -78,16 +78,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser == null) {
-            startActivity(AuthUiActivity.createIntent(this))
-            finish()
-            return
-        }
-        setToolbar();
-        setDrawer()
-        setNavigationView()
+
         setbottomnavigator(savedInstanceState)
     }
 
@@ -115,6 +106,16 @@ class MainActivity : AppCompatActivity() {
         if (NetworkUtil.isNetworkAvailable(this)) {
             if (NetworkUtil.isWifiNetwork(this)) {
                 Log.d("TAG", "device is using wifi network")
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser == null) {
+                    startActivity(AuthUiActivity.createIntent(this))
+                    finish()
+                    return
+                }
+                setToolbar();
+                setDrawer()
+                setNavigationView()
+
             } else {
                 //                notify the user that s/he is using mobile data (optional)
                 displayMobileDataAlertDialog()
