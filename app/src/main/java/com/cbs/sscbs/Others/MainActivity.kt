@@ -24,7 +24,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.cbs.sscbs.Fragments.*
+import com.cbs.sscbs.Fragments.Attendance_Frag
+import com.cbs.sscbs.Fragments.Events_Fragment
+import com.cbs.sscbs.Fragments.Home_frag
+import com.cbs.sscbs.Fragments.TimeTable_frag
 import com.cbs.sscbs.R
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
@@ -54,15 +57,27 @@ class MainActivity : AppCompatActivity() {
             if (!NetworkUtil.isNetworkAvailable(this@MainActivity)) {
                 displayNoInternetAlertDialog()
             } else {
-                if (alertDialogNoInternet?.isShowing!!) {
-                    alertDialogNoInternet!!.dismiss()
-                }
+//                if (alertDialogNoInternet?.isShowing!!) {
+//                    alertDialogNoInternet!!.dismiss()
+//                }
                 if (!NetworkUtil.isWifiNetwork(this@MainActivity)) {
                     initMobileDataAlertDialog()
+                } else {
+                    val currentUser = FirebaseAuth.getInstance().currentUser
+                    if (currentUser == null) {
+                        startActivity(AuthUiActivity.createIntent(context))
+                        finish()
+                        return
+                    }
+                    setToolbar();
+                    setDrawer()
+                    setNavigationView()
+
                 }
             }
         }
-    }
+        }
+
 
     override fun onPause() {
 //        remove broadcast receiver when activity stops
@@ -78,7 +93,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setbottomnavigator(savedInstanceState)
     }
 
@@ -106,19 +120,7 @@ class MainActivity : AppCompatActivity() {
         if (NetworkUtil.isNetworkAvailable(this)) {
             if (NetworkUtil.isWifiNetwork(this)) {
                 Log.d("TAG", "device is using wifi network")
-                val currentUser = FirebaseAuth.getInstance().currentUser
-                if (currentUser == null) {
-                    startActivity(AuthUiActivity.createIntent(this))
-                    finish()
-                    return
-                }
-                setToolbar();
-                setDrawer()
-                setNavigationView()
 
-            } else {
-                //                notify the user that s/he is using mobile data (optional)
-                displayMobileDataAlertDialog()
             }
         } else {
             //            device has no internet connection, inform user
@@ -158,7 +160,7 @@ class MainActivity : AppCompatActivity() {
         progressDialog!!.show()
         Handler().postDelayed({
             if (progressDialog!!.isShowing) {
-                progressDialog!!.dismiss()
+//                progressDialog!!.dismiss()
                 if (!NetworkUtil.isNetworkAvailable(this)) {
                     displayFailedWifiConnectionAlertDialog()
                 }
@@ -284,8 +286,9 @@ class MainActivity : AppCompatActivity() {
         when (id) {
 
             R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                val main_fragment = Home_frag()
+                val ft = supportFragmentManager.beginTransaction()
+                ft.replace(R.id.main_Frame, main_fragment).commit()
 
             }
             R.id.about_college -> {

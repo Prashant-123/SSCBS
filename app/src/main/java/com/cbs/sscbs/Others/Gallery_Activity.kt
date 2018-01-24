@@ -44,7 +44,11 @@ class Gallery_Activity : AppCompatActivity() {
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper6) as ViewFlipper
         showImage(R.id.flipper6, "sports", 2)
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     fun setToolbar() {
