@@ -17,6 +17,21 @@
     <string name="contribute_text">I WANT TO CONTRIBUTE</string>
     <string name="contribute_message">Dear user, let\'s work on this app together.</string>
     <string name="repository_text">Go to SSCBS App repository and Contribute !</string>
+
+    <string name="alertMobileDataTitle">Use mobile data while using application?</string>
+    <string name="alertMobileDataNegativeButton">Proceed anyway</string>
+    <string name="alertMobileDataPositiveButton">Enable Wifi</string>
+    <string name="alertMobileDataCheckBox">Dont show again</string>
+
+    <string name="alertNoInternetTitle">Error</string>
+    <string name="alertNoInternetMessage">You have no Internet connection on your phone</string>
+    <string name="alertNoInternetPositiveButton">Retry</string>
+    <string name="alertNoInternetNegativeButton">Cancel</string>
+    <string name="alertNoInternetNeutralButton">Enable Wifi</string>
+
+    <string name="alertFailedWifiTitle">Connection Error</string>
+    <string name="alertFailedWifiPositiveButton">Retry</string>
+    <string name="alertFailedWifiNegativeButton">Open Wifi Settings</string>
     <string name="bsc_sem1">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/I%20SEM/</string>
     <string name="bsc_sem2">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/II%20SEM/</string>
     <string name="bsc_sem3">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/II%20YEAR/III%20SEM/</string>
