@@ -2,9 +2,13 @@ package com.cbs.sscbs.Fragments
 
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Environment
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,23 +17,24 @@ import com.cbs.sscbs.DataClass.CONSTANTS
 import com.cbs.sscbs.Others.FullScreenImage
 import com.cbs.sscbs.R
 import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable
+import com.cbs.sscbs.utils.FileDownloader
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
+import java.io.File
+import java.io.IOException
 import java.util.*
-import android.widget.Toast
-import android.content.DialogInterface
-import java.time.Clock.tick
-import android.R.id.button1
-import android.widget.Button
+
 
 
 class TimeTable_frag : Fragment() {
+
     lateinit var firebasedb: FirebaseDatabase
     lateinit var firebaseref: DatabaseReference
     internal var bundle: Bundle? = null
+    var mProgressDialog: ProgressDialog? = null
     var courselist: ArrayList<String> = ArrayList(Arrays.asList("Bsc 1", "Bsc 2", "Bsc 3", "BMS", "BFIA"))
     var years: ArrayList<String> = ArrayList(Arrays.asList("First Year", "Second Year", "Third Year"))
     var bms_sections: ArrayList<String> = ArrayList(Arrays.asList("BMS-A", "BMS-B", "BMS-C", "BMS-D"))
@@ -40,6 +45,11 @@ class TimeTable_frag : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.timetable_fragment, container, false)
         activity.toolbar.setTitle("Time Table")
+        mProgressDialog = ProgressDialog(view.context);
+        mProgressDialog!!.setMessage("A message");
+        mProgressDialog!!.setIndeterminate(true);
+        mProgressDialog!!.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressDialog!!.setCancelable(true);
         return view
     }
 
@@ -167,7 +177,10 @@ class TimeTable_frag : Fragment() {
                                         intent.putExtra(CONSTANTS.imageurl, url)
                                         startActivity(intent)
                                     }
-                                    1 -> Toast.makeText(context, "Download  clicked", 0).show()
+                                    1 -> {
+                                            DownloadFile().execute(url, "Image.jpg")
+                                            Log.wtf("TAG", "ok")
+                                    }
                                 }
                             }
                             builder.create().show()
@@ -191,4 +204,26 @@ class TimeTable_frag : Fragment() {
             return fragment
         }
     }
+
+        class DownloadFile : AsyncTask<String, Void, Void>() {
+
+            override fun doInBackground(vararg strings: String): Void? {
+                val fileUrl = strings[0]   // -> http://maven.apache.org/maven-1.x/maven.pdf
+                val fileName = strings[1]  // -> maven.pdf
+                val extStorageDirectory = Environment.getExternalStorageDirectory().toString()
+                val folder = File(extStorageDirectory, "Down")
+                folder.mkdir()
+
+                val pdfFile = File(folder, fileName)
+
+                try {
+                    pdfFile.createNewFile()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+
+                FileDownloader.downloadFile(fileUrl, pdfFile)
+                return null
+            }
+        }
 }

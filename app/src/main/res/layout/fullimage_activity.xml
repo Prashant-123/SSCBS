@@ -10,10 +10,9 @@
 
     <com.github.chrisbanes.photoview.PhotoView
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="match_parent"
         android:id="@+id/troops_image"
         android:layout_gravity="center"
-        android:maxHeight="200dp"
         />
 
 

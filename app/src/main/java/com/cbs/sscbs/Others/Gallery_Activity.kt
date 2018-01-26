@@ -84,7 +84,7 @@ class Gallery_Activity : AppCompatActivity() {
     private fun setImageInFlipr(frame: ViewFlipper, imgUrl: String?) {
 
         val image = ImageView(applicationContext)
-        Glide.with(this).load(imgUrl).into(image)
+        Glide.with(applicationContext).load(imgUrl).into(image)
         frame.addView(image)
         fade_in = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
         fade_out = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)

@@ -1,13 +1,13 @@
 package com.cbs.sscbs.Others
 
-import android.app.ProgressDialog
-import android.content.*
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Parcel
 import android.os.Parcelable
-import android.provider.Settings
 import android.support.annotation.MainThread
 import android.support.annotation.StringRes
 import android.support.design.widget.BottomNavigationView
@@ -17,7 +17,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -49,136 +48,22 @@ class MainActivity : AppCompatActivity() {
     lateinit var user: FirebaseUser
 
 
-    private var progressDialog: ProgressDialog? = null
-    private var alertDialogNoInternet: android.app.AlertDialog? = null
-
-    private val broadcastReceiverConnectionChanged = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            if (!NetworkUtil.isNetworkAvailable(this@MainActivity)) {
-                displayNoInternetAlertDialog()
-            } else {
-//                if (alertDialogNoInternet?.isShowing!!) {
-//                    alertDialogNoInternet!!.dismiss()
-//                }
-                if (!NetworkUtil.isWifiNetwork(this@MainActivity)) {
-                    initMobileDataAlertDialog()
-                } else {
-                    val currentUser = FirebaseAuth.getInstance().currentUser
-                    if (currentUser == null) {
-                        startActivity(AuthUiActivity.createIntent(context))
-                        finish()
-                        return
-                    }
-                    setToolbar();
-                    setDrawer()
-                    setNavigationView()
-
-                }
-            }
-        }
-        }
-
-
-    override fun onPause() {
-//        remove broadcast receiver when activity stops
-        unregisterReceiver(broadcastReceiverConnectionChanged)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        register broadcast receiver after starting activity
-        registerBroadcastReceiver()
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            startActivity(AuthUiActivity.createIntent(this))
+            finish()
+            return
+        }
+        setToolbar();
+        setDrawer()
+        setNavigationView()
         setbottomnavigator(savedInstanceState)
     }
 
-    private fun registerBroadcastReceiver() {
-        val intentFilter = IntentFilter("android.net.conn.CONNECTIVITY_CHANGE")
-        registerReceiver(broadcastReceiverConnectionChanged, intentFilter)
-    }
-
-    private fun initMobileDataAlertDialog() {
-        alertDialogNoInternet = android.app.AlertDialog.Builder(this)
-                .setTitle("Check your connection")
-                .setNegativeButton("Sorry! You need to check your connection") { dialog, which ->
-                    dialog.dismiss()
-                    //perform any tasks if necessary
-                }.setPositiveButton( "Logged in succesfully") { dialog, which ->
-            NetworkUtil.enableWifi(this@MainActivity)
-            showProgressDialog()
-        }
-                .setCancelable(false)
-                .create()
-        alertDialogNoInternet!!.show()
-    }
-
-    protected fun checkNetwork() {
-        if (NetworkUtil.isNetworkAvailable(this)) {
-            if (NetworkUtil.isWifiNetwork(this)) {
-                Log.d("TAG", "device is using wifi network")
-
-            }
-        } else {
-            //            device has no internet connection, inform user
-            displayNoInternetAlertDialog()
-        }
-    }
-
-
-    protected fun displayMobileDataAlertDialog() {
-        initMobileDataAlertDialog()
-    }
-
-    protected fun displayNoInternetAlertDialog() {
-        alertDialogNoInternet = android.app.AlertDialog.Builder(this).setTitle(getString(R.string
-                .alertNoInternetTitle)).setMessage(getString(R.string.alertNoInternetMessage))
-                .setNegativeButton(getString(R.string.alertNoInternetNegativeButton)) { dialog, which -> dialog.dismiss() }
-                .setPositiveButton(getString(R.string.alertNoInternetPositiveButton)) { dialog, which ->
-                    checkNetwork()
-                    dialog.dismiss()
-                }
-                .setNeutralButton(getString(R.string.alertNoInternetNeutralButton)) { dialog, which ->
-                    NetworkUtil.enableWifi(this@MainActivity)
-                    showProgressDialog()
-                }
-                .setCancelable(false).create()
-        alertDialogNoInternet!!.show()
-    }
-
-    private fun initProgressDialog() {
-        progressDialog = ProgressDialog(this)
-        progressDialog!!.setMessage("Connecting")
-        progressDialog!!.setCancelable(false)
-    }
-
-    private fun showProgressDialog() {
-        initProgressDialog()
-        progressDialog!!.show()
-        Handler().postDelayed({
-            if (progressDialog!!.isShowing) {
-//                progressDialog!!.dismiss()
-                if (!NetworkUtil.isNetworkAvailable(this)) {
-                    displayFailedWifiConnectionAlertDialog()
-                }
-            }
-        }, 3000)
-    }
-
-    private fun displayFailedWifiConnectionAlertDialog() {
-        alertDialogNoInternet = android.app.AlertDialog.Builder(this)
-                .setCancelable(false).setTitle(getString(R.string.alertFailedWifiTitle))
-                .setNegativeButton(getString(R.string.alertFailedWifiNegativeButton)) { dialog, which ->
-                    dialog.dismiss()
-                    startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-                }
-                .setPositiveButton(getString(R.string.alertFailedWifiPositiveButton)) { dialog, which -> showProgressDialog() }
-                .create()
-        alertDialogNoInternet!!.show()
-    }
     fun setToolbar() {
         setSupportActionBar(toolbar)
         setTitle("Welcome to CBS")

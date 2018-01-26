@@ -1,6 +1,7 @@
 package com.cbs.sscbs.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cbs.sscbs.DataClass.DataClass;
-import com.cbs.sscbs.utils.ItemClickListener;
+import com.cbs.sscbs.Others.FullScreenImage;
 import com.cbs.sscbs.R;
+import com.cbs.sscbs.utils.ItemClickListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,14 +32,6 @@ import java.util.List;
 
     public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder> {
     View alertLayout1;
-//        AppCompatActivity appCompatActivity = new AppCompatActivity();
-//
-//    private Animator mCurrentAnimator;
-//
-//    // The system "short" animation time duration, in milliseconds. This
-//    // duration is ideal for subtle animations or animations that occur
-//    // very frequently.
-//    private int mShortAnimationDuration;
     private List<DataClass> objectList;
     private LayoutInflater inflater;
      ImageView imageView;
@@ -69,14 +63,12 @@ import java.util.List;
             @Override
             public void onItemClick(View v, int pos) {
 
-                inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
-
-//                FirebaseDatabase del = FirebaseDatabase.getInstance();
-//                Log.i("TAG", "Dlete-ID: "+ current.getDelId());
-//                Intent intent = new Intent().putExtra("ctr", current.getDelId());
-//                del.getReference("EventThings").child(String.valueOf(current.getDelId())).removeValue();
-
-
+                v.findViewById(R.id.read).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
+                    }
+                });
             }
         });
     }
@@ -89,7 +81,6 @@ import java.util.List;
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ItemClickListener itemClickListener;
-
         ImageView img;
         TextView title, date, organiser, venue;
         DataClass currentObject;
@@ -132,11 +123,20 @@ import java.util.List;
         final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
         final TextView link = alertLayout1.findViewById(R.id.tvLink);
         final TextView mobNo = alertLayout1.findViewById(R.id.tvMobno);
-        //imageView = alertLayout1.findViewById(R.id.imageEvent);
 
         DatabaseReference descRef = database.getReference("EventThings").child(pos).child("desc");
         DatabaseReference linkRef = database.getReference("EventThings").child(pos).child("link");
         DatabaseReference mobNoRef = database.getReference("EventThings").child(pos).child("mobNo");
+
+        imageView = (ImageView) alertLayout1.findViewById(R.id.imageEvent);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(alertLayout1.getContext(), FullScreenImage.class);
+                intent.putExtra("url", url);
+                alertLayout1.getContext().startActivity(intent);
+            }
+        });
 
 
         final View thumb1View = alertLayout1.findViewById(R.id.imageEvent);

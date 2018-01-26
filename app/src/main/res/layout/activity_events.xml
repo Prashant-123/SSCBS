@@ -37,6 +37,13 @@
         android:src="@drawable/icon_events"
         android:layout_gravity="bottom|end"
         android:layout_margin="30dp"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/event_progress_bar"/>
+
     </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>

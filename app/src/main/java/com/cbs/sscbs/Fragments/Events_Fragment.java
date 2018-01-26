@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.cbs.sscbs.Others.CreateEvent;
@@ -63,7 +64,9 @@ public class Events_Fragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         final EventsAdapter adapter = new EventsAdapter(getContext(), data);
         recyclerView.setAdapter(adapter);
+        final ProgressBar bar = (ProgressBar) myView.findViewById(R.id.event_progress_bar);
 
+        bar.setVisibility(View.VISIBLE);
 
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
@@ -74,7 +77,6 @@ public class Events_Fragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
-
                  newData = dataSnapshot.getValue(DataClass.class);
 
                 if (newData.getOrganiser().toString().compareToIgnoreCase("Blitz") == 0) {
@@ -128,6 +130,7 @@ public class Events_Fragment extends Fragment {
                 }
                 data.add(newData);
                 adapter.notifyDataSetChanged();
+                bar.setVisibility(View.INVISIBLE);
 
             }
 
