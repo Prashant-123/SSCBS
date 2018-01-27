@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cbs.sscbs.Others.CreateEvent;
@@ -65,6 +66,7 @@ public class Events_Fragment extends Fragment {
         final EventsAdapter adapter = new EventsAdapter(getContext(), data);
         recyclerView.setAdapter(adapter);
         final ProgressBar bar = (ProgressBar) myView.findViewById(R.id.event_progress_bar);
+        final TextView tv = (TextView) myView.findViewById(R.id.loading_events);
 
         bar.setVisibility(View.VISIBLE);
 
@@ -131,6 +133,7 @@ public class Events_Fragment extends Fragment {
                 data.add(newData);
                 adapter.notifyDataSetChanged();
                 bar.setVisibility(View.INVISIBLE);
+                tv.setVisibility(View.INVISIBLE);
 
             }
 

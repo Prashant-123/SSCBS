@@ -5,14 +5,7 @@
     <string name="close">close</string>
     <string-array name="event_images"></string-array>
 
-    //Web-Addresses
-
-    <string name="bfia_sem1"></string>
-    <string name="bfia_sem2"></string>
-    <string name="bfia_sem3"></string>
-    <string name="bfia_sem4"></string>
-    <string name="bfia_sem5"></string>
-    <string name="bfia_sem6"></string>
+    <string name="google_maps_key">AIzaSyAQoHJRH9p-6V-plOI9IlUUw-V7t6Upq-g</string>
 
     <string name="contribute_text">I WANT TO CONTRIBUTE</string>
     <string name="contribute_message">Dear user, let\'s work on this app together.</string>
@@ -130,4 +123,5 @@
     <string name="title_activity_sta">STa</string>
     <string name="life_at_cbs_text">⁠⁠⁠⁠⁠To begin with some cliched, always enchanted phrases that raise University of Delhi to a pedestal of eminent universities of the world, take my word for it, this fact can never be overstated. University of Delhi is indeed one of the finest places to be at, SSCBS is another.</string>
     <string name="vid_url"><![CDATA[https://firebasestorage.googleapis.com/v0/b/sscbs-74a4d.appspot.com/o/Life%20At%20CBS%20New%20campus%20-%20converted%20with%20Clipchamp.mp4?alt=media&token=713590af-5cd1-49dc-8f00-1cd2a3931679]]></string>
+    <string name="Address">PSP Area IV, Dr. K.N. Katju Marg, Sector 16, Rohini, New Delhi, Delhi 110089</string>
 </resources>

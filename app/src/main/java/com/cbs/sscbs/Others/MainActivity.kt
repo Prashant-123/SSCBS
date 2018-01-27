@@ -194,12 +194,12 @@ class MainActivity : AppCompatActivity() {
                 ft.replace(R.id.main_Frame, main_fragment).commit()
             }
 
-            R.id.feedback -> {
-                val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "gautamkumar268249@gmail.com", null))
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, " ")
-                startActivity(Intent.createChooser(emailIntent, "Send email..."))
-            }
+//            R.id.feedback -> {
+//                val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+//                        "mailto", "gautamkumar268249@gmail.com", null))
+//                emailIntent.putExtra(Intent.EXTRA_SUBJECT, " ")
+//                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+//            }
             R.id.rec_friend -> try {
                 val i = Intent(Intent.ACTION_SEND)
                 i.type = "text/plain"

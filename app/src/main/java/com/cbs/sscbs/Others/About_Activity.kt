@@ -3,6 +3,7 @@ package com.cbs.sscbs.Others
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.cbs.sscbs.Contact_us
 import com.cbs.sscbs.R
 import kotlinx.android.synthetic.main.activity_about.*
 

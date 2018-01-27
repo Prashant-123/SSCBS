@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.cbs.sscbs.R;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,7 +33,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
-        RelativeLayout relativeLayout = (RelativeLayout) myView.findViewById(R.id.faculty);
 //        default_map.put("default", "");
 //        relativeLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -113,12 +111,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //            }
 //        });
         return myView;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        noInternetDialog.onDestroy();
     }
 
 //    private List<StudentsRecord> stuRecordList = new ArrayList<>();
