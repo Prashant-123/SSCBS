@@ -34,8 +34,6 @@ class Sample : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
-
-
         val intentName = intent.extras!!.get("intentName") as String
         val tv1 = findViewById<TextView>(R.id.t_naam) as TextView
         tv1.text = intentName

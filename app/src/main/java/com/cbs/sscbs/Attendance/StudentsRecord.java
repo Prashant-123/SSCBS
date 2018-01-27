@@ -42,9 +42,4 @@ public class StudentsRecord {
     public void setTotal(String total) {
         this.total = total;
     }
-
-//    @Override
-//    public String toString(){
-//        return "StudentsRecord { " + " name " + name + " attendence " + attendence + " rollno " + rollno + " total " + total + " } ";
-//    }
 }

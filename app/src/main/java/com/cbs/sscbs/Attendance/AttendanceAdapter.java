@@ -61,59 +61,6 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
             }
         });
 
-//        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (objectList.get(holder.getAdapterPosition()).isChecked()) {
-//                    checkedRoll = objectList.get(holder.getAdapterPosition()).getRoll();
-//
-//                   // Log.i(TAG, ""+ checkedRoll);
-//
-//
-//                    final int roll = Integer.parseInt(checkedRoll.toString());
-//
-//                    db.whereEqualTo("roll", roll).get()
-//                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                    if (task.isSuccessful()) {
-//                                        for (final DocumentSnapshot document : task.getResult()) {
-//                                            db1.runTransaction(new Transaction.Function<Void>() {
-//                                                @Override
-//                                                public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-//                                                    final DocumentReference sfDocRef = db1.collection("bsc_1").document(document.getId());
-//                                                    DocumentSnapshot snapshot = transaction.get(sfDocRef);
-//                                                    double newAttendence = (snapshot.getDouble("attendance")) + 1;
-//                                                    transaction.update(sfDocRef, "attendance", newAttendence);
-//                                                    return null;
-//                                                }
-//                                            }).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                @Override
-//                                                public void onSuccess(Void aVoid) {
-//                                                    Log.d(TAG, "Transaction success!");
-//                                                }
-//                                            }).addOnFailureListener(new OnFailureListener() {
-//                                                @Override
-//                                                public void onFailure(@NonNull Exception e) {
-//                                                    Log.w(TAG, "Transaction failure.", e);
-//                                                }
-//                                            });
-//                                        }
-//                                    } else {
-//                                        Log.i(TAG, "Error getting documents: ", task.getException());
-//                                    }
-//                                }
-//                            });
-//                } else {
-//
-//                }
-//            }
-//        });
-//
-//        for(int i = 0 ; i<saveRoll.size() ; i++){
-//            Log.i(TAG, ""+ saveRoll.get(i));        }
-//
-////                    viewGroup.findViewById()
         holder.setData(current);
     }
 

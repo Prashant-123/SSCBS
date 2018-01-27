@@ -1,8 +1,11 @@
 package com.cbs.sscbs.Others
 
+import am.appwise.components.ni.NoInternetDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -17,16 +20,14 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.cbs.sscbs.Fragments.Attendance_Frag
-import com.cbs.sscbs.Fragments.Events_Fragment
-import com.cbs.sscbs.Fragments.Home_frag
-import com.cbs.sscbs.Fragments.TimeTable_frag
+import com.cbs.sscbs.Fragments.*
 import com.cbs.sscbs.R
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
+        checkInternet()
     }
 
     fun setToolbar() {
@@ -185,8 +187,9 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent1)
             }
             R.id.developers -> {
-                val intent = Intent(this, Developers::class.java)
-                startActivity(intent)
+                val main_fragment = Developer_Frag()
+                val ft = supportFragmentManager.beginTransaction()
+                ft.replace(R.id.main_Frame, main_fragment).commit()
             }
 
             R.id.feedback -> {
@@ -334,11 +337,17 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    private fun checkInternet() {
+        var c_manager: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var activeNetworkInfo: NetworkInfo = c_manager.activeNetworkInfo
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
+            Log.i("TAG", "Connected")
+        }
+        else
+            NoInternetDialog.Builder(this).build()
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
         super.onOptionsItemSelected(item)
 
@@ -365,6 +374,5 @@ class MainActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
-
 
 }

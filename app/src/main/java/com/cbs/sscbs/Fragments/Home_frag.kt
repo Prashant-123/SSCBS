@@ -25,9 +25,8 @@ class Home_frag : Fragment() {
         fun newInstance(): Home_frag {
             val fragment = Home_frag()
             val bundle = Bundle()
-            //bundle.putString(CONSTANT.fabintent,CONSTANT.fabintent);
             fragment.arguments = bundle
             return fragment
         }
     }
-}// Required empty public constructor
+}

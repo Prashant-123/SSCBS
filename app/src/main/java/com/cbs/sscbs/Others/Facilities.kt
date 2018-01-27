@@ -15,7 +15,5 @@ class Facilities : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
-
-        //infra_pic.imageAlpha;
     }
 }

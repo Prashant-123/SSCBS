@@ -15,9 +15,4 @@ public class ClassListRecord {
     public void setClasses(String classes) {
         this.classes = classes;
     }
-
-//    @Override
-//    public String toString() {
-//        return "ClassListRecord { " + " name " + classes + " } ";
-//    }
 }
