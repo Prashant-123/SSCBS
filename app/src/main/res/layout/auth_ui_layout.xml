@@ -57,7 +57,8 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:text="@string/sign_in" />
+                android:text="@string/sign_in"
+                android:onClick="onlyEvents"/>
 
             <TextView
                 android:layout_width="match_parent"

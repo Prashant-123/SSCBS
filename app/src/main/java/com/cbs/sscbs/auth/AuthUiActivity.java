@@ -31,6 +31,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.cbs.sscbs.Others.GuestEventsActivity;
 import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
 import com.firebase.ui.auth.AuthUI;
@@ -212,6 +213,13 @@ public class AuthUiActivity extends AppCompatActivity {
                 RC_SIGN_IN);
     }
 
+
+    @OnClick(R.id.onlyevents)
+
+    public void onlyEvents(View view){
+        Intent intent = new Intent(this, GuestEventsActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
