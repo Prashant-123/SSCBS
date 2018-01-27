@@ -63,7 +63,9 @@ class MainActivity : AppCompatActivity() {
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
-        checkInternet()
+        NoInternetDialog.Builder(this).build()
+
+//        checkInternet()
     }
 
     fun setToolbar() {
@@ -80,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             ft.replace(R.id.main_Frame, main_fragment).commit()
         }
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView = this.findViewById(R.id.bottom_navigation)
        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
         //bottomNavigationView.setSelectedItemId(R.id.ic_timetable)
         val fragmentManager = supportFragmentManager
@@ -342,9 +344,8 @@ class MainActivity : AppCompatActivity() {
         var activeNetworkInfo: NetworkInfo = c_manager.activeNetworkInfo
         if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
             Log.i("TAG", "Connected")
+
         }
-        else
-            NoInternetDialog.Builder(this).build()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
