@@ -4,11 +4,8 @@
     package="com.cbs.sscbs">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -17,20 +14,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <permission
-        android:name="com.cbs.sscbs.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.cbs.sscbs.permission.MAPS_RECEIVE" />
     <uses-permission
         android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
         android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application
+    <application tools:replace="android:theme"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -38,17 +27,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:replace="android:theme">
-        <uses-library android:name="com.google.android.maps" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Others.MainActivity"
             android:label="SSCBS"
@@ -84,6 +63,7 @@
             android:name=".Others.Facilities"
             android:label="Facilities"
             android:parentActivityName=".Others.About_Activity" />
+
         <activity
             android:name=".Others.Gallery_Activity"
             android:label="GALLERY"
@@ -96,7 +76,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".utils.web" />
         <activity
-            android:name=".Contact_us"
+            android:name=".Others.Contact_us"
             android:label="Contact Details"
             android:parentActivityName=".Others.About_Activity" />
         <activity
@@ -116,9 +96,8 @@
             android:label="All Bookings"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.Teacher" />
-        <activity
-            android:name=".Attendance.TeacherCourseDetails"
-            android:parentActivityName=".Others.MainActivity" />
+        <activity android:name=".Attendance.TeacherCourseDetails"
+            android:parentActivityName=".Others.MainActivity"/>
     </application>
 
 </manifest>
