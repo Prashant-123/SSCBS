@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.MediaController
+import android.widget.ProgressBar
 import android.widget.VideoView
 import com.cbs.sscbs.R
+
 
 class LifeAtCbs : AppCompatActivity() {
 
@@ -19,15 +21,20 @@ class LifeAtCbs : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
+        val bar: ProgressBar = findViewById(R.id.life_bar)
         val videoView = findViewById<VideoView>(R.id.playVideo) as VideoView
         videoView.setMediaController(MediaController(this))
-        videoView.setVideoURI(Uri.parse("https://github.com/Prashant-123/Stuff/blob/master/Life%20At%20CBS%20New%20campus%20-%20converted%20with%20Clipchamp.mp4?raw=true"))
+        videoView.setVideoURI(Uri.parse(getString(R.string.vid_url)))
         videoView.requestFocus()
-        videoView.start()
-
-    }
-
+//        videoView.start()
+//        bar.visibility = View.INVISIBLE
 
 
+        bar.setVisibility(View.VISIBLE)
 
+        videoView.setOnPreparedListener { mp ->
+            mp.start()
+            bar.setVisibility(View.GONE)
+            }
+        }
 }
