@@ -76,7 +76,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".utils.web" />
         <activity
-            android:name=".Others.Contact_us"
+            android:name=".Contact_us"
             android:label="Contact Details"
             android:parentActivityName=".Others.About_Activity" />
         <activity
@@ -98,6 +98,7 @@
         <activity android:name=".Others.Teacher" />
         <activity android:name=".Attendance.TeacherCourseDetails"
             android:parentActivityName=".Others.MainActivity"/>
+        <activity android:name=".Others.GuestEventsActivity"/>
     </application>
 
 </manifest>
