@@ -5,7 +5,9 @@
     <string name="close">close</string>
     <string-array name="event_images"></string-array>
 
+    <!--Google maps API key-->
     <string name="google_maps_key">AIzaSyAQoHJRH9p-6V-plOI9IlUUw-V7t6Upq-g</string>
+    <!--API key-->
 
     <string name="contribute_text">I WANT TO CONTRIBUTE</string>
     <string name="contribute_message">Dear user, let\'s work on this app together.</string>

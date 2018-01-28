@@ -29,14 +29,24 @@
     </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addEventButton"
-        app:fabSize="normal"
-        android:src="@drawable/icon_events"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="30dp"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/addEventButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_border_color"
+            app:fab_showAnimation="@anim/fab_scale_up"
+            app:fab_hideAnimation="@anim/fab_scale_down"
+            app:fab_shadowRadius="4dp"
+            app:fab_showShadow="true"
+            app:fab_colorNormal="#DA4336"
+            app:fab_colorPressed="#E75043"
+            app:fab_colorRipple="#99FFFFFF"
+            app:fab_shadowXOffset="1dp"
+            app:fab_shadowYOffset="3dp"
+            />
 
         <ProgressBar
             android:layout_width="wrap_content"

@@ -53,7 +53,7 @@ public class TeachersAdapter extends RecyclerView.Adapter<MyHolder> implements F
 
                 Intent intent = new Intent(v.getContext(), Sample.class);
                 intent.putExtra("intentName", teachers.get(pos).getName());
-                intent.putExtra("intentPos", pos);
+//                intent.putExtra("intentPos", pos);
                 intent.putExtra("intentQualification",teachers.get(pos).getQualification());
                 intent.putExtra("intentEmail" , teachers.get(pos).getEmail()) ;
                 c.startActivity(intent);

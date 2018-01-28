@@ -32,10 +32,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <!--
-             The API key for Google Maps-based APIs.
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -89,7 +85,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".utils.web" />
         <activity
-            android:name=".Contact_us"
+            android:name=".Others.Contact_us"
             android:label="Contact Details"
             android:parentActivityName=".Others.About_Activity" />
         <activity

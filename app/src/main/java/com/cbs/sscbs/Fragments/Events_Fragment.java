@@ -3,7 +3,6 @@ package com.cbs.sscbs.Fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,9 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Others.CreateEvent;
-import com.cbs.sscbs.DataClass.DataClass;
 import com.cbs.sscbs.Adapters.EventsAdapter;
+import com.cbs.sscbs.DataClass.DataClass;
+import com.cbs.sscbs.Others.CreateEvent;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -163,7 +162,7 @@ public class Events_Fragment extends Fragment {
             }
         });
 
-        FloatingActionButton fb = (FloatingActionButton) myView.findViewById(R.id.addEventButton);
+        com.github.clans.fab.FloatingActionButton fb = (com.github.clans.fab.FloatingActionButton) myView.findViewById(R.id.addEventButton);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

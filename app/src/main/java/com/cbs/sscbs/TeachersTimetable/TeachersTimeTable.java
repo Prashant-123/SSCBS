@@ -76,7 +76,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         t.setQualification("Abhishek Tandon has done his MSc and PhD in Operational Research from Department of Operational Research, University of Delhi.");
         t.setEmail("abhishektandon@sscbsdu.ac.in");teachers.add(t) ;
         t = new Teacher();
-        t.setName("Ajay Jaiswal") ; t.setPos("") ; t.setImg(R.drawable.ajay_jaiswal) ; teachers.add(t);
+        t.setName("Ajay Jaiswal") ; t.setPos("") ; t.setImg(R.drawable.ajay_jaiswal); t.setQualification("ok"); ; teachers.add(t);
         t = new Teacher() ;
         t.setName("Amit Kumar") ; t.setPos("") ; t.setImg(R.drawable.amit_kumar) ;
         t.setQualification("Amit Kumar has been working as an Assistant Professor at University of Delhi. His core areas of interest include taxation, corporate finance and international business");
@@ -86,7 +86,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         t.setQualification(" She holds a Ph.D. & M.Phil degree in Inventory Management and Masters degree in Applied Operational Research from the Department of Operational Research, University of Delhi.");
         t.setEmail("amrinakausar@sscbsdu.ac.in");teachers.add(t);
         t = new Teacher() ;
-        t.setName("Anamika Gupta") ; t.setPos("You Lost It :)") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
+        t.setName("Anamika Gupta") ; t.setPos("") ; t.setImg(R.drawable.anamika_gupta) ; teachers.add(t);
         t = new Teacher() ;
         t.setName("Anuja Mathur") ; t.setPos("") ; t.setImg(R.drawable.anuja_mathur) ; teachers.add(t);
         t = new Teacher() ;
