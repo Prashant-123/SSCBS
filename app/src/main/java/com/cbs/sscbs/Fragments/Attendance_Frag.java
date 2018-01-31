@@ -46,11 +46,11 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     String name ;
 //    ArrayList<String> teachersList = new ArrayList<>();
     int f = 0 ;
-//    CollectionReference teachers_list = FirebaseFirestore.getInstance().collection("Teachers");get
 
     CollectionReference getTeachers = FirebaseFirestore.getInstance().collection("Teacher");
 
     ArrayList<String> teachersList = new ArrayList<>();
+    DataClas dataClas = new DataClas();
 
     public Attendance_Frag() {
     }
@@ -62,151 +62,69 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         RelativeLayout relativeLayout = myView.findViewById(R.id.faculty);
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  Log.i(TAG, "Faculty");
-                                                  final LayoutInflater inflater = getLayoutInflater();
+             @Override
+             public void onClick(View v) {
+             Log.i(TAG, "Faculty");
+                 final LayoutInflater inflater = getLayoutInflater();
 
+                 //----------------------------------Setting up Firebase---------------------------------
 
-                                                  //----------------------------------Setting up Firebase---------------------------------
+                 getTeachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                     @Override
+                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                         if (task.isSuccessful()) {
+                             for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                 teachersList.add(documentSnapshot.getId());
+                                 Log.wtf(TAG, teachersList.toString());
+                             }
+                         } else
+                             Log.wtf(TAG, "Error getting teachers list");
+                     }
+                 });
 
-                                                  getTeachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                      @Override
-                                                      public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                          if (task.isSuccessful()) {
-                                                              for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                                                                  teachersList.add(documentSnapshot.getId());
-                                                              }
-                                                          } else
-                                                              Log.wtf(TAG, "Error getting teachers list");
-                                                      }
-                                                  });
+                 DocumentReference docRef = getTeachers.document("Vipin Rathi");
+                 docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                     @Override
+                     public void onSuccess(DocumentSnapshot documentSnapshot) {
+                         dataClas = documentSnapshot.toObject(DataClas.class);
+                         Log.i(TAG, dataClas.getId());
+                     }
+                 });
 
-                                                  DocumentReference docRef = stu.collection("Teacher").document("Vipin Rathi");
-                                                  docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                      @Override
-                                                      public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                          GetData data = documentSnapshot.toObject(GetData.class);
-                                                       //   Log.wtf(TAG,data.toString());
-                                                      }
-                                                  });
+                 View alertLayout = inflater.inflate(R.layout.verify, null);
+                 final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
+                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                 alert.setTitle("Verify Credentials");
+                 alert.setView(alertLayout);
+                 alert.setCancelable(false);
+                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                         Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
+                     }
+                 });
 
-
-                                                  View alertLayout = inflater.inflate(R.layout.verify, null);
-                                                  final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
-
-                                                  AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                                                  alert.setTitle("Verify Credentials");
-                                                  alert.setView(alertLayout);
-                                                  alert.setCancelable(false);
-                                                  alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-                                                      @Override
-                                                      public void onClick(DialogInterface dialog, int which) {
-                                                          Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
-                                                      }
-                                                  });
-
-                                                  alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
-
-                                                      @Override
-                                                      public void onClick(DialogInterface dialog, int which) {
-                                                          if (currentUser != null)
-                                                              name = currentUser.getDisplayName();
-
-                                                          for (int i = 0; i < teachersList.size(); i++) {
-                                                              if (teachersList.get(i).equals(faculty_name.getText().toString())) {
-                                                                  Log.wtf(TAG, "Done");
-                                                                  f = 1;
-                                                                  Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
-                                                                  intent.putExtra("teacherName", faculty_name.getText().toString());
-                                                                  startActivity(intent);
-                                                                  break;
-                                                              }
-                                                          }
-                                                      }
-                                                  });
-                                                  AlertDialog dialog = alert.create();
-                                                  dialog.show();
+                 alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                         if (currentUser != null)
+                             name = currentUser.getDisplayName();
+                         for (int i = 0; i < teachersList.size(); i++) {
+                             if (teachersList.get(i).equals(faculty_name.getText().toString())) {
+                                 Log.wtf(TAG, "Done");
+                                 f = 1;
+                                 Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
+                                 intent.putExtra("teacherName", faculty_name.getText().toString());
+                                 startActivity(intent);
+                                 break;
+                             }
+                         }
+                     }
+                 });
+                 AlertDialog dialog = alert.create();
+                 dialog.show();
                                               }
         });
-//        default_map.put("default", "");
-//        relativeLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG, "Faculty");
-//                final LayoutInflater inflater = getLayoutInflater();
-//
-//
-//                //----------------------------------Setting up Firebase---------------------------------
-//
-//                teachers_list.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
-//                                teachersList.add(documentSnapshot.getId());
-//                            }
-//                        } else
-//                            Log.wtf(TAG, "Error getting teachers list");
-//                    }
-//                });
-//
-//                View alertLayout = inflater.inflate(R.layout.verify, null);
-//                final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
-//
-//                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-//                alert.setTitle("Verify Credentials");
-//                alert.setView(alertLayout);
-//                alert.setCancelable(false);
-//                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//                alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (currentUser != null)
-//                            name = currentUser.getDisplayName();
-//
-//                        for (int i = 0; i < teachersList.size(); i++) {
-//                            if (teachersList.get(i).equals(faculty_name.getText().toString())) {
-//                                Log.wtf(TAG, "Done");
-//                                f = 1;
-//                                Intent intent = new Intent(getContext(),TeacherCourseDetails.class);
-//                                intent.putExtra("teacherName",faculty_name.getText().toString());
-//                                startActivity(intent);
-//                                break;
-//                            }
-//                        }
-//                    }
-//                });
-//                AlertDialog dialog = alert.create();
-//                dialog.show();
-//            }
-//        });
-//
-//                stu.collection("Students").document("Bsc-II")
-//                        .set(default_map);
-//
-//        readBscIIStudents();
-//
-//        CollectionReference courses = FirebaseFirestore.getInstance().collection("Students").document("Bsc-II").collection("StudentsList");
-//        courses.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    for(DocumentSnapshot documentSnapshot : task.getResult()){
-//                        Log.wtf(TAG,documentSnapshot.getId());
-//                    }
-//                }
-//            }
-//        });
         return myView;
     }
 
