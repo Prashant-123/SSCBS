@@ -46,8 +46,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     String name ;
 //    ArrayList<String> teachersList = new ArrayList<>();
     int f = 0 ;
-
-    CollectionReference getTeachers = FirebaseFirestore.getInstance().collection("Teacher");
+    CollectionReference getTeachers = FirebaseFirestore.getInstance().collection("Teacher/");
 
     ArrayList<String> teachersList = new ArrayList<>();
     DataClas dataClas = new DataClas();
@@ -64,32 +63,52 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-             Log.i(TAG, "Faculty");
                  final LayoutInflater inflater = getLayoutInflater();
 
                  //----------------------------------Setting up Firebase---------------------------------
 
-                 getTeachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                     @Override
-                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                         if (task.isSuccessful()) {
-                             for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                                 teachersList.add(documentSnapshot.getId());
-                                 Log.wtf(TAG, teachersList.toString());
-                             }
-                         } else
-                             Log.wtf(TAG, "Error getting teachers list");
-                     }
-                 });
+//                 getTeachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                     @Override
+//                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                         if (task.isSuccessful()) {
+//                             for (QuerySnapshot snapshots : ) {
+//                                 teachersList.add(documentSnapshot.getId());
+//                                 Log.wtf(TAG, teachersList.toString());
+//                             }
+//                         } else
+//                             Log.wtf(TAG, "Error getting teachers list");
+//                     }
+//                 });
 
-                 DocumentReference docRef = getTeachers.document("Vipin Rathi");
-                 docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                     @Override
-                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                         dataClas = documentSnapshot.toObject(DataClas.class);
-                         Log.i(TAG, dataClas.getId());
-                     }
-                 });
+//                 DocumentReference docRef = getTeachers.document("Vipin Rathi");
+//                 docRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                     @Override
+//                     public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                         dataClas = documentSnapshot.toObject(DataClas.class);
+//                         Log.i(TAG, dataClas.getName() + " ->  " + dataClas.getId());
+//                     }
+//                 });
+
+                 getTeachers
+                         .get()
+                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                             @Override
+                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                 if (task.isSuccessful()) {
+                                     for (DocumentSnapshot document : task.getResult()) {
+                                         Log.wtf(TAG, document.getId() + " => " + document.getData());
+                                     }
+                                 } else {
+                                     Log.d(TAG, "Error getting documents: ", task.getException());
+                                 }
+                             }
+                         });
+
+
+
+
+
+
 
                  View alertLayout = inflater.inflate(R.layout.verify, null);
                  final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
@@ -107,18 +126,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                  alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
-                         if (currentUser != null)
-                             name = currentUser.getDisplayName();
-                         for (int i = 0; i < teachersList.size(); i++) {
-                             if (teachersList.get(i).equals(faculty_name.getText().toString())) {
-                                 Log.wtf(TAG, "Done");
-                                 f = 1;
                                  Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
                                  intent.putExtra("teacherName", faculty_name.getText().toString());
                                  startActivity(intent);
-                                 break;
-                             }
-                         }
                      }
                  });
                  AlertDialog dialog = alert.create();
@@ -127,37 +137,4 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         });
         return myView;
     }
-
-//    private List<StudentsRecord> stuRecordList = new ArrayList<>();
-//    private void readBscIIStudents() {
-//        InputStream is = getResources().openRawResource(R.raw.bsc_ii_classlist);
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-//
-//        String line;
-//        try {
-//            bufferedReader.readLine();
-//            while ((line = bufferedReader.readLine()) != null) {
-//                String[] tokens = line.split(",");
-//
-//                Log.wtf(TAG,tokens[1]);
-//                StudentsRecord stuRecord = new StudentsRecord();
-//                stuRecord.setName(tokens[1]);
-//
-//                stuRecordList.add(stuRecord);
-//
-//                Map<String, Object> city = new HashMap<>();
-//                city.put("name", tokens[1]);
-//                city.put("roll", tokens[0]);
-//                city.put("group", "");
-//                for(int i = 2 ; i <=6 ;i++) {
-//                    stu.collection("Students").document("Bsc-II")
-//                            .collection("StudentsList").document(tokens[1])
-//                            .collection("Subjects").document(tokens[i]).set(default_map);
-//                }
-//
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
