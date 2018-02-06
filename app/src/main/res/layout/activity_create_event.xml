@@ -27,12 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <EditText
             android:id="@+id/newTitle"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/raleway_light"
             android:hint="Enter Title" />
 
         <EditText

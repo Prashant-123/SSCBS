@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import am.appwise.components.ni.NoInternetDialog;
 
@@ -38,18 +41,11 @@ import am.appwise.components.ni.NoInternetDialog;
 
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
-    FirebaseFirestore stu = FirebaseFirestore.getInstance();
     static String TAG = "TAG";
     NoInternetDialog noInternetDialog;
     Map<String, Object> default_map = new HashMap<>();
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     String name ;
-//    ArrayList<String> teachersList = new ArrayList<>();
-    int f = 0 ;
-    CollectionReference getTeachers = FirebaseFirestore.getInstance().collection("Teacher/");
-
-    ArrayList<String> teachersList = new ArrayList<>();
-    DataClas dataClas = new DataClas();
 
     public Attendance_Frag() {
     }
@@ -65,53 +61,24 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
              public void onClick(View v) {
                  final LayoutInflater inflater = getLayoutInflater();
 
-                 //----------------------------------Setting up Firebase---------------------------------
-
-//                 getTeachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                     @Override
-//                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                         if (task.isSuccessful()) {
-//                             for (QuerySnapshot snapshots : ) {
-//                                 teachersList.add(documentSnapshot.getId());
-//                                 Log.wtf(TAG, teachersList.toString());
+//                 getTeachers
+//                         .get()
+//                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                             @Override
+//                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                 if (task.isSuccessful()) {
+//                                     for (DocumentSnapshot document : task.getResult()) {
+//                                         Log.wtf(TAG, document.getId() + " => " + document.getData());
+//                                     }
+//                                 } else {
+//                                     Log.d(TAG, "Error getting documents: ", task.getException());
+//                                 }
 //                             }
-//                         } else
-//                             Log.wtf(TAG, "Error getting teachers list");
-//                     }
-//                 });
-
-//                 DocumentReference docRef = getTeachers.document("Vipin Rathi");
-//                 docRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                     @Override
-//                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                         dataClas = documentSnapshot.toObject(DataClas.class);
-//                         Log.i(TAG, dataClas.getName() + " ->  " + dataClas.getId());
-//                     }
-//                 });
-
-                 getTeachers
-                         .get()
-                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                             @Override
-                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                 if (task.isSuccessful()) {
-                                     for (DocumentSnapshot document : task.getResult()) {
-                                         Log.wtf(TAG, document.getId() + " => " + document.getData());
-                                     }
-                                 } else {
-                                     Log.d(TAG, "Error getting documents: ", task.getException());
-                                 }
-                             }
-                         });
-
-
-
-
-
-
+//                         });
 
                  View alertLayout = inflater.inflate(R.layout.verify, null);
                  final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
+
                  AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                  alert.setTitle("Verify Credentials");
                  alert.setView(alertLayout);
