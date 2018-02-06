@@ -149,40 +149,40 @@ public class CreateEvent extends AppCompatActivity {
         databaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
         image = (ImageView) findViewById(R.id.newEventImage);
 
-        LinearLayout layout0 = (LinearLayout) findViewById(R.id.subLayout);
-        layout0.setVisibility(View.GONE);
-
-        final TextView text0 = (TextView) findViewById(R.id.desTitle);
-        text0.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                LinearLayout layout0 = (LinearLayout) findViewById(R.id.subLayout);
-
-                if(layout0.getVisibility()== View.GONE) {
-                    layout0.setVisibility(View.VISIBLE);
-                }
-                else layout0.setVisibility(View.GONE);
-
-            }
-        });
-
-        image.setVisibility(View.GONE);
-
-        final TextView text1 = (TextView) findViewById(R.id.imageTitle);
-        text1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                ImageView image = (ImageView) findViewById(R.id.newEventImage);
-                if(image.getVisibility()== View.GONE) {
-                    image.setVisibility(View.VISIBLE);
-                }
-                //else image.setVisibility(View.GONE);
-
-            }
-        });
+//        LinearLayout layout0 = (LinearLayout) findViewById(R.id.subLayout);
+//        layout0.setVisibility(View.GONE);
+//
+//        final TextView text0 = (TextView) findViewById(R.id.desTitle);
+//        text0.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                LinearLayout layout0 = (LinearLayout) findViewById(R.id.subLayout);
+//
+//                if(layout0.getVisibility()== View.GONE) {
+//                    layout0.setVisibility(View.VISIBLE);
+//                }
+//                else layout0.setVisibility(View.GONE);
+//
+//            }
+//        });
+//
+//        image.setVisibility(View.GONE);
+//
+//        final TextView text1 = (TextView) findViewById(R.id.imageTitle);
+//        text1.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                ImageView image = (ImageView) findViewById(R.id.newEventImage);
+//                if(image.getVisibility()== View.GONE) {
+//                    image.setVisibility(View.VISIBLE);
+//                }
+//                //else image.setVisibility(View.GONE);
+//
+//            }
+//        });
         year_x = cal.get(Calendar.YEAR);
         month_x = cal.get(Calendar.MONTH);
         date_x = cal.get(Calendar.DAY_OF_MONTH);
