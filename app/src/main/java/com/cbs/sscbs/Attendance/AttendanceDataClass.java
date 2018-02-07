@@ -57,10 +57,9 @@ public class AttendanceDataClass {
     }
 
 
-    public AttendanceDataClass(String name, String roll, String attendance)
+    public AttendanceDataClass(String name, String roll)
     {
         this.roll = roll;
-        this.attendance = attendance;
         this.name = name;
     }
 }

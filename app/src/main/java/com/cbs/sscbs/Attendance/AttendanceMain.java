@@ -39,7 +39,7 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
-        db.collection("/Students/Bsc-II/StudentsList/")
+        db.collection("/ClassList/Bsc-2/Type/Lab-G1/StudentList")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -49,7 +49,7 @@ public class AttendanceMain extends AppCompatActivity {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 AttendanceDataClass attendanceDataClass =
                                     new AttendanceDataClass(document.getData().get("name").toString() ,
-                                            document.getData().get("roll").toString(),document.getData().get("group").toString() );
+                                            document.getData().get("rollno").toString() );
                                         showdata.add(attendanceDataClass);
                                         adapter.notifyDataSetChanged();
                             }
@@ -59,6 +59,6 @@ public class AttendanceMain extends AppCompatActivity {
                     }
                 });
         adapter.notifyDataSetChanged();
-
+//
     }
 }
