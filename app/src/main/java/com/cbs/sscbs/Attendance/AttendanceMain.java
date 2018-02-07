@@ -59,6 +59,6 @@ public class AttendanceMain extends AppCompatActivity {
                     }
                 });
         adapter.notifyDataSetChanged();
-
+//
     }
 }
