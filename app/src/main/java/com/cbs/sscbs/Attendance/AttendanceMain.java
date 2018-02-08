@@ -39,7 +39,34 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
-        db.collection("/ClassList/Bsc-2/Type/Lab-G1/StudentList")
+        final String getType;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                getType = null;
+            } else {
+                getType= extras.getString("type");
+
+            }
+        } else {
+            getType= (String) savedInstanceState.getSerializable("type");
+        }
+
+        final String getClass;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                getClass = null;
+            } else {
+                getClass= extras.getString("class");
+
+            }
+        } else {
+            getClass= (String) savedInstanceState.getSerializable("class");
+        }
+
+
+        db.collection("/ClassList/").document(getClass).collection("/Type/").document(getType).collection("/StudentList")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

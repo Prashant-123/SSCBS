@@ -170,21 +170,19 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                     typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                                         @Override
                                                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                                            if (i == 0)
-                                                                Toast.makeText(TeacherCourseDetails.this, "Please select your Type",
-                                                                        Toast.LENGTH_SHORT).show();
-                                                            else {
+
                                                                 Toast.makeText(TeacherCourseDetails.this,
                                                                         "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+                                                                Log.wtf(TAG,adapterView.getItemAtPosition(i).toString());
 
                                                                 //-----------INTENT-----------------
 
                                                                 Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
+                                                                intent.putExtra("type",adapterView.getItemAtPosition(i).toString());
+                                                                intent.putExtra("class",getClass);
                                                                 startActivity(intent);
 
                                                                 //----------------------------------
-
-                                                            }
                                                         }
 
                                                         @Override
