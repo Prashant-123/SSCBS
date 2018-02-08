@@ -17,20 +17,28 @@ import com.cbs.sscbs.R;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.MyViewHolder> {
 
 
+    Calendar c = Calendar.getInstance();
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+   String formattedDate = df.format(c.getTime());
+   String getMonth = formattedDate.substring(3, 6);
 
     public static ArrayList<String> saveRoll = new ArrayList<>();
     private List<AttendanceDataClass> objectList;
     private LayoutInflater inflater;
     private String checkedRoll;
+
     private static final String TAG = "TAG";
     FirebaseFirestore db1 = FirebaseFirestore.getInstance();
-    CollectionReference db = FirebaseFirestore.getInstance().collection("2018-19/Month/Course/Day/Subject/Student/Student Details");
+    CollectionReference db = FirebaseFirestore.getInstance().collection("/Attendance/Bsc-2/Students/" +
+            "Abhishek Dev/Subjects/Algorithms/Year/2017-18/Month");
 
     public AttendanceAdapter(Context context, List<AttendanceDataClass> objectList) {
         inflater = LayoutInflater.from(context);

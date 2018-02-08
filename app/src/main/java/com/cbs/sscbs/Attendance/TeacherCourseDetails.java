@@ -178,8 +178,12 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                                 //-----------INTENT-----------------
 
                                                                 Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
-                                                                intent.putExtra("type",adapterView.getItemAtPosition(i).toString());
-                                                                intent.putExtra("class",getClass);
+                                                                intent.putExtra("path", "/ClassList/"+ getClass+ "/Type/"+ adapterView.getItemAtPosition(i).toString() + "/StudentList");
+                                                                intent.putExtra("type", adapterView.getItemAtPosition(i).toString());
+                                                                intent.putExtra("class", getClass);
+                                                                intent.putExtra("subject", getSub);
+//
+// intent.putExtra("class",getClass);
                                                                 startActivity(intent);
 
                                                                 //----------------------------------
