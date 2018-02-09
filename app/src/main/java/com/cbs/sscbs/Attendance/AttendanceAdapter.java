@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.cbs.sscbs.R;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -33,12 +32,12 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
     public static ArrayList<String> saveRoll = new ArrayList<>();
     private List<AttendanceDataClass> objectList;
     private LayoutInflater inflater;
-    private String checkedRoll;
+    private String checkRoll;
 
     private static final String TAG = "TAG";
     FirebaseFirestore db1 = FirebaseFirestore.getInstance();
-    CollectionReference db = FirebaseFirestore.getInstance().collection("/Attendance/Bsc-2/Students/" +
-            "Abhishek Dev/Subjects/Algorithms/Year/2017-18/Month");
+//    CollectionReference db = FirebaseFirestore.getInstance().collection("/Attendance/Bsc-2/Students/" +
+//            "Abhishek Dev/Subjects/Algorithms/Year/2017-18/Month");
 
     public AttendanceAdapter(Context context, List<AttendanceDataClass> objectList) {
         inflater = LayoutInflater.from(context);
@@ -59,13 +58,13 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 objectList.get(holder.getAdapterPosition()).setChecked(b);
-                checkedRoll = objectList.get(holder.getAdapterPosition()).getRoll().toString();
+                checkRoll = objectList.get(holder.getAdapterPosition()).getRoll().toString();
 
                 if (objectList.get(holder.getAdapterPosition()).isChecked())
                 {
-                    saveRoll.add(checkedRoll);
+                    saveRoll.add(checkRoll);
                 }
-                else saveRoll.remove(checkedRoll);
+                else saveRoll.remove(checkRoll);
             }
         });
 
