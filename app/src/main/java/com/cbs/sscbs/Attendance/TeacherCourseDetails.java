@@ -130,8 +130,6 @@ public class TeacherCourseDetails extends AppCompatActivity {
                     for (int i = 1; i <= subjectList.size(); i++) {
                         subjects[i] = subjectList.get(k);
                         k++;
-//                        if (task.isSuccessful()) {
-//                        }
                         ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
                                 android.R.layout.simple_spinner_item, subjects);
                         areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -141,12 +139,14 @@ public class TeacherCourseDetails extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                                 if (i == 0)
-                                    Toast.makeText(TeacherCourseDetails.this, "Please select your Subject",
+                                    Toast.makeText(TeacherCourseDetails.this, "Select Subject",
                                             Toast.LENGTH_SHORT).show();
                                 else {
                                     Toast.makeText(TeacherCourseDetails.this,
                                             "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
                                     getSub = adapterView.getItemAtPosition(i).toString();
+
+
 
                                     CollectionReference subType = FirebaseFirestore.getInstance().collection("AllSubjects");
                                     subType.whereEqualTo("type", true)
@@ -158,9 +158,9 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                     if (task.isSuccessful())
                                                         for (DocumentSnapshot document : task.getResult()) {
                                                             if (getSub.equals(document.getId())) {
-                                                                types = new String[]{"Lab-G1", "Lab-G2", "Theory"};
+                                                                types = new String[]{"Select Type " , "Lab-G1", "Lab-G2", "Theory"};
                                                             }
-                                                            else types = new String[]{"Theory"};
+                                                            else types = new String[]{"Select Type " , "Theory"};
                                                         }
 
                                                     ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
@@ -171,20 +171,23 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                         @Override
                                                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                                                            if(i==0)
+                                                                Toast.makeText(TeacherCourseDetails.this, "Select type", Toast.LENGTH_SHORT).show();
+
+                                                            else {
                                                                 Toast.makeText(TeacherCourseDetails.this,
                                                                         "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-                                                                Log.wtf(TAG,adapterView.getItemAtPosition(i).toString());
+//                                                                Log.wtf(TAG,adapterView.getItemAtPosition(i).toString());
 
                                                                 //-----------INTENT-----------------
 
                                                                 Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
-                                                                intent.putExtra("path", "/ClassList/"+ getClass+ "/Type/"+ adapterView.getItemAtPosition(i).toString() + "/StudentList");
-                                                                intent.putExtra("type", adapterView.getItemAtPosition(i).toString());
+                                                                intent.putExtra("path", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
+                                                                intent.putExtra("type", String.valueOf(adapterView.getSelectedItemPosition()));
                                                                 intent.putExtra("class", getClass);
                                                                 intent.putExtra("subject", getSub);
-//
-// intent.putExtra("class",getClass);
                                                                 startActivity(intent);
+                                                            }
 
                                                                 //----------------------------------
                                                         }
