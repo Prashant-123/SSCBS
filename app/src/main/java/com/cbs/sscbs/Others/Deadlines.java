@@ -1,48 +1,30 @@
 package com.cbs.sscbs.Others;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import com.cbs.sscbs.Attendance.StudentsRecord;
 import com.cbs.sscbs.R;
-import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Deadlines extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-    private String name;
-    private String email;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    StudentsRecord studentsRecord = new StudentsRecord() ;
+    private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
 
+    ArrayList<HashMap<String, String>> myData = new ArrayList<>();
 
-    Calendar c = Calendar.getInstance();
-    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-    String formattedDate = df.format(c.getTime());
-
-
-    String getMonth = formattedDate.substring(3, 6);
-
-    String months = "Months" ;
-    String day = "Day";
-    String classes = "Class";
-    String teachers = "Teachers" ;
-    String subjects = "Subjects" ;
-    String students = "Students" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,119 +35,70 @@ public class Deadlines extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-//        Calendar c = Calendar.getInstance();
-//        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-//        String formattedDate = df.format(c.getTime());
+        new yourDataTask().execute();
 
-        Log.wtf(TAG , formattedDate);
-
-        String getMonth = formattedDate.substring(3);
-//
-//        String months = "Months" ;
-//        String day = "Day";
-//        String classes = "Class";
-//        String teachers = "Teachers" ;
-//        String subjects = "Subjects" ;
-//        String students = "Students" ;
-//
-
-
-//
-////        String test = "hi";
-//        Map<String, Object> city = new HashMap<>();
-//        city.put("name", "Los Angeles");
-//        city.put("state", "CA");
-//        city.put("country", "USA");
-//        db.collection("Years").document("2018-19").collection(months).document(getMonth)
-//                .collection(day).document(formattedDate).collection(classes).document("Bsc-1")
-//                .collection(teachers).document("Tanvi Goyal").collection(subjects).document("C++")
-//                .collection(students).document();
-//        db.collection("Teachers/KR/Class/Bsc-1/Subjects/C++/Day").document("12-Jan").collection(test).document(formattedDate).set(city);
-//
-//        //db.collection("cities").document(formattedDate).collection(test);
-//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (currentUser != null) {
-//            name = currentUser.getDisplayName();
-//            email = currentUser.getEmail();
-//
-//            Log.wtf(TAG, name + "   " +email);
-//        }
-////        Map<String, Object> city = new HashMap<>();
-////        city.put("name", "Los Angeles");
-////        city.put("state", "CA");
-////        city.put("country", "USA");
-////
-////        db.collection("cities").document("LA")
-////                .set(city)
-////                .addOnSuccessListener(new OnSuccessListener<Void>() {
-////                    @Override
-////                    public void onSuccess(Void aVoid) {
-////                        Log.d(TAG, "DocumentSnapshot successfully written!");
-////                    }
-////                })
-////                .addOnFailureListener(new OnFailureListener() {
-////                    @Override
-////                    public void onFailure(@NonNull Exception e) {
-////                        Log.w(TAG, "Error writing document", e);
-////                    }
-////                });
-////
-
-               readData();
     }
 
-    private List<StudentsRecord> recordList = new ArrayList<>();
-    private void readData() {
+    public class yourDataTask extends AsyncTask<Void, Void, Void>
+    {
+        @Override
+        protected Void doInBackground(Void... params)
+        {
 
-        StudentsRecord record;
+            String str="https://api.androidhive.info/contacts/";
+            URLConnection urlConn = null;
+            BufferedReader bufferedReader = null;
+            try
+            {
+                HttpHandler sh = new HttpHandler();
+                String jsonStr = sh.makeServiceCall(URL);
 
-        InputStream is = getResources().openRawResource(R.raw.cl);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+                Log.i(TAG, "Response from url: " + jsonStr);
 
-        String line;
-        try {
-            bufferedReader.readLine();
-            while ((line= bufferedReader.readLine())!=null){
+                JSONObject object = new JSONObject(jsonStr);
+                JSONArray contacts = object.getJSONArray("Sheet1");
 
-                Log.i(TAG,"Line: " + line);
-                String[] tokens = line.split(",");
+                Log.wtf(TAG, String.valueOf(contacts.length()));
 
-                int roll = Integer.parseInt(tokens[1]);
+                for (int i = 0; i < contacts.length(); i++) {
+                    JSONObject c = contacts.getJSONObject(i);
+                    String name = c.getString("Name");
+                    String roll_no = c.getString("Roll_No");
+                    String total = c.getString("Total");
+                    String attendance = c.getString("Attendance");
+                    String waivers = c.getString("Waivers");
 
-                StudentsRecord studentsRecord = new StudentsRecord();
-                studentsRecord.setName(tokens[0]);
-                studentsRecord.setRollno(roll);
-                studentsRecord.setAttendence(tokens[3]);
-                Log.wtf(TAG,tokens[1]);
+                    Log.wtf(TAG, name + "-> " + roll_no + "-> " + total + "-> " + attendance + "-> " + waivers);
 
-                recordList.add(studentsRecord);
+                    HashMap<String, String> contact = new HashMap<>();
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("name",tokens[0]);
-                data.put("RollNo",roll);
-                data.put("attendence",tokens[3]);
-                db.collection("Years/2017-18/Months/Jan/Day/11-Jan-2018/Class/Bsc-1/Teachers/Tanvi Goyal/Subjects/C++/Ok").document(tokens[0]).set(data);
+                    contact.put("Name", name);
+                    contact.put("Roll_No", roll_no);
+                    contact.put("Total", total);
+                    contact.put("Attendance", attendance);
+                    contact.put("Waivers", waivers);
+                    myData.add(contact);
+                }
 
-//                dbSt.orderBy("RollNo").get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if (task.isSuccessful()) {
-//                                    for (DocumentSnapshot document : task.getResult()) {
-//                                        AttendanceDataClass attendanceDataClass = new AttendanceDataClass(document.getData().get("name").toString() , (long) document.getData().get("RollNo"),0  );
-//                                        showdata.add(attendanceDataClass);
-//                                        adapter.notifyDataSetChanged();
-//                                    }
-//                                } else {
-//                                    Log.i(TAG, "Error getting documents: ", task.getException());
-//                                }}
-//                        });
 
+
+
+//                return new JSONObject(stringBuffer.toString());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            catch(Exception ex)
+            {
+                Log.e("App", "yourDataTask", ex);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            Log.i(TAG, myData.toString());
         }
     }
+
 }
 

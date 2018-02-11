@@ -194,22 +194,9 @@ class MainActivity : AppCompatActivity() {
                 ft.replace(R.id.main_Frame, main_fragment).commit()
             }
 
-//            R.id.feedback -> {
-//                val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-//                        "mailto", "gautamkumar268249@gmail.com", null))
-//                emailIntent.putExtra(Intent.EXTRA_SUBJECT, " ")
-//                startActivity(Intent.createChooser(emailIntent, "Send email..."))
-//            }
-            R.id.rec_friend -> try {
-                val i = Intent(Intent.ACTION_SEND)
-                i.type = "text/plain"
-                i.putExtra(Intent.EXTRA_SUBJECT, "NCERT BOOK & SOLUTION")
-                var sAux = "\nLet me recommend you this application\n\n"
-                sAux = sAux + "https://play.googl"
-                i.putExtra(Intent.EXTRA_TEXT, sAux)
-                startActivity(Intent.createChooser(i, "Share this App \uD83C\uDF1D"))
-            } catch (e: Exception) {
-                //e.toString();
+            R.id.rec_friend -> {
+                val intent1 = Intent(this, Deadlines::class.java)
+                startActivity(intent1)
             }
 
             R.id.rate_us -> Rateus()

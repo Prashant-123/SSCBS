@@ -81,6 +81,9 @@
             android:label="GALLERY"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
+
+        <activity android:name=".Sheets.MainPage" />
+
         <activity android:name=".auth.SignedInActivity" />
         <activity
             android:name=".Others.FullScreenImage"

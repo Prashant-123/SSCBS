@@ -45,7 +45,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     NoInternetDialog noInternetDialog;
     Map<String, Object> default_map = new HashMap<>();
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    String name ;
 
     public Attendance_Frag() {
     }
@@ -55,6 +54,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
         RelativeLayout relativeLayout = myView.findViewById(R.id.faculty);
+        Log.wtf(TAG, currentUser.getEmail());
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
              @Override
