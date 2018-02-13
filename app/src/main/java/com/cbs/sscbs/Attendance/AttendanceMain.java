@@ -37,6 +37,7 @@ public class AttendanceMain extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     Map<String, Object> default_map = new HashMap<>();
+    Map<String, Object> default_map2 = new HashMap<>();
     private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
     private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     RecyclerView recyclerView;
@@ -44,6 +45,7 @@ public class AttendanceMain extends AppCompatActivity {
     Integer type;
     String clas;
     String sub;
+    double newAttendence = 0 ;
     FloatingActionButton button1;
 
     Calendar c = Calendar.getInstance();
@@ -51,6 +53,7 @@ public class AttendanceMain extends AppCompatActivity {
     String formattedDate = df.format(c.getTime());
 
 
+    String getYear = formattedDate.substring(7,11);
     String getMonth = formattedDate.substring(3, 6);
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -69,8 +72,9 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
-        Log.wtf(TAG , formattedDate);
+        Log.wtf(TAG , getMonth + " " + getYear);
 
+//        default_map2.put("attendance",newAttendence);
         Intent getPath = getIntent();
         path = String.valueOf(getPath.getStringExtra("path"));
         Intent getType = getIntent();
@@ -115,10 +119,11 @@ public class AttendanceMain extends AppCompatActivity {
                     db.runTransaction(new Transaction.Function<Void>() {
                         @Override
                         public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                            final DocumentReference sfDocRef = getStu.document("/Feb");
+                            final DocumentReference sfDocRef = getStu.document(getMonth);
                             DocumentSnapshot snapshot = transaction.get(sfDocRef);
-                            double newAttendence = (snapshot.getDouble("attendance")) + 1;
+                             newAttendence = (snapshot.getDouble("attendance")) + 1;
                             transaction.update(sfDocRef, "attendance", newAttendence);
+                          //  default_map2.put("attendance" ,newAttendence);
                             Log.i(TAG, "Attendence updated");
                             return null;
                         }
@@ -158,7 +163,8 @@ public class AttendanceMain extends AppCompatActivity {
                         String sub = c2.getString("Subjects");
 
                         db.collection("Attendance").document(clas).collection("Students")
-                                .document(roll_no).collection("Subjects").document(sub).set(default_map);
+                                .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
+                        .collection("Months").document(getMonth).set(default_map2);
                     }
 
                     if(grp.equals("1") && type == 1)
