@@ -27,14 +27,17 @@ import com.google.firebase.firestore.Transaction;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AttendanceMain extends AppCompatActivity {
 
     private static final String TAG = "TAG";
+    Map<String, Object> default_map = new HashMap<>();
+    private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
     private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     RecyclerView recyclerView;
     String path;
@@ -42,6 +45,13 @@ public class AttendanceMain extends AppCompatActivity {
     String clas;
     String sub;
     FloatingActionButton button1;
+
+    Calendar c = Calendar.getInstance();
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+    String formattedDate = df.format(c.getTime());
+
+
+    String getMonth = formattedDate.substring(3, 6);
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
@@ -68,72 +78,7 @@ public class AttendanceMain extends AppCompatActivity {
         Intent getSub = getIntent();
         sub = String.valueOf(getSub.getStringExtra("subject"));
 
-        Log.wtf(TAG , type.toString());
-        new yourDataTask().execute();
-
-//        if(type == 3){
-//
-//            db.collection("ClassList/" + clas + "/Type/" + "Lab-G1" + "/StudentList")
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (DocumentSnapshot document : task.getResult()) {
-//                                    Log.d(TAG, document.getId() + " => " + document.getData());
-//                                    AttendanceDataClass attendanceDataClass =
-//                                            new AttendanceDataClass(document.getData().get("name").toString(),
-//                                                    document.getData().get("rollno").toString());
-//                                    showdata.add(attendanceDataClass);
-//                                }
-//                            } else {
-//                                Log.d(TAG, "Error getting documents: ", task.getException());
-//                            }
-//                        }
-//                    });
-//
-//            db.collection("ClassList/" + clas + "/Type/" + "Lab-G2" + "/StudentList")
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (DocumentSnapshot document : task.getResult()) {
-//                                    Log.d(TAG, document.getId() + " => " + document.getData());
-//                                    AttendanceDataClass attendanceDataClass =
-//                                            new AttendanceDataClass(document.getData().get("name").toString(),
-//                                                    document.getData().get("rollno").toString());
-//                                    showdata.add(attendanceDataClass);
-//                                   adapter.notifyDataSetChanged();
-//                                }
-//                            } else {
-//                                Log.d(TAG, "Error getting documents: ", task.getException());
-//                            }
-//                        }
-//                    });
-//        }
-//
-//        else {
-//            db.collection(path)
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (DocumentSnapshot document : task.getResult()) {
-//                                    Log.d(TAG, document.getId() + " => " + document.getData());
-//                                    AttendanceDataClass attendanceDataClass =
-//                                            new AttendanceDataClass(document.getData().get("name").toString(),
-//                                                    document.getData().get("rollno").toString());
-//                                    showdata.add(attendanceDataClass);
-//                                    adapter.notifyDataSetChanged();
-//                                }
-//                            } else {
-//                                Log.d(TAG, "Error getting documents: ", task.getException());
-//                            }
-//                        }
-//                    });
-//        }
+        new getListFromExcel().execute();
         adapter.notifyDataSetChanged();
     }
 
@@ -181,7 +126,7 @@ public class AttendanceMain extends AppCompatActivity {
         });
     }
 
-    public class yourDataTask extends AsyncTask<Void, Void, Void>
+    public class getListFromExcel extends AsyncTask<Void, Void, Void>
     {
         @Override
         protected Void doInBackground(Void... params)
@@ -190,11 +135,15 @@ public class AttendanceMain extends AppCompatActivity {
             {
                 HttpHandler sh = new HttpHandler();
                 String jsonStr = sh.makeServiceCall(URL);
+                String jsonStr2 = sh.makeServiceCall(URL2);
 
-                Log.i(TAG, "Response from url: " + jsonStr);
+                Log.i(TAG, "Response from url: " + jsonStr2);
 
                 JSONObject object = new JSONObject(jsonStr);
-                JSONArray contacts = object.getJSONArray("Sheet4");
+                JSONArray contacts = object.getJSONArray(clas);
+
+                JSONObject object2 = new JSONObject(jsonStr2);
+                JSONArray contacts2 = object2.getJSONArray(clas);
 
                 Log.wtf(TAG, String.valueOf(contacts.length()));
 
@@ -203,6 +152,19 @@ public class AttendanceMain extends AppCompatActivity {
                     String name = c.getString("Name");
                     String roll_no = c.getString("Roll_No");
                     String grp = c.getString("Group");
+
+                    db.collection("Attendance").document(clas).collection("Students")
+                            .document(roll_no).set(default_map);
+
+                    for(int j = 0 ; j<contacts2.length();j++){
+                        JSONObject c2 = contacts2.getJSONObject(j);
+                        String sub = c2.getString("Subjects");
+
+                        db.collection("Attendance").document(clas).collection("Students")
+                                .document(roll_no).collection("Subjects").document(sub).set(default_map);
+                    }
+
+
                     if(grp.equals("1") && type == 1)
                     {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
@@ -221,13 +183,13 @@ public class AttendanceMain extends AppCompatActivity {
                         showdata.add(dataClass);
                     }
 
-
-
                 }
+
+
             }
             catch(Exception ex)
             {
-                Log.e("App", "yourDataTask", ex);
+                Log.e("App", "getListFromExcel", ex);
             }
             return null;
         }

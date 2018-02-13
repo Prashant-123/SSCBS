@@ -119,20 +119,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 final EditText roll = alertLayout.findViewById(R.id.roll);
                 final EditText month = alertLayout.findViewById(R.id.month);
 
-                                 getCls
-                         .get()
-                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                             @Override
-                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                 if (task.isSuccessful()) {
-                                     for (DocumentSnapshot document : task.getResult()) {
-                                         Log.wtf(TAG, document.getId() + " => " + document.getData());
-                                     }
-                                 } else {
-                                     Log.d(TAG, "Error getting documents: ", task.getException());
-                                 }
-                             }
-                         });
 
 //                cls.setOnEditorActionListener(
 //                        new EditText.OnEditorActionListener() {
@@ -154,13 +140,14 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                            }
 //                        });
 
-                cls.addTextChangedListener(filterTextWatcher);
-                roll.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.wtf("Class:","Pressed");
-                    }
-                });
+//
+////                cls.addTextChangedListener(filterTextWatcher);
+//                roll.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                    }
+//                });
 //                cls.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //
 //                    public boolean onEditorAction(TextView arg0, int arg1, KeyEvent arg2) {
@@ -183,6 +170,30 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        Log.wtf(TAG, cls.getText().toString());
+                        Log.wtf(TAG, roll.getText().toString());
+                        Log.wtf(TAG, month.getText().toString());
+
+
+                        getCls
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (DocumentSnapshot document : task.getResult()) {
+//                                                Log.wtf(TAG, document.getId() + " => " + document.getData());
+                                                if(document.getId().compareToIgnoreCase(cls.getText().toString()) ==0 ){
+                                                    Log.i(TAG ,document.getId());
+                                                    break;
+                                                }
+                                            }
+                                        } else {
+                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                        }
+                                    }
+                                });
+
                     }
                 });
                 AlertDialog dialog = alert.create();
@@ -192,20 +203,21 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         return myView;
     }
 
-    private TextWatcher filterTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
+//    private TextWatcher filterTextWatcher = new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+////            Log.i(TAG,s.toString());
+//        }
+//    };
 }

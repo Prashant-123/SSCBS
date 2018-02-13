@@ -45,10 +45,6 @@ public class Deadlines extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params)
         {
-
-            String str="https://api.androidhive.info/contacts/";
-            URLConnection urlConn = null;
-            BufferedReader bufferedReader = null;
             try
             {
                 HttpHandler sh = new HttpHandler();
@@ -88,7 +84,7 @@ public class Deadlines extends AppCompatActivity {
             }
             catch(Exception ex)
             {
-                Log.e("App", "yourDataTask", ex);
+                Log.e("App", "getListFromExcel", ex);
             }
 
             return null;
