@@ -8,11 +8,14 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
@@ -45,7 +48,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     NoInternetDialog noInternetDialog;
     Map<String, Object> default_map = new HashMap<>();
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    String name ;
+    String name;
+
+    CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
 
     public Attendance_Frag() {
     }
@@ -54,12 +59,13 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
-        RelativeLayout relativeLayout = myView.findViewById(R.id.faculty);
+        RelativeLayout faculty = myView.findViewById(R.id.faculty);
+        RelativeLayout stu = myView.findViewById(R.id.students);
 
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 final LayoutInflater inflater = getLayoutInflater();
+        faculty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LayoutInflater inflater = getLayoutInflater();
 
 //                 getTeachers
 //                         .get()
@@ -75,35 +81,131 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                                 }
 //                             }
 //                         });
+                View alertLayout = inflater.inflate(R.layout.verify, null);
+                final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
 
-                 View alertLayout = inflater.inflate(R.layout.verify, null);
-                 final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setTitle("Verify Credentials");
+                alert.setView(alertLayout);
+                alert.setCancelable(false);
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                 alert.setTitle("Verify Credentials");
-                 alert.setView(alertLayout);
-                 alert.setCancelable(false);
-                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                     @Override
-                     public void onClick(DialogInterface dialog, int which) {
-                         Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
-                     }
-                 });
-
-                 alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
-                     @Override
-                     public void onClick(DialogInterface dialog, int which) {
-                                 Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
-                                 intent.putExtra("teacherName", faculty_name.getText().toString());
-                                 startActivity(intent);
-                     }
-                 });
-                 AlertDialog dialog = alert.create();
-                 dialog.show();
-                                              }
+                alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
+                        intent.putExtra("teacherName", faculty_name.getText().toString());
+                        startActivity(intent);
+                    }
+                });
+                AlertDialog dialog = alert.create();
+                dialog.show();
+            }
         });
 
 
+        stu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LayoutInflater inflater = getLayoutInflater();
+
+                View alertLayout = inflater.inflate(R.layout.studentverify, null);
+                final EditText cls = alertLayout.findViewById(R.id.student_class);
+                final EditText roll = alertLayout.findViewById(R.id.roll);
+                final EditText month = alertLayout.findViewById(R.id.month);
+
+                                 getCls
+                         .get()
+                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                             @Override
+                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                 if (task.isSuccessful()) {
+                                     for (DocumentSnapshot document : task.getResult()) {
+                                         Log.wtf(TAG, document.getId() + " => " + document.getData());
+                                     }
+                                 } else {
+                                     Log.d(TAG, "Error getting documents: ", task.getException());
+                                 }
+                             }
+                         });
+
+//                cls.setOnEditorActionListener(
+//                        new EditText.OnEditorActionListener() {
+//                            @Override
+//                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+//                                        actionId == EditorInfo.IME_ACTION_DONE ||
+//                                        event != null &&
+//                                                event.getAction() == KeyEvent.ACTION_DOWN &&
+//                                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+//                                    if (event == null || !event.isShiftPressed()) {
+//                                        // the user is done typing.
+//                                        Log.wtf(TAG , "ok");
+//
+//                                        return true; // consume.
+//                                    }
+//                                }
+//                                return false; // pass on to other listeners.
+//                            }
+//                        });
+
+                cls.addTextChangedListener(filterTextWatcher);
+                roll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.wtf("Class:","Pressed");
+                    }
+                });
+//                cls.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//
+//                    public boolean onEditorAction(TextView arg0, int arg1, KeyEvent arg2) {
+//                        Log.wtf(TAG , "ok");
+//                        return false;
+//                    }
+//                });
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setTitle("Enter Credentials");
+                alert.setView(alertLayout);
+                alert.setCancelable(false);
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog dialog = alert.create();
+                dialog.show();
+            }
+        });
         return myView;
     }
+
+    private TextWatcher filterTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 }

@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/roll"
-            android:inputType="number"
+            android:focusable="true"
             android:hint="Enter Your RollNo"/>
     </android.support.design.widget.TextInputLayout>
 
