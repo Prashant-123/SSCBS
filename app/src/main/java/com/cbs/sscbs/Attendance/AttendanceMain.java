@@ -69,6 +69,8 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
+        Log.wtf(TAG , formattedDate);
+
         Intent getPath = getIntent();
         path = String.valueOf(getPath.getStringExtra("path"));
         Intent getType = getIntent();
@@ -136,17 +138,12 @@ public class AttendanceMain extends AppCompatActivity {
                 HttpHandler sh = new HttpHandler();
                 String jsonStr = sh.makeServiceCall(URL);
                 String jsonStr2 = sh.makeServiceCall(URL2);
-
-                Log.i(TAG, "Response from url: " + jsonStr2);
-
+//                Log.i(TAG, "Response from url: " + jsonStr2);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(clas);
-
                 JSONObject object2 = new JSONObject(jsonStr2);
                 JSONArray contacts2 = object2.getJSONArray(clas);
-
-                Log.wtf(TAG, String.valueOf(contacts.length()));
-
+//                Log.wtf(TAG, String.valueOf(contacts.length()));
                 for (int i = 0; i < contacts.length(); i++) {
                     JSONObject c = contacts.getJSONObject(i);
                     String name = c.getString("Name");
@@ -163,7 +160,6 @@ public class AttendanceMain extends AppCompatActivity {
                         db.collection("Attendance").document(clas).collection("Students")
                                 .document(roll_no).collection("Subjects").document(sub).set(default_map);
                     }
-
 
                     if(grp.equals("1") && type == 1)
                     {
@@ -184,7 +180,6 @@ public class AttendanceMain extends AppCompatActivity {
                     }
 
                 }
-
 
             }
             catch(Exception ex)

@@ -47,8 +47,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     static String TAG = "TAG";
     NoInternetDialog noInternetDialog;
     Map<String, Object> default_map = new HashMap<>();
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    String name;
 
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
 
