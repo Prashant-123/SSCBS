@@ -94,7 +94,7 @@ public class AttendanceMain extends AppCompatActivity {
         if (type == 1 || type == 2){
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-                        AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + " [L]" + "/Year/2017-18/Months");
+                        AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + " [L]" + "/Year/2018/Months");
                 save(getStu);
                 i++;
 
@@ -103,7 +103,7 @@ public class AttendanceMain extends AppCompatActivity {
         {
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-                        AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year/2017-18/Months");
+                        AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year/2018/Months");
                 save(getStu);
                 i++;
             }
@@ -119,7 +119,7 @@ public class AttendanceMain extends AppCompatActivity {
                     db.runTransaction(new Transaction.Function<Void>() {
                         @Override
                         public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                            final DocumentReference sfDocRef = getStu.document(getMonth);
+                            final DocumentReference sfDocRef = getStu.document("Feb");
                             DocumentSnapshot snapshot = transaction.get(sfDocRef);
                              newAttendence = (snapshot.getDouble("attendance")) + 1;
                             transaction.update(sfDocRef, "attendance", newAttendence);
@@ -155,16 +155,16 @@ public class AttendanceMain extends AppCompatActivity {
                     String roll_no = c.getString("Roll_No");
                     String grp = c.getString("Group");
 
-                    db.collection("Attendance").document(clas).collection("Students")
-                            .document(roll_no).set(default_map);
+//                    db.collection("Attendance").document(clas).collection("Students")
+//                            .document(roll_no).set(default_map);
 
                     for(int j = 0 ; j<contacts2.length();j++){
                         JSONObject c2 = contacts2.getJSONObject(j);
                         String sub = c2.getString("Subjects");
 
-                        db.collection("Attendance").document(clas).collection("Students")
-                                .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
-                        .collection("Months").document(getMonth).set(default_map2);
+//                        db.collection("Attendance").document(clas).collection("Students")
+//                                .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
+//                        .collection("Months").document(getMonth).set(default_map2);
                     }
 
                     if(grp.equals("1") && type == 1)

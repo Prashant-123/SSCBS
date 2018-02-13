@@ -111,12 +111,10 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 final LayoutInflater inflater = getLayoutInflater();
-
                 View alertLayout = inflater.inflate(R.layout.studentverify, null);
                 final EditText cls = alertLayout.findViewById(R.id.student_class);
                 final EditText roll = alertLayout.findViewById(R.id.roll);
                 final EditText month = alertLayout.findViewById(R.id.month);
-
 
 //                cls.setOnEditorActionListener(
 //                        new EditText.OnEditorActionListener() {
@@ -172,10 +170,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         Log.wtf(TAG, roll.getText().toString());
                         Log.wtf(TAG, month.getText().toString());
 
-
-                        getCls
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
@@ -191,7 +186,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                         }
                                     }
                                 });
-
                     }
                 });
                 AlertDialog dialog = alert.create();
