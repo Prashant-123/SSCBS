@@ -49,6 +49,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     Map<String, Object> default_map = new HashMap<>();
 
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
+    CollectionReference getRoll = FirebaseFirestore.getInstance().collection("Attendance");
+    CollectionReference getMonth = FirebaseFirestore.getInstance().collection("Attendance");
 
     public Attendance_Frag() {
     }
@@ -166,10 +168,11 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Log.wtf(TAG, cls.getText().toString());
-                        Log.wtf(TAG, roll.getText().toString());
-                        Log.wtf(TAG, month.getText().toString());
+//                        Log.wtf(TAG, cls.getText().toString());
+//                        Log.wtf(TAG, roll.getText().toString());
+//                        Log.wtf(TAG, month.getText().toString());
 
+                        // Get the classes from Collection Attendance.
                         getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -178,6 +181,37 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                                                Log.wtf(TAG, document.getId() + " => " + document.getData());
                                                 if(document.getId().compareToIgnoreCase(cls.getText().toString()) ==0 ){
                                                     Log.i(TAG ,document.getId());
+
+                                                    // Get the roll no of the class submitted .
+                                                    getCls.document(document.getId()).collection("Students").get()
+                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                    if(task.isSuccessful()){
+                                                                        for(DocumentSnapshot documentSnapshot :task.getResult()){
+                                                                            if(documentSnapshot.getId().compareToIgnoreCase(roll.getText().toString())==0){
+                                                                                Log.wtf(TAG , documentSnapshot.getId());
+
+                                                                                //Get the subjects of the roll no submitted.
+                                                                                getCls.document(documentSnapshot.getId()).collection("Subjects")
+                                                                                        .get()
+                                                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                                            @Override
+                                                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                                                if(task.isSuccessful()){
+                                                                                                    Log.i(TAG,"bgc");
+                                                                                                    for(DocumentSnapshot ds:task.getResult()){
+                                                                                                        Log.wtf(TAG , "kmjh"+ ds.getId());
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        });
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
                                                     break;
                                                 }
                                             }
@@ -186,6 +220,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                         }
                                     }
                                 });
+
+
                     }
                 });
                 AlertDialog dialog = alert.create();
