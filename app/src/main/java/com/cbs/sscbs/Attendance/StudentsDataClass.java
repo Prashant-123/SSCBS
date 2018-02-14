@@ -5,6 +5,10 @@ package com.cbs.sscbs.Attendance;
  */
 
 public class StudentsDataClass {
+    public StudentsDataClass(String subject) {
+        this.subject = subject;
+    }
+
     private String subject;
 
     public String getSubject() {

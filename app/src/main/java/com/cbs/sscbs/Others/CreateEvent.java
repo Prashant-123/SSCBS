@@ -228,8 +228,8 @@ public class CreateEvent extends AppCompatActivity {
         String time = et4.substring(18, 20) + et4.substring(23, 25);
         String v = et3.getText().toString();
         Log.i(TAG, TimeThings.toString());
-        Log.wtf(TAG, date + "   "+ time);
-        if (VenueThings.contains(v)&&TimeThings.contains(date)&&TimeThings.contains(time))
+//        Log.wtf(TAG, date + "   "+ time);
+        if (VenueThings.contains(v) && TimeThings.contains(date) && TimeThings.contains(time))
         {
             Log.wtf(TAG, "Neece");
             Snackbar.make(view, "This location is already booked for the time you selected.", Snackbar.LENGTH_SHORT);

@@ -1,31 +1,23 @@
 package com.cbs.sscbs.Others;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cbs.sscbs.R;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Deadlines extends AppCompatActivity {
 
-    //wuhoo
     private static final String TAG = "TAG";
-    private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
-
-    ArrayList<HashMap<String, String>> myData = new ArrayList<>();
-
+    EditText text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,67 +27,43 @@ public class Deadlines extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        text = (EditText) findViewById(R.id.textNew);
 
-        new yourDataTask().execute();
+        text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    }
+            }
 
-    public class yourDataTask extends AsyncTask<Void, Void, Void>
-    {
-        @Override
-        protected Void doInBackground(Void... params)
-        {
-            try
-            {
-                HttpHandler sh = new HttpHandler();
-                String jsonStr = sh.makeServiceCall(URL);
-
-                Log.i(TAG, "Response from url: " + jsonStr);
-
-                JSONObject object = new JSONObject(jsonStr);
-                JSONArray contacts = object.getJSONArray("Sheet1");
-
-                Log.wtf(TAG, String.valueOf(contacts.length()));
-
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
-                    String name = c.getString("Name");
-                    String roll_no = c.getString("Roll_No");
-                    String total = c.getString("Total");
-                    String attendance = c.getString("Attendance");
-                    String waivers = c.getString("Waivers");
-
-                    Log.wtf(TAG, name + "-> " + roll_no + "-> " + total + "-> " + attendance + "-> " + waivers);
-
-                    HashMap<String, String> contact = new HashMap<>();
-
-                    contact.put("Name", name);
-                    contact.put("Roll_No", roll_no);
-                    contact.put("Total", total);
-                    contact.put("Attendance", attendance);
-                    contact.put("Waivers", waivers);
-                    myData.add(contact);
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (isValidPassword(charSequence.toString()))
+                {
+                    Toast.makeText(Deadlines.this, "Cool, Proceed", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-//                return new JSONObject(stringBuffer.toString());
-            }
-            catch(Exception ex)
-            {
-                Log.e("App", "getListFromExcel", ex);
+                else Toast.makeText(Deadlines.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
             }
 
-            return null;
-        }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
-        @Override
-        protected void onPostExecute(Void result){
-            super.onPostExecute(result);
-            Log.i(TAG, myData.toString());
-        }
     }
 
+
+    public boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
+
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
 }
 
