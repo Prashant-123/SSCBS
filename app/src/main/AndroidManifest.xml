@@ -4,7 +4,7 @@
     package="com.cbs.sscbs">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
@@ -19,7 +19,7 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application tools:replace="android:theme"
+    <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,8 +27,8 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -38,7 +38,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
 
         <activity
             android:name=".Others.MainActivity"
@@ -75,15 +74,12 @@
             android:name=".Others.Facilities"
             android:label="Facilities"
             android:parentActivityName=".Others.About_Activity" />
-
         <activity
             android:name=".Others.Gallery_Activity"
             android:label="GALLERY"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
-
         <activity android:name=".Sheets.MainPage" />
-
         <activity android:name=".auth.SignedInActivity" />
         <activity
             android:name=".Others.FullScreenImage"
@@ -111,9 +107,11 @@
             android:label="All Bookings"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.Teacher" />
-        <activity android:name=".Attendance.TeacherCourseDetails"
-            android:parentActivityName=".Others.MainActivity"/>
-        <activity android:name=".Others.GuestEventsActivity"/>
+        <activity
+            android:name=".Attendance.TeacherCourseDetails"
+            android:parentActivityName=".Others.MainActivity" />
+        <activity android:name=".Others.GuestEventsActivity" />
+        <activity android:name=".ShowToStudents"></activity>
     </application>
 
 </manifest>

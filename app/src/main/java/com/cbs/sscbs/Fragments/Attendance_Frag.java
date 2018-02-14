@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
+import com.cbs.sscbs.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -51,6 +52,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
     CollectionReference getRoll = FirebaseFirestore.getInstance().collection("Attendance");
     CollectionReference getMonth = FirebaseFirestore.getInstance().collection("Attendance");
+
 
     public Attendance_Frag() {
     }
@@ -187,6 +189,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     public void showAttendance(final String clas, final String roll_no, final String year, final String month)
     {
+        final ArrayList<String> allSub = new ArrayList<>();
         // Get the classes from Collection Attendance.
         getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -205,27 +208,42 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                     if(documentSnapshot.getId().compareToIgnoreCase(roll_no)==0){
                                                         Log.wtf(TAG , documentSnapshot.getId());
 
+
                                                         //Get the subjects of the roll no submitted.
-                                                        getCls.document(document.getId()).collection("Students").document(documentSnapshot.getId()).collection("Subjects")
+                                                        getCls.document(document.getId()).collection("Students")
+                                                                .document(documentSnapshot.getId()).collection("Subjects")
                                                                 .get()
                                                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                                         if(task.isSuccessful()){
-                                                                            Log.i(TAG,"bgc");
-                                                                            for(DocumentSnapshot ds:task.getResult()){
+                                                                            for(final DocumentSnapshot ds:task.getResult()){
                                                                                 Log.wtf(TAG , ds.getId());
-                                                                                DocumentReference reference = getCls.document(document.getId()).collection("Students").document(documentSnapshot.getId()).collection("Subjects")
-                                                                                        .document(ds.getId()).collection("Year").document(year).collection("Months").document(month);
+                                                                                allSub.add(ds.getId());
+
+
+
+                                                                                DocumentReference reference = getCls
+                                                                                        .document(document.getId()).collection("Students")
+                                                                                        .document(documentSnapshot.getId()).collection("Subjects")
+                                                                                        .document(ds.getId()).collection("Year").document(year)
+                                                                                        .collection("Months").document(month);
                                                                                 reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                                                     @Override
                                                                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                                                         if (documentSnapshot.exists())
                                                                                         {
-                                                                                            Log.wtf(TAG, documentSnapshot.getDouble("attendance").toString());
+                                                                                            Log.wtf(TAG, ds.getId() + " " + documentSnapshot.getDouble("attendance")
+                                                                                                    .toString());
                                                                                         }
+
+
                                                                                     }
                                                                                 });
+
+                                                                                Intent intent = new Intent(getContext() , ShowToStudents.class);
+                                                                                intent.putExtra("allSubjects" ,allSub);
+                                                                                startActivity(intent);
 
                                                                             }
                                                                         }
@@ -243,8 +261,12 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
+
+
             }
         });
+
+
     }
 
 
