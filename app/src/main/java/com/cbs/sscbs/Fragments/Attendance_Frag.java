@@ -171,55 +171,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                        Log.wtf(TAG, cls.getText().toString());
 //                        Log.wtf(TAG, roll.getText().toString());
 //                        Log.wtf(TAG, month.getText().toString());
+                        showAttendance(cls.getText().toString(), roll.getText().toString(),"2018",  month.getText().toString());
 
-                        // Get the classes from Collection Attendance.
-                        getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (DocumentSnapshot document : task.getResult()) {
-//                                                Log.wtf(TAG, document.getId() + " => " + document.getData());
-                                                if(document.getId().compareToIgnoreCase(cls.getText().toString()) ==0 ){
-                                                    Log.i(TAG ,document.getId());
 
-                                                    // Get the roll no of the class submitted .
-                                                    getCls.document(document.getId()).collection("Students").get()
-                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                    if(task.isSuccessful()){
-                                                                        for(DocumentSnapshot documentSnapshot :task.getResult()){
-                                                                            if(documentSnapshot.getId().compareToIgnoreCase(roll.getText().toString())==0){
-                                                                                Log.wtf(TAG , documentSnapshot.getId());
-
-                                                                                //Get the subjects of the roll no submitted.
-                                                                                getCls.document(documentSnapshot.getId()).collection("Subjects")
-                                                                                        .get()
-                                                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                                            @Override
-                                                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                                                if(task.isSuccessful()){
-                                                                                                    Log.i(TAG,"bgc");
-                                                                                                    for(DocumentSnapshot ds:task.getResult()){
-                                                                                                        Log.wtf(TAG , "kmjh"+ ds.getId());
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        });
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            });
-                                                    break;
-                                                }
-                                            }
-                                        } else {
-                                            Log.d(TAG, "Error getting documents: ", task.getException());
-                                        }
-                                    }
-                                });
 
 
                     }
@@ -229,6 +183,68 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             }
         });
         return myView;
+    }
+
+    public void showAttendance(final String clas, final String roll_no, final String year, final String month)
+    {
+        // Get the classes from Collection Attendance.
+        getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (final DocumentSnapshot document : task.getResult()) {
+                        if(document.getId().compareToIgnoreCase(clas) ==0 ){
+                            Log.i(TAG ,document.getId());
+
+                            getCls.document(document.getId()).collection("Students").get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if(task.isSuccessful()){
+                                                for(final DocumentSnapshot documentSnapshot :task.getResult()){
+                                                    if(documentSnapshot.getId().compareToIgnoreCase(roll_no)==0){
+                                                        Log.wtf(TAG , documentSnapshot.getId());
+
+                                                        //Get the subjects of the roll no submitted.
+                                                        getCls.document(document.getId()).collection("Students").document(documentSnapshot.getId()).collection("Subjects")
+                                                                .get()
+                                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                        if(task.isSuccessful()){
+                                                                            Log.i(TAG,"bgc");
+                                                                            for(DocumentSnapshot ds:task.getResult()){
+                                                                                Log.wtf(TAG , ds.getId());
+                                                                                DocumentReference reference = getCls.document(document.getId()).collection("Students").document(documentSnapshot.getId()).collection("Subjects")
+                                                                                        .document(ds.getId()).collection("Year").document(year).collection("Months").document(month);
+                                                                                reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                                        if (documentSnapshot.exists())
+                                                                                        {
+                                                                                            Log.wtf(TAG, documentSnapshot.getDouble("attendance").toString());
+                                                                                        }
+                                                                                    }
+                                                                                });
+
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                            break;
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
     }
 
 
