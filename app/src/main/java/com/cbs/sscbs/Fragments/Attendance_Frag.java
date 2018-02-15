@@ -13,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +58,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     CollectionReference getRoll = FirebaseFirestore.getInstance().collection("Attendance");
     CollectionReference getMonth = FirebaseFirestore.getInstance().collection("Attendance");
 
+
     StudentsDataClass studentsDataClass = new StudentsDataClass();
 
     public Attendance_Frag() {
@@ -66,6 +70,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
         RelativeLayout faculty = myView.findViewById(R.id.faculty);
         RelativeLayout stu = myView.findViewById(R.id.students);
+
+        final Spinner cls = myView.findViewById(R.id.student_class);
+        final Spinner month = myView.findViewById(R.id.month);
 
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,11 +112,45 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 final LayoutInflater inflater = getLayoutInflater();
                 View alertLayout = inflater.inflate(R.layout.studentverify, null);
-                final EditText cls = alertLayout.findViewById(R.id.student_class);
                 final EditText roll = alertLayout.findViewById(R.id.roll);
-                final EditText month = alertLayout.findViewById(R.id.month);
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<String> classesList = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                classesList.add(document.getId());
+                                }
+
+                            String[] classes = new String[classesList.size() + 1];
+                            int k = 0;
+                            classes[0] = "Select Class";
+                            for (int i = 1; i <= classesList.size(); i++) {
+                                classes[i] = classesList.get(k);
+                                k++;
+                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(),
+                                        android.R.layout.simple_spinner_item, classes);
+                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                cls.setAdapter(areasAdapter);
+                                cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", "Feb");
+                                        Intent intent = new Intent(getContext(), ShowToStudents.class);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Enter Credentials");
                 alert.setView(alertLayout);
                 alert.setCancelable(false);
@@ -128,9 +169,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                        Log.wtf(TAG, roll.getText().toString());
 //                        Log.wtf(TAG, month.getText().toString());
 //                        Log.i(TAG, String.valueOf(allSub.size()));
-                        showAttendance("Bsc-2", "16527","2018",  "Feb");
-                        Intent intent = new Intent(getContext() , ShowToStudents.class);
-                        startActivity(intent);
+
 
 
                     }
@@ -142,74 +181,51 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         return myView;
     }
 
-    public void showAttendance(final String clas, final String roll_no, final String year, final String month)
-    {
-        getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (final DocumentSnapshot document : task.getResult()) {
-                        if(document.getId().compareToIgnoreCase(clas) ==0 ){
-//                            Log.i(TAG ,document.getId());
-
-                            getCls.document(document.getId()).collection("Students").get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()){
-                                                for(final DocumentSnapshot documentSnapshot :task.getResult()){
-                                                    if(documentSnapshot.getId().compareToIgnoreCase(roll_no)==0){
+    public void showAttendance(final String clas, final String roll_no, final String year, final String month) {
+        getCls.document(clas).collection("Students").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (final DocumentSnapshot documentSnapshot : task.getResult()) {
+                                if (documentSnapshot.getId().compareToIgnoreCase(roll_no) == 0) {
 //                                                        Log.wtf(TAG , documentSnapshot.getId());
 
-                                                        getCls.document(document.getId()).collection("Students")
-                                                                .document(documentSnapshot.getId()).collection("Subjects")
-                                                                .get()
-                                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                        if(task.isSuccessful()){
-                                                                            for(final DocumentSnapshot ds:task.getResult()){
-//                                                                                Log.wtf(TAG , ds.getId());
-//                                                                                studentsDataClass.setSubject(ds.getId());
-//                                                                                allSub.add(studentsDataClass);
+                                    getCls.document(clas).collection("Students")
+                                            .document(documentSnapshot.getId()).collection("Subjects")
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        for (final DocumentSnapshot ds : task.getResult()) {
+//
 
-                                                                                DocumentReference reference = getCls
-                                                                                        .document(document.getId()).collection("Students")
-                                                                                        .document(documentSnapshot.getId()).collection("Subjects")
-                                                                                        .document(ds.getId()).collection("Year").document(year)
-                                                                                        .collection("Months").document(month);
-                                                                                reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                                                    @Override
-                                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                                                        if (documentSnapshot.exists())
-                                                                                        {
-                                                                                            StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
-                                                                                            allSub.add(dataClass);
-                                                                                        }
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                        }
+                                                            DocumentReference reference = getCls
+                                                                    .document(clas).collection("Students")
+                                                                    .document(documentSnapshot.getId()).collection("Subjects")
+                                                                    .document(ds.getId()).collection("Year").document(year)
+                                                                    .collection("Months").document(month);
+                                                            reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                    if (documentSnapshot.exists()) {
+                                                                        StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
+                                                                        allSub.add(dataClass);
                                                                     }
-                                                                });
-                                                        break;
+                                                                }
+                                                            });
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        }
-                                    });
-                            break;
+                                            });
+                                    break;
+                                }
+                            }
                         }
                     }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-
-
-            }
-        });
-
-
+                });
+        Log.wtf(TAG, allSub.toString());
     }
 
 

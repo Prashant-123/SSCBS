@@ -7,8 +7,14 @@
     app:flipEnabled="true"
     app:flipDuration="400"
     app:flipType="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        app:cardCornerRadius="12dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,8 +52,42 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <include layout="@layout/flash_card_layout_back"/>
+    </android.support.v7.widget.CardView>
 
-    <!--<include layout="@layout/stushow"/>-->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        app:cardCornerRadius="12dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/eventImage"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Front Things"
+                    android:textColor="@android:color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
 
 </com.wajahatkarim3.easyflipview.EasyFlipView>

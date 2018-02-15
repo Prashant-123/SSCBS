@@ -59,7 +59,6 @@ public class AttendanceMain extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
     AttendanceAdapter adapter = null;
-    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

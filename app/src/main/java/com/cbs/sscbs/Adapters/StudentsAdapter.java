@@ -39,15 +39,9 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-
         StudentsDataClass object = objectList.get(position);
         holder.setData(object);
-        holder.flipView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 holder.flipView.flipTheView();
-            }
-        });
     }
 
     @Override

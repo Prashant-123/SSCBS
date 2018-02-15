@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:padding="36dp">
 
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
-        <EditText
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/student_class"
@@ -36,7 +35,7 @@
         android:layout_height="wrap_content"
         >
 
-        <EditText
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/month"
