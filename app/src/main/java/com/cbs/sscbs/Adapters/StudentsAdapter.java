@@ -5,12 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.cbs.sscbs.Attendance.AttendanceDataClass;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.R;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
 
@@ -33,18 +32,22 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.studentsshowsample, parent, false);
+        View view = inflater.inflate(R.layout.stushow, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
 
 
         StudentsDataClass object = objectList.get(position);
-        String firstText = object.getSubject();
-
-        holder.sub.setText(firstText);
+        holder.setData(object);
+        holder.flipView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.flipView.flipTheView();
+            }
+        });
     }
 
     @Override
@@ -55,14 +58,19 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView sub;
+        TextView att;
+        EasyFlipView flipView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.sub = itemView.findViewById(R.id.stuSub);
+            this.att = itemView.findViewById(R.id.stuAtt);
+            this.flipView = itemView.findViewById(R.id.flipView1);
         }
 
         public void setData(StudentsDataClass currentObject) {
             this.sub.setText(currentObject.getSubject());
+            this.att.setText(String.valueOf(currentObject.getAttendance()));
         }
     }
 }

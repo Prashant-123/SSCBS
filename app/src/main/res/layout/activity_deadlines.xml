@@ -23,5 +23,27 @@
             android:id="@+id/textNew"
             android:hint="Regex 4 digits (custom error msg)"/>
 
+    <com.wajahatkarim3.easyflipview.EasyFlipView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:flipOnTouch="true"
+        app:flipDuration="500"
+        app:flipEnabled="true">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/admin_img"
+            android:visibility="invisible"
+            android:layout_gravity="center"/>
+
+    </com.wajahatkarim3.easyflipview.EasyFlipView>
+
 
 </LinearLayout>

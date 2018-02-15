@@ -109,41 +109,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 final EditText roll = alertLayout.findViewById(R.id.roll);
                 final EditText month = alertLayout.findViewById(R.id.month);
 
-//                cls.setOnEditorActionListener(
-//                        new EditText.OnEditorActionListener() {
-//                            @Override
-//                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-//                                        actionId == EditorInfo.IME_ACTION_DONE ||
-//                                        event != null &&
-//                                                event.getAction() == KeyEvent.ACTION_DOWN &&
-//                                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-//                                    if (event == null || !event.isShiftPressed()) {
-//                                        // the user is done typing.
-//                                        Log.wtf(TAG , "ok");
-//
-//                                        return true; // consume.
-//                                    }
-//                                }
-//                                return false; // pass on to other listeners.
-//                            }
-//                        });
-
-//
-////                cls.addTextChangedListener(filterTextWatcher);
-//                roll.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
-//                cls.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//
-//                    public boolean onEditorAction(TextView arg0, int arg1, KeyEvent arg2) {
-//                        Log.wtf(TAG , "ok");
-//                        return false;
-//                    }
-//                });
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Enter Credentials");
                 alert.setView(alertLayout);
@@ -162,9 +127,11 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                        Log.wtf(TAG, cls.getText().toString());
 //                        Log.wtf(TAG, roll.getText().toString());
 //                        Log.wtf(TAG, month.getText().toString());
+//                        Log.i(TAG, String.valueOf(allSub.size()));
                         showAttendance("Bsc-2", "16527","2018",  "Feb");
                         Intent intent = new Intent(getContext() , ShowToStudents.class);
                         startActivity(intent);
+
 
                     }
                 });
@@ -177,14 +144,13 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     public void showAttendance(final String clas, final String roll_no, final String year, final String month)
     {
-        // Get the classes from Collection Attendance.
         getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (final DocumentSnapshot document : task.getResult()) {
                         if(document.getId().compareToIgnoreCase(clas) ==0 ){
-                            Log.i(TAG ,document.getId());
+//                            Log.i(TAG ,document.getId());
 
                             getCls.document(document.getId()).collection("Students").get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -193,10 +159,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                             if(task.isSuccessful()){
                                                 for(final DocumentSnapshot documentSnapshot :task.getResult()){
                                                     if(documentSnapshot.getId().compareToIgnoreCase(roll_no)==0){
-                                                        Log.wtf(TAG , documentSnapshot.getId());
+//                                                        Log.wtf(TAG , documentSnapshot.getId());
 
-
-                                                        //Get the subjects of the roll no submitted.
                                                         getCls.document(document.getId()).collection("Students")
                                                                 .document(documentSnapshot.getId()).collection("Subjects")
                                                                 .get()
@@ -205,7 +169,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                                         if(task.isSuccessful()){
                                                                             for(final DocumentSnapshot ds:task.getResult()){
-                                                                                Log.wtf(TAG , ds.getId());
+//                                                                                Log.wtf(TAG , ds.getId());
 //                                                                                studentsDataClass.setSubject(ds.getId());
 //                                                                                allSub.add(studentsDataClass);
 
@@ -222,8 +186,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                                                             StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
                                                                                             allSub.add(dataClass);
                                                                                         }
-
-
                                                                                     }
                                                                                 });
                                                                             }
