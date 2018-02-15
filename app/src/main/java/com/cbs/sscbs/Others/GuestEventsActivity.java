@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.cbs.sscbs.Adapters.EventsAdapter;
 import com.cbs.sscbs.DataClass.DataClass;
@@ -42,8 +43,8 @@ public class GuestEventsActivity extends AppCompatActivity {
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       //  getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        FloatingActionButton fb = (FloatingActionButton) findViewById(R.id.addEventButton);
-        fb.setVisibility(View.INVISIBLE);
+//        FloatingActionButton fb = (FloatingActionButton) findViewById(R.id.addEventButton);
+//        fb.setVisibility(View.INVISIBLE);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rView) ;
 
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -51,6 +52,7 @@ public class GuestEventsActivity extends AppCompatActivity {
         final EventsAdapter adapter = new EventsAdapter(this, data);
         rv.setAdapter(adapter);
         final ProgressBar bar = (ProgressBar) findViewById(R.id.event_progress_bar);
+        final TextView tv = (TextView) findViewById(R.id.loading_events);
 
         bar.setVisibility(View.VISIBLE);
 
@@ -118,6 +120,7 @@ public class GuestEventsActivity extends AppCompatActivity {
                 data.add(newData);
                 adapter.notifyDataSetChanged();
                 bar.setVisibility(View.INVISIBLE);
+                tv.setVisibility(View.INVISIBLE);
 
             }
 
