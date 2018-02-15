@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.ShowToStudents;
@@ -53,6 +54,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     CollectionReference getRoll = FirebaseFirestore.getInstance().collection("Attendance");
     CollectionReference getMonth = FirebaseFirestore.getInstance().collection("Attendance");
 
+    StudentsDataClass studentsDataClass = new StudentsDataClass();
 
     public Attendance_Frag() {
     }
@@ -189,7 +191,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     public void showAttendance(final String clas, final String roll_no, final String year, final String month)
     {
-        final ArrayList<String> allSub = new ArrayList<>();
+        final ArrayList<StudentsDataClass> allSub = new ArrayList<>();
         // Get the classes from Collection Attendance.
         getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -219,9 +221,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                                         if(task.isSuccessful()){
                                                                             for(final DocumentSnapshot ds:task.getResult()){
                                                                                 Log.wtf(TAG , ds.getId());
-                                                                                allSub.add(ds.getId());
-
-
+//                                                                                studentsDataClass.setSubject(ds.getId());
+//                                                                                allSub.add(studentsDataClass);
 
                                                                                 DocumentReference reference = getCls
                                                                                         .document(document.getId()).collection("Students")

@@ -1,5 +1,6 @@
 package com.cbs.sscbs.Others;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -57,6 +59,13 @@ public class Grievances extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select-File"), REQUEST_CODE);
     }
 
+
+
+    public String getImageExt(Uri uri){
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return MimeTypeMap.getFileExtensionFromUrl(contentResolver.getType(uri));
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

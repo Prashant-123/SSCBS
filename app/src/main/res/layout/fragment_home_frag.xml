@@ -51,8 +51,7 @@
             android:text="'' Those who dare to envision \n ahead of their times \n are the ones who create a future \n bigger than their dreams ''"
             android:textColor="@color/black"
             android:textSize="22sp"
-            android:textStyle="italic|bold"
-            />
+            android:textStyle="italic|bold" />
 
 
 

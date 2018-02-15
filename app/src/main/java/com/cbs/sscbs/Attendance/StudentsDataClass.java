@@ -11,6 +11,9 @@ public class StudentsDataClass {
 
     private String subject;
 
+    public StudentsDataClass() {
+    }
+
     public String getSubject() {
         return subject;
     }

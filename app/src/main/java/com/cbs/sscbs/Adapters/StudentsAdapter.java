@@ -39,8 +39,11 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
+
         StudentsDataClass object = objectList.get(position);
         String firstText = object.getSubject();
+
         holder.sub.setText(firstText);
     }
 

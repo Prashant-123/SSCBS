@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/eventImage"
                 android:layout_width="100dp"
@@ -34,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/eventImage"
                 android:orientation="vertical">
 
@@ -44,6 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:text="Topic : "
+                        android:fontFamily="@font/alegreya_black"
                         android:textAllCaps="true"
                         android:textColor="#000"
                         android:textSize="17dp"
@@ -57,32 +58,34 @@
                     android:background="@color/colorPrimary"
                     android:layout_margin="8dp"/>
 
-                    <TextView
-                        android:id="@+id/organiser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="Organised by--"
-                        android:textColor="#000"
-                        android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/organiser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/acme"
+                    android:text="Organised by--"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
 
-                    <TextView
-                        android:id="@+id/venue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="Venue"
-                        android:textSize="16dp"
-                        android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/venue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Venue"
+                    android:textSize="16dp"
+                    android:textStyle="italic" />
 
-                    <TextView
-                        android:id="@+id/date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="Date and Time"
-                        android:textSize="16dp"
-                        android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/acme"
+                    android:text="Date and Time"
+                    android:textSize="16dp"
+                    android:textStyle="italic" />
 
 
                 <LinearLayout

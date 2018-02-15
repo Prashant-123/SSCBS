@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_home"
-            android:title="HOME" />
+            android:title="HOME"
+            />
         <item
             android:id="@+id/college_gallery"
             android:icon="@drawable/ic_gallery"
-            android:title="COLLEGE GALLERY" />
+            android:title="COLLEGE GALLERY"
+            />
         <item
             android:id="@+id/about_college"
             android:icon="@drawable/ic_college"
-            android:title="The SSCBS"/>
+            android:title="The SSCBS"
+            />
 
-        <!--<item-->
-            <!--android:id="@+id/feedback"-->
-            <!--android:icon="@drawable/ic_correction"-->
-            <!--android:title="FEEDBACK"-->
-            <!--/>-->
         <item
             android:id="@+id/rec_friend"
             android:icon="@drawable/ic_share"
@@ -33,14 +32,13 @@
         <item
             android:id="@+id/developers"
             android:icon="@drawable/ic_gallery"
-            android:title="DEVELOPERS" />
+            android:title="DEVELOPERS"
+            />
         <item
             android:id="@+id/sign_out"
             android:icon="@drawable/ic_sign_out"
             android:title="Sign out"
             />
-
-
   </group>
 
 </menu>

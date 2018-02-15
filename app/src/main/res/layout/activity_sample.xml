@@ -45,7 +45,6 @@
                         android:id="@+id/tt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:scaleType="fitCenter" />
 
                 </LinearLayout>
@@ -79,7 +78,26 @@
                             android:id="@+id/t_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Name :   "
+                            android:layout_alignBaseline="@+id/t_naam"
+                            android:layout_alignBottom="@+id/t_naam"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/alegreya_black"
+                            android:text="Name    "
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/t_name"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_toLeftOf="@+id/t_naam"
+                            android:layout_toStartOf="@+id/t_naam"
+                            android:text=":"
+                            android:fontFamily="@font/alegreya_black"
                             android:textColor="@color/black"
                             android:textSize="20dp"
                             android:textStyle="bold" />
@@ -88,8 +106,12 @@
                             android:id="@+id/t_naam"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginEnd="56dp"
+                            android:layout_marginRight="56dp"
+                            android:fontFamily="@font/acme"
                             android:text="teachers name"
                             android:textColor="@android:color/black"
                             android:textSize="20dp"
@@ -111,9 +133,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Qualification :   "
+                            android:fontFamily="@font/alegreya_black"
                             android:textColor="@color/black"
                             android:textSize="20dp"
-
                             android:textStyle="bold" />
 
                         <TextView
@@ -124,7 +146,7 @@
                             android:text="teachers qualification"
                             android:textColor="#2A0A0A"
                             android:textSize="18dp"
-                            android:textStyle="italic|bold" />
+                            android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
 

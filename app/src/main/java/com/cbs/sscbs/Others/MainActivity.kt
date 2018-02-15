@@ -64,18 +64,14 @@ class MainActivity : AppCompatActivity() {
         setNavigationView()
         setbottomnavigator(savedInstanceState)
         NoInternetDialog.Builder(this).build()
-
-//        checkInternet()
     }
 
     fun setToolbar() {
         setSupportActionBar(toolbar)
-        setTitle("Welcome to CBS")
+        setTitle("Welcome to SSCBS")
     }
 
-
     private fun setbottomnavigator(savedInstanceState: Bundle?) {
-
         if (savedInstanceState == null) {
             val main_fragment = Home_frag()
             val ft = supportFragmentManager.beginTransaction()
@@ -84,9 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView = this.findViewById(R.id.bottom_navigation)
        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
-        //bottomNavigationView.setSelectedItemId(R.id.ic_timetable)
         val fragmentManager = supportFragmentManager
-        //bottomNavigationView.menu.getItem(0).setChecked(false)
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 BottomNavigationView.OnNavigationItemSelectedListener { item ->
                     when (item.itemId) {
@@ -352,12 +346,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent2)
                 return true
             }
-
-//            R.id.BookingslotsMenu -> {
-//                val intent3 = Intent(this, Bookings::class.java)
-//                startActivity(intent3)
-//                return true
-//            }
 
             else -> return super.onOptionsItemSelected(item)
         }

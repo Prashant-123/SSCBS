@@ -36,15 +36,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
+                android:background="@drawable/shape"
                 android:text="@string/sign_out" />
 
             <Button
                 android:id="@+id/delete_account"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
                 android:text="@string/delete_account_label"
+                android:background="@drawable/shape"
                 android:theme="@style/WarnButton"
                 tools:ignore="ButtonStyle" />
 
@@ -176,8 +178,6 @@
                 android:id="@+id/textjson"
 
                 />
-
-
         </LinearLayout>
 
     </LinearLayout>

@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".auth.AuthUiActivity">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -28,25 +27,26 @@
             android:orientation="vertical"
             android:paddingBottom="32dp">
 
-            <TextView
+            <com.makeramen.roundedimageview.RoundedImageView
                 style="@style/Base.TextAppearance.AppCompat.Headline"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
+                android:src="@drawable/logo"
+                android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
                 android:drawableTop="@drawable/icon"
                 android:gravity="center"
                 android:elevation="20dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginTop="30dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" SSCBS is an official app for the students of Shaheed Sukhdev College of Bussiness Studies . It helps students be up to date with all the college related announcements, events,timetable,attendence and much more .."
+                android:text=" SSCBS is an official app for the students of Shaheed Sukhdev College of Bussiness Studies . It helps students be up to date with all the college related announcements,events,timetable,attendance and much more .."
                 android:gravity="center"
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:textSize="18dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
 
@@ -58,6 +58,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:text="@string/sign_in"
+                android:background="@drawable/shape"
                 android:onClick="onlyEvents"/>
 
             <TextView
@@ -80,6 +81,7 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:background="@drawable/shape"
                 android:text="Upcoming Events" />
             <LinearLayout
                 android:layout_width="match_parent"
