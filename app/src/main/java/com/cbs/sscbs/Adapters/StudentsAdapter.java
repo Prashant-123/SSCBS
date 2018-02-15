@@ -33,7 +33,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
+        View view = inflater.inflate(R.layout.studentsshowsample, parent, false);
         return new MyViewHolder(view);
     }
 

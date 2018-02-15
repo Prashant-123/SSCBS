@@ -49,6 +49,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     static String TAG = "TAG";
     NoInternetDialog noInternetDialog;
     Map<String, Object> default_map = new HashMap<>();
+    public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
 
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
     CollectionReference getRoll = FirebaseFirestore.getInstance().collection("Attendance");
@@ -71,20 +72,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 final LayoutInflater inflater = getLayoutInflater();
 
-//                 getTeachers
-//                         .get()
-//                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                             @Override
-//                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                 if (task.isSuccessful()) {
-//                                     for (DocumentSnapshot document : task.getResult()) {
-//                                         Log.wtf(TAG, document.getId() + " => " + document.getData());
-//                                     }
-//                                 } else {
-//                                     Log.d(TAG, "Error getting documents: ", task.getException());
-//                                 }
-//                             }
-//                         });
                 View alertLayout = inflater.inflate(R.layout.verify, null);
                 final EditText faculty_name = alertLayout.findViewById(R.id.faculty_verify);
 
@@ -175,10 +162,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                        Log.wtf(TAG, cls.getText().toString());
 //                        Log.wtf(TAG, roll.getText().toString());
 //                        Log.wtf(TAG, month.getText().toString());
-                        showAttendance(cls.getText().toString(), roll.getText().toString(),"2018",  month.getText().toString());
-
-
-
+                        showAttendance("Bsc-2", "16527","2018",  "Feb");
+                        Intent intent = new Intent(getContext() , ShowToStudents.class);
+                        startActivity(intent);
 
                     }
                 });
@@ -191,7 +177,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     public void showAttendance(final String clas, final String roll_no, final String year, final String month)
     {
-        final ArrayList<StudentsDataClass> allSub = new ArrayList<>();
         // Get the classes from Collection Attendance.
         getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -234,18 +219,13 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                                                         if (documentSnapshot.exists())
                                                                                         {
-                                                                                            Log.wtf(TAG, ds.getId() + " " + documentSnapshot.getDouble("attendance")
-                                                                                                    .toString());
+                                                                                            StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
+                                                                                            allSub.add(dataClass);
                                                                                         }
 
 
                                                                                     }
                                                                                 });
-
-                                                                                Intent intent = new Intent(getContext() , ShowToStudents.class);
-                                                                                intent.putExtra("allSubjects" ,allSub);
-                                                                                startActivity(intent);
-
                                                                             }
                                                                         }
                                                                     }

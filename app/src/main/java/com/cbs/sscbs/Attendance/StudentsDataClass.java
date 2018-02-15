@@ -5,11 +5,21 @@ package com.cbs.sscbs.Attendance;
  */
 
 public class StudentsDataClass {
-    public StudentsDataClass(String subject) {
+    public StudentsDataClass(String subject, Double attendance) {
         this.subject = subject;
+        this.attendance = attendance;
     }
 
     private String subject;
+    private Double attendance;
+
+    public Double getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(Double attendance) {
+        this.attendance = attendance;
+    }
 
     public StudentsDataClass() {
     }

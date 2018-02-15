@@ -9,11 +9,14 @@ import android.util.Log;
 
 import com.cbs.sscbs.Adapters.StudentsAdapter;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
+import com.cbs.sscbs.Fragments.Attendance_Frag;
 
 import java.util.ArrayList;
 
 public class ShowToStudents extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+    StudentsAdapter studentsAdapter;
     ArrayList<StudentsDataClass> filelist = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +25,11 @@ public class ShowToStudents extends AppCompatActivity {
 
 //        ArrayList<StudentsDataClass> filelist =(ArrayList<StudentsDataClass>)getIntent().getSerializableExtra("allSubjects");
 
-        Log.wtf("TAG" , filelist.toString());
-        RecyclerView recyclerView = findViewById(R.id.showsturview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView = findViewById(R.id.showsturview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        StudentsAdapter studentsAdapter = new StudentsAdapter(this  ,filelist);
+        studentsAdapter = new StudentsAdapter(this  , Attendance_Frag.allSub);
         recyclerView.setAdapter(studentsAdapter);
-
         studentsAdapter.notifyDataSetChanged();
     }
 }
