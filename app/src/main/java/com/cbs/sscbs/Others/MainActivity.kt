@@ -117,7 +117,6 @@ class MainActivity : AppCompatActivity() {
                 })
     }
 
-
     private fun setDrawer() {
         mDrawerLayout = findViewById(R.id.drawerLayout)
         if (mDrawerLayout != null && toolbar != null) {

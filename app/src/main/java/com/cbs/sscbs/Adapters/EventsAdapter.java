@@ -63,7 +63,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             @Override
             public void onItemClick(View v, int pos) {
 
-                v.findViewById(R.id.read).setOnClickListener(new View.OnClickListener() {
+                v.findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
@@ -136,7 +136,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
                 alertLayout1.getContext().startActivity(intent);
             }
         });
-
 
         final View thumb1View = alertLayout1.findViewById(R.id.imageEvent);
         Picasso.with(c).load(url).into((ImageView) thumb1View);

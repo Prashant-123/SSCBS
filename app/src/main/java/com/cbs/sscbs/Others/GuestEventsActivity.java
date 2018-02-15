@@ -39,12 +39,6 @@ public class GuestEventsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_events);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_create);
         setSupportActionBar(toolbar);
-
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      //  getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-//        FloatingActionButton fb = (FloatingActionButton) findViewById(R.id.addEventButton);
-//        fb.setVisibility(View.INVISIBLE);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rView) ;
 
         rv.setLayoutManager(new LinearLayoutManager(this));
