@@ -73,7 +73,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
         final Spinner cls = myView.findViewById(R.id.student_class);
         final Spinner month = myView.findViewById(R.id.month);
-
+//
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
