@@ -5,31 +5,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
-import com.cbs.sscbs.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,7 +30,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import am.appwise.components.ni.NoInternetDialog;
 
@@ -71,7 +61,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         RelativeLayout faculty = myView.findViewById(R.id.faculty);
         RelativeLayout stu = myView.findViewById(R.id.students);
 
-        final Spinner cls = myView.findViewById(R.id.student_class);
         final Spinner month = myView.findViewById(R.id.month);
 //
         faculty.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +100,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 final LayoutInflater inflater = getLayoutInflater();
-                View alertLayout = inflater.inflate(R.layout.studentverify, null);
+                final View alertLayout = inflater.inflate(R.layout.studentverify, null);
                 final EditText roll = alertLayout.findViewById(R.id.roll);
 
                 getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -129,23 +118,30 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                             for (int i = 1; i <= classesList.size(); i++) {
                                 classes[i] = classesList.get(k);
                                 k++;
-                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(),
+                            Spinner cls = alertLayout.findViewById(R.id.student_class);
+
+                            ArrayAdapter<String> classAdapter = new ArrayAdapter<String>(getContext(),
                                         android.R.layout.simple_spinner_item, classes);
-                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                cls.setAdapter(areasAdapter);
-                                cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                    @Override
-                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                        showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", "Feb");
-                                        Intent intent = new Intent(getContext(), ShowToStudents.class);
-                                        startActivity(intent);
-                                    }
+                                classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                cls.setAdapter(classAdapter);
+//                                cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                    @Override
+//                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                        showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", "Feb");
+//                                        Intent intent = new Intent(getContext(), ShowToStudents.class);
+//                                        startActivity(intent);
+//                                    }
+//
+//                                    @Override
+//                                    public void onNothingSelected(AdapterView<?> adapterView) {
+//                                    }
+//                                });
+                                Spinner month = alertLayout.findViewById(R.id.month);
 
-                                    @Override
-                                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                    }
-                                });
+                                ArrayAdapter<String> subjectAdapter = new ArrayAdapter<String>(getContext(),
+                                        android.R.layout.simple_spinner_item, theMonth());
+                                subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                month.setAdapter(subjectAdapter);
                             }
                         }
                     }
@@ -228,6 +224,10 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         Log.wtf(TAG, allSub.toString());
     }
 
+    public String[] theMonth() {
+        return new String[]{"January", "February", "March", "April", "May",
+                "June", "July", "August", "September", "October", "November", "December"};
+    }
 
 //    private TextWatcher filterTextWatcher = new TextWatcher() {
 //        @Override

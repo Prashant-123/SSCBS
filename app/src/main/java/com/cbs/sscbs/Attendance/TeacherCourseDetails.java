@@ -35,7 +35,8 @@ import java.util.ArrayList;
 public class TeacherCourseDetails extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-//    ArrayList<String> clas = new ArrayList<>();
+    ArrayList<String> classesList = new ArrayList<>();
+    //    ArrayList<String> clas = new ArrayList<>();
 //    ArrayList<String> subjects = new ArrayList<>();
     String getSub, getClass;
     String[] types;
@@ -54,26 +55,8 @@ public class TeacherCourseDetails extends AppCompatActivity {
 
 
         final String getName;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                getName = null;
-            } else {
-                // getName= extras.getString("teacherName");
-                getName = "Sonika Thakral";
-            }
-        } else {
-            //getName= (String) savedInstanceState.getSerializable("teacherName");
-            getName = "Sonika Thakral";
-        }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_course_details);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getName);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-//        new getListFromExcel().execute();
+        Intent getPath = getIntent();
+        getName = String.valueOf(getPath.getStringExtra("teacherName"));
 
         CollectionReference getSubjects = FirebaseFirestore.getInstance().collection("Teachers/" + getName + "/Classes");
 
@@ -82,47 +65,48 @@ public class TeacherCourseDetails extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        ArrayList<String> classesList = new ArrayList<>();
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
-//                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Log.wtf(TAG, document.getId());
                                 classesList.add(document.getId());
-                                String[] classes = new String[classesList.size() + 1];
-                                int k = 0;
-                                classes[0] = "Select Class";
-                                for (int i = 1; i <= classesList.size(); i++) {
-                                    classes[i] = classesList.get(k);
-                                    k++;
-                                }
-                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
-                                        android.R.layout.simple_spinner_item, classes);
-                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                classSpinner.setAdapter(areasAdapter);
-                                classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                    @Override
-                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                                        if (i == 0)
-                                            Toast.makeText(TeacherCourseDetails.this, "Please select your class", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(TeacherCourseDetails.this,
-                                                    "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-                                            getClass = adapterView.getItemAtPosition(i).toString();
-                                            showSub(getName, subSpinner, typeSpinner);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                    }
-                                });
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+
+
+        String[] classes = new String[classesList.size() + 1];
+                                int k = 0;
+                                classes[0] = "Select Class";
+                                for (int i = 1; i <= classesList.size(); i++) {
+                                    classes[i] = classesList.get(k);
+                                    k++;
+                                }
+        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
+                android.R.layout.simple_spinner_item, classes);
+        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        classSpinner.setAdapter(areasAdapter);
+        classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i == 0)
+                    Toast.makeText(TeacherCourseDetails.this, "Please select your class", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(TeacherCourseDetails.this,
+                            "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+                    getClass = adapterView.getItemAtPosition(i).toString();
+                    showSub(getName, subSpinner, typeSpinner);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
     }
     private void showSub(String getName, final Spinner subSpinner, final Spinner typeSpinner) {
         Log.wtf(TAG, getClass);
@@ -195,7 +179,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                                 //-----------INTENT-----------------
 
                                                                 Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
-                                                                intent.putExtra("path", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
+                                                                intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
                                                                 intent.putExtra("Labtype", String.valueOf(adapterView.getSelectedItemPosition()));
                                                                 intent.putExtra("class", getClass);
                                                                 intent.putExtra("subject", getSub);
@@ -225,7 +209,9 @@ public class TeacherCourseDetails extends AppCompatActivity {
             }
         });
     }
-//
+
+
+    
 //
 //    public class getListFromExcel extends AsyncTask<Void, Void, Void>
 //    {

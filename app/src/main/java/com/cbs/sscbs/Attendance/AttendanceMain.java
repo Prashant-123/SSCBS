@@ -191,7 +191,7 @@ public class AttendanceMain extends AppCompatActivity {
             }
             catch(Exception ex)
             {
-                Log.e("App", "getListFromExcel", ex);
+                Log.e("TAG", "getListFromExcel", ex);
             }
             return null;
         }

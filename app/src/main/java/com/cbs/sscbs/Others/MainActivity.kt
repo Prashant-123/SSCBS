@@ -34,8 +34,12 @@ import com.cbs.sscbs.utils.BottomNavigationViewHelper
 import com.cbs.sscbs.utils.web
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -59,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
-        setToolbar();
+        setToolbar()
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
@@ -68,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     fun setToolbar() {
         setSupportActionBar(toolbar)
-        setTitle("Welcome to SSCBS")
+        title = "Welcome to SSCBS"
     }
 
     private fun setbottomnavigator(savedInstanceState: Bundle?) {
@@ -77,6 +81,11 @@ class MainActivity : AppCompatActivity() {
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.main_Frame, main_fragment).commit()
         }
+
+        var getCls = FirebaseFirestore.getInstance().collection("Attendance")
+        var  classesList = ArrayList<String>()
+
+
 
         bottomNavigationView = this.findViewById(R.id.bottom_navigation)
        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
@@ -110,6 +119,15 @@ class MainActivity : AppCompatActivity() {
                         R.id.ic_attendence -> {
                             val pf = Attendance_Frag()
                             val fm = fragmentManager.beginTransaction()
+
+                            getCls.get().addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    for (document in task.result) {
+                                        classesList.add(document.id)
+                                    }
+                                }
+                            }
+
                             fm.replace(R.id.main_Frame, pf).commit()
                         }
                     }
@@ -121,18 +139,10 @@ class MainActivity : AppCompatActivity() {
         mDrawerLayout = findViewById(R.id.drawerLayout)
         if (mDrawerLayout != null && toolbar != null) {
             mActionBarDrawerToggle = object : ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.close, R.string.close) {
-                override fun onDrawerOpened(drawerView: View?) {
-                    super.onDrawerOpened(drawerView)
 
-                }
-
-                override fun onDrawerClosed(drawerView: View?) {
-                    super.onDrawerClosed(drawerView)
-
-                }
             }
             mDrawerLayout.addDrawerListener(mActionBarDrawerToggle)
-            mActionBarDrawerToggle.setDrawerIndicatorEnabled(true)
+            mActionBarDrawerToggle.isDrawerIndicatorEnabled = true
             mActionBarDrawerToggle.syncState()
         }
     }
@@ -141,16 +151,16 @@ class MainActivity : AppCompatActivity() {
         user = FirebaseAuth.getInstance().currentUser!!
 
         navigationView = findViewById(R.id.navigation_view)
-        navigationView.setItemIconTintList(null)
+        navigationView.itemIconTintList = null
         val header = navigationView.getHeaderView(0)
         val userPic: ImageView = header.findViewById(R.id.user_profile_picture)
         val username: TextView = header.findViewById(R.id.user_display_name)
-        if (user.getPhotoUrl() != null) {
+        if (user.photoUrl != null) {
             Glide.with(this)
-                    .load(user.getPhotoUrl())
+                    .load(user.photoUrl)
                     .into(userPic)
         }
-        username.setText(user.displayName?.capitalize())
+        username.text = user.displayName?.capitalize()
         navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
             val id = item.itemId
             Handler().postDelayed({ casebyid(id) }, 500)
@@ -349,5 +359,4 @@ class MainActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
-
 }
