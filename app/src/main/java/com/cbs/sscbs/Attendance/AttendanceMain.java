@@ -42,7 +42,7 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     RecyclerView recyclerView;
     String path;
-    Integer type;
+    Integer Labtype;
     String clas;
     String sub;
     double newAttendence = 0 ;
@@ -76,7 +76,7 @@ public class AttendanceMain extends AppCompatActivity {
         Intent getPath = getIntent();
         path = String.valueOf(getPath.getStringExtra("path"));
         Intent getType = getIntent();
-        type = Integer.valueOf(getType.getStringExtra("type"));
+        Labtype = Integer.valueOf(getType.getStringExtra("Labtype"));
         Intent getClass = getIntent();
         clas = String.valueOf(getClass.getStringExtra("class"));
         Intent getSub = getIntent();
@@ -89,7 +89,7 @@ public class AttendanceMain extends AppCompatActivity {
     public void Save(View view) {
         int i = 0;
 
-        if (type == 1 || type == 2){
+        if (Labtype == 1 || Labtype == 2){
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + " [L]" + "/Year").document(getYear).collection("/Months");
@@ -98,7 +98,7 @@ public class AttendanceMain extends AppCompatActivity {
                 i++;
 
             }
-        }else if(type ==3)
+        }else if(Labtype ==3)
         {
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
@@ -153,7 +153,7 @@ public class AttendanceMain extends AppCompatActivity {
                     JSONObject c = contacts.getJSONObject(i);
                     String name = c.getString("Name");
                     String roll_no = c.getString("Roll_No");
-                    String grp = c.getString("Group");
+                    String grp = c.getString("Lab Group");
 
                     db.collection("Attendance").document(clas).collection("Students")
                             .document(roll_no).set(default_map);
@@ -168,19 +168,19 @@ public class AttendanceMain extends AppCompatActivity {
                         .collection("Months").document(getMonth).set(default_map2);
                     }
 
-                    if(grp.equals("1") && type == 1)
+                    if(grp.equals("1") && Labtype == 1)
                     {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
                     }
 
-                    if(grp.equals("2") && type == 2)
+                    if(grp.equals("2") && Labtype == 2)
                     {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
                     }
 
-                    if(type == 3)
+                    if(Labtype == 3)
                     {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);

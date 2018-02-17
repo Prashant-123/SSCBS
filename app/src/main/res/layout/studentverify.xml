@@ -13,9 +13,7 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/student_class"
-            android:inputType="text"
-            android:hint="Enter Your Class"/>
+            android:id="@+id/student_class" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout

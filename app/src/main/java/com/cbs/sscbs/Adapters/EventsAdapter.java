@@ -23,9 +23,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-//
-// import static com.cbs.sscbs.DataClass.CONSTANTS.imageurl;
-
 /**
  * Created by Prashant on 25-11-2017.
  */

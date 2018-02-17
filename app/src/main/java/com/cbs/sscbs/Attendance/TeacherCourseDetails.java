@@ -162,7 +162,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
 
 
                                     CollectionReference subType = FirebaseFirestore.getInstance().collection("AllSubjects");
-                                    subType.whereEqualTo("type", true)
+                                    subType.whereEqualTo("Labtype", true)
                                             .get()
                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
@@ -185,7 +185,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                                                             if(i==0)
-                                                                Toast.makeText(TeacherCourseDetails.this, "Select type", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(TeacherCourseDetails.this, "Select lab type", Toast.LENGTH_SHORT).show();
 
                                                             else {
                                                                 Toast.makeText(TeacherCourseDetails.this,
@@ -196,7 +196,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
 
                                                                 Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
                                                                 intent.putExtra("path", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
-                                                                intent.putExtra("type", String.valueOf(adapterView.getSelectedItemPosition()));
+                                                                intent.putExtra("Labtype", String.valueOf(adapterView.getSelectedItemPosition()));
                                                                 intent.putExtra("class", getClass);
                                                                 intent.putExtra("subject", getSub);
                                                                 startActivity(intent);
