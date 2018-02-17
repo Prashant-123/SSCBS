@@ -18,7 +18,7 @@ public class ShowToStudents extends AppCompatActivity {
 
     RecyclerView recyclerView;
     StudentsAdapter studentsAdapter;
-    ArrayList<StudentsDataClass> filelist = new ArrayList<>();
+//    ArrayList<StudentsDataClass> filelist = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +51,10 @@ public class ShowToStudents extends AppCompatActivity {
 //        filelist.add(dataClass);
 //        filelist.add(dataClass);
 
-
-
-        recyclerView = findViewById(R.id.showsturview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = (RecyclerView) findViewById(R.id.studentAttendance);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        studentsAdapter = new StudentsAdapter(this  , Attendance_Frag.allSub);
+        studentsAdapter = new StudentsAdapter(this  ,Attendance_Frag.allSub);
         recyclerView.setAdapter(studentsAdapter);
         studentsAdapter.notifyDataSetChanged();
     }

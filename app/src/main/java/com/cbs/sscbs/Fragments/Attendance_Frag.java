@@ -114,42 +114,42 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 View alertLayout = inflater.inflate(R.layout.studentverify, null);
                 final EditText roll = alertLayout.findViewById(R.id.roll);
 
-                getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        ArrayList<String> classesList = new ArrayList<>();
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                classesList.add(document.getId());
-                                }
-
-                            String[] classes = new String[classesList.size() + 1];
-                            int k = 0;
-                            classes[0] = "Select Class";
-                            for (int i = 1; i <= classesList.size(); i++) {
-                                classes[i] = classesList.get(k);
-                                k++;
-                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(),
-                                        android.R.layout.simple_spinner_item, classes);
-                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                cls.setAdapter(areasAdapter);
-                                cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                    @Override
-                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                        showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", "Feb");
-                                        Intent intent = new Intent(getContext(), ShowToStudents.class);
-                                        startActivity(intent);
-                                    }
-
-                                    @Override
-                                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                    }
-                                });
-                            }
-                        }
-                    }
-                });
+//                getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        ArrayList<String> classesList = new ArrayList<>();
+//                        if (task.isSuccessful()) {
+//                            for (DocumentSnapshot document : task.getResult()) {
+//                                classesList.add(document.getId());
+//                                }
+//
+//                            String[] classes = new String[classesList.size() + 1];
+//                            int k = 0;
+//                            classes[0] = "Select Class";
+//                            for (int i = 1; i <= classesList.size(); i++) {
+//                                classes[i] = classesList.get(k);
+//                                k++;
+//                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(),
+//                                        android.R.layout.simple_spinner_item, classes);
+//                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                                cls.setAdapter(areasAdapter);
+//                                cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                    @Override
+//                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                        showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", "Feb");
+//                                        Intent intent = new Intent(getContext(), ShowToStudents.class);
+//                                        startActivity(intent);
+//                                    }
+//
+//                                    @Override
+//                                    public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    }
+//                });
                 final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Enter Credentials");
                 alert.setView(alertLayout);
@@ -169,6 +169,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                        Log.wtf(TAG, roll.getText().toString());
 //                        Log.wtf(TAG, month.getText().toString());
 //                        Log.i(TAG, String.valueOf(allSub.size()));
+                        showAttendance("Bsc-2", "16527", "2018", "Feb");
+                        Intent intent = new Intent(getContext(), ShowToStudents.class);
+                        startActivity(intent);
 
 
 

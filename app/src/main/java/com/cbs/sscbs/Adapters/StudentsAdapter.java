@@ -41,7 +41,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
 
         StudentsDataClass object = objectList.get(position);
         holder.setData(object);
-                holder.flipView.flipTheView();
+//                holder.flipView.flipTheView();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
             super(itemView);
             this.sub = itemView.findViewById(R.id.stuSub);
             this.att = itemView.findViewById(R.id.stuAtt);
-            this.flipView = itemView.findViewById(R.id.flipView1);
+//            this.flipView = itemView.findViewById(R.id.flipView1);
         }
 
         public void setData(StudentsDataClass currentObject) {
