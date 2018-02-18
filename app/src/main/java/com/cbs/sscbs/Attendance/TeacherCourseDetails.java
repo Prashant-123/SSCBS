@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class TeacherCourseDetails extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-    ArrayList<String> classesList = new ArrayList<>();
+    public ArrayList<String> classesList = new ArrayList<>();
     //    ArrayList<String> clas = new ArrayList<>();
 //    ArrayList<String> subjects = new ArrayList<>();
     String getSub, getClass;
@@ -56,7 +56,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
 
         final String getName;
         Intent getPath = getIntent();
-        getName = String.valueOf(getPath.getStringExtra("teacherName"));
+        getName = "Sonika Thakral";
 
         CollectionReference getSubjects = FirebaseFirestore.getInstance().collection("Teachers").document(getName).collection("Classes");
 
@@ -67,8 +67,37 @@ public class TeacherCourseDetails extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
-                                Log.wtf(TAG, document.getId());
                                 classesList.add(document.getId());
+
+                                String[] classes = new String[classesList.size() + 1];
+                                int k = 0;
+                                classes[0] = "Select Class";
+                                for (int i = 1; i <= classesList.size(); i++) {
+                                    classes[i] = classesList.get(k);
+                                    k++;
+                                }
+
+                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
+                                        android.R.layout.simple_spinner_item, classes);
+                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                classSpinner.setAdapter(areasAdapter);
+                                classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                        if (i == 0)
+                                            Toast.makeText(TeacherCourseDetails.this, "Please select your class", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(TeacherCourseDetails.this,
+                                                    "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+                                            getClass = adapterView.getItemAtPosition(i).toString();
+                                            showSub(getName, subSpinner, typeSpinner);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {}
+                                });
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -77,35 +106,8 @@ public class TeacherCourseDetails extends AppCompatActivity {
                 });
 
 
-        String[] classes = new String[classesList.size() + 1];
-                                int k = 0;
-                                classes[0] = "Select Class";
-                                for (int i = 1; i <= classesList.size(); i++) {
-                                    classes[i] = classesList.get(k);
-                                    k++;
-                                }
-        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
-                android.R.layout.simple_spinner_item, classes);
-        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        classSpinner.setAdapter(areasAdapter);
-        classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.wtf(TAG, "New SIze: " + classesList.size());
 
-                if (i == 0)
-                    Toast.makeText(TeacherCourseDetails.this, "Please select your class", Toast.LENGTH_SHORT).show();
-                else {
-                    Toast.makeText(TeacherCourseDetails.this,
-                            "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-                    getClass = adapterView.getItemAtPosition(i).toString();
-                    showSub(getName, subSpinner, typeSpinner);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
     }
     private void showSub(String getName, final Spinner subSpinner, final Spinner typeSpinner) {
@@ -209,9 +211,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
             }
         });
     }
-
-
-    
+//
 //
 //    public class getListFromExcel extends AsyncTask<Void, Void, Void>
 //    {

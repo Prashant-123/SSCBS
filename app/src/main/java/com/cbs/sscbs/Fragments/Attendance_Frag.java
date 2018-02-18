@@ -159,17 +159,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
                 alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-//                        Log.wtf(TAG, cls.getText().toString());
-//                        Log.wtf(TAG, roll.getText().toString());
-//                        Log.wtf(TAG, month.getText().toString());
-//                        Log.i(TAG, String.valueOf(allSub.size()));
-
-
-
-                    }
+                    public void onClick(DialogInterface dialog, int which) {}
                 });
+
                 AlertDialog dialog = alert.create();
                 dialog.show();
             }

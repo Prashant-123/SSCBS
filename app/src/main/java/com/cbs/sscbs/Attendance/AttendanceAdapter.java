@@ -30,6 +30,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
    String getMonth = formattedDate.substring(3, 6);
 
     public static ArrayList<String> saveRoll = new ArrayList<>();
+    public static ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
     private List<AttendanceDataClass> objectList;
     private LayoutInflater inflater;
     private String checkRoll;
@@ -58,6 +59,9 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 objectList.get(holder.getAdapterPosition()).setChecked(b);
+
+                getAllToUpdateTotal.add(objectList.get(holder.getAdapterPosition()).getRoll().toString());
+
                 checkRoll = objectList.get(holder.getAdapterPosition()).getRoll().toString();
 
                 if (objectList.get(holder.getAdapterPosition()).isChecked())

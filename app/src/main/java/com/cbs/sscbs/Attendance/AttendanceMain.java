@@ -15,6 +15,7 @@ import android.view.View;
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,6 +48,7 @@ public class AttendanceMain extends AppCompatActivity {
     String sub;
     double newAttendence = 0 ;
     FloatingActionButton button1;
+//    CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance");
 
     Calendar c = Calendar.getInstance();
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -71,7 +73,9 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
-        Log.wtf(TAG , getMonth + " " + getYear);
+//        Log.wtf(TAG , getMonth + " " + getYear);
+
+        Log.wtf(TAG , "Size:  " + AttendanceAdapter.getAllToUpdateTotal.size());
 
         Intent getPath = getIntent();
         path = String.valueOf(getPath.getStringExtra("path"));
@@ -104,7 +108,6 @@ public class AttendanceMain extends AppCompatActivity {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
                 save(getStu);
-
                 i++;
             }
         }
@@ -133,6 +136,64 @@ public class AttendanceMain extends AppCompatActivity {
         });
     }
 
+    public void updateTotal() {
+        int i = 0;
+        Log.wtf(TAG, "Size:  "+ AttendanceAdapter.getAllToUpdateTotal.size());
+//        while (i < AttendanceAdapter.getAllToUpdateTotal.size()) {
+//            final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+//                    AttendanceAdapter.getAllToUpdateTotal.get(i) + "/Subjects/" + sub + "/Year").document("Feb").collection("/Months");
+//
+////        toUpdateTotal.document(clas).collection("Students")
+////                .document(AttendanceAdapter.saveRoll.get(i)).collection("Subjects")
+////                .get()
+////                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+////                    @Override
+////                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+////                        if (task.isSuccessful()) {
+////                            for (final DocumentSnapshot ds : task.getResult()) {
+////
+////                                DocumentReference reference = toUpdateTotal
+////                                        .document(clas).collection("Students")
+////                                        .document(documentSnapshot.getId()).collection("Subjects")
+////                                        .document(ds.getId()).collection("Year").document(year)
+////                                        .collection("Months").document(month);
+////                                reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+////                                    @Override
+////                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+////                                        if (documentSnapshot.exists()) {
+////                                            StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
+////                                            allSub.add(dataClass);
+////                                        }
+////                                    }
+////                                });
+////                            }
+////                        }
+////                    }
+////                });
+//
+//
+//            toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                    if (task.isSuccessful()) {
+//                        db.runTransaction(new Transaction.Function<Void>() {
+//                            @Override
+//                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+//                                final DocumentReference sfDocRef = toUpdateTotal.document("Feb");
+//                                DocumentSnapshot snapshot = transaction.get(sfDocRef);
+//                                newAttendence = (snapshot.getDouble("attendance")) + 1;
+//                                transaction.update(sfDocRef, "attendance", newAttendence);
+//                                //  default_map2.put("attendance" ,newAttendence);
+//                                Log.i(TAG, "Attendence updated");
+//                                return null;
+//                            }
+//                        });
+//                    }
+//                }
+//            });
+//        }
+    }
+
     public class getListFromExcel extends AsyncTask<Void, Void, Void>
     {
         @Override
@@ -143,7 +204,7 @@ public class AttendanceMain extends AppCompatActivity {
                 HttpHandler sh = new HttpHandler();
                 String jsonStr = sh.makeServiceCall(URL);
                 String jsonStr2 = sh.makeServiceCall(URL2);
-//                Log.i(TAG, "Response from url: " + jsonStr2);
+//              Log.i(TAG, "Response from url: " + jsonStr2);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(clas);
                 JSONObject object2 = new JSONObject(jsonStr2);
@@ -153,19 +214,19 @@ public class AttendanceMain extends AppCompatActivity {
                     JSONObject c = contacts.getJSONObject(i);
                     String name = c.getString("Name");
                     String roll_no = c.getString("Roll_No");
-                    String grp = c.getString("Lab Group");
+                    String grp = c.getString("Lab_Group");
 
-                    db.collection("Attendance").document(clas).collection("Students")
-                            .document(roll_no).set(default_map);
+//                    db.collection("Attendance").document(clas).collection("Students")
+//                            .document(roll_no).set(default_map);
 
                     for(int j = 0 ; j<contacts2.length();j++){
                         JSONObject c2 = contacts2.getJSONObject(j);
                         String sub = c2.getString("Subjects");
 
-                        default_map2.put("attendance",newAttendence);
-                        db.collection("Attendance").document(clas).collection("Students")
-                                .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
-                        .collection("Months").document(getMonth).set(default_map2);
+//                        default_map2.put("attendance",newAttendence);
+//                        db.collection("Attendance").document(clas).collection("Students")
+//                                .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
+//                        .collection("Months").document(getMonth).set(default_map2);
                     }
 
                     if(grp.equals("1") && Labtype == 1)
