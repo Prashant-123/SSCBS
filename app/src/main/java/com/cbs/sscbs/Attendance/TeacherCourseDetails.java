@@ -58,7 +58,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
         Intent getPath = getIntent();
         getName = String.valueOf(getPath.getStringExtra("teacherName"));
 
-        CollectionReference getSubjects = FirebaseFirestore.getInstance().collection("Teachers/" + getName + "/Classes");
+        CollectionReference getSubjects = FirebaseFirestore.getInstance().collection("Teachers").document(getName).collection("Classes");
 
         getSubjects
                 .get()
