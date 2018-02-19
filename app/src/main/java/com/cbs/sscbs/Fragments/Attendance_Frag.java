@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
+import com.cbs.sscbs.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -45,10 +46,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
 
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
-    CollectionReference getRoll = FirebaseFirestore.getInstance().collection("Attendance");
-    CollectionReference getMonth = FirebaseFirestore.getInstance().collection("Attendance");
-
-
     StudentsDataClass studentsDataClass = new StudentsDataClass();
 
     public Attendance_Frag() {
@@ -159,9 +156,11 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
                 alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {}
-                });
+                    public void onClick(DialogInterface dialog, int which) {
+                        showAttendance("Bsc-2", "16527", "2018", "Feb");
 
+                    }
+                });
                 AlertDialog dialog = alert.create();
                 dialog.show();
             }
@@ -179,7 +178,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 if (documentSnapshot.getId().compareToIgnoreCase(roll_no) == 0) {
 //                                                        Log.wtf(TAG , documentSnapshot.getId());
 
-                                    getCls.document(clas).collection("Students")
+                                  getCls.document(clas).collection("Students")
                                             .document(documentSnapshot.getId()).collection("Subjects")
                                             .get()
                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -187,7 +186,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful()) {
                                                         for (final DocumentSnapshot ds : task.getResult()) {
-//
 
                                                             DocumentReference reference = getCls
                                                                     .document(clas).collection("Students")
@@ -200,25 +198,31 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                                     if (documentSnapshot.exists()) {
                                                                         StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
                                                                         allSub.add(dataClass);
+
                                                                     }
                                                                 }
                                                             });
                                                         }
                                                     }
+                                                    Intent intent = new Intent(getContext(), ShowToStudents.class);
+                                                    startActivity(intent);
                                                 }
                                             });
                                     break;
                                 }
                             }
                         }
+
                     }
+
                 });
-        Log.wtf(TAG, allSub.toString());
+        Log.wtf(TAG, allSub.toString()+"jkghff");
+
     }
 
     public String[] theMonth() {
-        return new String[]{"January", "February", "March", "April", "May",
-                "June", "July", "August", "September", "October", "November", "December"};
+        return new String[]{"Jan", "Feb", "Mar", "Apr", "May",
+                "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     }
 
 //    private TextWatcher filterTextWatcher = new TextWatcher() {

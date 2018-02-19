@@ -22,7 +22,7 @@ public class ShowToStudents extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_to_students);
+        setContentView(R.layout.common_rv);
 
        ArrayList<StudentsDataClass> filelist = new ArrayList<>();
        StudentsDataClass dataClass = new StudentsDataClass("1", (double) 1);
@@ -51,8 +51,8 @@ public class ShowToStudents extends AppCompatActivity {
 //        filelist.add(dataClass);
 //        filelist.add(dataClass);
 //        filelist.add(dataClass);
-        recyclerView = (RecyclerView) findViewById(R.id.studentAttendance);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView = (RecyclerView) findViewById(R.id.rv);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         studentsAdapter = new StudentsAdapter(this  ,Attendance_Frag.allSub);
         recyclerView.setAdapter(studentsAdapter);

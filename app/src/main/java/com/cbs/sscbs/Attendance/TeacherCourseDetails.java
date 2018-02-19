@@ -145,8 +145,6 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                             "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
                                     getSub = adapterView.getItemAtPosition(i).toString();
 
-
-
                                     CollectionReference subType = FirebaseFirestore.getInstance().collection("AllSubjects");
                                     subType.whereEqualTo("Labtype", true)
                                             .get()
@@ -156,10 +154,14 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful())
                                                         for (DocumentSnapshot document : task.getResult()) {
+                                                        Log.wtf(TAG , getSub  + " "  + document.getId());
                                                             if (getSub.equals(document.getId())) {
                                                                 types = new String[]{"Select Type " , "Lab-G1", "Lab-G2", "Theory"};
                                                             }
-                                                            else types = new String[]{"Select Type " , "Theory"};
+                                                            else {
+                                                                types = new String[]{"Select Type " , "Theory"};
+                                                            }
+                                                            break;
                                                         }
 
                                                     ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,

@@ -86,6 +86,7 @@ public class AttendanceMain extends AppCompatActivity {
         Intent getSub = getIntent();
         sub = String.valueOf(getSub.getStringExtra("subject"));
 
+        Log.i(TAG,Labtype.toString());
         new getListFromExcel().execute();
         adapter.notifyDataSetChanged();
     }
@@ -104,6 +105,7 @@ public class AttendanceMain extends AppCompatActivity {
             }
         }else if(Labtype ==3)
         {
+            Log.wtf(TAG, String.valueOf(AttendanceAdapter.saveRoll.size()));
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
