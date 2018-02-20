@@ -72,7 +72,6 @@ public class Events_Fragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
 
-
         databaseRef.child("EventThings").orderByChild("sot").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

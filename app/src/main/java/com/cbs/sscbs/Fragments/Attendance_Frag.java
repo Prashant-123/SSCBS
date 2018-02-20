@@ -158,7 +158,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         showAttendance("Bsc-2", "16527", "2018", "Feb");
-
+                        Intent intent = new Intent(getContext(), ShowToStudents.class);
+                        startActivity(intent);
                     }
                 });
                 AlertDialog dialog = alert.create();
@@ -204,8 +205,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                             });
                                                         }
                                                     }
-                                                    Intent intent = new Intent(getContext(), ShowToStudents.class);
-                                                    startActivity(intent);
+
                                                 }
                                             });
                                     break;

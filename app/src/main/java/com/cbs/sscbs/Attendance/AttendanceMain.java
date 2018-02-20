@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
@@ -47,7 +48,7 @@ public class AttendanceMain extends AppCompatActivity {
     String clas;
     String sub;
     double newAttendence = 0 ;
-    FloatingActionButton button1;
+    Button button1;
 //    CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance");
 
     Calendar c = Calendar.getInstance();
@@ -65,7 +66,7 @@ public class AttendanceMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        button1 = (FloatingActionButton) findViewById(R.id.save_at);
+        button1 =  findViewById(R.id.save_at);
         setContentView(R.layout.common_rv);
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
