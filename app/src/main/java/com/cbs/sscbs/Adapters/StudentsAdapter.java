@@ -53,12 +53,16 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
 
         TextView sub;
         TextView att;
+        TextView textView;
         EasyFlipView flipView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.sub = itemView.findViewById(R.id.stuSub);
             this.att = itemView.findViewById(R.id.stuAtt);
+
+
+
 //           this.flipView = itemView.findViewById(R.id.flipView1);
         }
 
