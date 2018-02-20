@@ -3,6 +3,7 @@ package com.cbs.sscbs.Fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -16,8 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cbs.sscbs.Attendance.AttendanceDataClass;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
+import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,7 +30,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,8 +50,9 @@ import am.appwise.components.ni.NoInternetDialog;
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
+    String classs;
+    private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
-
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
 
     public Attendance_Frag() {
@@ -55,9 +64,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
         RelativeLayout faculty = myView.findViewById(R.id.faculty);
         RelativeLayout stu = myView.findViewById(R.id.students);
-
         final Spinner month = myView.findViewById(R.id.month);
-//
+
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +97,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 dialog.show();
             }
         });
-
 
         stu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +142,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                         month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                             @Override
                                             public void onItemSelected(AdapterView<?> adapterView1, View view, int i, long l) {
+                                                classs = adapterView.getSelectedItem().toString();
                                                 showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", adapterView1.getSelectedItem().toString());
                                             }
 
@@ -171,6 +179,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getContext(), ShowToStudents.class);
+                        intent.putExtra("class", classs);
+                        intent.putExtra("roll", roll.getText().toString());
                         startActivity(intent);
                     }
                 });
@@ -237,4 +247,5 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         return new String[]{"Jan", "Feb", "Mar", "Apr", "May",
                 "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     }
+
 }

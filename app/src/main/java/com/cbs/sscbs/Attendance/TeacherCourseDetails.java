@@ -53,6 +53,11 @@ public class TeacherCourseDetails extends AppCompatActivity {
          subSpinner = (Spinner) findViewById(R.id.getSubSpinner);
          typeSpinner = (Spinner) findViewById(R.id.getTypeSpinner);
 
+         Toolbar toolbar = findViewById(R.id.toolbar_course_details);
+         toolbar.setTitle("Attendance");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final String getName;
         Intent getPath = getIntent();

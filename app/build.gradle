@@ -76,6 +76,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:11.4.2'
     compile 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.0.5'
 
+    implementation 'com.libRG:customtextview:1.2'
+
 //    compile('com.google.api-client:google-api-client-android:1.23.0') {
 //        exclude group: 'org.apache.httpcomponents'
 //    }

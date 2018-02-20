@@ -13,7 +13,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
             <RelativeLayout
                 android:id="@+id/upper"
@@ -112,20 +113,22 @@
 
             <RelativeLayout
                 android:id="@+id/percentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="70dp"
+                android:layout_height="70dp">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/logo" />
+                <com.libRG.CustomTextView
+                    android:id="@+id/c6"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:text="100%"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="visible"
+                    app:lib_setRadius="150dp"
+                    app:lib_setRoundedBorderColor="@color/colorPrimary"
+                    app:lib_setRoundedView="true" />
             </RelativeLayout>
 
         </LinearLayout>
