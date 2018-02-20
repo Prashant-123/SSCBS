@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -121,28 +122,43 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                         android.R.layout.simple_spinner_item, classes);
                                 classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 cls.setAdapter(classAdapter);
-//                                cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                                    @Override
-//                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(final AdapterView<?> adapterView, View view, int i, long l) {
 //                                        showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", "Feb");
 //                                        Intent intent = new Intent(getContext(), ShowToStudents.class);
 //                                        startActivity(intent);
-//                                    }
-//
-//                                    @Override
-//                                    public void onNothingSelected(AdapterView<?> adapterView) {
-//                                    }
-//                                });
-                                Spinner month = alertLayout.findViewById(R.id.month);
 
-                                ArrayAdapter<String> subjectAdapter = new ArrayAdapter<String>(getContext(),
-                                        android.R.layout.simple_spinner_item, theMonth());
-                                subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                month.setAdapter(subjectAdapter);
+                                        Spinner month = alertLayout.findViewById(R.id.month);
+
+                                        ArrayAdapter<String> subjectAdapter = new ArrayAdapter<String>(getContext(),
+                                                android.R.layout.simple_spinner_item, theMonth());
+                                        subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                        month.setAdapter(subjectAdapter);
+                                        month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                            @Override
+                                            public void onItemSelected(AdapterView<?> adapterView1, View view, int i, long l) {
+                                                showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", adapterView1.getSelectedItem().toString());
+                                            }
+
+                                            @Override
+                                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                            }
+                                        });
+
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                    }
+                                });
+
                             }
                         }
                     }
                 });
+
                 final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Enter Credentials");
                 alert.setView(alertLayout);
@@ -157,8 +173,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showAttendance("Bsc-2", "16527", "2018", "Feb");
-
+                        Intent intent = new Intent(getContext(), ShowToStudents.class);
+                        startActivity(intent);
                     }
                 });
                 AlertDialog dialog = alert.create();
@@ -204,8 +220,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                             });
                                                         }
                                                     }
-                                                    Intent intent = new Intent(getContext(), ShowToStudents.class);
-                                                    startActivity(intent);
+//                                                    Intent intent = new Intent(getContext(), ShowToStudents.class);
+//                                                    startActivity(intent);
                                                 }
                                             });
                                     break;
@@ -224,21 +240,4 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         return new String[]{"Jan", "Feb", "Mar", "Apr", "May",
                 "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     }
-
-//    private TextWatcher filterTextWatcher = new TextWatcher() {
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-////            Log.i(TAG,s.toString());
-//        }
-//    };
 }

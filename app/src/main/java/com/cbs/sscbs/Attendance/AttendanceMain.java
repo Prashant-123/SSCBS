@@ -43,6 +43,7 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     RecyclerView recyclerView;
     String path;
+    public ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
     Integer Labtype;
     String clas;
     String sub;
@@ -89,6 +90,8 @@ public class AttendanceMain extends AppCompatActivity {
         Log.i(TAG,Labtype.toString());
         new getListFromExcel().execute();
         adapter.notifyDataSetChanged();
+
+
     }
 
     public void Save(View view) {
@@ -105,7 +108,7 @@ public class AttendanceMain extends AppCompatActivity {
             }
         }else if(Labtype ==3)
         {
-            Log.wtf(TAG, String.valueOf(AttendanceAdapter.saveRoll.size()));
+//            Log.wtf(TAG, String.valueOf(AttendanceAdapter.saveRoll.size()));
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
@@ -136,44 +139,46 @@ public class AttendanceMain extends AppCompatActivity {
                 }
             }
         });
+        updateTotal();
+        Log.i(TAG, "Total");
     }
 
     public void updateTotal() {
         int i = 0;
-        Log.wtf(TAG, "Size:  "+ AttendanceAdapter.getAllToUpdateTotal.size());
+        Log.wtf(TAG, "Size, ok:  "+ AttendanceAdapter.getAllToUpdateTotal.size());
 //        while (i < AttendanceAdapter.getAllToUpdateTotal.size()) {
 //            final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
 //                    AttendanceAdapter.getAllToUpdateTotal.get(i) + "/Subjects/" + sub + "/Year").document("Feb").collection("/Months");
+
+//        toUpdateTotal.document(clas).collection("Students")
+//                .document(AttendanceAdapter.saveRoll.get(i)).collection("Subjects")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (final DocumentSnapshot ds : task.getResult()) {
 //
-////        toUpdateTotal.document(clas).collection("Students")
-////                .document(AttendanceAdapter.saveRoll.get(i)).collection("Subjects")
-////                .get()
-////                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-////                    @Override
-////                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-////                        if (task.isSuccessful()) {
-////                            for (final DocumentSnapshot ds : task.getResult()) {
-////
-////                                DocumentReference reference = toUpdateTotal
-////                                        .document(clas).collection("Students")
-////                                        .document(documentSnapshot.getId()).collection("Subjects")
-////                                        .document(ds.getId()).collection("Year").document(year)
-////                                        .collection("Months").document(month);
-////                                reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-////                                    @Override
-////                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                                        if (documentSnapshot.exists()) {
-////                                            StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
-////                                            allSub.add(dataClass);
-////                                        }
-////                                    }
-////                                });
-////                            }
-////                        }
-////                    }
-////                });
-//
-//
+//                                DocumentReference reference = toUpdateTotal
+//                                        .document(clas).collection("Students")
+//                                        .document(documentSnapshot.getId()).collection("Subjects")
+//                                        .document(ds.getId()).collection("Year").document(year)
+//                                        .collection("Months").document(month);
+//                                reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                                    @Override
+//                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                        if (documentSnapshot.exists()) {
+//                                            StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
+//                                            allSub.add(dataClass);
+//                                        }
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    }
+//                });
+
+
 //            toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //                @Override
 //                public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -235,18 +240,22 @@ public class AttendanceMain extends AppCompatActivity {
                     {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        getAllToUpdateTotal.add(roll_no);
                     }
 
                     if(grp.equals("2") && Labtype == 2)
                     {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        getAllToUpdateTotal.add(roll_no);
                     }
 
                     if(Labtype == 3)
                     {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        getAllToUpdateTotal.add(roll_no);
+                        Log.i(TAG, String.valueOf(getAllToUpdateTotal.size()));
                     }
 
                 }

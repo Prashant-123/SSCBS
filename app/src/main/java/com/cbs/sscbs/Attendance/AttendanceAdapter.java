@@ -60,7 +60,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 objectList.get(holder.getAdapterPosition()).setChecked(b);
 
-                getAllToUpdateTotal.add(objectList.get(holder.getAdapterPosition()).getRoll().toString());
+//                getAllToUpdateTotal.add(objectList.get(holder.getAdapterPosition()).getRoll().toString());
 
                 checkRoll = objectList.get(holder.getAdapterPosition()).getRoll().toString();
 
