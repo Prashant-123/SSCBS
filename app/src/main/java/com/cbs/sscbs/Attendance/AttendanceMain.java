@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cbs.sscbs.Others.HttpHandler;
+import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,11 +45,12 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     RecyclerView recyclerView;
     String path;
-    public ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
+    public static ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
     Integer Labtype;
     String clas;
     String sub;
     double newAttendence = 0 ;
+    double newTotal = 0 ;
     Button button1;
 //    CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance");
 
@@ -75,10 +77,6 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
-//        Log.wtf(TAG , getMonth + " " + getYear);
-
-        Log.wtf(TAG , "Size:  " + AttendanceAdapter.getAllToUpdateTotal.size());
-
         Intent getPath = getIntent();
         path = String.valueOf(getPath.getStringExtra("path"));
         Intent getType = getIntent();
@@ -88,11 +86,8 @@ public class AttendanceMain extends AppCompatActivity {
         Intent getSub = getIntent();
         sub = String.valueOf(getSub.getStringExtra("subject"));
 
-        Log.i(TAG,Labtype.toString());
         new getListFromExcel().execute();
         adapter.notifyDataSetChanged();
-
-
     }
 
     public void Save(View view) {
@@ -116,6 +111,11 @@ public class AttendanceMain extends AppCompatActivity {
                 save(getStu);
                 i++;
             }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
         }
 
     }
@@ -140,66 +140,6 @@ public class AttendanceMain extends AppCompatActivity {
                 }
             }
         });
-        updateTotal();
-        Log.i(TAG, "Total");
-    }
-
-    public void updateTotal() {
-        int i = 0;
-        Log.wtf(TAG, "Size, ok:  "+ AttendanceAdapter.getAllToUpdateTotal.size());
-//        while (i < AttendanceAdapter.getAllToUpdateTotal.size()) {
-//            final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-//                    AttendanceAdapter.getAllToUpdateTotal.get(i) + "/Subjects/" + sub + "/Year").document("Feb").collection("/Months");
-
-//        toUpdateTotal.document(clas).collection("Students")
-//                .document(AttendanceAdapter.saveRoll.get(i)).collection("Subjects")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (final DocumentSnapshot ds : task.getResult()) {
-//
-//                                DocumentReference reference = toUpdateTotal
-//                                        .document(clas).collection("Students")
-//                                        .document(documentSnapshot.getId()).collection("Subjects")
-//                                        .document(ds.getId()).collection("Year").document(year)
-//                                        .collection("Months").document(month);
-//                                reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                                    @Override
-//                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                                        if (documentSnapshot.exists()) {
-//                                            StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance"));
-//                                            allSub.add(dataClass);
-//                                        }
-//                                    }
-//                                });
-//                            }
-//                        }
-//                    }
-//                });
-
-
-//            toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                    if (task.isSuccessful()) {
-//                        db.runTransaction(new Transaction.Function<Void>() {
-//                            @Override
-//                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-//                                final DocumentReference sfDocRef = toUpdateTotal.document("Feb");
-//                                DocumentSnapshot snapshot = transaction.get(sfDocRef);
-//                                newAttendence = (snapshot.getDouble("attendance")) + 1;
-//                                transaction.update(sfDocRef, "attendance", newAttendence);
-//                                //  default_map2.put("attendance" ,newAttendence);
-//                                Log.i(TAG, "Attendence updated");
-//                                return null;
-//                            }
-//                        });
-//                    }
-//                }
-//            });
-//        }
     }
 
     public class getListFromExcel extends AsyncTask<Void, Void, Void>
@@ -256,7 +196,6 @@ public class AttendanceMain extends AppCompatActivity {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
                         getAllToUpdateTotal.add(roll_no);
-                        Log.i(TAG, String.valueOf(getAllToUpdateTotal.size()));
                     }
 
                 }
@@ -266,13 +205,76 @@ public class AttendanceMain extends AppCompatActivity {
             {
                 Log.e("TAG", "getListFromExcel", ex);
             }
+
             return null;
+
+
         }
 
         @Override
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
             adapter.notifyDataSetChanged();
+
+            updateTotal();
+//            int i = 0;
+//            while (i < getAllToUpdateTotal.size()) {
+                final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+                        16501 + "/Subjects/" + sub + "/Year").document("2018").collection("/Months");
+
+                toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            db.runTransaction(new Transaction.Function<Void>() {
+                                @Override
+                                public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                                    final DocumentReference sfDocRef = toUpdateTotal.document("Feb");
+                                    DocumentSnapshot snapshot = transaction.get(sfDocRef);
+                                    newTotal = (snapshot.getDouble("total")) + 1;
+                                    transaction.update(sfDocRef, "total", newTotal);
+                                    //  default_map2.put("attendance" ,newAttendence);
+                                    Log.i(TAG, "Total updated");
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+
         }
+
+
     }
+
+    public void updateTotal() {
+
+        Log.i(TAG, getAllToUpdateTotal.toString());
+//        int i = 0;
+//        while (i < getAllToUpdateTotal.size()) {
+//            final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+//                    getAllToUpdateTotal.get(i) + "/Subjects/" + sub + "/Year").document("2018").collection("/Months");
+//
+//            toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                    if (task.isSuccessful()) {
+//                        db.runTransaction(new Transaction.Function<Void>() {
+//                            @Override
+//                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+//                                final DocumentReference sfDocRef = toUpdateTotal.document("Feb");
+//                                DocumentSnapshot snapshot = transaction.get(sfDocRef);
+//                                newTotal = (snapshot.getDouble("total")) + 1;
+//                                transaction.update(sfDocRef, "total", newTotal);
+//                                //  default_map2.put("attendance" ,newAttendence);
+//                                Log.i(TAG, "Total updated");
+//                                return null;
+//                            }
+//                        });
+//                    }
+//                }
+//            });
+//        }
+    }
+
 }

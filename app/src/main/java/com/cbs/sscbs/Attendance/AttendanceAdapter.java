@@ -30,7 +30,6 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
    String getMonth = formattedDate.substring(3, 6);
 
     public static ArrayList<String> saveRoll = new ArrayList<>();
-    public static ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
     private List<AttendanceDataClass> objectList;
     private LayoutInflater inflater;
     private String checkRoll;

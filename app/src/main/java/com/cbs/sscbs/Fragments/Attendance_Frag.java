@@ -42,12 +42,9 @@ import am.appwise.components.ni.NoInternetDialog;
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
-    NoInternetDialog noInternetDialog;
-    Map<String, Object> default_map = new HashMap<>();
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
 
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
-    StudentsDataClass studentsDataClass = new StudentsDataClass();
 
     public Attendance_Frag() {
     }
@@ -108,7 +105,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 classesList.add(document.getId());
-                                }
+                            }
 
                             String[] classes = new String[classesList.size() + 1];
                             int k = 0;
@@ -116,9 +113,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                             for (int i = 1; i <= classesList.size(); i++) {
                                 classes[i] = classesList.get(k);
                                 k++;
-                            Spinner cls = alertLayout.findViewById(R.id.student_class);
+                                Spinner cls = alertLayout.findViewById(R.id.student_class);
 
-                            ArrayAdapter<String> classAdapter = new ArrayAdapter<String>(getContext(),
+                                ArrayAdapter<String> classAdapter = new ArrayAdapter<String>(getContext(),
                                         android.R.layout.simple_spinner_item, classes);
                                 classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 cls.setAdapter(classAdapter);
@@ -194,7 +191,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 if (documentSnapshot.getId().compareToIgnoreCase(roll_no) == 0) {
 //                                                        Log.wtf(TAG , documentSnapshot.getId());
 
-                                  getCls.document(clas).collection("Students")
+                                    getCls.document(clas).collection("Students")
                                             .document(documentSnapshot.getId()).collection("Subjects")
                                             .get()
                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
