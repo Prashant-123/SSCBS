@@ -36,11 +36,9 @@ public class TeacherCourseDetails extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     public ArrayList<String> classesList = new ArrayList<>();
-    //    ArrayList<String> clas = new ArrayList<>();
-//    ArrayList<String> subjects = new ArrayList<>();
+
     String getSub, getClass;
     String[] types;
-//    private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=16E5eMj3p_p2MpN8frV59Xbk0e-ssjlJ1DrY7hUqZSQc";
 
     Spinner classSpinner, subSpinner, typeSpinner;
 
@@ -59,9 +57,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        final String getName;
-        Intent getPath = getIntent();
-        getName = "Sonika Thakral";
+        final String getName = getIntent().getStringExtra("getUser");
 
         CollectionReference getSubjects = FirebaseFirestore.getInstance().collection("Teachers").document(getName).collection("Classes");
 

@@ -105,7 +105,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_toLeftOf="@id/total_text"
-                        android:text="sfwe" />
+                        android:text="sfwe"
+                        android:id="@+id/tt"/>
 
                 </LinearLayout>
 

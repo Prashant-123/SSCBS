@@ -6,17 +6,4 @@
     android:padding="36dp">
 
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/faculty_verify"
-        android:inputType="text"
-        android:hint="Enter Your Name"/>
-    </android.support.design.widget.TextInputLayout>
-
 </LinearLayout>

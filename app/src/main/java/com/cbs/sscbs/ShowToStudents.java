@@ -70,7 +70,6 @@ public class ShowToStudents extends AppCompatActivity {
             {
                 HttpHandler sh = new HttpHandler();
                 String jsonStr = sh.makeServiceCall(URL);
-//              Log.i(TAG, "Response from url: " + jsonStr2);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(classIntent);
 //                Log.wtf(TAG, String.valueOf(contacts.length()));

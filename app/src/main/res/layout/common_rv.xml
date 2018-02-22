@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_about"
+        android:id="@+id/stu_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#610B21"
@@ -16,43 +17,20 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <android.support.design.widget.CoordinatorLayout
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:fadeScrollbars="true" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:fadeScrollbars="true" />
-
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/save_at"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:onClick="Save"
-            android:text="Save" />
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|right|end"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:id="@+id/save_at"-->
-        <!--app:fabSize="normal"-->
-        <!--android:onClick="Save"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--/>-->
-    </android.support.design.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/save_at"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center|bottom|right"
+        android:layout_margin="16dp"
+        android:onClick="Save"
+        android:text="Save" />
 
 </LinearLayout>

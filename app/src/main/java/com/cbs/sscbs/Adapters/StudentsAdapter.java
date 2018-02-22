@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.R;
+import com.libRG.CustomTextView;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
@@ -53,6 +54,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
 
         TextView sub;
         TextView att;
+        TextView tot;
+        CustomTextView perc;
         TextView textView;
         EasyFlipView flipView;
 
@@ -60,8 +63,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
             super(itemView);
             this.sub = itemView.findViewById(R.id.stuSub);
             this.att = itemView.findViewById(R.id.stuAtt);
-
-
+            this.tot = itemView.findViewById(R.id.tt);
+            this.perc = itemView.findViewById(R.id.c6);
 
 //           this.flipView = itemView.findViewById(R.id.flipView1);
         }
@@ -69,6 +72,9 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
         public void setData(StudentsDataClass currentObject) {
             this.sub.setText(currentObject.getSubject());
             this.att.setText(String.valueOf(currentObject.getAttendance()));
+            this.tot.setText(String.valueOf(currentObject.getTotal()));
+            String perc = String.valueOf(currentObject.getAttendance()/(currentObject.getTotal()));
+            this.perc.setText("");
         }
     }
 }

@@ -41,7 +41,7 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String TAG = "TAG";
     Map<String, Object> default_map = new HashMap<>();
     Map<String, Object> default_map2 = new HashMap<>();
-    private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3-HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
+    private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
     private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     RecyclerView recyclerView;
     String path;
@@ -249,31 +249,6 @@ public class AttendanceMain extends AppCompatActivity {
     public void updateTotal() {
 
         Log.i(TAG, getAllToUpdateTotal.toString());
-//        int i = 0;
-//        while (i < getAllToUpdateTotal.size()) {
-//            final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-//                    getAllToUpdateTotal.get(i) + "/Subjects/" + sub + "/Year").document("2018").collection("/Months");
-//
-//            toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                    if (task.isSuccessful()) {
-//                        db.runTransaction(new Transaction.Function<Void>() {
-//                            @Override
-//                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-//                                final DocumentReference sfDocRef = toUpdateTotal.document("Feb");
-//                                DocumentSnapshot snapshot = transaction.get(sfDocRef);
-//                                newTotal = (snapshot.getDouble("total")) + 1;
-//                                transaction.update(sfDocRef, "total", newTotal);
-//                                //  default_map2.put("attendance" ,newAttendence);
-//                                Log.i(TAG, "Total updated");
-//                                return null;
-//                            }
-//                        });
-//                    }
-//                }
-//            });
-//        }
     }
 
 }
