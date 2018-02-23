@@ -72,8 +72,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
         public void setData(StudentsDataClass currentObject) {
             this.sub.setText(currentObject.getSubject());
             this.att.setText(String.valueOf(currentObject.getAttendance()));
-            this.tot.setText(String.valueOf(currentObject.getTotal()));
-            String perc = String.valueOf(currentObject.getAttendance()/(currentObject.getTotal()));
+//            this.tot.setText(String.valueOf(currentObject.getTotal()));
+//            String perc = String.valueOf(currentObject.getAttendance()/(currentObject.getTotal()));
             this.perc.setText("");
         }
     }

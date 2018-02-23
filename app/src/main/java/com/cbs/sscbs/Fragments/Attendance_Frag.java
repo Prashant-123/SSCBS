@@ -204,11 +204,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         intent.putExtra("class", classs);
                         intent.putExtra("roll", roll.getText().toString());
 
-                        Log.i(TAG, "ok");
-                        bar.setVisibility(View.VISIBLE);
-                        Log.i(TAG, "ok-1");
-
-
                         new Timer().schedule(new TimerTask() {
                             @Override
                             public void run() {

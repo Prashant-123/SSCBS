@@ -1,76 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/restaurant_top_card"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="10dp">
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:background="@drawable/gradient_up">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="horizontal"
+          android:layout_marginLeft="10dp"
+          android:padding="20dp">
+
+          <com.makeramen.roundedimageview.RoundedImageView
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              app:riv_oval="true"
+              android:id="@+id/stuImg"
+              android:layout_gravity="left"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_marginLeft="22dp"
+              android:layout_marginTop="10dp">
+
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/r_name"
+                  android:textSize="22dp"
+                  android:textStyle="bold"
+                  android:textColor="@color/white"
+                  android:fontFamily="sans-serif" />
+
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@+id/roll_text"
+                  android:textSize="22dp"
+                  android:textStyle="bold"
+                  android:textColor="@color/white"
+                  android:layout_marginTop="12dp"
+                  android:fontFamily="sans-serif"
+                  />
+
+          </LinearLayout>
+
+      </LinearLayout>
+
+    </LinearLayout>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/gradient_up" />
 
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/stuImg"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_toLeftOf="@+id/r_name"
-            android:layout_toStartOf="@+id/r_name" />
-
-        <TextView
-            android:id="@+id/r_name"
-            style="@style/AppTheme.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="71dp"
-            android:layout_marginRight="71dp"
-            android:layout_marginTop="58dp"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            tools:text="Some Name" />
-
-        <TextView
-            android:id="@+id/roll_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/r_name"
-            android:layout_alignStart="@+id/r_name"
-            android:layout_below="@+id/r_name"
-            android:layout_marginTop="11dp"
-            android:text="Some Roll"
-            android:textSize="18dp" />
 
 
-    </RelativeLayout>
-    <RelativeLayout
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/st_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fadeScrollbars="true" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/st_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadeScrollbars="true" />
 
-    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/restaurant_top_card"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:background="@drawable/gradient_up">-->
+
+
+        <!--<com.makeramen.roundedimageview.RoundedImageView-->
+            <!--android:id="@+id/stuImg"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="35dp"-->
+            <!--app:riv_oval="true"-->
+            <!--android:layout_toLeftOf="@+id/r_name"-->
+            <!--android:layout_toStartOf="@+id/r_name" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/r_name"-->
+            <!--style="@style/AppTheme.Title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_marginEnd="71dp"-->
+            <!--android:layout_marginRight="71dp"-->
+            <!--android:layout_marginTop="45dp"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="22dp"-->
+            <!--android:textStyle="bold"-->
+            <!--tools:text="Some Name" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/roll_text"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignLeft="@+id/r_name"-->
+            <!--android:layout_alignStart="@+id/r_name"-->
+            <!--android:layout_below="@+id/r_name"-->
+            <!--android:layout_marginTop="11dp"-->
+            <!--android:text="Some Roll"-->
+            <!--android:textSize="18dp" />-->
+
+
+    <!--</RelativeLayout>-->
+
 </LinearLayout>

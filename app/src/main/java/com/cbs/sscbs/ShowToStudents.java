@@ -51,7 +51,6 @@ public class ShowToStudents extends AppCompatActivity {
         classIntent = getIntent().getStringExtra("class");
         roll = getIntent().getStringExtra("roll");
 
-        setRollText.setText(roll);
         Uri photoUrl = user.getPhotoUrl();
         Glide.with(this).load(photoUrl).into(pic);
 
@@ -98,6 +97,7 @@ public class ShowToStudents extends AppCompatActivity {
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
             textView.setText(naam);
+            setRollText.setText(roll);
         }
 
 
