@@ -36,8 +36,6 @@ public class ShowToStudents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.students_rv);
-
-
         pic = findViewById(R.id.stuImg);
         recyclerView = (RecyclerView) findViewById(R.id.st_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -101,7 +101,6 @@ public class TeacherCourseDetails extends AppCompatActivity {
                         }
                     }
                 });
-
     }
     private void showSub(String getName, final Spinner subSpinner, final Spinner typeSpinner) {
 
