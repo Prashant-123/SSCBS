@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cbs.sscbs.Attendance.AdminActivity;
 import com.cbs.sscbs.Attendance.AttendanceDataClass;
 import com.cbs.sscbs.Attendance.AttendanceMain;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
@@ -78,6 +79,15 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
         Button faculty = myView.findViewById(R.id.faculty);
         Button stu = myView.findViewById(R.id.students);
+        Button admin = myView.findViewById(R.id.admin);
+
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),AdminActivity.class);
+                startActivity(intent);
+            }
+        });
 
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override

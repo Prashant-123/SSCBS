@@ -42,8 +42,7 @@ public class AttendanceMain extends AppCompatActivity {
     Map<String, Object> default_map = new HashMap<>();
     Map<String, Object> default_map2 = new HashMap<>();
     private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
-    private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
-    RecyclerView recyclerView;
+    private static final String URL ="https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     String path;
     public static ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
     Integer Labtype;
@@ -61,6 +60,7 @@ public class AttendanceMain extends AppCompatActivity {
     String getYear = formattedDate.substring(7,11);
     String getMonth = formattedDate.substring(3, 6);
 
+    RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
     AttendanceAdapter adapter = null;
@@ -166,14 +166,13 @@ public class AttendanceMain extends AppCompatActivity {
 //                    db.collection("Attendance").document(clas).collection("Students")
 //                            .document(roll_no).set(default_map);
 
+//                    default_map2.put("name",name);
+//                    db.collection("Attendance").document(clas).collection("Students")
+//                            .document(roll_no).set(default_map2);
+//
                     for(int j = 0 ; j<contacts2.length();j++){
                         JSONObject c2 = contacts2.getJSONObject(j);
                         String sub = c2.getString("Subjects");
-
-//                        default_map2.put("attendance",newAttendence);
-//                        db.collection("Attendance").document(clas).collection("Students")
-//                                .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
-//                        .collection("Months").document(getMonth).set(default_map2);
                     }
 
                     if(grp.equals("1") && Labtype == 1)

@@ -111,7 +111,8 @@
             android:name=".Attendance.TeacherCourseDetails"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.GuestEventsActivity" />
-        <activity android:name=".ShowToStudents"></activity>
+        <activity android:name=".ShowToStudents" />
+        <activity android:name=".Attendance.AdminActivity"></activity>
     </application>
 
 </manifest>
