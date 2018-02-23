@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
@@ -62,13 +63,12 @@ import am.appwise.components.ni.NoInternetDialog;
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
-    ArrayList<String> teachers = new ArrayList<>();
     String classs;
     ProgressBar bar;
-    private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
     String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+    String adminId = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
     public Attendance_Frag() {
     }
@@ -84,8 +84,12 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),AdminActivity.class);
-                startActivity(intent);
+                if(adminId.compareTo("pk021998@gmail.com")==0){
+                    Intent intent = new Intent(getContext(),AdminActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(), "Sorry! You do not have the admin access ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -93,6 +97,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
+                final int[] flag = {0};
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Verify Credentials");
                 alert.setView(null);
@@ -114,16 +119,20 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful())
+                                        if (task.isSuccessful()) {
                                             for (DocumentSnapshot document : task.getResult()) {
-                                                if (document.getId().compareToIgnoreCase(user)==0)
-                                                {
+                                                if (document.getId().compareToIgnoreCase(user) == 0) {
+                                                     flag[0] =1;
                                                     Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
                                                     intent.putExtra("getUser", user);
                                                     startActivity(intent);
                                                     break;
                                                 }
                                             }
+                                        }
+                                        if(flag[0] ==0){
+                                            Toast.makeText(getContext(), "Please make sure you are registered as a faculty of SSCBS", Toast.LENGTH_LONG).show();
+                                        }
                                     }
                                 });
                     }
@@ -257,7 +266,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                                     if (documentSnapshot.exists()) {
                                                                         StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance" ), documentSnapshot.getDouble("total"));
                                                                         allSub.add(dataClass);
-
                                                                     }
                                                                 }
                                                             });

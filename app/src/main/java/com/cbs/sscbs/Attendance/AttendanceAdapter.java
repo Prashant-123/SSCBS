@@ -23,7 +23,6 @@ import java.util.List;
 
 public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.MyViewHolder> {
 
-
     Calendar c = Calendar.getInstance();
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
    String formattedDate = df.format(c.getTime());
@@ -36,9 +35,6 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
 
     private static final String TAG = "TAG";
     FirebaseFirestore db1 = FirebaseFirestore.getInstance();
-//    CollectionReference db = FirebaseFirestore.getInstance().collection("/Attendance/Bsc-2/Students/" +
-//            "Abhishek Dev/Subjects/Algorithms/Year/2017-18/Month");
-
     public AttendanceAdapter(Context context, List<AttendanceDataClass> objectList) {
         inflater = LayoutInflater.from(context);
         this.objectList = objectList;
@@ -59,18 +55,13 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 objectList.get(holder.getAdapterPosition()).setChecked(b);
 
-//                getAllToUpdateTotal.add(objectList.get(holder.getAdapterPosition()).getRoll().toString());
-
                 checkRoll = objectList.get(holder.getAdapterPosition()).getRoll().toString();
-
-                if (objectList.get(holder.getAdapterPosition()).isChecked())
-                {
+                if (objectList.get(holder.getAdapterPosition()).isChecked()) {
                     saveRoll.add(checkRoll);
                 }
                 else saveRoll.remove(checkRoll);
             }
         });
-
         holder.setData(current);
     }
 

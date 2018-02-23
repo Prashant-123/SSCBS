@@ -77,7 +77,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_toLeftOf="@id/waivers_text"
-                            android:text="sfwe" />
+                            android:text="Not uploaded" />
                     </LinearLayout>
 
 
@@ -116,7 +116,8 @@
             <RelativeLayout
                 android:id="@+id/percentage"
                 android:layout_width="70dp"
-                android:layout_height="70dp">
+                android:layout_height="70dp"
+                android:layout_gravity="center">
 
                 <com.libRG.CustomTextView
                     android:id="@+id/c6"
@@ -125,10 +126,10 @@
                     android:layout_margin="10dp"
                     android:padding="9dp"
                     android:text="100%"
+                    android:visibility="visible"
                     android:gravity="center_horizontal"
                     android:textColor="@color/colorPrimary"
-                    android:visibility="visible"
-                    app:lib_setRadius="150dp"
+                    app:lib_setRadius="200dp"
                     app:lib_setRoundedBorderColor="@color/colorPrimary"
                     app:lib_setRoundedView="true" />
             </RelativeLayout>
@@ -139,17 +140,19 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_below="@id/upper"
-            android:layout_margin="10dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
             android:background="@color/colorPrimary" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="You're doing good !"
             android:id="@+id/afterText"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:text="You're doing good !" />
     </LinearLayout>
 
 

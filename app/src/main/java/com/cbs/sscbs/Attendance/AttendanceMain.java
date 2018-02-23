@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.Others.MainActivity;
@@ -39,19 +41,13 @@ import java.util.Map;
 public class AttendanceMain extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-    Map<String, Object> default_map = new HashMap<>();
-    Map<String, Object> default_map2 = new HashMap<>();
     private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
     private static final String URL ="https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
-    String path;
     public static ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
     Integer Labtype;
-    String clas;
-    String sub;
-    double newAttendence = 0 ;
-    double newTotal = 0 ;
+    String clas,sub,path;
+    double newAttendence = 0, newTotal = 0 ;
     Button button1;
-//    CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance");
 
     Calendar c = Calendar.getInstance();
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -85,8 +81,14 @@ public class AttendanceMain extends AppCompatActivity {
         Intent getSub = getIntent();
         sub = String.valueOf(getSub.getStringExtra("subject"));
 
+        final ProgressBar bar = (ProgressBar) findViewById(R.id.list_progress_bar);
+        final TextView tv = (TextView)findViewById(R.id.loading_lists);
+
+        bar.setVisibility(View.VISIBLE);
         new getListFromExcel().execute();
         adapter.notifyDataSetChanged();
+        bar.setVisibility(View.INVISIBLE);
+        tv.setVisibility(View.INVISIBLE);
     }
 
     public void Save(View view) {
@@ -97,24 +99,20 @@ public class AttendanceMain extends AppCompatActivity {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + " [L]" + "/Year").document(getYear).collection("/Months");
                 save(getStu);
-
                 i++;
 
             }
         }else if(Labtype ==3)
         {
-//            Log.wtf(TAG, String.valueOf(AttendanceAdapter.saveRoll.size()));
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
                 save(getStu);
                 i++;
             }
-
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-
         }
 
     }
@@ -141,8 +139,7 @@ public class AttendanceMain extends AppCompatActivity {
         });
     }
 
-    public class getListFromExcel extends AsyncTask<Void, Void, Void>
-    {
+    public class getListFromExcel extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params)
         {
@@ -151,51 +148,33 @@ public class AttendanceMain extends AppCompatActivity {
                 HttpHandler sh = new HttpHandler();
                 String jsonStr = sh.makeServiceCall(URL);
                 String jsonStr2 = sh.makeServiceCall(URL2);
-//              Log.i(TAG, "Response from url: " + jsonStr2);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(clas);
                 JSONObject object2 = new JSONObject(jsonStr2);
                 JSONArray contacts2 = object2.getJSONArray(clas);
-//                Log.wtf(TAG, String.valueOf(contacts.length()));
                 for (int i = 0; i < contacts.length(); i++) {
                     JSONObject c = contacts.getJSONObject(i);
                     String name = c.getString("Name");
                     String roll_no = c.getString("Roll_No");
                     String grp = c.getString("Lab_Group");
 
-//                    db.collection("Attendance").document(clas).collection("Students")
-//                            .document(roll_no).set(default_map);
-
-//                    default_map2.put("name",name);
-//                    db.collection("Attendance").document(clas).collection("Students")
-//                            .document(roll_no).set(default_map2);
-//
-                    for(int j = 0 ; j<contacts2.length();j++){
-                        JSONObject c2 = contacts2.getJSONObject(j);
-                        String sub = c2.getString("Subjects");
-                    }
-
-                    if(grp.equals("1") && Labtype == 1)
-                    {
+                    if(grp.equals("1") && Labtype == 1) {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
                         getAllToUpdateTotal.add(roll_no);
                     }
 
-                    if(grp.equals("2") && Labtype == 2)
-                    {
+                    if(grp.equals("2") && Labtype == 2) {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
                         getAllToUpdateTotal.add(roll_no);
                     }
 
-                    if(Labtype == 3)
-                    {
+                    if(Labtype == 3) {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
                         getAllToUpdateTotal.add(roll_no);
                     }
-
                 }
 
             }
@@ -205,8 +184,6 @@ public class AttendanceMain extends AppCompatActivity {
             }
 
             return null;
-
-
         }
 
         @Override
@@ -241,12 +218,9 @@ public class AttendanceMain extends AppCompatActivity {
                 });
 
         }
-
-
     }
 
     public void updateTotal() {
-
         Log.i(TAG, getAllToUpdateTotal.toString());
     }
 

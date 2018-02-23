@@ -19,9 +19,9 @@ public class StudentsDataClass {
         return attendance;
     }
 
-//    public void setAttendance(Double attendance) {
-//        this.total = attendance;
-//    }
+    public void setAttendance(Double attendance) {
+        this.total = attendance;
+    }
 
     public Double getTotal() {
         return total;
@@ -29,9 +29,6 @@ public class StudentsDataClass {
 
     public void setTotal(Double total) {
         this.attendance = total;
-    }
-
-    public StudentsDataClass() {
     }
 
     public String getSubject() {

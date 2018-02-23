@@ -57,48 +57,38 @@ public class AdminActivity extends AppCompatActivity {
                 String jsonStr1 = sh.makeServiceCall(CLASSURL);
                 String jsonStr = sh.makeServiceCall(CLASSLISTURL);
                 String jsonStr2 = sh.makeServiceCall(SUBURL);
-                JSONObject object1 = new JSONObject(jsonStr1);
-                JSONArray contacts1 = object1.getJSONArray("Sheet1");
-                JSONObject object2 = new JSONObject(jsonStr2);
                 JSONObject object = new JSONObject(jsonStr);
+                JSONArray contacts = object.getJSONArray("Bsc-2");
+                JSONObject object2 = new JSONObject(jsonStr2);
+                JSONArray contacts2 = object2.getJSONArray("Bsc-2");
 
-                for(int k =0 ;k<contacts1.length();k++) {
-                    JSONObject c1 = contacts1.getJSONObject(k);
-                    String cls = c1.getString("Classes");
+                for (int i = 0; i < contacts.length(); i++) {
+                    JSONObject c = contacts.getJSONObject(i);
+                    String name = c.getString("Name");
+                    String roll_no = c.getString("Roll_No");
+                    String grp = c.getString("Lab_Group");
 
-                    JSONArray contacts = object.getJSONArray(cls);
+                    default_map1.put("name", name);
+                   // default_map1.put("group", grp);
+                    db.collection("Attendance").document("Bsc-2").collection("Students")
+                            .document(roll_no).set(default_map1);
 
-                    JSONArray contacts2 = object2.getJSONArray(cls);
+                    for (int j = 0; j < contacts2.length(); j++) {
+                        JSONObject c2 = contacts2.getJSONObject(j);
+                        String sub = c2.getString("Subjects");
 
-                    for (int i = 0; i < contacts.length(); i++) {
-                        JSONObject c = contacts.getJSONObject(i);
-                        String name = c.getString("Name");
-                        String roll_no = c.getString("Roll_No");
-                        String grp = c.getString("Lab_Group");
+                        default_map2.put("attendance", 0);
+                        default_map2.put("total", 0);
 
-                        default_map1.put("name", name);
-                        // default_map1.put("group", grp);
-                        db.collection("Attendance").document(cls).collection("Students")
-                                .document(roll_no).set(default_map1);
-
-                        for (int j = 0; j < contacts2.length(); j++) {
-                            JSONObject c2 = contacts2.getJSONObject(j);
-                            String sub = c2.getString("Subjects");
-
-                            default_map2.put("attendance", 0);
-                            default_map2.put("total", 0);
-
-                            db.collection("Attendance").document(cls).collection("Students")
-                                    .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
-                                    .collection("Months").document(getMonth).set(default_map2);
-                        }
+                        db.collection("Attendance").document("Bsc-2").collection("Students")
+                                .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
+                                .collection("Months").document(getMonth).set(default_map2);
                     }
                 }
-
-                Toast.makeText(AdminActivity.this, "List Updated", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
             } catch (Exception ex) {
                 Log.e("TAG", "getListFromExcel", ex);
-                Toast.makeText(AdminActivity.this, "Try Again ! An Error Occured", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
             }
 
             return null;
