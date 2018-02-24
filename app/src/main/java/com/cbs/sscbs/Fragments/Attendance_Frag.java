@@ -63,24 +63,24 @@ import am.appwise.components.ni.NoInternetDialog;
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
-    String classs;
+    String classs, monthIntent;
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
     String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
     String adminId = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
-    public Attendance_Frag() {
-    }
+    public Attendance_Frag() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
+//        getSupportActionBar().setTitle("About Manthan");
+
         Button faculty = myView.findViewById(R.id.faculty);
         Button stu = myView.findViewById(R.id.students);
         Button admin = myView.findViewById(R.id.admin);
-
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,8 +185,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                             @Override
                                             public void onItemSelected(AdapterView<?> adapterView1, View view, int i, long l) {
                                                 classs = adapterView.getSelectedItem().toString();
+                                                monthIntent = adapterView1.getSelectedItem().toString();
                                                 if (i!=0)
-                                                showAttendance(adapterView.getSelectedItem().toString(), "16527", "2018", adapterView1.getSelectedItem().toString());
+                                                showAttendance(adapterView.getSelectedItem().toString(), roll.getText().toString(), "2018", adapterView1.getSelectedItem().toString());
                                             }
 
                                             @Override
@@ -222,6 +223,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         final Intent intent = new Intent(getContext(), ShowToStudents.class);
                         intent.putExtra("class", classs);
                         intent.putExtra("roll", roll.getText().toString());
+                        intent.putExtra("month", monthIntent);
 
                         new Timer().schedule(new TimerTask() {
                             @Override
@@ -277,7 +279,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 }
                             }
                         }
-
                     }
 
                 });

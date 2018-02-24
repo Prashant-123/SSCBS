@@ -16,42 +16,80 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:orientation="horizontal"
-          android:layout_marginLeft="10dp"
-          android:padding="20dp">
+          android:layout_marginLeft="10dp">
 
           <com.makeramen.roundedimageview.RoundedImageView
               android:layout_width="100dp"
               android:layout_height="100dp"
-              app:riv_oval="true"
-              android:id="@+id/stuImg"
-              android:layout_gravity="left"/>
+              android:scaleType="fitXY"
+              android:layout_margin="20dp"
+              app:riv_corner_radius="15dp"
+              android:src="@drawable/logo"
+              android:id="@+id/stuImg" />
 
           <LinearLayout
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:layout_marginLeft="22dp"
-              android:layout_marginTop="10dp">
+              android:layout_marginTop="28dp">
 
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:id="@+id/r_name"
                   android:textSize="22dp"
+                  android:text="Loading..."
                   android:textStyle="bold"
                   android:textColor="@color/white"
                   android:fontFamily="@font/raleway_light" />
 
-              <TextView
+              <LinearLayout
                   android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:id="@+id/roll_text"
-                  android:textSize="22dp"
-                  android:textStyle="bold"
-                  android:textColor="@color/white"
-                  android:layout_marginTop="12dp"
-                  android:fontFamily="@font/raleway_light"
-                  />
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="15dp"
+                  android:orientation="horizontal">
+
+                  <TextView
+                      android:layout_width="104dp"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/roll_text"
+                      android:textSize="22dp"
+                      android:text="Loading..."
+                      android:textStyle="bold"
+                      android:textColor="@color/white"
+                      android:fontFamily="@font/raleway_light"/>
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginRight="20dp"
+                      android:orientation="vertical">
+
+                      <TextView
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:id="@+id/yearText"
+                          android:textSize="12dp"
+                          android:textStyle="bold"
+                          android:gravity="right"
+                          android:textColor="@color/white"
+                          android:fontFamily="@font/raleway_light"/>
+
+                      <TextView
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:id="@+id/monthText"
+                          android:textSize="12dp"
+                          android:textStyle="bold"
+                          android:gravity="right"
+                          android:textColor="@color/white"
+                          android:text="Month: Feb"
+                          android:fontFamily="@font/raleway_light"/>
+
+                  </LinearLayout>
+
+              </LinearLayout>
+
           </LinearLayout>
       </LinearLayout>
     </LinearLayout>

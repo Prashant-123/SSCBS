@@ -32,11 +32,14 @@ public class GuestEventsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
     DataClass newData;
+    com.github.clans.fab.FloatingActionButton fab;
     int count, i = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+        fab = findViewById(R.id.addEventButton);
+        fab.setVisibility(View.GONE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_create);
         setSupportActionBar(toolbar);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rView) ;

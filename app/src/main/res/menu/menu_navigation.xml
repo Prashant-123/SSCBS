@@ -14,25 +14,29 @@
             android:title="COLLEGE GALLERY"
             />
         <item
+            android:id="@+id/grievances"
+            android:icon="@drawable/grievances"
+            android:title="GRIEVANECS"
+            />
+        <item
+            android:id="@+id/qppr"
+            android:icon="@drawable/library"
+            android:title="DIGITAL LIBRARY"
+            />
+        <item
             android:id="@+id/about_college"
             android:icon="@drawable/ic_college"
             android:title="The SSCBS"
-            />
-
-        <item
-            android:id="@+id/rec_friend"
-            android:icon="@drawable/ic_share"
-            android:title="SHARE"
-            />
-        <item
-            android:id="@+id/rate_us"
-            android:icon="@drawable/ic_rate"
-            android:title="FEEDBACK or RATE"
             />
         <item
             android:id="@+id/developers"
             android:icon="@drawable/ic_gallery"
             android:title="DEVELOPERS"
+            />
+        <item
+            android:id="@+id/rec_friend"
+            android:icon="@drawable/ic_share"
+            android:title="SHARE"
             />
         <item
             android:id="@+id/sign_out"

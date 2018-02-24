@@ -79,13 +79,11 @@
             android:label="GALLERY"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
-        <activity android:name=".Sheets.MainPage" />
         <activity android:name=".auth.SignedInActivity" />
         <activity
             android:name=".Others.FullScreenImage"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".utils.web" />
         <activity
             android:name=".Others.Contact_us"
             android:label="Contact Details"
@@ -112,7 +110,16 @@
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.GuestEventsActivity" />
         <activity android:name=".ShowToStudents" />
-        <activity android:name=".Attendance.AdminActivity"></activity>
+        <activity android:name=".Attendance.AdminActivity" />
+        <activity android:name=".utils.FinestWebViewActivity" />
+
+
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/FinestWebViewTheme.Light" />
+
     </application>
 
 </manifest>

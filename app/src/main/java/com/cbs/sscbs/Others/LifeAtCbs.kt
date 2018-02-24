@@ -26,9 +26,6 @@ class LifeAtCbs : AppCompatActivity() {
         videoView.setMediaController(MediaController(this))
         videoView.setVideoURI(Uri.parse(getString(R.string.vid_url)))
         videoView.requestFocus()
-//        videoView.start()
-//        bar.visibility = View.INVISIBLE
-
 
         bar.setVisibility(View.VISIBLE)
 

@@ -27,6 +27,7 @@ public class AdminActivity extends AppCompatActivity {
     private static final String SUBURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
     private static final String CLASSLISTURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     Calendar c = Calendar.getInstance();
+
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
     String formattedDate = df.format(c.getTime());
     String getYear = formattedDate.substring(7, 11);
