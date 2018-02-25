@@ -42,6 +42,7 @@
         <activity
             android:name=".Others.MainActivity"
             android:label="SSCBS"
+
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -110,7 +111,9 @@
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.GuestEventsActivity" />
         <activity android:name=".ShowToStudents" />
-        <activity android:name=".Attendance.AdminActivity" />
+        <activity android:name=".Attendance.AdminActivity"
+            android:label="Admin"
+            android:parentActivityName=".Others.MainActivity"/>
         <activity android:name=".utils.FinestWebViewActivity" />
 
 

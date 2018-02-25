@@ -31,6 +31,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.rom4ek.arcnavigationview.ArcNavigationView
 import com.thefinestartist.finestwebview.FinestWebView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var mDrawerLayout: DrawerLayout
     lateinit var mActionBarDrawerToggle: ActionBarDrawerToggle
-    lateinit var navigationView: NavigationView
+    lateinit var navigationView: ArcNavigationView
     lateinit var user: FirebaseUser
 
 
@@ -236,6 +237,15 @@ class MainActivity : AppCompatActivity() {
                     .putExtra(EXTRA_SIGNED_IN_CONFIG, signedInConfig)
         }
 
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this@MainActivity)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id -> finish() }
+                .setNegativeButton("No", null)
+                .show()
     }
 
     class SignedInConfig : Parcelable {

@@ -216,7 +216,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
                 alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {

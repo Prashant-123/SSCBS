@@ -131,7 +131,6 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(getApplicationContext(), "check", Toast.LENGTH_SHORT).show();
         dpickerListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

@@ -23,12 +23,17 @@
         android:layout_height="wrap_content"
         android:text="Generate New Complaint"
         android:textSize="20dp"
+        android:fontFamily="@font/raleway_light"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:layout_margin="30dp"
        android:layout_gravity="center"
          />
 
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -36,14 +41,20 @@
         android:id="@+id/subject"
         android:hint="Enter Subject"
         android:layout_gravity="center"/>
+    </android.support.design.widget.TextInputLayout>
 
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
     <EditText
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:id="@+id/body"
         android:hint="Enter Description"
         android:layout_gravity="center"/>
+    </android.support.design.widget.TextInputLayout>
 
     <ImageView
         android:layout_width="250dp"
@@ -55,16 +66,18 @@
          />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Upload Image"
+        android:background="@drawable/shape2"
         android:onClick="btnBrowse"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Send via Mail"
+        android:background="@drawable/shape2"
         android:onClick="sendMail"
         android:layout_marginTop="10dp"/>
 

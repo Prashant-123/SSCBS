@@ -29,32 +29,47 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
         <EditText
             android:id="@+id/newTitle"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
             android:fontFamily="@font/raleway_light"
             android:hint="Enter Title" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
 
         <EditText
             android:id="@+id/newOrganiser"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
             android:hint="Enter Organiser" />
+        </android.support.design.widget.TextInputLayout>
 
 
 
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
         <EditText
             android:id="@+id/newVenue"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
             android:hint="Enter Venue" />
+        </android.support.design.widget.TextInputLayout>
 
 
         <TextView
@@ -66,6 +81,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20dp"
+            android:fontFamily="@font/raleway_light"
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:text="Set Event Description" />
@@ -84,7 +100,7 @@
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:hint="Your description"
                 android:textSize="14dp"
@@ -98,9 +114,10 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/raleway_light"
                 android:textColor="@color/black"
                 android:textSize="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Registration Link(If Any):" />
 
             <EditText
@@ -109,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:hint="Reg Link"
                 android:textSize="14dp" />
@@ -124,22 +141,24 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16dp"
-                android:layout_marginTop="10dp"
+                android:fontFamily="@font/raleway_light"
+                android:layout_marginTop="20dp"
                 android:text="Upload Event Image (If Any)" />
 
 
             <Button
                 android:id="@+id/uploadBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:onClick="btnBrowse"
+                android:background="@drawable/shape2"
                 android:text="Upload Event Image" />
 
             <ImageView
                 android:id="@+id/newEventImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="170dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp" />
 
@@ -150,9 +169,10 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/raleway_light"
                 android:textColor="@color/black"
                 android:textSize="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Organiser Contact Details" />
 
             <EditText
@@ -161,8 +181,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:inputType="number"
                 android:hint="Mobile Number"
                 android:textSize="14dp" />
 
@@ -216,7 +237,8 @@
 
         <Button
             android:id="@+id/saveBtn"
-            android:layout_width="wrap_content"
+            android:background="@drawable/shape2"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"

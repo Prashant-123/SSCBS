@@ -86,7 +86,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                             Toast.makeText(TeacherCourseDetails.this, "Please select your class", Toast.LENGTH_SHORT).show();
                                         else {
                                             Toast.makeText(TeacherCourseDetails.this,
-                                                    "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+                                                    "Selected " + adapterView.getItemAtPosition(i),R.style.mytoast).show();
                                             getClass = adapterView.getItemAtPosition(i).toString();
                                             showSub(getName, subSpinner, typeSpinner);
                                         }
