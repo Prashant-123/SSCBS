@@ -66,7 +66,7 @@ class Developer_Frag : Fragment() {
             startActivity(intent)
         })
         mem2ln.setOnClickListener(View.OnClickListener { view ->
-            val uri = Uri.parse("https:/github.com/Prashant-123/SSCBS")
+            val uri = Uri.parse("https://www.linkedin.com/in/tanvi-goyal-2b34b015a/")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         })

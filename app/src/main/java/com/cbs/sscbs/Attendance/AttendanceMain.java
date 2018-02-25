@@ -2,8 +2,10 @@ package com.cbs.sscbs.Attendance;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.Others.MainActivity;
@@ -61,6 +64,7 @@ public class AttendanceMain extends AppCompatActivity {
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
     AttendanceAdapter adapter = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +84,12 @@ public class AttendanceMain extends AppCompatActivity {
         clas = String.valueOf(getClass.getStringExtra("class"));
         Intent getSub = getIntent();
         sub = String.valueOf(getSub.getStringExtra("subject"));
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
+        toolbar.setTitle(clas + " / " + sub );
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         final ProgressBar bar = (ProgressBar) findViewById(R.id.list_progress_bar);
         final TextView tv = (TextView)findViewById(R.id.loading_lists);

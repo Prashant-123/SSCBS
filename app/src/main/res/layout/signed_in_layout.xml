@@ -94,7 +94,8 @@
                     android:id="@+id/user_display_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
+                    android:textIsSelectable="true"
+                    android:fontFamily="@font/raleway_light"/>
 
                 <TextView
                     android:id="@+id/user_enabled_providers"

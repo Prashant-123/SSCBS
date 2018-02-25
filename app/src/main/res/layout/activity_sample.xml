@@ -145,6 +145,7 @@
                             android:layout_toRightOf="@+id/t_qualification"
                             android:text="teachers qualification"
                             android:textColor="#2A0A0A"
+                            android:fontFamily="@font/raleway_light"
                             android:textSize="18dp"
                             android:textStyle="bold" />
                     </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.cbs.sscbs.Attendance;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -45,7 +48,21 @@ public class AdminActivity extends AppCompatActivity {
         uploadClassList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new uploadListFromExcel().execute();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminActivity.this);
+                alertDialog.setTitle(" Confirm Upload ");
+                alertDialog.setMessage("Are you sure you want upload new lists ?");
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        new uploadListFromExcel().execute();
+                        Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
+                    }
+                });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.show();
             }
         });
     }
@@ -86,7 +103,7 @@ public class AdminActivity extends AppCompatActivity {
                                 .collection("Months").document(getMonth).set(default_map2);
                     }
                 }
-                Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
+
             } catch (Exception ex) {
                 Log.e("TAG", "getListFromExcel", ex);
                 Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();

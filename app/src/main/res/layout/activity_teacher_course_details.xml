@@ -17,25 +17,34 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:id="@+id/getClassSpinner"
-        android:layout_margin="20dp">
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
 
     </Spinner>
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:id="@+id/getSubSpinner"
-        android:layout_margin="20dp">
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
 
     </Spinner>
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:id="@+id/getTypeSpinner"
-        android:layout_margin="20dp">
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
 
     </Spinner>
 

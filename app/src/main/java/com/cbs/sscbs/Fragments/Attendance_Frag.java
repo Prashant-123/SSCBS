@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -225,11 +227,19 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         intent.putExtra("roll", roll.getText().toString());
                         intent.putExtra("month", monthIntent);
 
-                        new Timer().schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                startActivity(intent); }
-                        },2000);
+                        if(classs.isEmpty()||roll.getText().toString().isEmpty()){
+                            Toast.makeText(getContext(), "Please fill all the required details correctly ! ", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            bar.setVisibility(View.VISIBLE);
+                            new Timer().schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    startActivity(intent);
+                                }
+                            }, 2000);
+                            bar.setVisibility(View.INVISIBLE);
+                        }
                     }
                 });
                 AlertDialog dialog = alert.create();

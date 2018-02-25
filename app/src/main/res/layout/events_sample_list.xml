@@ -50,7 +50,8 @@
                         android:textColor="#000"
                         android:textSize="17dp"
                         android:textStyle="bold"
-                        android:layout_margin="6dp"/>
+                        android:layout_marginTop="6dp"
+                      />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,18 +76,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="Venue"
-                    android:textSize="16dp"
-                    android:textStyle="italic" />
+                    android:fontFamily="@font/raleway_light"
+                    android:textColor="@color/black"
+                    android:textStyle="italic|bold" />
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:fontFamily="@font/acme"
+                    android:fontFamily="@font/raleway_light"
                     android:text="Date and Time"
-                    android:textSize="16dp"
-                    android:textStyle="italic" />
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:textStyle="italic|bold" />
 
 
                 <LinearLayout

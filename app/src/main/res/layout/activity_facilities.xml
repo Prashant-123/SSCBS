@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cbs.sscbs.Others.Facilities">
 
-    tools:context="com.cbs.sscbs.Others.Facilities"
-    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_facilities"
             android:layout_width="match_parent"
@@ -19,125 +19,130 @@
             android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-   </LinearLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-    <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="INFRASTRUCTURE\n"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text=" A strong infrastructure base is imperative for providing a learning environment of international standards.\n\n"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/brown"
-                android:textSize="16sp"
-                android:textStyle="italic|bold" />
+                android:orientation="vertical">
 
 
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="WIFI CONNECTIVITY\n\n"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="INFRASTRUCTURE\n"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="The college provides wireless internet to its students. This is available throughout a majority of the college building.\n\n"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/brown"
-                android:textSize="16sp"
-                android:textStyle="italic|bold"/>
+                <TextView
 
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="AUDIO-VIDEO ROOM\n\n"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="The college has an audio visual room which holds pre-placement talks, workshops and seminars. The room is equipped with high quality wall mounted projector for an enhanced visual experience.\n\n"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/brown"
-                android:textSize="16sp"
-                android:textStyle="italic|bold"/>
-
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="LIBRARY\n\n"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="The college library is fully - automated. The air - conditioned environment of the library ensures that students enjoy reading up the latest journals and the business newspapers with relative ease.\n\n"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/brown"
-                android:textSize="16sp"
-                android:textStyle="italic|bold"/>
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_light"
+                    android:gravity="center"
+                    android:text=" A strong infrastructure base is imperative for providing a learning environment of international standards.\n\n"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/brown"
+                    android:textSize="16sp"
+                    android:textStyle="italic|bold" />
 
 
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="TRANSPORT\n\n"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="WIFI CONNECTIVITY\n\n"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="The college provides for a bus from the Rithala metro station to the college and back. The bus timings are fixed and in tandem with the college timings.\n \n\n\n"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/brown"
-                android:textSize="16sp"
-                android:textStyle="italic|bold" />
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_light"
+                    android:gravity="center"
+                    android:text="The college provides wireless internet to its students. This is available throughout a majority of the college building.\n\n"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/brown"
+                    android:textSize="16sp"
+                    android:textStyle="italic|bold" />
 
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="AUDIO-VIDEO ROOM\n\n"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_light"
+                    android:gravity="center"
+                    android:text="The college has an audio visual room which holds pre-placement talks, workshops and seminars. The room is equipped with high quality wall mounted projector for an enhanced visual experience.\n\n"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/brown"
+                    android:textSize="16sp"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="LIBRARY\n\n"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_light"
+                    android:gravity="center"
+                    android:text="The college library is fully - automated. The air - conditioned environment of the library ensures that students enjoy reading up the latest journals and the business newspapers with relative ease.\n\n"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/brown"
+                    android:textSize="16sp"
+                    android:textStyle="italic|bold" />
+
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="TRANSPORT\n\n"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_light"
+                    android:gravity="center"
+                    android:text="The college provides for a bus from the Rithala metro station to the college and back. The bus timings are fixed and in tandem with the college timings.\n \n\n\n"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/brown"
+                    android:textSize="16sp"
+                    android:textStyle="italic|bold" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
 </LinearLayout>
