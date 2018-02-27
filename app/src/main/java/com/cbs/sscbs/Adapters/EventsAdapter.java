@@ -54,18 +54,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         final Context c;
 
         final DataClass current = objectList.get(position);
-//        holder.img.setImageResource(objectList.get(position).getImg());
         holder.setData(current, position);
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-
-                v.findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
                         inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
-                    }
-                });
             }
         });
     }

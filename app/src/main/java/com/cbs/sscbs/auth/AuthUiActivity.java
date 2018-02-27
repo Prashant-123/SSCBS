@@ -23,6 +23,7 @@ import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -88,14 +89,8 @@ public class AuthUiActivity extends AppCompatActivity {
     @BindView(R.id.google_tos)
     RadioButton mUseGoogleTos;
 
-    @BindView(R.id.firebase_tos)
-    RadioButton mUseFirebaseTos;
-
     @BindView(R.id.google_privacy)
     RadioButton mUseGooglePrivacyPolicy;
-
-    @BindView(R.id.firebase_privacy)
-    RadioButton mUseFirebasePrivacyPolicy;
 
     @BindView(R.id.sign_in)
     Button mSignIn;
@@ -105,12 +100,6 @@ public class AuthUiActivity extends AppCompatActivity {
 
     @BindView(R.id.firebase_logo)
     RadioButton mFirebaseLogo;
-
-    @BindView(R.id.google_logo)
-    RadioButton mGoogleLogo;
-
-    @BindView(R.id.no_logo)
-    RadioButton mNoLogo;
 
     @BindView(R.id.credential_selector_enabled)
     CheckBox mEnableCredentialSelector;
@@ -147,6 +136,11 @@ public class AuthUiActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_ui_layout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         ButterKnife.bind(this);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();

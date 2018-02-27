@@ -1,5 +1,6 @@
 package com.cbs.sscbs.Others;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -33,15 +34,28 @@ public class GuestEventsActivity extends AppCompatActivity {
     private DatabaseReference databaseRef;
     DataClass newData;
     com.github.clans.fab.FloatingActionButton fab;
+
     int count, i = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_events);
+        toolbar.setTitle("Upcoming Events");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            }
+        });
+
         fab = findViewById(R.id.addEventButton);
         fab.setVisibility(View.GONE);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_create);
-        setSupportActionBar(toolbar);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rView) ;
 
         rv.setLayoutManager(new LinearLayoutManager(this));

@@ -85,8 +85,6 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                         if (i == 0)
                                             Toast.makeText(TeacherCourseDetails.this, "Please select your class", Toast.LENGTH_SHORT).show();
                                         else {
-                                            Toast.makeText(TeacherCourseDetails.this,
-                                                    "Selected " + adapterView.getItemAtPosition(i),R.style.mytoast).show();
                                             getClass = adapterView.getItemAtPosition(i).toString();
                                             showSub(getName, subSpinner, typeSpinner);
                                         }
@@ -132,8 +130,6 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                     Toast.makeText(TeacherCourseDetails.this, "Select Subject",
                                             Toast.LENGTH_SHORT).show();
                                 else {
-                                    Toast.makeText(TeacherCourseDetails.this,
-                                            "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
                                     getSub = adapterView.getItemAtPosition(i).toString();
 
                                     CollectionReference subType = FirebaseFirestore.getInstance().collection("AllSubjects");
@@ -167,8 +163,6 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                                 Toast.makeText(TeacherCourseDetails.this, "Select lab type", Toast.LENGTH_SHORT).show();
 
                                                             else {
-                                                                Toast.makeText(TeacherCourseDetails.this,
-                                                                        "Selected " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
 //
                                                                Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
                                                                 intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");

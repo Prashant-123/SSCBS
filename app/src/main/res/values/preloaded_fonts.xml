@@ -6,5 +6,6 @@
         <item>@font/alegreya_italic</item>
         <item>@font/almendra_italic</item>
         <item>@font/raleway_light</item>
+        <item>@font/raleway_medium</item>
     </array>
 </resources>

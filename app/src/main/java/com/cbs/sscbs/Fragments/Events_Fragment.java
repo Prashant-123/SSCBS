@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class Events_Fragment extends Fragment {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public ArrayList<DataClass> data = new ArrayList<>();
-    int count, i = 1;
+    int count, i = 1; Toolbar toolbar;
     int flag = 0;
     RecyclerView recyclerView;
     private FirebaseDatabase database;
@@ -59,6 +60,9 @@ public class Events_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View myView = inflater.inflate(R.layout.activity_events, container, false);
+        toolbar = myView.findViewById(R.id.toolbar_events);
+        toolbar.setVisibility(View.GONE);
+
         recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

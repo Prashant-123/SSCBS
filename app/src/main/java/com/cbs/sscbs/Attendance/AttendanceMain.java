@@ -46,9 +46,10 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String TAG = "TAG";
     private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
     private static final String URL ="https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
-    public static ArrayList<String> getAllToUpdateTotal = new ArrayList<>();
     Integer Labtype;
     String clas,sub,path;
+    ProgressBar bar;
+    TextView tv;
     double newAttendence = 0, newTotal = 0 ;
     Button button1;
 
@@ -90,15 +91,10 @@ public class AttendanceMain extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        final ProgressBar bar = (ProgressBar) findViewById(R.id.list_progress_bar);
-        final TextView tv = (TextView)findViewById(R.id.loading_lists);
-
-        bar.setVisibility(View.VISIBLE);
+        bar = (ProgressBar) findViewById(R.id.list_progress_bar);
+        tv = (TextView)findViewById(R.id.loading_lists);
         new getListFromExcel().execute();
         adapter.notifyDataSetChanged();
-        bar.setVisibility(View.INVISIBLE);
-        tv.setVisibility(View.INVISIBLE);
     }
 
     public void Save(View view) {
@@ -171,22 +167,18 @@ public class AttendanceMain extends AppCompatActivity {
                     if(grp.equals("1") && Labtype == 1) {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
-                        getAllToUpdateTotal.add(roll_no);
                     }
 
                     if(grp.equals("2") && Labtype == 2) {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
-                        getAllToUpdateTotal.add(roll_no);
                     }
 
                     if(Labtype == 3) {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
-                        getAllToUpdateTotal.add(roll_no);
                     }
                 }
-
             }
             catch(Exception ex)
             {
@@ -200,10 +192,9 @@ public class AttendanceMain extends AppCompatActivity {
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
             adapter.notifyDataSetChanged();
+            bar.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.INVISIBLE);
 
-            updateTotal();
-//            int i = 0;
-//            while (i < getAllToUpdateTotal.size()) {
                 final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         16501 + "/Subjects/" + sub + "/Year").document("2018").collection("/Months");
 
@@ -228,10 +219,6 @@ public class AttendanceMain extends AppCompatActivity {
                 });
 
         }
-    }
-
-    public void updateTotal() {
-        Log.i(TAG, getAllToUpdateTotal.toString());
     }
 
 }

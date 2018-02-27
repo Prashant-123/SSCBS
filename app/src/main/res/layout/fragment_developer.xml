@@ -75,7 +75,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="left"
                                     android:layout_marginTop="5dp"
-                                    android:fontFamily="@font/raleway_light"
                                     android:text="Bsc(Hons) Computer Science , 2016-2019"
                                     android:textSize="15sp"
                                     android:textStyle="italic|bold" />
@@ -240,7 +239,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="left"
                                     android:layout_marginTop="5dp"
-                                    android:fontFamily="@font/raleway_light"
                                     android:text="Bsc(Hons) Computer Science , 2016-2019"
                                     android:textSize="15sp"
                                     android:textStyle="italic|bold" />

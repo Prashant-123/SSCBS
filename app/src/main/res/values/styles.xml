@@ -7,6 +7,8 @@
         <item name="colorPrimary">#A4281E</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/raleway_medium</item>
+
 
     </style>
 
