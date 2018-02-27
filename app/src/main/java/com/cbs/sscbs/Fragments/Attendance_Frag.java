@@ -69,7 +69,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
-    String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+//    String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+    String user = "Sonika Thakral";
+    LinearLayout stuLayout, facultyLayout;
     String adminId = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
     public Attendance_Frag() {}
@@ -78,11 +80,29 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
-//        getSupportActionBar().setTitle("About Manthan");
-
+        stuLayout = myView.findViewById(R.id.stuLayout);
+        facultyLayout = myView.findViewById(R.id.facultyLayout);
         Button faculty = myView.findViewById(R.id.faculty);
         Button stu = myView.findViewById(R.id.students);
         Button admin = myView.findViewById(R.id.admin);
+
+        CollectionReference subType = FirebaseFirestore.getInstance().collection("Teachers");
+        subType
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                if (document.getId().compareToIgnoreCase("Prashant") == 0) {
+                                    stuLayout.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+                    }
+                });
+
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

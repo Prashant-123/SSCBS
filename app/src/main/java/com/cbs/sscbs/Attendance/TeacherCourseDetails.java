@@ -65,7 +65,6 @@ public class TeacherCourseDetails extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 classesList.add(document.getId());
-
                                 String[] classes = new String[classesList.size() + 1];
                                 int k = 0;
                                 classes[0] = "Select Class";
