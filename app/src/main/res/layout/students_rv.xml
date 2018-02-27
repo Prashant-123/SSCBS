@@ -16,16 +16,8 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:orientation="horizontal"
-          android:layout_marginLeft="10dp">
+          android:layout_marginLeft="30dp">
 
-          <com.makeramen.roundedimageview.RoundedImageView
-              android:layout_width="100dp"
-              android:layout_height="100dp"
-              android:scaleType="fitXY"
-              android:layout_margin="20dp"
-              app:riv_corner_radius="15dp"
-              android:src="@drawable/logo"
-              android:id="@+id/stuImg" />
 
           <LinearLayout
               android:layout_width="match_parent"

@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent1)
             }
             R.id.qppr -> {
-                FinestWebView.Builder(this).show("http://google.com")
+                FinestWebView.Builder(this).show("http://sscbs.bestbookbuddies.com/cgi-bin/koha/question-papers.pl")
             }
             R.id.about_college -> {
                 val intent = Intent(this, About_Activity::class.java)
