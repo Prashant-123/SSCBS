@@ -41,7 +41,8 @@
             android:layout_marginRight="24dp"
             android:layout_marginTop="16dp"
             android:orientation="vertical"
-            android:paddingBottom="32dp">
+            android:paddingBottom="32dp"
+            >
 
             <com.makeramen.roundedimageview.RoundedImageView
                 style="@style/Base.TextAppearance.AppCompat.Headline"
