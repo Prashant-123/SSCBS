@@ -49,6 +49,7 @@ public class AttendanceMain extends AppCompatActivity {
     Integer Labtype;
     String clas,sub,path;
     ProgressBar bar;
+    Integer type;
     TextView tv;
     double newAttendence = 0, newTotal = 0 ;
     Button button1;
@@ -80,7 +81,9 @@ public class AttendanceMain extends AppCompatActivity {
         Intent getPath = getIntent();
         path = String.valueOf(getPath.getStringExtra("path"));
         Intent getType = getIntent();
-        Labtype = Integer.valueOf(getType.getStringExtra("Labtype"));
+        type = Integer.valueOf(getType.getStringExtra("type"));
+        Intent getLabType = getIntent();
+        Labtype = Integer.valueOf(getLabType.getStringExtra("Labtype"));
         Intent getClass = getIntent();
         clas = String.valueOf(getClass.getStringExtra("class"));
         Intent getSub = getIntent();
@@ -91,6 +94,7 @@ public class AttendanceMain extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        Log.wtf(TAG,type.toString());
         bar = (ProgressBar) findViewById(R.id.list_progress_bar);
         tv = (TextView)findViewById(R.id.loading_lists);
         new getListFromExcel().execute();
@@ -164,19 +168,24 @@ public class AttendanceMain extends AppCompatActivity {
                     String roll_no = c.getString("Roll_No");
                     String grp = c.getString("Lab_Group");
 
-                    if(grp.equals("1") && Labtype == 1) {
-                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-                        showdata.add(dataClass);
-                    }
+                    if(type ==1) {
+                        if (grp.equals("1") && Labtype == 1) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
 
-                    if(grp.equals("2") && Labtype == 2) {
-                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-                        showdata.add(dataClass);
-                    }
+                        if (grp.equals("2") && Labtype == 2) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
 
-                    if(Labtype == 3) {
-                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-                        showdata.add(dataClass);
+                        if (Labtype == 3) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                    }
+                    else if(type==2){
+
                     }
                 }
             }
