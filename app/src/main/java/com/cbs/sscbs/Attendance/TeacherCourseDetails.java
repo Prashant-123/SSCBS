@@ -99,7 +99,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
                     }
                 });
     }
-    private void showSub(String getName, final Spinner subSpinner, final Spinner typeSpinner) {
+    private void showSub(final String getName, final Spinner subSpinner, final Spinner typeSpinner) {
 
                final CollectionReference getSubjects = FirebaseFirestore.getInstance().collection("Teachers").document(getName)
                 .collection("Classes").document(getClass).collection("Subjects");
@@ -130,6 +130,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 else {
                                     getSub = adapterView.getItemAtPosition(i).toString();
+//                                    Log.wtf(TAG, getSub);
 
                                     CollectionReference subType = FirebaseFirestore.getInstance().collection("AllSubjects");
                                     subType.whereEqualTo("Labtype", true)
@@ -140,14 +141,15 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful())
                                                         for (DocumentSnapshot document : task.getResult()) {
-                                                        Log.wtf(TAG , getSub  + " "  + document.getId());
+                                                        Log.i(TAG , getSub  + " "  + document.getId());
                                                             if (getSub.equals(document.getId())) {
+                                                                Log.wtf(TAG , "Found");
                                                                 types = new String[]{"Select Type " , "Lab-G1", "Lab-G2", "Theory"};
+                                                                break;
                                                             }
                                                             else {
                                                                 types = new String[]{"Select Type " , "Theory"};
                                                             }
-                                                            break;
                                                         }
 
                                                     ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
