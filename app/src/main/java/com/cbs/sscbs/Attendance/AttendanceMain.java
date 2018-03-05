@@ -42,7 +42,7 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String bmsLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
     private static final String bfiaLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
 
-    Integer Labtype;
+    Integer Labtype,TutType;
     String clas,sub,path;
     ProgressBar bar;
     Integer type;
@@ -78,8 +78,15 @@ public class AttendanceMain extends AppCompatActivity {
         path = String.valueOf(getPath.getStringExtra("path"));
         Intent getType = getIntent();
         type = Integer.valueOf(getType.getStringExtra("type"));
-        Intent getLabType = getIntent();
-        Labtype = Integer.valueOf(getLabType.getStringExtra("Labtype"));
+        Log.wtf(TAG,"Type : " + type.toString());
+        if(type == 1){
+            Intent getLabType = getIntent();
+            Labtype = Integer.valueOf(getLabType.getStringExtra("Labtype"));
+        }
+        else if(type == 2){
+            Intent getTutType = getIntent();
+            TutType = Integer.valueOf(getTutType.getStringExtra("TutType"));
+        }
         Intent getClass = getIntent();
         clas = String.valueOf(getClass.getStringExtra("class"));
         Intent getSub = getIntent();
@@ -102,7 +109,7 @@ public class AttendanceMain extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Log.wtf(TAG,type.toString());
+
         bar = (ProgressBar) findViewById(R.id.list_progress_bar);
         tv = (TextView)findViewById(R.id.loading_lists);
         new getListFromExcel().execute();
@@ -167,12 +174,21 @@ public class AttendanceMain extends AppCompatActivity {
                 String jsonStr = sh.makeServiceCall(link);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(clas);
+                String tute;
 
                 for (int i = 0; i < contacts.length(); i++) {
                     JSONObject c = contacts.getJSONObject(i);
                     String name = c.getString("Name");
                     String roll_no = c.getString("Roll_No");
                     String grp = c.getString("Lab_Group");
+                    if(clas.contains("BMS")) {
+                        tute = c.getString("Tute");
+                    }else tute="";
+
+                    if(type == 0){
+                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                        showdata.add(dataClass);
+                    }
 
                     if(type ==1) {
                         if (grp.equals("1") && Labtype == 1) {
@@ -192,6 +208,24 @@ public class AttendanceMain extends AppCompatActivity {
                     }
                     else if(type==2){
 
+                        if (tute.equals("1") && TutType == 1) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+
+                        if (tute.equals("2") && TutType == 2) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                        if (tute.equals("3") && TutType == 3) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+
+                        if (TutType == 4) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
                     }
                 }
             }

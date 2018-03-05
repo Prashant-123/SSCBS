@@ -153,14 +153,14 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                                 }
                                                                 else if(document.getData().toString().charAt(6)=='1'){
                                                                 if (getSub.equals(document.getId())) {
-                                                                    types = new String[]{"Select Type", "Lab-G1", "Lab-G2", "Thory"};
+                                                                    types = new String[]{"Select Type", "Lab-G1", "Lab-G2", "Theory"};
                                                                     getType="1";
                                                                     break;
                                                                 }
                                                                 }
                                                                 else if(document.getData().toString().charAt(6)=='2'){
                                                                 if (getSub.equals(document.getId())) {
-                                                                    types = new String[]{"Select Type", "Lab-G1", "Lab-G2","Lab-G3" , "Thory"};
+                                                                    types = new String[]{"Select Type", "Lab-G1", "Lab-G2","Lab-G3" , "Theory"};
                                                                     getType = "2";
                                                                     break;
                                                                 }
@@ -183,9 +183,14 @@ public class TeacherCourseDetails extends AppCompatActivity {
 //
                                                                     Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
                                                                     intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + parent.getItemAtPosition(position).toString() + "/StudentList");
-                                                                    intent.putExtra("Labtype", String.valueOf(parent.getSelectedItemPosition()));
                                                                     intent.putExtra("class", getClass);
                                                                     intent.putExtra("type",String.valueOf(getType));
+                                                                    if((getType)=="1"){
+                                                                        intent.putExtra("Labtype", String.valueOf(parent.getSelectedItemPosition()));
+                                                                    }
+                                                                    else if((getType)=="2"){
+                                                                        intent.putExtra("TutType", String.valueOf(parent.getSelectedItemPosition()));
+                                                                    }
                                                                     intent.putExtra("subject", getSub);
                                                                     startActivity(intent);
                                                                 }
