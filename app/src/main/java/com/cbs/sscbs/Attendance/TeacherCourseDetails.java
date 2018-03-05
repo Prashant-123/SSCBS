@@ -37,6 +37,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
     private static final String TAG = "TAG";
     public ArrayList<String> classesList = new ArrayList<>();
     String getSub, getClass;
+    String getType;
     String[] types;
     Spinner classSpinner, subSpinner,typeSpinner;
 
@@ -123,7 +124,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
                         subSpinner.setAdapter(areasAdapter);
                         subSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            public void onItemSelected(AdapterView<?> adapterView, View view, final int i, long l) {
 
                                 if (i == 0)
                                     Toast.makeText(TeacherCourseDetails.this, "Select Subject",
@@ -131,58 +132,176 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                 else {
                                     getSub = adapterView.getItemAtPosition(i).toString();
 //                                    Log.wtf(TAG, getSub);
+//                                    if(getClass.substring(0,3) == "BMS") {
 
-                                    CollectionReference subType = FirebaseFirestore.getInstance().collection("AllSubjects");
-                                    subType.whereEqualTo("Labtype", true)
+                                        CollectionReference subType = FirebaseFirestore.getInstance().collection("AllSubjects");
+
+                                    subType
                                             .get()
                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful())
+                                                    if (task.isSuccessful()) {
                                                         for (DocumentSnapshot document : task.getResult()) {
-                                                        Log.i(TAG , getSub  + " "  + document.getId());
-                                                            if (getSub.equals(document.getId())) {
-                                                                Log.wtf(TAG , "Found");
-                                                                types = new String[]{"Select Type " , "Lab-G1", "Lab-G2", "Theory"};
-                                                                break;
-                                                            }
-                                                            else {
-                                                                types = new String[]{"Select Type " , "Theory"};
-                                                            }
+                                                            Log.d(TAG, document.getId() + " => " + document.getData());
+                                                            if(document.getData().toString().charAt(6)=='0') {
+                                                                if (getSub.equals(document.getId())) {
+                                                                    types = new String[]{"Select Type", "Theory"};
+                                                                    getType="0";
+                                                                    break;
+                                                                }
+                                                                }
+                                                                else if(document.getData().toString().charAt(6)=='1'){
+                                                                if (getSub.equals(document.getId())) {
+                                                                    types = new String[]{"Select Type", "Lab-G1", "Lab-G2", "Thory"};
+                                                                    getType="1";
+                                                                    break;
+                                                                }
+                                                                }
+                                                                else if(document.getData().toString().charAt(6)=='2'){
+                                                                if (getSub.equals(document.getId())) {
+                                                                    types = new String[]{"Select Type", "Lab-G1", "Lab-G2","Lab-G3" , "Thory"};
+                                                                    getType = "2";
+                                                                    break;
+                                                                }
+                                                                }
                                                         }
-
+                                                    } else {
+                                                        Log.d(TAG, "Error getting documents: ", task.getException());
+                                                    }
                                                     ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
-                                                            android.R.layout.simple_spinner_item, types);
-                                                    areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                                    typeSpinner.setAdapter(areasAdapter);
-                                                    typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                                        @Override
-                                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                                                            if(i==0)
-                                                                Toast.makeText(TeacherCourseDetails.this, "Select lab type", Toast.LENGTH_SHORT).show();
-
-                                                            else {
+                                                                android.R.layout.simple_spinner_item, types);
+                                                        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                                        typeSpinner.setAdapter(areasAdapter);
+                                                        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                            @Override
+                                                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                                if (position == 0)
+                                                                    Toast.makeText(TeacherCourseDetails.this, "Select type", Toast.LENGTH_SHORT).show();
 //
-                                                               Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
-                                                                intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
-                                                                intent.putExtra("Labtype", String.valueOf(adapterView.getSelectedItemPosition()));
-                                                                intent.putExtra("class", getClass);
-                                                                intent.putExtra("subject", getSub);
-                                                                startActivity(intent);
+                                                                else {
+//
+                                                                    Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
+                                                                    intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + parent.getItemAtPosition(position).toString() + "/StudentList");
+                                                                    intent.putExtra("Labtype", String.valueOf(parent.getSelectedItemPosition()));
+                                                                    intent.putExtra("class", getClass);
+                                                                    intent.putExtra("type",String.valueOf(getType));
+                                                                    intent.putExtra("subject", getSub);
+                                                                    startActivity(intent);
+                                                                }
                                                             }
-                                                        }
 
-                                                        @Override
-                                                        public void onNothingSelected(AdapterView<?> adapterView) {
+                                                            @Override
+                                                            public void onNothingSelected(AdapterView<?> parent) {
 
-                                                        }
-                                                    });
+                                                            }
+                                                        });
                                                 }
                                             });
+//                                        subType.whereEqualTo("Labtype", 1)
+//                                                .get()
+//                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//
+//                                                    @Override
+//                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                                        if (task.isSuccessful())
+//                                                            for (DocumentSnapshot document : task.getResult()) {
+//                                                                Log.i(TAG, getSub + " " + document.getId());
+//                                                                if (getSub.equals(document.getId())) {
+//                                                                    Log.wtf(TAG, "Found");
+//                                                                    types = new String[]{"Select Type ", "Lab-G1", "Lab-G2", "Theory"};
+//                                                                    break;
+//                                                                } else {
+//                                                                    types = new String[]{"Select Type ", "Theory"};
+//                                                                }
+//                                                            }
+//
+//
+//                                                        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
+//                                                                android.R.layout.simple_spinner_item, types);
+//                                                        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                                                        typeSpinner.setAdapter(areasAdapter);
+//                                                        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                                            @Override
+//                                                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                                                                if (i == 0)
+//                                                                    Toast.makeText(TeacherCourseDetails.this, "Select lab type", Toast.LENGTH_SHORT).show();
+//
+//                                                                else {
+////
+//                                                                    Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
+//                                                                    intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
+//                                                                    intent.putExtra("Labtype", String.valueOf(adapterView.getSelectedItemPosition()));
+//                                                                    intent.putExtra("class", getClass);
+//                                                                    intent.putExtra("subject", getSub);
+//                                                                    startActivity(intent);
+//                                                                }
+//                                                            }
+//
+//                                                            @Override
+//                                                            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                                                            }
+//                                                        });
+//                                                    }
+//                                                });
+                                    //}
+
+
+//                                    CollectionReference subTutType = FirebaseFirestore.getInstance().collection("AllSubjects");
+//                                    subTutType.whereEqualTo("Tuttype", 1)
+//                                            .get()
+//                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//
+//                                                @Override
+//                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                                    if (task.isSuccessful())
+//                                                        for (DocumentSnapshot document : task.getResult()) {
+//                                                            Log.i(TAG , getSub  + " "  + document.getId());
+//                                                            if (getSub.equals(document.getId())) {
+//                                                                Log.wtf(TAG , "Found");
+//                                                                types = new String[]{"Select Type " , "Lab-G1", "Lab-G2", "Lab-G3","Theory"};
+//                                                                break;
+//                                                            }
+//                                                            else {
+//                                                                types = new String[]{"Select Type " , "Theory"};
+//                                                            }
+//                                                        }
+//
+//
+//
+//                                                    ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
+//                                                            android.R.layout.simple_spinner_item, types);
+//                                                    areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                                                    typeSpinner.setAdapter(areasAdapter);
+//                                                    typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                                        @Override
+//                                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                                                            if(i==0)
+//                                                                Toast.makeText(TeacherCourseDetails.this, "Select Tut type", Toast.LENGTH_SHORT).show();
+//
+//                                                            else {
+////
+//                                                                Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
+//                                                                intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
+//                                                                intent.putExtra("Labtype", String.valueOf(adapterView.getSelectedItemPosition()));
+//                                                                intent.putExtra("class", getClass);
+//                                                                intent.putExtra("subject", getSub);
+//                                                                startActivity(intent);
+//                                                            }
+//                                                        }
+//
+//                                                        @Override
+//                                                        public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                                                        }
+//                                                    });
+//                                                }
+//                                            });
                                 }
-                            }
+                                }
 
                             @Override
                             public void onNothingSelected(AdapterView<?> adapterView) {
