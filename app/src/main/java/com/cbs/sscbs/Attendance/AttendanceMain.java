@@ -2,11 +2,8 @@ package com.cbs.sscbs.Attendance;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,13 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -38,20 +33,22 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AttendanceMain extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-    private static final String URL2 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
-    private static final String URL ="https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
+    String link;
+    private static final String bscLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
+    private static final String bmsLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
+    private static final String bfiaLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
+
     Integer Labtype;
     String clas,sub,path;
     ProgressBar bar;
     TextView tv;
     double newAttendence = 0, newTotal = 0 ;
     Button button1;
+    CollectionReference getLink = FirebaseFirestore.getInstance().collection("Excel Data");
 
     Calendar c = Calendar.getInstance();
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -65,7 +62,6 @@ public class AttendanceMain extends AppCompatActivity {
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
     AttendanceAdapter adapter = null;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +81,18 @@ public class AttendanceMain extends AppCompatActivity {
         clas = String.valueOf(getClass.getStringExtra("class"));
         Intent getSub = getIntent();
         sub = String.valueOf(getSub.getStringExtra("subject"));
+
+        if (clas.contains("Bsc"))
+        {
+            link = bscLIST;
+        }
+        else if (clas.contains("BFIA"))
+        {
+            link = bfiaLIST;
+        }
+        else if (clas.contains("BMS"))
+            link = bmsLIST;
+
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
         toolbar.setTitle(clas + " / " + sub );
         setSupportActionBar(toolbar);
@@ -152,12 +160,10 @@ public class AttendanceMain extends AppCompatActivity {
             try
             {
                 HttpHandler sh = new HttpHandler();
-                String jsonStr = sh.makeServiceCall(URL);
-                String jsonStr2 = sh.makeServiceCall(URL2);
+                String jsonStr = sh.makeServiceCall(link);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(clas);
-                JSONObject object2 = new JSONObject(jsonStr2);
-                JSONArray contacts2 = object2.getJSONArray(clas);
+
                 for (int i = 0; i < contacts.length(); i++) {
                     JSONObject c = contacts.getJSONObject(i);
                     String name = c.getString("Name");
