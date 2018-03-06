@@ -69,8 +69,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
-    String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
-   // String user = "Sonika Thakral";
+//    String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+    String user = "Sonika Thakral";
     LinearLayout stuLayout, facultyLayout;
     String adminId = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
