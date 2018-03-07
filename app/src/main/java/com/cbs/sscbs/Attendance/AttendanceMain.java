@@ -78,7 +78,7 @@ public class AttendanceMain extends AppCompatActivity {
         path = String.valueOf(getPath.getStringExtra("path"));
         Intent getType = getIntent();
         type = Integer.valueOf(getType.getStringExtra("type"));
-        Log.wtf(TAG,"Type : " + type.toString());
+        Log.wtf(TAG,"Type : "+ type.toString());
         if(type == 1){
             Intent getLabType = getIntent();
             Labtype = Integer.valueOf(getLabType.getStringExtra("Labtype"));
@@ -119,25 +119,58 @@ public class AttendanceMain extends AppCompatActivity {
     public void Save(View view) {
         int i = 0;
 
-        if (Labtype == 1 || Labtype == 2){
-            while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-                        AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + " [L]" + "/Year").document(getYear).collection("/Months");
-                save(getStu);
-                i++;
-
-            }
-        }else if(Labtype ==3)
-        {
+        if(type == 0){
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
                         AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
                 save(getStu);
                 i++;
             }
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+        }
+        if(type == 1) {
+            if (Labtype == 1 || Labtype == 2) {
+                while (i < AttendanceAdapter.saveRoll.size()) {
+                    final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+                            AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + " [L]" + "/Year").document(getYear).collection("/Months");
+                    save(getStu);
+                    i++;
+
+                }
+            } else if (Labtype == 3) {
+                while (i < AttendanceAdapter.saveRoll.size()) {
+                    final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+                            AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
+                    save(getStu);
+                    i++;
+                }
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+            if(type == 2){
+                if (TutType == 1 || TutType == 2 || TutType == 3) {
+                    while (i < AttendanceAdapter.saveRoll.size()) {
+                        final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+                                AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + " [T]" + "/Year").document(getYear).collection("/Months");
+                        save(getStu);
+                        i++;
+
+                    }
+                } else if (TutType == 4) {
+                    while (i < AttendanceAdapter.saveRoll.size()) {
+                        final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+                                AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
+                        save(getStu);
+                        i++;
+                    }
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+            }
         }
 
     }
@@ -150,7 +183,7 @@ public class AttendanceMain extends AppCompatActivity {
                     db.runTransaction(new Transaction.Function<Void>() {
                         @Override
                         public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                            final DocumentReference sfDocRef = getStu.document("Feb");
+                            final DocumentReference sfDocRef = getStu.document(getMonth);
                             DocumentSnapshot snapshot = transaction.get(sfDocRef);
                              newAttendence = (snapshot.getDouble("attendance")) + 1;
                             transaction.update(sfDocRef, "attendance", newAttendence);

@@ -28,7 +28,8 @@ public class ShowToStudents extends AppCompatActivity {
     ImageView pic;
     String classIntent, roll, naam, month;
     TextView textView , setRollText, monthText;
-    private static final String URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
+    private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
+    private static final String bscURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class ShowToStudents extends AppCompatActivity {
             try
             {
                 HttpHandler sh = new HttpHandler();
-                String jsonStr = sh.makeServiceCall(URL);
+                String jsonStr = sh.makeServiceCall(bmsURL);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(classIntent);
                 for (int i = 0; i < contacts.length(); i++) {
