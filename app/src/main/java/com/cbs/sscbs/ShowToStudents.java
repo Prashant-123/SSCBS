@@ -26,6 +26,7 @@ public class ShowToStudents extends AppCompatActivity {
     RecyclerView recyclerView;
     StudentsAdapter studentsAdapter;
     ImageView pic;
+    String link;
     String classIntent, roll, naam, month;
     TextView textView , setRollText, monthText;
     private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
@@ -47,6 +48,17 @@ public class ShowToStudents extends AppCompatActivity {
         setRollText = findViewById(R.id.roll_text);
         studentsAdapter.notifyDataSetChanged();
         classIntent = getIntent().getStringExtra("class");
+        if (classIntent.contains("Bsc"))
+        {
+            link = bscURL;
+        }
+//        else if (classIntent.contains("BFIA"))
+//        {
+//            link = bfiaURL;
+//        }
+        else if (classIntent.contains("BMS"))
+            link = bmsURL;
+
         roll = getIntent().getStringExtra("roll");
         month = getIntent().getStringExtra("month");
 
@@ -71,7 +83,7 @@ public class ShowToStudents extends AppCompatActivity {
             try
             {
                 HttpHandler sh = new HttpHandler();
-                String jsonStr = sh.makeServiceCall(bmsURL);
+                String jsonStr = sh.makeServiceCall(link);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(classIntent);
                 for (int i = 0; i < contacts.length(); i++) {
