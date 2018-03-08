@@ -39,6 +39,8 @@ public class AdminActivity extends AppCompatActivity {
     String getMonth = formattedDate.substring(3, 6);
     Map<String, Object> default_map1 = new HashMap<>();
     Map<String, Object> default_map2 = new HashMap<>();
+    Map<String, Object> default_map3 = new HashMap<>();
+    Map<String, Object> default_map4 = new HashMap<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -50,6 +52,7 @@ public class AdminActivity extends AppCompatActivity {
         toolbar.setTitle("Admin");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        default_map3.put("field" ,"");
 //
 //        if (clas.contains("Bsc"))
 //        {
@@ -111,6 +114,10 @@ public class AdminActivity extends AppCompatActivity {
                     for (int j = 0; j < contacts2.length(); j++) {
                         JSONObject c2 = contacts2.getJSONObject(j);
                         String sub = c2.getString("Subjects");
+
+                        db.collection("Attendance").document("BMS 1A").collection("Students")
+                                .document(roll_no).collection("Subjects").document(sub).set(default_map3);
+
 
                         default_map2.put("attendance", 0);
                         default_map2.put("total", 0);
