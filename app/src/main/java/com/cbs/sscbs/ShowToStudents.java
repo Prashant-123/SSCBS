@@ -74,7 +74,6 @@ public class ShowToStudents extends AppCompatActivity {
         Attendance_Frag.allSub.clear();
     }
 
-
     public class showStudentName extends AsyncTask<Void, Void, Void>
     {
         @Override

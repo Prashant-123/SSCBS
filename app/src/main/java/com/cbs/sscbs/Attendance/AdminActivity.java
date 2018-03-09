@@ -27,6 +27,7 @@ import java.util.Map;
 
 public class AdminActivity extends AppCompatActivity {
 
+    private static final String bfiaURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
     private static final String bmsLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
     private static final String CLASSURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=16WP-U687v4q2MtsJbHM-yCkqQK856tJ5IkiYvgowe90";
     private static final String SUBURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
@@ -93,12 +94,12 @@ public class AdminActivity extends AppCompatActivity {
             try {
                 HttpHandler sh = new HttpHandler();
 //                String jsonStr1 = sh.makeServiceCall(CLASSURL);
-                String jsonStr = sh.makeServiceCall(bmsLIST);
+                String jsonStr = sh.makeServiceCall(bfiaURL);
                 String jsonStr2 = sh.makeServiceCall(SUBURL);
                 JSONObject object = new JSONObject(jsonStr);
-                JSONArray contacts = object.getJSONArray("BMS 1A");
+                JSONArray contacts = object.getJSONArray("BFIA 1A");
                 JSONObject object2 = new JSONObject(jsonStr2);
-                JSONArray contacts2 = object2.getJSONArray("BMS 1A");
+                JSONArray contacts2 = object2.getJSONArray("BFIA 1A");
 
                 for (int i = 0; i < contacts.length(); i++) {
                     JSONObject c = contacts.getJSONObject(i);
@@ -107,22 +108,21 @@ public class AdminActivity extends AppCompatActivity {
                     String grp = c.getString("Lab_Group");
 
                     default_map1.put("name", name);
-                   // default_map1.put("group", grp);
-                    db.collection("Attendance").document("BMS 1A").collection("Students")
+                    db.collection("Attendance").document("BFIA 1A").collection("Students")
                             .document(roll_no).set(default_map1);
 
                     for (int j = 0; j < contacts2.length(); j++) {
                         JSONObject c2 = contacts2.getJSONObject(j);
                         String sub = c2.getString("Subjects");
 
-                        db.collection("Attendance").document("BMS 1A").collection("Students")
+                        db.collection("Attendance").document("BFIA 1A").collection("Students")
                                 .document(roll_no).collection("Subjects").document(sub).set(default_map3);
 
 
                         default_map2.put("attendance", 0);
                         default_map2.put("total", 0);
 
-                        db.collection("Attendance").document("BMS 1A").collection("Students")
+                        db.collection("Attendance").document("BFIA 1A").collection("Students")
                                 .document(roll_no).collection("Subjects").document(sub).collection("Year").document(getYear)
                                 .collection("Months").document(getMonth).set(default_map2);
                     }

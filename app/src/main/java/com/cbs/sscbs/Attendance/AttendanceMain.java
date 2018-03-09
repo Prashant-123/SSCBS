@@ -207,6 +207,7 @@ public class AttendanceMain extends AppCompatActivity {
                 String jsonStr = sh.makeServiceCall(link);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray contacts = object.getJSONArray(clas);
+                Log.wtf(TAG,clas);
                 String tute;
 
                 for (int i = 0; i < contacts.length(); i++) {
@@ -214,7 +215,7 @@ public class AttendanceMain extends AppCompatActivity {
                     String name = c.getString("Name");
                     String roll_no = c.getString("Roll_No");
                     String grp = c.getString("Lab_Group");
-                    if(clas.contains("BMS")) {
+                    if(clas.contains("BMS")|| clas.contains("BFIA")) {
                         tute = c.getString("Tute");
                     }else tute="";
 
@@ -287,7 +288,7 @@ public class AttendanceMain extends AppCompatActivity {
                             db.runTransaction(new Transaction.Function<Void>() {
                                 @Override
                                 public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                                    final DocumentReference sfDocRef = toUpdateTotal.document("Feb");
+                                    final DocumentReference sfDocRef = toUpdateTotal.document(getMonth);
                                     DocumentSnapshot snapshot = transaction.get(sfDocRef);
                                     newTotal = (snapshot.getDouble("total")) + 1;
                                     transaction.update(sfDocRef, "total", newTotal);
