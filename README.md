@@ -1,7 +1,7 @@
 # SSCBS
 > SSCBS is an official app for the students of Shaheed Sukhdev College of Business Studies. It contains several modules helping students be up-to-date with all the college activities providing applicants with all information regarding Results, Events, Attendance, timetable, courses offered and many other useful information.
 
-+**[Features](#features)**
+**[Features](#features)**
   +[Login](#login)
   +[SSCBS](#sscbs)
   +[Grievances](#grievances)
