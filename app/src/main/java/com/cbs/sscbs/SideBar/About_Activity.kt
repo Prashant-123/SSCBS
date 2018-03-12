@@ -1,8 +1,9 @@
-package com.cbs.sscbs.Others
+package com.cbs.sscbs.SideBar
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.cbs.sscbs.Others.Contact_us
 import com.cbs.sscbs.R
 import kotlinx.android.synthetic.main.activity_about.*
 

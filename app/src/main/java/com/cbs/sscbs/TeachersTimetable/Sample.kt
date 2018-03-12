@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import com.cbs.sscbs.DataClass.CONSTANTS
 import com.cbs.sscbs.Fragments.TimeTable_frag
 import com.cbs.sscbs.Others.FullScreenImage
 import com.cbs.sscbs.R

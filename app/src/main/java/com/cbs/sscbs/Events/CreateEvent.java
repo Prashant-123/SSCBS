@@ -1,4 +1,4 @@
-package com.cbs.sscbs.Others;
+package com.cbs.sscbs.Events;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -20,12 +20,9 @@ import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cbs.sscbs.DataClass.DataClass;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

@@ -32,7 +32,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.cbs.sscbs.Others.GuestEventsActivity;
 import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
 import com.firebase.ui.auth.AuthUI;

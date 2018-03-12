@@ -59,23 +59,23 @@
             android:label="Info"
             android:parentActivityName=".TeachersTimetable.TeachersTimeTable" />
         <activity
-            android:name=".Others.About_Activity"
+            android:name=".SideBar.About_Activity"
             android:label="About Us"
             android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Others.LifeAtCbs"
+            android:name=".SideBar.LifeAtCbs"
             android:label="Life At CBS"
-            android:parentActivityName=".Others.About_Activity" />
+            android:parentActivityName=".SideBar.About_Activity" />
         <activity
             android:name=".Attendance.AttendanceMain"
             android:label="Attendance"
             android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Others.Facilities"
+            android:name=".SideBar.Facilities"
             android:label="Facilities"
-            android:parentActivityName=".Others.About_Activity" />
+            android:parentActivityName=".SideBar.About_Activity" />
         <activity
-            android:name=".Others.Gallery_Activity"
+            android:name=".SideBar.Gallery_Activity"
             android:label="GALLERY"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
@@ -87,9 +87,9 @@
         <activity
             android:name=".Others.Contact_us"
             android:label="Contact Details"
-            android:parentActivityName=".Others.About_Activity" />
+            android:parentActivityName=".SideBar.About_Activity" />
         <activity
-            android:name=".Others.CreateEvent"
+            android:name=".Events.CreateEvent"
             android:label="Create New Event"
             android:parentActivityName=".Others.MainActivity" />
         <activity
@@ -101,21 +101,18 @@
             android:label="Grievances"
             android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Others.Bookings"
+            android:name=".Events.Bookings"
             android:label="All Bookings"
             android:parentActivityName=".Others.MainActivity" />
-        <activity android:name=".Others.Teacher" />
         <activity
             android:name=".Attendance.TeacherCourseDetails"
             android:parentActivityName=".Others.MainActivity" />
-        <activity android:name=".Others.GuestEventsActivity" />
-        <activity android:name=".ShowToStudents" />
+        <activity android:name=".auth.GuestEventsActivity" />
+        <activity android:name=".Attendance.ShowToStudents" />
         <activity android:name=".Attendance.AdminActivity"
             android:label="Admin"
             android:parentActivityName=".Others.MainActivity"/>
         <activity android:name=".utils.FinestWebViewActivity" />
-
-
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

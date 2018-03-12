@@ -1,4 +1,4 @@
-package com.cbs.sscbs.Others
+package com.cbs.sscbs.SideBar
 
 import android.net.Uri
 import android.os.Bundle

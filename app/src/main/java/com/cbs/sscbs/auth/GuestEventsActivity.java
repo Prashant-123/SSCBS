@@ -1,8 +1,7 @@
-package com.cbs.sscbs.Others;
+package com.cbs.sscbs.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +11,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.cbs.sscbs.Adapters.EventsAdapter;
-import com.cbs.sscbs.DataClass.DataClass;
+import com.cbs.sscbs.Events.EventsAdapter;
+import com.cbs.sscbs.Events.DataClass;
+import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;

@@ -1,4 +1,4 @@
-package com.cbs.sscbs.Others;
+package com.cbs.sscbs.Events;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Adapters.BookingsAdapter;
-import com.cbs.sscbs.DataClass.BookingsDataClass;
 import com.cbs.sscbs.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

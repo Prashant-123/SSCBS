@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-import com.cbs.sscbs.Others.CustomFilter;
-import com.cbs.sscbs.DataClass.Teacher;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;
 

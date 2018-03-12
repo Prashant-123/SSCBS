@@ -1,8 +1,8 @@
-package com.cbs.sscbs.Others;
+package com.cbs.sscbs.TeachersTimetable;
 
 import android.widget.Filter;
 
-import com.cbs.sscbs.DataClass.Teacher;
+import com.cbs.sscbs.TeachersTimetable.Teacher;
 import com.cbs.sscbs.TeachersTimetable.TeachersAdapter;
 
 import java.util.ArrayList;

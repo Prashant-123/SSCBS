@@ -3,16 +3,8 @@ package com.cbs.sscbs.Fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,41 +14,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cbs.sscbs.Attendance.AdminActivity;
-import com.cbs.sscbs.Attendance.AttendanceDataClass;
-import com.cbs.sscbs.Attendance.AttendanceMain;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
-import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
-import com.cbs.sscbs.ShowToStudents;
+import com.cbs.sscbs.Attendance.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import am.appwise.components.ni.NoInternetDialog;
 
 /**
  * Created by Prashant on 09-01-2018.

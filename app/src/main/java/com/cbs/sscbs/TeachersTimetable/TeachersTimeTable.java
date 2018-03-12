@@ -10,7 +10,6 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.cbs.sscbs.DataClass.Teacher;
 import com.cbs.sscbs.R;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.MaterialDialog
-import com.cbs.sscbs.DataClass.CONSTANTS
+import com.cbs.sscbs.TeachersTimetable.CONSTANTS
 import com.cbs.sscbs.Others.FullScreenImage
 import com.cbs.sscbs.R
 import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable

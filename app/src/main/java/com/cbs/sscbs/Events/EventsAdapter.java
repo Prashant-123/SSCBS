@@ -1,4 +1,4 @@
-package com.cbs.sscbs.Adapters;
+package com.cbs.sscbs.Events;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cbs.sscbs.DataClass.DataClass;
 import com.cbs.sscbs.Others.FullScreenImage;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;

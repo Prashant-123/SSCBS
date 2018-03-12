@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.cbs.sscbs.Others.Facilities">
+    tools:context="com.cbs.sscbs.SideBar.Facilities">
 
     <LinearLayout
         android:layout_width="match_parent"

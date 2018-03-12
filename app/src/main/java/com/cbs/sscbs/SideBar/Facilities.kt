@@ -1,4 +1,4 @@
-package com.cbs.sscbs.Others
+package com.cbs.sscbs.SideBar
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

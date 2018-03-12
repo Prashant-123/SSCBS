@@ -1,4 +1,4 @@
-package com.cbs.sscbs.Adapters;
+package com.cbs.sscbs.Events;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cbs.sscbs.DataClass.BookingsDataClass;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;
 import com.google.firebase.database.FirebaseDatabase;

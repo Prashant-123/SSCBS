@@ -1,4 +1,4 @@
-package com.cbs.sscbs.DataClass;
+package com.cbs.sscbs.Events;
 
 /**
  * Created by Prashant on 25-11-2017.

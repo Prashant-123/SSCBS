@@ -1,6 +1,5 @@
-package com.cbs.sscbs;
+package com.cbs.sscbs.Attendance;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,12 +10,9 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.cbs.sscbs.Adapters.StudentsAdapter;
 import com.cbs.sscbs.Fragments.Attendance_Frag;
 import com.cbs.sscbs.Others.HttpHandler;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.cbs.sscbs.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

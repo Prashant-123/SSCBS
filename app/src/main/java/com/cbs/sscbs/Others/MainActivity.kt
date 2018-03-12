@@ -22,9 +22,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.cbs.sscbs.Fragments.*
 import com.cbs.sscbs.R
+import com.cbs.sscbs.SideBar.About_Activity
+import com.cbs.sscbs.SideBar.Gallery_Activity
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
-import com.cbs.sscbs.utils.FinestWebViewActivity
 //import com.cbs.sscbs.utils.web
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse

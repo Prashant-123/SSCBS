@@ -3,7 +3,7 @@ package com.cbs.sscbs.Others
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
-import com.cbs.sscbs.DataClass.CONSTANTS
+import com.cbs.sscbs.TeachersTimetable.CONSTANTS
 import com.cbs.sscbs.R
 import com.github.chrisbanes.photoview.PhotoView
 import com.squareup.picasso.Picasso
