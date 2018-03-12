@@ -126,9 +126,6 @@ public class AttendanceMain extends AppCompatActivity {
                 save(getStu);
                 i++;
             }
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
         }
         if(type == 1) {
             if (Labtype == 1 || Labtype == 2) {
