@@ -44,7 +44,7 @@ import java.util.TimerTask;
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
-    String classs, monthIntent;
+    String classs, monthIntent, yearIntent;
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
@@ -195,24 +195,35 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                     android.R.layout.simple_spinner_item, yrs);
                                             yrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                             yr.setAdapter(yrAdapter);
-                                            yr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            yr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                                 @Override
-                                                public void onItemClick(final AdapterView<?> adapterView1, View view, int i, long l) {
+                                                public void onItemSelected(final AdapterView<?> adapterView1, View view, int i, long l) {
                                                     Spinner month = alertLayout.findViewById(R.id.month);
 
                                                     ArrayAdapter<String> subjectAdapter = new ArrayAdapter<String>(getContext(),
                                                             android.R.layout.simple_spinner_item, theMonth());
                                                     subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                     month.setAdapter(subjectAdapter);
-                                                    month.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                    month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                                         @Override
-                                                        public void onItemClick(AdapterView<?> adapterView2, View view, int i, long l) {
+                                                        public void onItemSelected(AdapterView<?> adapterView2, View view, int i, long l) {
                                                             classs = adapterView0.getSelectedItem().toString();
                                                             monthIntent = adapterView2.getSelectedItem().toString();
+                                                            yearIntent = adapterView1.getSelectedItem().toString();
                                                             if (i!=0)
                                                                 showAttendance(adapterView0.getSelectedItem().toString(), roll.getText().toString(), adapterView1.getSelectedItem().toString(), adapterView2.getSelectedItem().toString());
                                                         }
+
+                                                        @Override
+                                                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                                        }
                                                     });
+
+                                                }
+
+                                                @Override
+                                                public void onNothingSelected(AdapterView<?> adapterView) {
 
                                                 }
                                             });
@@ -222,9 +233,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 //                                                android.R.layout.simple_spinner_item, theMonth());
 //                                        subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                                        month.setAdapter(subjectAdapter);
-
-
-
                                     }
 
                                     @Override
@@ -255,6 +263,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         intent.putExtra("class", classs);
                         intent.putExtra("roll", roll.getText().toString());
                         intent.putExtra("month", monthIntent);
+                        intent.putExtra("year", yearIntent);
 
                         if(classs.isEmpty()||roll.getText().toString().isEmpty()){
                             Toast.makeText(getContext(), "Please fill all the required details correctly ! ", Toast.LENGTH_SHORT).show();
@@ -286,41 +295,72 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         if (task.isSuccessful()) {
                             for (final DocumentSnapshot documentSnapshot : task.getResult()) {
                                 if (documentSnapshot.getId().compareToIgnoreCase(roll_no) == 0) {
+                                    Log.wtf(TAG, documentSnapshot.getId());
 
-                                    getCls.document(clas).collection("Students")
-                                            .document(documentSnapshot.getId()).collection("Subjects")
-                                            .get()
-                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        for (final DocumentSnapshot ds : task.getResult()) {
+                                    getCls.document(clas).collection("Students").document(documentSnapshot.getId()).collection("Year").document(year)
+                                            .collection("Subjects").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()){
+                                                for (final DocumentSnapshot ds1 : task.getResult()){
+                                                    Log.wtf(TAG, ds1.getId());
 
-                                                            DocumentReference reference = getCls
-                                                                    .document(clas).collection("Students")
-                                                                    .document(documentSnapshot.getId()).collection("Subjects")
-                                                                    .document(ds.getId()).collection("Year").document(year)
-                                                                    .collection("Months").document(month);
-                                                            reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                                @Override
-                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                                    if (documentSnapshot.exists()) {
-                                                                        StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance" ), documentSnapshot.getDouble("total"));
+//                                                    getCls.document(clas).collection("Students").document(documentSnapshot.getId()).collection("Year").document(year)
+//                                                            .collection("Subjects").document("Months").collection(month);
+
+                                                    DocumentReference reference = getCls.document(clas).collection("Students").document(documentSnapshot.getId()).collection("Year").document(year)
+                                                            .collection("Subjects").document(ds1.getId()).collection("Months").document();
+
+                                                    reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                            if (documentSnapshot.exists()){
+                                                                StudentsDataClass dataClass = new StudentsDataClass(ds1.getId(), documentSnapshot.getDouble("attendance" ), documentSnapshot.getDouble("total"));
                                                                         allSub.add(dataClass);
-                                                                    }
-                                                                }
-                                                            });
+                                                            }
                                                         }
-                                                    }
+                                                    });
                                                 }
-                                            });
-                                    break;
+                                            }
+                                        }
+                                    });
+//                                    getCls.document(clas).collection("Students")
+//                                            .document(documentSnapshot.getId()).collection("Year")
+//                                            .get()
+//                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                                @Override
+//                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                                    if (task.isSuccessful()) {
+//                                                        for (final DocumentSnapshot ds : task.getResult()) {
+//
+//                                                            DocumentReference reference = getCls
+//                                                                    .document(clas).collection("Students")
+//                                                                    .document(documentSnapshot.getId()).collection("Year")
+//                                                                    .document(ds.getId()).collection("Subjects").document(year)
+//                                                                    .collection("Months").document(month);
+//                                                            reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                                                                @Override
+//                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                                                    if (documentSnapshot.exists()) {
+//                                                                        StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance" ), documentSnapshot.getDouble("total"));
+//                                                                        allSub.add(dataClass);
+//                                                                    }
+//                                                                }
+//                                                            });
+//                                                        }
+//                                                    }
+//                                                }
+//                                            });
+//                                    break;
                                 }
                             }
                         }
                     }
 
                 });
+
+        Log.i(TAG, "allSub"+allSub.toString());
+
     }
 
     public String[] theMonth() {

@@ -23,7 +23,7 @@ public class ShowToStudents extends AppCompatActivity {
     StudentsAdapter studentsAdapter;
     ImageView pic;
     String link;
-    String classIntent, roll, naam, month;
+    String classIntent, roll, naam, month, year;
     TextView textView , setRollText, monthText;
     private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
     private static final String bscURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
@@ -32,7 +32,6 @@ public class ShowToStudents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.students_rv);
-       // pic = findViewById(R.id.stuImg);
         recyclerView = findViewById(R.id.st_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -57,6 +56,8 @@ public class ShowToStudents extends AppCompatActivity {
 
         roll = getIntent().getStringExtra("roll");
         month = getIntent().getStringExtra("month");
+        year = getIntent().getStringExtra("year");
+
 
         new showStudentName().execute();
         studentsAdapter.notifyDataSetChanged();
