@@ -27,16 +27,30 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:hint="Enter Your RollNo"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:id="@+id/month"
+            android:id="@+id/year"
             android:inputType="text"
             android:layout_marginTop="10dp"
             android:hint="Enter Month"
             android:layout_marginBottom="36dp"/>
 
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/month"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
+            android:hint="Enter Year"
+            android:layout_marginBottom="36dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
     <ProgressBar

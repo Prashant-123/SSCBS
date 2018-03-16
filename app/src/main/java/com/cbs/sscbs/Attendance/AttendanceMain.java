@@ -68,6 +68,8 @@ public class AttendanceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         button1 =  findViewById(R.id.save_at);
         setContentView(R.layout.common_rv);
+
+
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -91,6 +93,8 @@ public class AttendanceMain extends AppCompatActivity {
         clas = String.valueOf(getClass.getStringExtra("class"));
         Intent getSub = getIntent();
         sub = String.valueOf(getSub.getStringExtra("subject"));
+
+        Log.wtf(TAG, getMonth + "--" + getYear + "--" + sub);
 
         if (clas.contains("Bsc"))
         {
@@ -121,9 +125,10 @@ public class AttendanceMain extends AppCompatActivity {
 
         if(type == 0){
             while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-                        AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
-                save(getStu);
+                Log.i(TAG, "ok");
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + "Bsc-2" + "/Students/" +
+                        AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear).collection("Subject").document(sub).collection("/Months");
+//                save(getStu);
                 i++;
             }
         }
@@ -139,7 +144,7 @@ public class AttendanceMain extends AppCompatActivity {
             } else if (Labtype == 3) {
                 while (i < AttendanceAdapter.saveRoll.size()) {
                     final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-                            AttendanceAdapter.saveRoll.get(i) + "/Subjects/" + sub + "/Year").document(getYear).collection("/Months");
+                            AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear).collection("Subjects").document(sub).collection("/Months");
                     save(getStu);
                     i++;
                 }

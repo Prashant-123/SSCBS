@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +48,10 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
+    CollectionReference getYears = FirebaseFirestore.getInstance().collection("Academic Year");
     String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
     //String user = "Sonika Thakral";
+    ArrayList<String> getYearss = new ArrayList<>();
     LinearLayout stuLayout, facultyLayout;
     String adminId = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
@@ -63,6 +66,19 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         Button faculty = myView.findViewById(R.id.faculty);
         Button stu = myView.findViewById(R.id.students);
         Button admin = myView.findViewById(R.id.admin);
+
+        getYears.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if(task.isSuccessful()){
+                    for (DocumentSnapshot document : task.getResult()) {
+                        getYearss.add(document.getId());
+                    }
+
+                }
+            }
+        });
 
         CollectionReference subType = FirebaseFirestore.getInstance().collection("Teachers");
 
@@ -107,7 +123,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                         if (task.isSuccessful()) {
                                             for (DocumentSnapshot document : task.getResult()) {
                                                 if (document.getId().compareToIgnoreCase(user) == 0) {
-                                                     flag[0] =1;
+                                                     flag[0] = 1;
                                                     Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
                                                     intent.putExtra("getUser", user);
                                                     startActivity(intent);
@@ -135,6 +151,10 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 final EditText roll = alertLayout.findViewById(R.id.roll);
                 bar = alertLayout.findViewById(R.id.wait_bar);
 
+
+
+
+
                 getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -158,26 +178,52 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 cls.setAdapter(classAdapter);
                                 cls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
-                                    public void onItemSelected(final AdapterView<?> adapterView, View view, int i, long l) {
+                                    public void onItemSelected(final AdapterView<?> adapterView0, View view, int i, long l) {
 
-                                        Spinner month = alertLayout.findViewById(R.id.month);
 
-                                        ArrayAdapter<String> subjectAdapter = new ArrayAdapter<String>(getContext(),
-                                                android.R.layout.simple_spinner_item, theMonth());
-                                        subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                        month.setAdapter(subjectAdapter);
-                                        month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                            @Override
-                                            public void onItemSelected(AdapterView<?> adapterView1, View view, int i, long l) {
-                                                classs = adapterView.getSelectedItem().toString();
-                                                monthIntent = adapterView1.getSelectedItem().toString();
-                                                if (i!=0)
-                                                showAttendance(adapterView.getSelectedItem().toString(), roll.getText().toString(), "2018", adapterView1.getSelectedItem().toString());
-                                            }
+//                                        Spinner year = alertLayout.findViewById(R.id.year);
+                                        Log.i(TAG, "ok" + getYearss.toString());
 
-                                            @Override
-                                            public void onNothingSelected(AdapterView<?> adapterView) {                                            }
-                                        });
+                                        String[] yrs = new String[getYearss.size() + 1];
+                                        int li = 0;
+                                        yrs[0] = "Select Year";
+                                        for (int p = 1; p <= getYearss.size(); p++) {
+                                            yrs[p] = getYearss.get(li);
+                                            li++;
+                                            Spinner yr = alertLayout.findViewById(R.id.year);
+                                            ArrayAdapter<String> yrAdapter = new ArrayAdapter<String>(getContext(),
+                                                    android.R.layout.simple_spinner_item, yrs);
+                                            yrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                            yr.setAdapter(yrAdapter);
+                                            yr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(final AdapterView<?> adapterView1, View view, int i, long l) {
+                                                    Spinner month = alertLayout.findViewById(R.id.month);
+
+                                                    ArrayAdapter<String> subjectAdapter = new ArrayAdapter<String>(getContext(),
+                                                            android.R.layout.simple_spinner_item, theMonth());
+                                                    subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                                    month.setAdapter(subjectAdapter);
+                                                    month.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                        @Override
+                                                        public void onItemClick(AdapterView<?> adapterView2, View view, int i, long l) {
+                                                            classs = adapterView0.getSelectedItem().toString();
+                                                            monthIntent = adapterView2.getSelectedItem().toString();
+                                                            if (i!=0)
+                                                                showAttendance(adapterView0.getSelectedItem().toString(), roll.getText().toString(), adapterView1.getSelectedItem().toString(), adapterView2.getSelectedItem().toString());
+                                                        }
+                                                    });
+
+                                                }
+                                            });
+                                        }
+
+//                                        ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(getContext(),
+//                                                android.R.layout.simple_spinner_item, theMonth());
+//                                        subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                                        month.setAdapter(subjectAdapter);
+
+
 
                                     }
 
