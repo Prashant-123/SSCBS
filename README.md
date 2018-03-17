@@ -16,7 +16,7 @@
   ### 1. Login
   This is the login page of the SSCBS app. The users are required to sign-up using Google with their allotted college ids and are welcomed by a home screen page. They are provided by a list of features on the side- navigation to explore. Non- SSCBites can access the events section of the app using the other option provided.
   
-  <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180309-230817.png" width="230" height="400" /> <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180306-174417.png" width="230" height="400" /> 
+  <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180309-230817.png" width="230" height="400" />     <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180306-174417.png" width="230" height="400" /> 
   <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180309-230403.png" width="230" height="400" />
   
   
@@ -29,7 +29,7 @@
    ### 3.	Grievances
    This platform helps students to make the college authorities be updated with the complaints and the problems they face regarding infrastructure, management or other things. A mail is generated to the college with the complaint attached to resolve the issue.
      
-     <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180309-230412.png" width="230" height="400" /> 
+   <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180309-230412.png" width="230" height="400" /> 
      
    ### 4.	Digital Library
    This section helps get students all the question papers, syllabus and other relevant stuff related to their courses all at one place. What can be better than that!
@@ -49,7 +49,7 @@
    ### 7.	Events
    This section keep the users up-to-date with all the college happenings and events. Societies and other college events can be added occasionally by the admin and is displayed on the screen with its description and the required links in order to be a part of it. 
      
-     <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180306-180014.png" width="230" height="400" />
+<img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180306-180014.png" width="230" height="400" />
 <img src="https://github.com/Prashant-123/SSCBS/blob/master/Screenshots/Screenshot_20180306-180207.png" width="230" height="400" />
 
      
