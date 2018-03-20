@@ -85,7 +85,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adminId.compareTo("pk021998@gmail.com")==0){
+                if(adminId.compareTo("goyaltanvi94@gmail.com")==0){
                     Intent intent = new Intent(getContext(),AdminActivity.class);
                     startActivity(intent);
                 }else{

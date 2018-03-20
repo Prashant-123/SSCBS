@@ -82,7 +82,6 @@
         <activity android:name=".auth.SignedInActivity" />
         <activity
             android:name=".Others.FullScreenImage"
-            android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Others.Contact_us"

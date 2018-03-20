@@ -53,7 +53,7 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.rom4ek.arcnavigationview.ArcNavigationView
+    <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -63,8 +63,8 @@
         app:itemBackground="@android:color/white"
         app:headerLayout="@layout/navheader"
         app:menu="@menu/menu_navigation"
-        app:arc_cropDirection="cropInside"
-        app:arc_width="106dp"/>
+
+        />
 
 </android.support.v4.widget.DrawerLayout>
 
