@@ -7,11 +7,13 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.TeachersTimetable.CONSTANTS
 import com.cbs.sscbs.Others.FullScreenImage
@@ -188,7 +190,7 @@ class TimeTable_frag : Fragment() {
                     }
 
                     override fun onError() {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        Snackbar.make(drawerLayout, "New Time Table may not have been upoaded ! ", Snackbar.LENGTH_LONG).show()
                     }
                 })
                 progress_br.visibility = View.INVISIBLE

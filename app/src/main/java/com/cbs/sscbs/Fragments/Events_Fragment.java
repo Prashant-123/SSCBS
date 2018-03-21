@@ -81,7 +81,7 @@ public class Events_Fragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
-                 newData = dataSnapshot.getValue(DataClass.class);
+                newData = dataSnapshot.getValue(DataClass.class);
 
                 if (newData.getOrganiser().toString().compareToIgnoreCase("Blitz") == 0) {
                     newData.setImg(R.drawable.blitzlogo);

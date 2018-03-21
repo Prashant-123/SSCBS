@@ -60,7 +60,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                        inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
+                inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
             }
         });
     }
@@ -130,7 +130,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         });
 
         final View thumb1View = alertLayout1.findViewById(R.id.imageEvent);
-            Picasso.with(c).load(url).into((ImageView) thumb1View);
+        Picasso.with(c).load(url).into((ImageView) thumb1View);
 
         descRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -161,14 +161,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String m = dataSnapshot.getValue(String.class);
                 mobNo.setText(m);
-                mobNo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:01122154581"));
-                        startActivity(intent);
-                    }
-                });
+//                mobNo.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(Intent.ACTION_DIAL);
+//                        intent.setData(Uri.parse("tel:01122154581"));
+//                        startActivity(intent);
+//                    }
+//                });
             }
 
             @Override
