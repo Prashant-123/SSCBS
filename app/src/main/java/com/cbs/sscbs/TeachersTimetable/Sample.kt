@@ -70,6 +70,8 @@ class Sample : AppCompatActivity() {
                             val builder = AlertDialog.Builder(this@Sample)
                             builder.setTitle("Select")
                             builder.setItems(arrayOf<CharSequence>("View Image", "Download")
+
+
                             ) { dialog, which ->
                                 // The 'which' argument contains the index position
                                 // of the selected item
@@ -97,7 +99,7 @@ class Sample : AppCompatActivity() {
         })
     }
 
-    private class DownloadFile : AsyncTask<String, Void, Void>() {
+    private class DownloadjFile : AsyncTask<String, Void, Void>() {
 
         override fun doInBackground(vararg strings: String): Void? {
             val fileUrl = strings[0]   // -> http://maven.apache.org/maven-1.x/maven.pdf
