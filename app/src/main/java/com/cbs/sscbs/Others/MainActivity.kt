@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @MainThread
-    private fun showSnackbar(@StringRes errorMessageRes: Int) {
+    private fun showSnackbar(@StringRes errorMessageRes: Int) {0
         Snackbar.make(drawerLayout, errorMessageRes, Snackbar.LENGTH_LONG).show()
     }
 
