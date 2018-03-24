@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -22,6 +23,9 @@ import android.widget.Toast;
 
 import com.cbs.sscbs.Manifest;
 import com.cbs.sscbs.R;
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -34,12 +38,18 @@ public class Grievances extends AppCompatActivity {
     static final Integer WRITE_EXST = 0x3;
     public static final int REQUEST_CODE = 1234;
     private static final int CAMERA_REQUEST = 1888;
+    String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
+    String emailID = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Toast.makeText(this, StringUtils.substringAfterLast(emailID, "@"), Toast.LENGTH_SHORT).show();
+
         askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,WRITE_EXST);
+        askForPermission(android.Manifest.permission.SEND_SMS, 1);
 
         setContentView(R.layout.activity_grievances);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_grievances);
@@ -53,17 +63,50 @@ public class Grievances extends AppCompatActivity {
     {
         EditText subject = (EditText)findViewById(R.id.subject);
         EditText body = (EditText) findViewById(R.id.body);
-        String emailBody = body.getText().toString().trim();
-        String emailSubject = subject.getText().toString().trim();
+        final String emailBody = body.getText().toString();
+        String emailSubject = subject.getText().toString();
 
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pk021998@gmail.com"});
-        intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
-        intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(String.valueOf(imgUri)));
-        intent.setType("image/*");
+        AlertDialog.Builder b =  new  AlertDialog.Builder(this)
+                .setTitle("Do you want to send a text message for immediate action?")
+                .setPositiveButton("Leave a Message",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                sendSMS(emailBody);
+                            }
+                        }
+                )
+                .setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+                        }
+                );
+        b.create();
+        b.show();
 
-        startActivity(Intent.createChooser(intent,"Send Email Using"));
+//        Intent intent = new Intent(Intent.ACTION_SEND);
+//        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pk021998@gmail.com"});
+//        intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
+//        intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
+//        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(String.valueOf(imgUri)));
+//        intent.setType("image/*");
+//        startActivity(Intent.createChooser(intent,"Send Email Using"));
+    }
+
+    public void sendSMS(String message){
+        try {
+            String redefinedMessage = "Dear Sir/Ma'am,\nI have the following concern: \n" + message + " \n\n\n Name: " + displayName;
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage("+918527753545", null, redefinedMessage, null, null);
+            Toast.makeText(getApplicationContext(), "SMS Sent!",
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),
+                    "SMS faild, please try again later!",
+                    Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     public void btnBrowse(View view) {

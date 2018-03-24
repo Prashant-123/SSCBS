@@ -31,6 +31,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
@@ -40,6 +41,9 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.common.Scopes;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -143,11 +147,11 @@ public class AuthUiActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
-            startMainInActivity(null);
-            finish();
-            return;
-        }
+//        if (auth.getCurrentUser() != null) {
+//            startMainInActivity(null);
+//            finish();
+//            return;
+//        }
 
         if (isGoogleMisconfigured()) {
             mUseGoogleProvider.setChecked(false);
@@ -228,9 +232,13 @@ public class AuthUiActivity extends AppCompatActivity {
     private void handleSignInResponse(int resultCode, Intent data) {
         IdpResponse response = IdpResponse.fromResultIntent(data);
 
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
         // Successfully signed in
         if (resultCode == RESULT_OK) {
-            startMainInActivity(response);
+            if (email.contains("gmail.com") == false) {
+                Toast.makeText(this, "Sign-In with your official college email ID.", Toast.LENGTH_LONG).show();
+            }
+            else startMainInActivity(response);
             finish();
             return;
         } else {

@@ -1,6 +1,7 @@
 package com.cbs.sscbs.TeachersTimetable
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -10,8 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import com.cbs.sscbs.Fragments.TimeTable_frag
-import com.cbs.sscbs.Others.FullScreenImage
+import com.cbs.sscbs.utils.FullScreenImage
 import com.cbs.sscbs.R
 import com.cbs.sscbs.utils.FileDownloader
 import com.google.firebase.database.*
@@ -78,11 +78,12 @@ class Sample : AppCompatActivity() {
                                 when (which) {
                                     0 -> {
                                         val intent: Intent = Intent(this@Sample, FullScreenImage::class.java)
+                                        intent.putExtra("orientation", "LANDSCAPE")
                                         intent.putExtra(CONSTANTS.imageurl, url)
                                         startActivity(intent)
                                     }
                                     1 -> {
-                                        TimeTable_frag.DownloadFile().execute(url, "Image.jpg")
+                                        DownloadFile().execute(url, "Image.jpg")
                                         Log.wtf("TAG", "ok")
                                     }
                                 }
@@ -98,8 +99,10 @@ class Sample : AppCompatActivity() {
             }
         })
     }
+    val Context.myApp: Sample
+        get() = applicationContext as Sample
 
-    private class DownloadjFile : AsyncTask<String, Void, Void>() {
+    private class DownloadFile : AsyncTask<String, Void, Void>() {
 
         override fun doInBackground(vararg strings: String): Void? {
             val fileUrl = strings[0]   // -> http://maven.apache.org/maven-1.x/maven.pdf
@@ -118,6 +121,10 @@ class Sample : AppCompatActivity() {
 
             FileDownloader.downloadFile(fileUrl, pdfFile)
             return null
+        }
+
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
         }
     }
 

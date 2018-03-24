@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class TeachersTimeTable extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +58,7 @@ public class TeachersTimeTable extends AppCompatActivity {
                 return false;
             }
         });
-     }
+    }
 
     private ArrayList<Teacher> getTeachers()
     {

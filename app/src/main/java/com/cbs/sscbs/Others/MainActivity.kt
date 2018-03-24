@@ -1,5 +1,7 @@
 package com.cbs.sscbs.Others
 
+//import com.cbs.sscbs.utils.web
+//import com.rom4ek.arcnavigationview.ArcNavigationView
 import am.appwise.components.ni.NoInternetDialog
 import android.content.Context
 import android.content.Intent
@@ -17,6 +19,8 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -26,16 +30,15 @@ import com.cbs.sscbs.SideBar.About_Activity
 import com.cbs.sscbs.SideBar.Gallery_Activity
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
-//import com.cbs.sscbs.utils.web
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
-//import com.rom4ek.arcnavigationview.ArcNavigationView
 import com.thefinestartist.finestwebview.FinestWebView
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import kotlinx.android.synthetic.main.timetable_fragment.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,14 +48,36 @@ class MainActivity : AppCompatActivity() {
     lateinit var mActionBarDrawerToggle: ActionBarDrawerToggle
     lateinit var navigationView: NavigationView
     lateinit var user: FirebaseUser
-
+    private lateinit var mDatabase: FirebaseDatabase
+    private var reference: DatabaseReference? = null
+    val list: ArrayList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //-------------------------------------------------------------------
+        mDatabase = FirebaseDatabase.getInstance()
+        reference = mDatabase.getReference("title/")
+//        reference!!.child("title").child("child").setValue("Hi, there")
+
+        reference!!.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+                progress_br.visibility = View.INVISIBLE
+            }
+
+            override fun onDataChange(p0: DataSnapshot?) {
+                for (dsp: DataSnapshot in p0!!.children){
+                    Log.wtf("TAG", dsp.key.toString())
+                    list?.add(dsp.value.toString())
+                }
+                Log.wtf("TAG", list.toString())
+            }
+        })
+
+        //-------------------------------------------------------------------
 
         val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser == null) {
+        if (currentUser == null || currentUser!!.email!!.contains("gmail.com") == false) {
             startActivity(AuthUiActivity.createIntent(this))
             finish()
             return
@@ -63,6 +88,13 @@ class MainActivity : AppCompatActivity() {
         setbottomnavigator(savedInstanceState)
         NoInternetDialog.Builder(this).build()
     }
+
+//    fun getDetails(users: Map<String, Object>){
+//        val names: ArrayList<String>
+//        for (entry: Map<String, Object> : users.entries){
+//
+//        }
+//    }
 
     fun setToolbar() {
         setSupportActionBar(toolbar)

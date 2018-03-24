@@ -13,10 +13,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.TeachersTimetable.CONSTANTS
-import com.cbs.sscbs.Others.FullScreenImage
+import com.cbs.sscbs.utils.FullScreenImage
 import com.cbs.sscbs.R
 import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable
 import com.cbs.sscbs.utils.FileDownloader
@@ -29,9 +28,9 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 
-
-
 class TimeTable_frag : Fragment() {
+
+    lateinit var processBar: ProgressDialog
 
     lateinit var firebasedb: FirebaseDatabase
     lateinit var firebaseref: DatabaseReference
@@ -176,6 +175,7 @@ class TimeTable_frag : Fragment() {
                                 when (which) {
                                     0 -> {
                                         val intent: Intent = Intent(context, FullScreenImage::class.java)
+                                        intent.putExtra("orientation", "LANDSCAPE")
                                         intent.putExtra(CONSTANTS.imageurl, url)
                                         startActivity(intent)
                                     }
@@ -228,4 +228,19 @@ class TimeTable_frag : Fragment() {
                 return null
             }
         }
+
+    private inner class GetDataFromFirebase : AsyncTask<Void, Void, Boolean>() {
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return false
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+            super.onPostExecute(aBoolean)
+        }
+    }
 }
