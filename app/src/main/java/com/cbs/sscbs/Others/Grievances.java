@@ -7,37 +7,57 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cbs.sscbs.Attendance.AttendanceDataClass;
+import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.Manifest;
 import com.cbs.sscbs.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Grievances extends AppCompatActivity {
 
     ImageView image ;
+    ArrayList<String> list = new ArrayList<>();
     private Uri imgUri;
     static final Integer WRITE_EXST = 0x3;
     public static final int REQUEST_CODE = 1234;
     private static final int CAMERA_REQUEST = 1888;
+
     String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
     String emailID = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
@@ -45,6 +65,8 @@ public class Grievances extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new getMixListFromExcel().execute();
+        Log.i("TAG", String.valueOf(Home_frag.list));
 
         Toast.makeText(this, StringUtils.substringAfterLast(emailID, "@"), Toast.LENGTH_SHORT).show();
 
@@ -57,6 +79,11 @@ public class Grievances extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         image = (ImageView) findViewById(R.id.imgComplaint ) ;
+
+    }
+
+    public void showList(){
+        Log.wtf("TAG", list.toString());
     }
 
     public void sendMail(View view)
@@ -177,6 +204,37 @@ public class Grievances extends AppCompatActivity {
             } else {
                 ActivityCompat.requestPermissions(Grievances.this, new String[]{permission}, requestCode);
             }
+        }
+    }
+
+    public class getMixListFromExcel extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params)
+        {
+            try
+            {
+                CollectionReference getLink = FirebaseFirestore.getInstance().collection("Attendance");
+                getLink.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                            for (DocumentSnapshot snapshot: task.getResult())
+                            {
+                                list.add(snapshot.getId().toString());
+                            }
+                    }
+                });
+            }
+            catch(Exception ex)
+            {
+                Log.e("TAG", "getListFromExcel", ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
         }
     }
 

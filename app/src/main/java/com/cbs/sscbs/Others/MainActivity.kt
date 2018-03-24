@@ -5,10 +5,7 @@ package com.cbs.sscbs.Others
 import am.appwise.components.ni.NoInternetDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.Handler
-import android.os.Parcel
-import android.os.Parcelable
+import android.os.*
 import android.support.annotation.MainThread
 import android.support.annotation.StringRes
 import android.support.design.widget.BottomNavigationView
@@ -32,15 +29,20 @@ import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.thefinestartist.finestwebview.FinestWebView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
 
-class MainActivity : AppCompatActivity() {
+val listBfia: ArrayList<String>? = null
+
+ class MainActivity : AppCompatActivity() {
 
 
     lateinit var bottomNavigationView: BottomNavigationView
@@ -52,7 +54,8 @@ class MainActivity : AppCompatActivity() {
     private var reference: DatabaseReference? = null
     val list: ArrayList<String>? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //-------------------------------------------------------------------
@@ -66,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot?) {
-                for (dsp: DataSnapshot in p0!!.children){
+                for (dsp: DataSnapshot in p0!!.children) {
                     Log.wtf("TAG", dsp.key.toString())
                     list?.add(dsp.value.toString())
                 }
@@ -75,6 +78,17 @@ class MainActivity : AppCompatActivity() {
         })
 
         //-------------------------------------------------------------------
+
+         val getLink = FirebaseFirestore.getInstance().collection("Attendance")
+         getLink.get().addOnCompleteListener { task ->
+             if (task.isSuccessful)
+                 for (snapshot in task.result) {
+                     listBfia?.add(snapshot.id)
+//                     Log.i("TAG", snapshot.id)
+                 }
+         }
+
+
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null || currentUser!!.email!!.contains("gmail.com") == false) {
@@ -270,7 +284,14 @@ class MainActivity : AppCompatActivity() {
                     .putExtra(EXTRA_SIGNED_IN_CONFIG, signedInConfig)
         }
 
+        @JvmStatic
+        fun getBMS(): String {
+            Log.i("TAG", listBfia.toString())
+            return listBfia.toString()
+        }
+
     }
+
 
     override fun onBackPressed() {
         AlertDialog.Builder(this@MainActivity)

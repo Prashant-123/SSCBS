@@ -50,7 +50,7 @@ public class AttendanceMain extends AppCompatActivity {
     TextView tv;
     double newAttendence = 0, newTotal = 0 ;
     Button button1;
-    CollectionReference getLink = FirebaseFirestore.getInstance().collection("Excel Data");
+    CollectionReference getLink = FirebaseFirestore.getInstance().collection("Attendance");
 
     Calendar c = Calendar.getInstance();
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -69,7 +69,6 @@ public class AttendanceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         button1 =  findViewById(R.id.save_at);
         setContentView(R.layout.common_rv);
-
 
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
@@ -178,7 +177,6 @@ public class AttendanceMain extends AppCompatActivity {
                     finish();
             }
         }
-
     }
 
     public void save(final CollectionReference getStu) {
@@ -204,6 +202,9 @@ public class AttendanceMain extends AppCompatActivity {
     }
 
     public class getListFromExcel extends AsyncTask<Void, Void, Void> {
+
+
+
         @Override
         protected Void doInBackground(Void... params)
         {
