@@ -1,23 +1,21 @@
 package com.cbs.sscbs.Attendance;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +28,7 @@ public class AdminActivity extends AppCompatActivity {
     private static final String bfiaURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
    private static final String bmsLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
     private static final String CLASSURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=16WP-U687v4q2MtsJbHM-yCkqQK856tJ5IkiYvgowe90";
+    private static final String bms3 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1x61Klq4PLhwXpZwzeMbax3tlgANRJ8b0q2g_J-1D1DA";
     private static final String SUBURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
 //    private static final String CLASSLISTURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     Calendar c = Calendar.getInstance();
@@ -97,6 +96,7 @@ public class AdminActivity extends AppCompatActivity {
                     String roll_no = c.getString("Roll_No");
                     String sub1 = c.getString("Sub_Type_1");
                     String sub2 = c.getString("Sub_Type_2");
+                   // String core = c.getString("Sub_Type_3");
                     default_map1.put("name", name);
                     db.collection("Attendance").document("BFIA 3A").collection("Students")
                             .document(roll_no).set(default_map1);
@@ -107,11 +107,11 @@ public class AdminActivity extends AppCompatActivity {
                         String type = c2.getString("Sub");
 
                         Log.wtf("TAG" , type.toString());
-                        if(type == sub1 || type == sub2 || type == "0") {
+                        Log.wtf("TAG" ,  String.valueOf( type.toString().equals(String.valueOf(( "0")))));
+                        if(type == sub1 || type == sub2 || type.toString().equals(String.valueOf(( "0")))) {
 
                             db.collection("Attendance").document("BFIA 3A").collection("Students")
                                     .document(roll_no).collection("Year").document(getYear).collection("Subjects").document(sub).set(default_map3);
-
 
                             default_map2.put("attendance", 0);
                             default_map2.put("total", 0);
@@ -127,7 +127,6 @@ public class AdminActivity extends AppCompatActivity {
                 Log.e("TAG", "getListFromExcel", ex);
                 Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
             }
-
             return null;
         }
     }
