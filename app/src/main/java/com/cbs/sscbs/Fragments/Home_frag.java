@@ -42,7 +42,7 @@ public class Home_frag extends Fragment {
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
                     {
-                        if (snapshot.getId().contains("BFIA"))
+                        if (snapshot.getId().contains("BFIA 3"))
                         list.add(snapshot.getId().toString());
 
                     }

@@ -40,7 +40,6 @@ import com.thefinestartist.finestwebview.FinestWebView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
 
-val listBfia: ArrayList<String>? = null
 
  class MainActivity : AppCompatActivity() {
 
@@ -52,7 +51,6 @@ val listBfia: ArrayList<String>? = null
     lateinit var user: FirebaseUser
     private lateinit var mDatabase: FirebaseDatabase
     private var reference: DatabaseReference? = null
-    val list: ArrayList<String>? = null
 
 
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,30 +61,30 @@ val listBfia: ArrayList<String>? = null
         reference = mDatabase.getReference("title/")
 //        reference!!.child("title").child("child").setValue("Hi, there")
 
-        reference!!.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
-                progress_br.visibility = View.INVISIBLE
-            }
-
-            override fun onDataChange(p0: DataSnapshot?) {
-                for (dsp: DataSnapshot in p0!!.children) {
-                    Log.wtf("TAG", dsp.key.toString())
-                    list?.add(dsp.value.toString())
-                }
-                Log.wtf("TAG", list.toString())
-            }
-        })
+//        reference!!.addValueEventListener(object : ValueEventListener {
+//            override fun onCancelled(p0: DatabaseError?) {
+//                progress_br.visibility = View.INVISIBLE
+//            }
+//
+//            override fun onDataChange(p0: DataSnapshot?) {
+//                for (dsp: DataSnapshot in p0!!.children) {
+//                    Log.wtf("TAG", dsp.key.toString())
+//                    list?.add(dsp.value.toString())
+//                }
+//                Log.wtf("TAG", "bhhihh"+list.toString())
+//            }
+//        })
 
         //-------------------------------------------------------------------
 
-         val getLink = FirebaseFirestore.getInstance().collection("Attendance")
-         getLink.get().addOnCompleteListener { task ->
-             if (task.isSuccessful)
-                 for (snapshot in task.result) {
-                     listBfia?.add(snapshot.id)
-//                     Log.i("TAG", snapshot.id)
-                 }
-         }
+//         val getLink = FirebaseFirestore.getInstance().collection("Attendance")
+//         getLink.get().addOnCompleteListener { task ->
+//             if (task.isSuccessful)
+//                 for (snapshot in task.result) {
+//                     listBfia?.add(snapshot.id)
+////                     Log.i("TAG", snapshot.id)
+//                 }
+//         }
 
 
 
@@ -284,11 +282,11 @@ val listBfia: ArrayList<String>? = null
                     .putExtra(EXTRA_SIGNED_IN_CONFIG, signedInConfig)
         }
 
-        @JvmStatic
-        fun getBMS(): String {
-            Log.i("TAG", listBfia.toString())
-            return listBfia.toString()
-        }
+//        @JvmStatic
+//        fun getBMS(): String {
+//            Log.i("TAG", listBfia.toString())
+//            return listBfia.toString()
+//        }
 
     }
 

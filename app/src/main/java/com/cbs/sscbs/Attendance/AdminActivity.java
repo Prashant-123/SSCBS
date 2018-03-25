@@ -106,8 +106,6 @@ public class AdminActivity extends AppCompatActivity {
                         String sub = c2.getString("Semester_A");
                         String type = c2.getString("Sub");
 
-                        Log.wtf("TAG" , type.toString());
-                        Log.wtf("TAG" ,  String.valueOf( type.toString().equals(String.valueOf(( "0")))));
                         if(type == sub1 || type == sub2 || type.toString().equals(String.valueOf(( "0")))) {
 
                             db.collection("Attendance").document("BFIA 3A").collection("Students")

@@ -65,9 +65,7 @@ public class Grievances extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new getMixListFromExcel().execute();
-        Log.i("TAG", String.valueOf(Home_frag.list));
-
+        //new getMixListFromExcel().execute();
         Toast.makeText(this, StringUtils.substringAfterLast(emailID, "@"), Toast.LENGTH_SHORT).show();
 
         askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,WRITE_EXST);
@@ -82,9 +80,6 @@ public class Grievances extends AppCompatActivity {
 
     }
 
-    public void showList(){
-        Log.wtf("TAG", list.toString());
-    }
 
     public void sendMail(View view)
     {
@@ -130,7 +125,7 @@ public class Grievances extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
-                    "SMS faild, please try again later!",
+                    "SMS failed, Please try again later!",
                     Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
