@@ -24,6 +24,7 @@ import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.Attendance.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +46,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
     String classs, monthIntent, yearIntent;
+    Button faculty, stu, admin;
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
@@ -53,7 +55,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     //String user = "Sonika Thakral";
     ArrayList<String> getYearss = new ArrayList<>();
     LinearLayout stuLayout, facultyLayout;
-    String adminId = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
     public Attendance_Frag() {}
 
@@ -61,11 +62,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
-        stuLayout = myView.findViewById(R.id.stuLayout);
-        facultyLayout = myView.findViewById(R.id.facultyLayout);
-        Button faculty = myView.findViewById(R.id.faculty);
-        Button stu = myView.findViewById(R.id.students);
-        Button admin = myView.findViewById(R.id.admin);
+        initView(myView);
+//        verifyAdmin();
 
         getYears.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -75,7 +73,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     for (DocumentSnapshot document : task.getResult()) {
                         getYearss.add(document.getId());
                     }
-
                 }
             }
         });
@@ -85,61 +82,18 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adminId.compareTo("goyaltanvi94@gmail.com")==0){
-                    Intent intent = new Intent(getContext(),AdminActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(getContext(), "Sorry! You do not have the admin access ", Toast.LENGTH_SHORT).show();
                 }
-            }
+
         });
 
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final int[] flag = {0};
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setTitle("Verify Credentials");
-                alert.setView(null);
-                alert.setCancelable(false);
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        CollectionReference subType = FirebaseFirestore.getInstance().collection("Teachers");
-                        subType
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (DocumentSnapshot document : task.getResult()) {
-                                                if (document.getId().compareToIgnoreCase(user) == 0) {
-                                                     flag[0] = 1;
-                                                    Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
-                                                    intent.putExtra("getUser", user);
-                                                    startActivity(intent);
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        if(flag[0] ==0){
-                                            Toast.makeText(getContext(), "Please make sure you are registered as a faculty of SSCBS", Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-                    }
-                });
-                AlertDialog dialog = alert.create();
-                dialog.show();
+                if (Home_frag.faculty_list.contains(user)){
+                    Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
+                    intent.putExtra("getUser", user);
+                    startActivity(intent);
+                } else Toast.makeText(getContext(), "Please Log-In with your official Email-Id.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -360,6 +314,42 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public String[] theMonth() {
         return new String[]{"Select Month", "Jan", "Feb", "Mar", "Apr", "May",
                 "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    }
+
+    public void initView(View myView) {
+        stuLayout = myView.findViewById(R.id.stuLayout);
+        facultyLayout = myView.findViewById(R.id.facultyLayout);
+        faculty = myView.findViewById(R.id.faculty);
+        stu = myView.findViewById(R.id.students);
+        admin = myView.findViewById(R.id.admin);
+    }
+
+    public void verifyAdmin(){
+        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+        CollectionReference teachers = FirebaseFirestore.getInstance().collection("Teachers");
+        teachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                    for (DocumentSnapshot snapshot : task.getResult())
+                    {
+                        if (snapshot.getBoolean("admin")!= null) {
+                            if (snapshot.getId().equals(currentUser) && snapshot.getBoolean("admin") == true) {
+                                Log.i(TAG, "VERIFIED...");
+                                break;
+                            }
+                            if (snapshot.getId().equals(currentUser) && snapshot.getBoolean("admin") == false)
+                                Toast.makeText(getContext(), "Sorry! You do not have the admin access ", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "Admin not Verified...");
+            }
+        });
     }
 
 }
