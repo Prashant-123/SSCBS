@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
@@ -72,13 +73,15 @@ public class AttendanceMain extends AppCompatActivity {
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
 
+        //new bfiaExcelSheet().execute();
+        new bfiaMixExcelSheet().execute();
         getDataFromIntent();
-        if(clas.contains("bsc")){
-            new bscExcelSheet().execute();
-        }
-        else  if(clas.contains("bfia")){
-            new bfiaExcelSheet().execute();
-        }
+//        if(clas.contains("bsc")){
+//            new bscExcelSheet().execute();
+//        }
+//        else  if(clas.contains("bfia")){
+//
+//        }
 
         adapter.notifyDataSetChanged();
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
@@ -90,17 +93,17 @@ public class AttendanceMain extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.loading_lists);
         adapter.notifyDataSetChanged();
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(clas.contains("bsc")){
-                    bscSave(v);
-                }
-                else  if(clas.contains("bfia")){
-                    bfiaSave(v);
-                }
-            }
-        });
+//        button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(clas.contains("bsc")){
+//                    bscSave(v);
+//                }
+//                else  if(clas.contains("bfia")){
+//                    bfiaSave(v);
+//                }
+//            }
+//        });
     }
 
     private void getDataFromIntent() {
@@ -306,6 +309,87 @@ public class AttendanceMain extends AppCompatActivity {
         }
     }
 
+    public class bfiaMixExcelSheet extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                HttpHandler sh = new HttpHandler();
+                String jsonStr = sh.makeServiceCall(bfiaSheet);
+                JSONObject object = new JSONObject(jsonStr);
+                for(int h= 0 ; h < Home_frag.bfia3List.size();h++) {
+                    JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
+
+                    for (int i = 0; i < sheet.length(); i++) {
+                        JSONObject c = sheet.getJSONObject(i);
+                        String name = c.getString("Name");
+                        String roll_no = c.getString("Roll_No");
+                        String grp = c.getString("Lab_Group");
+                        String tute = c.getString("Tute");
+                        String sub1 = c.getString("Sub_Type_1");
+                        String sub2 = c.getString("Sub_Type_2");
+
+                        Log.wtf(TAG, type);
+
+                        if (type.equals("1")) {
+                            if (grp.equals("1")) {
+                                if (sub1.equals("2") || sub2.equals("2")) {
+                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                    showdata.add(dataClass);
+                                }
+                            }
+                        } else if (type.equals("2")) {
+                            if (grp.equals("2")) {
+                                if (sub1.equals("2") || sub2.equals("2")) {
+                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                    showdata.add(dataClass);
+                                }
+                            }
+                        } else if (type.equals("3")) {
+                            if (tute.equals("1")) {
+                                if (sub1.equals("2") || sub2.equals("2")) {
+                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                    showdata.add(dataClass);
+                                }
+                            }
+
+                        } else if (type.equals("4")) {
+                            if (tute.equals("2")) {
+                                if (sub1.equals("2") || sub2.equals("2")) {
+                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                    showdata.add(dataClass);
+                                }
+                            }
+                        } else if (type.equals("5")) {
+                            if (tute.equals("3")) {
+                                if (sub1.equals("2") || sub2.equals("2")) {
+                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                    showdata.add(dataClass);
+                                }
+                            }
+                        } else {
+                            if (sub1.equals("2") || sub2.equals("2")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e("TAG", "getListFromExcel", ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            adapter.notifyDataSetChanged();
+            bar.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void bfiaSave(View view) {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
@@ -388,7 +472,6 @@ public class AttendanceMain extends AppCompatActivity {
 ////                        String typesub = c2.getString("Sub");
 ////                        if (sub == subj) {
 //                        if (type == 0) {
-//
 //                            if (sub1.equals("2") || sub2.equals("2")) {
 //                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                showdata.add(dataClass);

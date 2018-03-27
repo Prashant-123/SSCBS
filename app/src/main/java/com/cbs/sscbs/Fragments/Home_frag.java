@@ -26,7 +26,7 @@ public class Home_frag extends Fragment {
     }
 
     public static ArrayList<String> faculty_list = new ArrayList<>();
-    public static ArrayList<String> list = new ArrayList<>();
+    public static ArrayList<String> bfia3List = new ArrayList<>();
     String user;
     public static ArrayList<String> classes_alloted = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class Home_frag extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         faculty_list();                 //Get all teachers from Firebase to verify.
         faculty_subjects();             //Get subjects for Logged in User.
-
+        Bfia_3_List();
         return myView;
     }
 
@@ -51,6 +51,20 @@ public class Home_frag extends Fragment {
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
                         faculty_list.add(snapshot.getId().toString());
+            }
+        });
+    }
+
+    public void Bfia_3_List(){
+        CollectionReference reference = FirebaseFirestore.getInstance().collection("Attendance");
+        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                faculty_list.clear();
+                if (task.isSuccessful())
+                    for (DocumentSnapshot snapshot : task.getResult())
+                        if (snapshot.getId().toString().contains("BFIA-3"))
+                            bfia3List.add(snapshot.getId().toString());
             }
         });
     }

@@ -88,7 +88,8 @@ public class AdminActivity extends AppCompatActivity {
                 alertDialog.setMessage("Are you sure you want upload new lists ?");
                 alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
-                        new uploadBfiaList().execute();
+                       // new uploadBfiaList().execute();
+                        new uploadBfiaMixList().execute();
                         Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -127,7 +128,7 @@ public class AdminActivity extends AppCompatActivity {
 
                     for(int j = 0 ; j < subjectsListArray.length(); j++){
                         JSONObject  jsonObject1 = subjectsListArray.getJSONObject(j);
-                        String subject = jsonObject1.getString("Semester_B");
+                        String subject = jsonObject1.getString("Semester_A");
 
                         db.collection("Attendance").document("Bsc-2").collection("Students")
                                 .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject).set(default_map3);
@@ -161,8 +162,10 @@ public class AdminActivity extends AppCompatActivity {
                 JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
                 JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
 
-                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-1A");
-                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-1A");
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-1B");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-1B");
+
+                Log.wtf("TAG", "ok  "+studentsListArray.length());
 
                 for(int i = 0 ; i < studentsListArray.length() ; i++){
                     JSONObject jsonObject = studentsListArray.getJSONObject(i);
@@ -170,27 +173,81 @@ public class AdminActivity extends AppCompatActivity {
                     String stu_roll = jsonObject.getString("Roll_No");
 
                     default_map1.put("Name" , stu_name);
-                    db.collection("Attendance").document("BFIA-1A").collection("Students").document(stu_roll).set(default_map1);
+                    db.collection("Attendance").document("BFIA-1B").collection("Students").document(stu_roll).set(default_map1);
 
                     for(int j = 0 ; j < subjectsListArray.length(); j++){
                         JSONObject  jsonObject1 = subjectsListArray.getJSONObject(j);
-                        String subject = jsonObject1.getString("Semester_B");
+                        String subject = jsonObject1.getString("Semester_A");
 
-                        db.collection("Attendance").document("BFIA-1A").collection("Students")
-                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject).set(default_map3);
+                        db.collection("Attendance").document("BFIA-1B").collection("Students")
+                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects")
+                                .document(subject).set(default_map3);
 
                         default_map2.put("attendance", 0);
                         default_map2.put("total", 0);
 
-                        db.collection("Attendance").document("BFIA-1A").collection("Students")
+                        db.collection("Attendance").document("BFIA-1B").collection("Students")
                                 .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
                                 .collection("Months").document(getMonth).set(default_map2);
                     }
                 }
 
+            } catch (Exception ex) {
+//                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
+    }
+
+    public class uploadBfiaMixList extends AsyncTask<Void , Void , Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                HttpHandler httpHandler = new HttpHandler();
+                String bfiaStudentsList = httpHandler.makeServiceCall(bfiaURL);
+                String bfiaSubjectsList = httpHandler.makeServiceCall(SUBURL);
+
+                JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
+                JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
+
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-3B");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-3B");
+
+                Log.wtf("TAG", "ok  "+studentsListArray.length());
+
+                for(int i = 0 ; i < studentsListArray.length() ; i++){
+                    JSONObject jsonObject = studentsListArray.getJSONObject(i);
+                    String stu_name = jsonObject.getString("Name");
+                    String stu_roll = jsonObject.getString("Roll_No");
+                    String sub1 = jsonObject.getString("Sub_Type_1");
+                    String sub2 = jsonObject.getString("Sub_Type_2");
+
+                    default_map1.put("Name" , stu_name);
+                    db.collection("Attendance").document("BFIA-3B").collection("Students").document(stu_roll).set(default_map1);
+
+                    for(int j = 0 ; j < subjectsListArray.length(); j++) {
+                        JSONObject jsonObject1 = subjectsListArray.getJSONObject(j);
+                        String subject = jsonObject1.getString("Semester_A");
+                        String type = jsonObject1.getString("Sub");
+
+                        if (type == sub1 || type == sub2 || type.toString().equals(String.valueOf(("0")))) {
+                            db.collection("Attendance").document("BFIA-3B").collection("Students")
+                                    .document(stu_roll).collection("Year").document(getYear).collection("Subjects")
+                                    .document(subject).set(default_map3);
+
+                            default_map2.put("attendance", 0);
+                            default_map2.put("total", 0);
+
+                            db.collection("Attendance").document("BFIA-3B").collection("Students")
+                                    .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
+                                    .collection("Months").document(getMonth).set(default_map2);
+                        }
+                    }
+                }
 
             } catch (Exception ex) {
-                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+//                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
             }
             return null;
         }
