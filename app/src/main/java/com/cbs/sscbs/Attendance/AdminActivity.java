@@ -25,6 +25,7 @@ import java.util.Map;
 
 public class AdminActivity extends AppCompatActivity {
 
+    private static final String bscSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     private static final String bfiaURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
    private static final String bmsLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
     private static final String CLASSURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=16WP-U687v4q2MtsJbHM-yCkqQK856tJ5IkiYvgowe90";
@@ -54,8 +55,11 @@ public class AdminActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         default_map3.put("field" ,"");
 
-        Button uploadClassList = findViewById(R.id.uploadClassList);
-        uploadClassList.setOnClickListener(new View.OnClickListener() {
+        Button uploadBscClassList = findViewById(R.id.uploadBscClassList);
+        Button uploadBfiaClassList = findViewById(R.id.uploadBfiaClassList);
+        Button uploadBmsClassList = findViewById(R.id.uploadBmsClassList);
+
+        uploadBscClassList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminActivity.this);
@@ -63,7 +67,7 @@ public class AdminActivity extends AppCompatActivity {
                 alertDialog.setMessage("Are you sure you want upload new lists ?");
                 alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
-                        new uploadListFromExcel().execute();
+                        new uploadBscList().execute();
                         Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -75,6 +79,121 @@ public class AdminActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+        uploadBfiaClassList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminActivity.this);
+                alertDialog.setTitle(" Confirm Upload ");
+                alertDialog.setMessage("Are you sure you want upload new lists ?");
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        new uploadBfiaList().execute();
+                        Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
+                    }
+                });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+    }
+
+    public class uploadBscList extends AsyncTask<Void , Void , Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                HttpHandler httpHandler = new HttpHandler();
+                String bscStudentsList = httpHandler.makeServiceCall(bscSheet);
+                String bscSubjectsList = httpHandler.makeServiceCall(SUBURL);
+
+                JSONObject studentsListObject = new JSONObject(bscStudentsList);
+                JSONObject subjectsListObject = new JSONObject(bscSubjectsList);
+
+                JSONArray studentsListArray = studentsListObject.getJSONArray("Bsc-2");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("Bsc-2");
+
+                for(int i = 0 ; i < studentsListArray.length() ; i++){
+                    JSONObject jsonObject = studentsListArray.getJSONObject(i);
+                    String stu_name = jsonObject.getString("Name");
+                    String stu_roll = jsonObject.getString("Roll_No");
+
+                    default_map1.put("Name" , stu_name);
+                    db.collection("Attendance").document("Bsc-2").collection("Students").document(stu_roll).set(default_map1);
+
+                    for(int j = 0 ; j < subjectsListArray.length(); j++){
+                        JSONObject  jsonObject1 = subjectsListArray.getJSONObject(j);
+                        String subject = jsonObject1.getString("Semester_B");
+
+                        db.collection("Attendance").document("Bsc-2").collection("Students")
+                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject).set(default_map3);
+
+                        default_map2.put("attendance", 0);
+                        default_map2.put("total", 0);
+
+                        db.collection("Attendance").document("Bsc-2").collection("Students")
+                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
+                                .collection("Months").document(getMonth).set(default_map2);
+                    }
+                }
+
+
+            } catch (Exception ex) {
+                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
+    }
+
+    public class uploadBfiaList extends AsyncTask<Void , Void , Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                HttpHandler httpHandler = new HttpHandler();
+                String bfiaStudentsList = httpHandler.makeServiceCall(bfiaURL);
+                String bfiaSubjectsList = httpHandler.makeServiceCall(SUBURL);
+
+                JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
+                JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
+
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-1A");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-1A");
+
+                for(int i = 0 ; i < studentsListArray.length() ; i++){
+                    JSONObject jsonObject = studentsListArray.getJSONObject(i);
+                    String stu_name = jsonObject.getString("Name");
+                    String stu_roll = jsonObject.getString("Roll_No");
+
+                    default_map1.put("Name" , stu_name);
+                    db.collection("Attendance").document("BFIA-1A").collection("Students").document(stu_roll).set(default_map1);
+
+                    for(int j = 0 ; j < subjectsListArray.length(); j++){
+                        JSONObject  jsonObject1 = subjectsListArray.getJSONObject(j);
+                        String subject = jsonObject1.getString("Semester_B");
+
+                        db.collection("Attendance").document("BFIA-1A").collection("Students")
+                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject).set(default_map3);
+
+                        default_map2.put("attendance", 0);
+                        default_map2.put("total", 0);
+
+                        db.collection("Attendance").document("BFIA-1A").collection("Students")
+                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
+                                .collection("Months").document(getMonth).set(default_map2);
+                    }
+                }
+
+
+            } catch (Exception ex) {
+                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
     }
 
     public class uploadListFromExcel extends AsyncTask<Void, Void, Void> {

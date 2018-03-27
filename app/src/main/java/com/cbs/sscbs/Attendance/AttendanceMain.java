@@ -43,7 +43,7 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String SUBURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
     private static final String bscLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
     private static final String bmsLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
-    private static final String bfiaLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
+    private static final String bfiaSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
 
     String clas, sub, type;
     ProgressBar bar;
@@ -73,9 +73,14 @@ public class AttendanceMain extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         getDataFromIntent();
-        new bscExcelSheet().execute();
-        adapter.notifyDataSetChanged();
+        if(clas.contains("bsc")){
+            new bscExcelSheet().execute();
+        }
+        else  if(clas.contains("bfia")){
+            new bfiaExcelSheet().execute();
+        }
 
+        adapter.notifyDataSetChanged();
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
         toolbar.setTitle(clas + " / " + sub);
         setSupportActionBar(toolbar);
@@ -84,6 +89,18 @@ public class AttendanceMain extends AppCompatActivity {
         bar = (ProgressBar) findViewById(R.id.list_progress_bar);
         tv = (TextView) findViewById(R.id.loading_lists);
         adapter.notifyDataSetChanged();
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clas.contains("bsc")){
+                    bscSave(v);
+                }
+                else  if(clas.contains("bfia")){
+                    bfiaSave(v);
+                }
+            }
+        });
     }
 
     private void getDataFromIntent() {
@@ -98,24 +115,22 @@ public class AttendanceMain extends AppCompatActivity {
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
             if (type.equals("1") || type.equals("2")) { //If there's LAB.
                 while (i < AttendanceAdapter.saveRoll.size()) {
-                    for (int g = 0; g < AttendanceAdapter.saveRoll.size(); g++) {
                         final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                                 + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
                                 .collection("/Subjects/").document(sub +  " [L]")
                                 .collection("/Months");
-                        updateBsc(getStu);
-                    }  i++;
+                        update(getStu);
+                      i++;
                 }
             }
             else {
                 while (i < AttendanceAdapter.saveRoll.size()) {
-                    for (int g = 0; g < AttendanceAdapter.saveRoll.size(); g++) {
                         final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                                 + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
                                 .collection("/Subjects/").document(sub)
                                 .collection("/Months");
-                        updateBsc(getStu);
-                    }  i++;
+                        update(getStu);
+                      i++;
                 }
             }
             switch_to_main();
@@ -128,7 +143,7 @@ public class AttendanceMain extends AppCompatActivity {
         finish();
     }
 
-    public void updateBsc(final CollectionReference getStu) {
+    public void update(final CollectionReference getStu) {
         getStu.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -162,6 +177,7 @@ public class AttendanceMain extends AppCompatActivity {
                 String jsonStr = sh.makeServiceCall(bscSheet);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray sheet = object.getJSONArray(clas);
+                Log.wtf(TAG , type);
 
                 for (int i = 0; i < sheet.length(); i++) {
                     JSONObject c = sheet.getJSONObject(i);
@@ -223,6 +239,107 @@ public class AttendanceMain extends AppCompatActivity {
 //            });
 //
         }
+    }
+
+    public class bfiaExcelSheet extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                HttpHandler sh = new HttpHandler();
+                String jsonStr = sh.makeServiceCall(bfiaSheet);
+                JSONObject object = new JSONObject(jsonStr);
+                JSONArray sheet = object.getJSONArray(clas);
+
+                for (int i = 0; i < sheet.length(); i++) {
+                    JSONObject c = sheet.getJSONObject(i);
+                    String name = c.getString("Name");
+                    String roll_no = c.getString("Roll_No");
+                    String grp = c.getString("Lab_Group");
+                    String tute = c.getString("Tute");
+                    Log.wtf(TAG , type);
+
+                    if (type.equals("1")) {
+                        if (grp.equals("1")) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                    } else if (type.equals("2")) {
+                        if (grp.equals("2")) {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                    }else if(type.equals("3")){
+                        if(tute.equals("1")){
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+
+                    }else if(type.equals("4")){
+                        if(tute.equals("2")){
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                    }else if(type.equals("5")){
+                        if(tute.equals("3")){
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                    }
+                    else {
+                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                        showdata.add(dataClass);
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e("TAG", "getListFromExcel", ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            adapter.notifyDataSetChanged();
+            bar.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void bfiaSave(View view) {
+        int i = 0;
+        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+        if (type.equals("1") || type.equals("2")) { //If there's LAB.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub +  " [L]")
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        }
+        else if(type.equals("3") || type.equals("4") || type.equals("5")){ //If there's TUTE.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub +  " [T]")
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        }
+        else {
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub)
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        }
+        switch_to_main();
     }
 
 //    public class getMixListFromExcel extends AsyncTask<Void, Void, Void> {

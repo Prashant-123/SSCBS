@@ -18,7 +18,7 @@
 
 
     <Button
-        android:id="@+id/uploadClassList"
+        android:id="@+id/uploadBscClassList"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="300dp"
         android:layout_height="50dp"
@@ -27,7 +27,37 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="Upload Class Lists"
+        android:text="Upload BSC Lists"
+        android:textColor="@color/black"
+        android:background="@drawable/shape2"
+        />
+
+    <Button
+        android:id="@+id/uploadBfiaClassList"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Upload BFIA Lists"
+        android:textColor="@color/black"
+        android:background="@drawable/shape2"
+        />
+
+    <Button
+        android:id="@+id/uploadBmsClassList"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Upload BMS Lists"
         android:textColor="@color/black"
         android:background="@drawable/shape2"
         />

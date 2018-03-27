@@ -65,7 +65,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0)
-                    Toast.makeText(TeacherCourseDetails.this, "Please select your class", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherCourseDetails.this, "Select your class", Toast.LENGTH_SHORT).show();
                 else {
                     getClass = adapterView.getItemAtPosition(i).toString();
                     showSub(getName, subSpinner, typeSpinner);

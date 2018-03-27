@@ -50,6 +50,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
+    CollectionReference getTeachers = FirebaseFirestore.getInstance().collection("Teachers");
     CollectionReference getYears = FirebaseFirestore.getInstance().collection("Academic Year");
     String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
     //String user = "Sonika Thakral";
@@ -59,7 +60,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public Attendance_Frag() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
         initView(myView);
@@ -68,7 +69,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         getYears.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                 if(task.isSuccessful()){
                     for (DocumentSnapshot document : task.getResult()) {
                         getYearss.add(document.getId());
@@ -77,12 +77,39 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             }
         });
 
-        CollectionReference subType = FirebaseFirestore.getInstance().collection("Teachers");
 
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(user.equals("goyaltanvi94@gmail.com")){
+                    Intent intent = new Intent(getContext(),AdminActivity.class);
+                    startActivity(intent);
                 }
+//                getTeachers.get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (DocumentSnapshot document : task.getResult()) {
+//                                        Log.d(TAG, document.getId() + " => " + document.getData());
+//                                        if(user.equals(document.getId())){
+//                                            if(document.getData().toString().substring(7,document.getData().toString().length()-1).equals("true")){
+//                                                Intent intent = new Intent(getContext(),AdminActivity.class);
+//                                                startActivity(intent);
+//                                            }else{
+//                                                Toast.makeText(getContext(), "You Do not have the admin rights of the software", Toast.LENGTH_SHORT).show();
+//                                            }
+//
+//                                        }
+//                                    }
+//                                } else {
+//                                    Log.d(TAG, "Error getting documents: ", task.getException());
+//                                }
+//                            }
+//                        });
+
+            }
 
         });
 
