@@ -142,11 +142,13 @@ public class TeacherCourseDetails extends AppCompatActivity {
 
                                                                     Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
 //                                                                    intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
-                                                                    intent.putExtra("type", String.valueOf(adapterView.getSelectedItemPosition()));
+                                                                    intent.putExtra("type", String.valueOf(adapterView.getSelectedItem()));
                                                                     intent.putExtra("class", getClass);
                                                                     intent.putExtra("subject", getSub);
 
-//                                                                    Log.wtf(TAG, (getClass + "->" + adapterView.getSelectedItem()) + "->" + getSub);
+
+
+                                                                    Log.wtf(TAG, ("->" + adapterView.getSelectedItem()) + "->" );
 
                                                                     startActivity(intent);
                                                             }

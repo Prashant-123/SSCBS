@@ -56,11 +56,13 @@ public class Home_frag extends Fragment {
     }
 
     public void Bfia_3_List(){
+
+        bfia3List.clear();
+
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Attendance");
         reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                faculty_list.clear();
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
                         if (snapshot.getId().toString().contains("BFIA-3"))
