@@ -109,6 +109,59 @@ public class AttendanceMain extends AppCompatActivity {
         Log.wtf(TAG, "ok"+type);
     }
 
+    private void switch_to_main() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        AttendanceAdapter.saveRoll.clear();
+        startActivity(intent);
+        finish();
+    }
+
+    public void update(final CollectionReference getStu) {
+        getStu.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    db.runTransaction(new Transaction.Function<Void>() {
+                        @Override
+                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                            final DocumentReference sfDocRef = getStu.document(getMonth);
+                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
+                            newAttendence = (snapshot.getDouble("attendance")) + 1;
+                            transaction.update(sfDocRef, "attendance", newAttendence);
+                            return null;
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i(TAG, "Attendence updated");
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void updateTotal(final CollectionReference toUpdateTotal, final String s) {
+        toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    db.runTransaction(new Transaction.Function<Void>() {
+                        @Override
+                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                            final DocumentReference sfDocRef = toUpdateTotal.document(getMonth);
+                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
+                            newTotal = (snapshot.getDouble("total")) + 1;
+                            transaction.update(sfDocRef, "total", newTotal);
+                            Log.i(TAG, "Total updated-> " + s);
+                            return null;
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     public void bscSave(View view) {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
@@ -158,73 +211,7 @@ public class AttendanceMain extends AppCompatActivity {
 //        switch_to_main();
     }
 
-    private void switch_to_main() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        AttendanceAdapter.saveRoll.clear();
-        startActivity(intent);
-        finish();
-    }
-
-    public void update(final CollectionReference getStu) {
-        getStu.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    db.runTransaction(new Transaction.Function<Void>() {
-                        @Override
-                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                            final DocumentReference sfDocRef = getStu.document(getMonth);
-                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
-                            newAttendence = (snapshot.getDouble("attendance")) + 1;
-                            transaction.update(sfDocRef, "attendance", newAttendence);
-                            return null;
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.i(TAG, "Attendence updated");
-                        }
-                    });
-                }
-            }
-        });
-    }
-
     public void bfiaSave(View view) {
-        int i = 0;
-        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
-        if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
-            while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub + " [L]")
-                        .collection("/Months");
-                update(getStu);
-                i++;
-            }
-        } else if (type.equals(" Tute-G1") || type.equals(" Tute-G2") || type.equals(" Tute-G3")) { //If there's TUTE.
-            while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub + " [T]")
-                        .collection("/Months");
-                update(getStu);
-                i++;
-            }
-        } else {
-            while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub)
-                        .collection("/Months");
-                update(getStu);
-                i++;
-            }
-        }
-        switch_to_main();
-    }
-
-    public void bmsSave(View view) {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
         if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
@@ -298,6 +285,40 @@ public class AttendanceMain extends AppCompatActivity {
         switch_to_main();
     }
 
+    public void bmsSave(View view) {
+        int i = 0;
+        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+        if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub + " [L]")
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        } else if (type.equals(" Tute-G1") || type.equals(" Tute-G2") || type.equals(" Tute-G3")) { //If there's TUTE.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub + " [T]")
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        } else {
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub)
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        }
+        switch_to_main();
+    }
+
     public class bscExcelSheet extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -344,27 +365,6 @@ public class AttendanceMain extends AppCompatActivity {
             tv.setVisibility(View.INVISIBLE);
 
         }
-    }
-
-    private void updateTotal(final CollectionReference toUpdateTotal, final String s) {
-        toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    db.runTransaction(new Transaction.Function<Void>() {
-                        @Override
-                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                            final DocumentReference sfDocRef = toUpdateTotal.document(getMonth);
-                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
-                            newTotal = (snapshot.getDouble("total")) + 1;
-                            transaction.update(sfDocRef, "total", newTotal);
-                            Log.i(TAG, "Total updated-> " + s);
-                            return null;
-                        }
-                    });
-                }
-            }
-        });
     }
 
     public class bfiaExcelSheet extends AsyncTask<Void, Void, Void> {
@@ -504,11 +504,8 @@ public class AttendanceMain extends AppCompatActivity {
                 String jsonStr = sh.makeServiceCall(bfiaSheet);
                 JSONObject object = new JSONObject(jsonStr);
 
-               //5 String bscSubjectsList = httpHandler.makeServiceCall(SUBURL);
-
                 for(int h= 0 ; h < Home_frag.bfia3List.size();h++) {
                     JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
-
                     for (int i = 0; i < sheet.length(); i++) {
                         JSONObject c = sheet.getJSONObject(i);
                         String name = c.getString("Name");

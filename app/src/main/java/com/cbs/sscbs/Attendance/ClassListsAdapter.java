@@ -33,7 +33,7 @@ class ClassListsAdapter extends RecyclerView.Adapter<ClassListsAdapter.ViewHolde
             @Override
             public void onItemClick(View v, int pos) {
                 Toast.makeText(holder.itemView.getContext(),"Selected : " + holder.className.getText().toString(), Toast.LENGTH_SHORT).show();
-//                if( holder.className.getText().toString().contains("BSC")){
+//                if( holder.className.getText().toString().contains("Bsc")){
 //                    new AdminActivity.uploadBscList().execute();
 //                }
 //
