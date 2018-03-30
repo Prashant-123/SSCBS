@@ -235,7 +235,7 @@ public class AuthUiActivity extends AppCompatActivity {
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
         // Successfully signed in
         if (resultCode == RESULT_OK) {
-            if (email.contains("gmail.com") == false) {
+            if (email.contains("gmail.com") == true) {
                 Toast.makeText(this, "Sign-In with your official college email ID.", Toast.LENGTH_LONG).show();
             }
             else startMainInActivity(response);

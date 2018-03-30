@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.cbs.sscbs.Attendance.AttendanceDataClass;
 import com.cbs.sscbs.Fragments.Home_frag;
-import com.cbs.sscbs.Manifest;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
