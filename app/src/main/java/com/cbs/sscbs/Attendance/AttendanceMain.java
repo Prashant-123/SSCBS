@@ -76,11 +76,16 @@ public class AttendanceMain extends AppCompatActivity {
 
         getDataFromIntent();
 
-//
         if(clas.contains("Bsc")){
             new bscExcelSheet().execute();
         }
-        else  if(clas.contains("Bfia")){
+        else if((clas.contains("BMS-1"))||(clas.contains("BMS-2"))){
+            new bmsExcelSheet().execute();
+        }
+        else if((clas.contains("BFIA-1"))||(clas.contains("BFIA-2"))){
+            new bfiaExcelSheet().execute();
+        }
+        else if(clas.contains("BFIA-3")){
             new bfiaMixExcelSheet().execute();
         }
 
@@ -94,17 +99,6 @@ public class AttendanceMain extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.loading_lists);
         adapter.notifyDataSetChanged();
 
-//        button1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(clas.contains("bsc")){
-//                    bscSave(v);
-//                }
-//                else  if(clas.contains("bfia")){
-//                    bfiaSave(v);
-//                }
-//            }
-//        });
     }
 
     private void getDataFromIntent() {
@@ -391,28 +385,28 @@ public class AttendanceMain extends AppCompatActivity {
                     String tute = c.getString("Tute");
                     Log.wtf(TAG, type);
 
-                    if (type.equals("1")) {
+                    if (type.equals("Lab-G1")) {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
-                    } else if (type.equals("2")) {
+                    } else if (type.equals("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
-                    } else if (type.equals("3")) {
+                    } else if (type.equals("Tute-G1")) {
                         if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
 
-                    } else if (type.equals("4")) {
+                    } else if (type.equals("Tute-G2")) {
                         if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
-                    } else if (type.equals("5")) {
+                    } else if (type.equals("Tute-G3")) {
                         if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
@@ -455,28 +449,28 @@ public class AttendanceMain extends AppCompatActivity {
                     String tute = c.getString("Tute");
                     Log.wtf(TAG, type);
 
-                    if (type.equals("1")) {
+                    if (type.equals("Lab-G1")) {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
-                    } else if (type.equals("2")) {
+                    } else if (type.equals("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
-                    } else if (type.equals("3")) {
+                    } else if (type.equals("Tute-G1")) {
                         if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
 
-                    } else if (type.equals("4")) {
+                    } else if (type.equals("Tute-G2")) {
                         if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
-                    } else if (type.equals("5")) {
+                    } else if (type.equals("Tute-G3")) {
                         if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
@@ -526,7 +520,7 @@ public class AttendanceMain extends AppCompatActivity {
 
                         Log.wtf(TAG, type);
 
-                        if (type.equals("1")) {
+                        if (type.equals("Lab-G1")) {
                             Log.i(TAG, "Yes-1");
                             if (grp.equals("1")) {
                                 if (sub1.equals("2") || sub2.equals("2")) {
@@ -534,7 +528,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     showdata.add(dataClass);
                                 }
                             }
-                        } else if (type.equals("2")) {
+                        } else if (type.equals("Lab-G2")) {
                             Log.i(TAG, "Yes-2");
                             if (grp.equals("2")) {
                                 if (sub1.equals("2") || sub2.equals("2")) {

@@ -47,8 +47,6 @@ public class AdminActivity extends AppCompatActivity {
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
