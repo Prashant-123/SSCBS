@@ -2,9 +2,11 @@ package com.cbs.sscbs.Attendance;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,17 +34,20 @@ public class AdminActivity extends AppCompatActivity {
     private static final String CLASSURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=16WP-U687v4q2MtsJbHM-yCkqQK856tJ5IkiYvgowe90";
     private static final String bms3 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1x61Klq4PLhwXpZwzeMbax3tlgANRJ8b0q2g_J-1D1DA";
     private static final String SUBURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
-    Calendar c = Calendar.getInstance();
+    static Calendar c = Calendar.getInstance();
 
-    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-    String formattedDate = df.format(c.getTime());
-    String getYear = formattedDate.substring(7, 11);
-    String getMonth = formattedDate.substring(3, 6);
-    Map<String, Object> default_map1 = new HashMap<>();
-    Map<String, Object> default_map2 = new HashMap<>();
-    Map<String, Object> default_map3 = new HashMap<>();
-    Map<String, Object> default_map4 = new HashMap<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    static SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+    static String formattedDate = df.format(c.getTime());
+    static String getYear = formattedDate.substring(7, 11);
+    static String getMonth = formattedDate.substring(3, 6);
+    static Map<String, Object> default_map1 = new HashMap<>();
+    static Map<String, Object> default_map2 = new HashMap<>();
+    static Map<String, Object> default_map3 = new HashMap<>();
+    static Map<String, Object> default_map4 = new HashMap<>();
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +60,18 @@ public class AdminActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         default_map3.put("field" ,"");
 
+        Button uploadClassList = findViewById(R.id.uploadClassList);
         Button uploadBscClassList = findViewById(R.id.uploadBscClassList);
         Button uploadBfiaClassList = findViewById(R.id.uploadBfiaClassList);
         Button uploadBmsClassList = findViewById(R.id.uploadBmsClassList);
+
+        uploadClassList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),UploadLists.class);
+                startActivity(intent);
+            }
+        });
 
         uploadBscClassList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +115,31 @@ public class AdminActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+        uploadBmsClassList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminActivity.this);
+                alertDialog.setTitle(" Confirm Upload ");
+                alertDialog.setMessage("Are you sure you want upload new lists ?");
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                         new uploadBmsList().execute();
+                       // new uploadBfiaMixList().execute();
+                        Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
+                    }
+                });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.show();
+            }
+        });
     }
 
-    public class uploadBscList extends AsyncTask<Void , Void , Void>{
+    public static class uploadBscList extends AsyncTask<Void , Void , Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -143,13 +180,13 @@ public class AdminActivity extends AppCompatActivity {
 
 
             } catch (Exception ex) {
-                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+               // Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
             }
             return null;
         }
     }
 
-    public class uploadBfiaList extends AsyncTask<Void , Void , Void>{
+    public static class uploadBfiaList extends AsyncTask<Void , Void , Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -198,7 +235,7 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    public class uploadBfiaMixList extends AsyncTask<Void , Void , Void>{
+    public static class uploadBfiaMixList extends AsyncTask<Void , Void , Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -242,6 +279,55 @@ public class AdminActivity extends AppCompatActivity {
                                     .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
                                     .collection("Months").document(getMonth).set(default_map2);
                         }
+                    }
+                }
+
+            } catch (Exception ex) {
+//                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
+    }
+
+    public static class uploadBmsList extends AsyncTask<Void , Void , Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                HttpHandler httpHandler = new HttpHandler();
+                String bfiaStudentsList = httpHandler.makeServiceCall(bmsLIST);
+                String bfiaSubjectsList = httpHandler.makeServiceCall(SUBURL);
+
+                JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
+                JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
+
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BMS-2A");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BMS-2A");
+
+                Log.wtf("TAG", "ok  "+studentsListArray.length());
+
+                for(int i = 0 ; i < studentsListArray.length() ; i++){
+                    JSONObject jsonObject = studentsListArray.getJSONObject(i);
+                    String stu_name = jsonObject.getString("Name");
+                    String stu_roll = jsonObject.getString("Roll_No");
+
+                    default_map1.put("Name" , stu_name);
+                    db.collection("Attendance").document("BMS-2A").collection("Students").document(stu_roll).set(default_map1);
+
+                    for(int j = 0 ; j < subjectsListArray.length(); j++){
+                        JSONObject  jsonObject1 = subjectsListArray.getJSONObject(j);
+                        String subject = jsonObject1.getString("Semester_A");
+
+                        db.collection("Attendance").document("BMS-2A").collection("Students")
+                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects")
+                                .document(subject).set(default_map3);
+
+                        default_map2.put("attendance", 0);
+                        default_map2.put("total", 0);
+
+                        db.collection("Attendance").document("BMS-2A").collection("Students")
+                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
+                                .collection("Months").document(getMonth).set(default_map2);
                     }
                 }
 
