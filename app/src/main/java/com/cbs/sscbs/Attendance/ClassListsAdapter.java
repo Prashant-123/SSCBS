@@ -33,25 +33,25 @@ class ClassListsAdapter extends RecyclerView.Adapter<ClassListsAdapter.ViewHolde
             @Override
             public void onItemClick(View v, int pos) {
                 Toast.makeText(holder.itemView.getContext(),"Selected : " + holder.className.getText().toString(), Toast.LENGTH_SHORT).show();
-                if( holder.className.getText().toString().contains("BSC")){
-                    new AdminActivity.uploadBscList().execute();
-                }
-
-                if( holder.className.getText().toString().contains("BFIA-1")||holder.className.getText().toString().contains("BFIA-2")){
-                    new AdminActivity.uploadBfiaList().execute();
-                }
-
-                if( holder.className.getText().toString().contains("BFIA-3")){
-                    new AdminActivity.uploadBfiaMixList().execute();
-                }
-
-                if( holder.className.getText().toString().contains("BMS-1")||holder.className.getText().toString().contains("BMS-2")){
-                    new AdminActivity.uploadBmsList().execute();
-                }
-
-                if( holder.className.getText().toString().contains("BMS-3")){
-                    //new AdminActivity.uploadBmsList().execute();
-                }
+//                if( holder.className.getText().toString().contains("BSC")){
+//                    new AdminActivity.uploadBscList().execute();
+//                }
+//
+//                if( holder.className.getText().toString().contains("BFIA-1")||holder.className.getText().toString().contains("BFIA-2")){
+//                    new AdminActivity.uploadBfiaList().execute();
+//                }
+//
+//                if( holder.className.getText().toString().contains("BFIA-3")){
+//                    new AdminActivity.uploadBfiaMixList().execute();
+//                }
+//
+//                if( holder.className.getText().toString().contains("BMS-1")||holder.className.getText().toString().contains("BMS-2")){
+//                    new AdminActivity.uploadBmsList().execute();
+//                }
+//
+//                if( holder.className.getText().toString().contains("BMS-3")){
+//                    //new AdminActivity.uploadBmsList().execute();
+//                }
 
             }
         });
@@ -80,6 +80,7 @@ class ClassListsAdapter extends RecyclerView.Adapter<ClassListsAdapter.ViewHolde
         @Override
         public void onClick(View view) {
             this.itemClickListener.onItemClick(view, getLayoutPosition());
+//            Toast.makeText(view.getContext(), "ok", Toast.LENGTH_SHORT).show();
         }
     }
 }
