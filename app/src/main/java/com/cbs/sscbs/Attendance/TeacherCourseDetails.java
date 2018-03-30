@@ -148,7 +148,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
 
 
 
-                                                                    Log.wtf(TAG, ("->" + adapterView.getSelectedItem()) + "->" );
+//                                                                    Log.wtf(TAG, ("->" + adapterView.getSelectedItem()) + "->" );
 
                                                                     startActivity(intent);
                                                             }

@@ -49,6 +49,7 @@ public class AttendanceMain extends AppCompatActivity {
     String clas, sub, type;
     ProgressBar bar;
     TextView tv;
+    int size;
     double newAttendence = 0, newTotal = 0;
     Button button1;
     CollectionReference getLink = FirebaseFirestore.getInstance().collection("Attendance");
@@ -71,15 +72,18 @@ public class AttendanceMain extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
-        //new bfiaExcelSheet().execute();
+        size = AttendanceAdapter.to_update_Total.size();
+
         getDataFromIntent();
-        new bfiaMixExcelSheet().execute();
-//        if(clas.contains("bsc")){
-//            new bscExcelSheet().execute();
-//        }
-//        else  if(clas.contains("bfia")){
+
 //
-//        }
+        if(clas.contains("Bsc")){
+            new bscExcelSheet().execute();
+        }
+        else  if(clas.contains("Bfia")){
+            new bfiaMixExcelSheet().execute();
+        }
+
         adapter.notifyDataSetChanged();
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
         toolbar.setTitle(clas + " / " + sub);
@@ -108,14 +112,16 @@ public class AttendanceMain extends AppCompatActivity {
         clas = data.getStringExtra("class");
         sub = data.getStringExtra("subject");
         type = data.getStringExtra("type");
+        Log.wtf(TAG, "ok"+type);
     }
-
-
 
     public void bscSave(View view) {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
-        if (type.equals("1") || type.equals("2")) { //If there's LAB.
+
+//        /Attendance/Bsc-2/Students/16501/Year/2018/Subjects/Algorithms/Months/Mar
+
+        if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                         + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
@@ -134,7 +140,28 @@ public class AttendanceMain extends AppCompatActivity {
                 i++;
             }
         }
-        switch_to_main();
+
+        if (type.contains("Lab-G1") || type.contains("Lab-G2")){
+            Log.i(TAG, String.valueOf(AttendanceAdapter.to_update_Total.size()));
+            i = 0;
+            while (i < AttendanceAdapter.to_update_Total.size()){
+                final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+                        AttendanceAdapter.to_update_Total.get(i) + "/Year/" + getYear + "/Subjects/").document(sub + " [L]").collection("/Months/");
+                updateTotal(toUpdateTotal, AttendanceAdapter.to_update_Total.get(i));
+                i++;
+            }
+        } else {
+            Log.i(TAG, String.valueOf(AttendanceAdapter.to_update_Total.size()));
+            i = 0;
+            while (i < AttendanceAdapter.to_update_Total.size()){
+                final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
+                        AttendanceAdapter.to_update_Total.get(i) + "/Year/" + getYear + "/Subjects/").document(sub).collection("/Months/");
+                updateTotal(toUpdateTotal, AttendanceAdapter.to_update_Total.get(i));
+                i++;
+            }
+        }
+
+//        switch_to_main();
     }
 
     private void switch_to_main() {
@@ -286,7 +313,6 @@ public class AttendanceMain extends AppCompatActivity {
                 String jsonStr = sh.makeServiceCall(bscSheet);
                 JSONObject object = new JSONObject(jsonStr);
                 JSONArray sheet = object.getJSONArray(clas);
-                Log.wtf(TAG, type);
 
                 for (int i = 0; i < sheet.length(); i++) {
                     JSONObject c = sheet.getJSONObject(i);
@@ -294,12 +320,12 @@ public class AttendanceMain extends AppCompatActivity {
                     String roll_no = c.getString("Roll_No");
                     String grp = c.getString("Lab_Group");
 
-                    if (type.equals("1")) {
+                    if (type.contains("Lab-G1")) {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
-                    } else if (type.equals("2")) {
+                    } else if (type.contains("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
@@ -312,6 +338,7 @@ public class AttendanceMain extends AppCompatActivity {
             } catch (Exception ex) {
                 Log.e("TAG", "getListFromExcel", ex);
             }
+
             return null;
         }
 
@@ -322,30 +349,28 @@ public class AttendanceMain extends AppCompatActivity {
             bar.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
 
-//            final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-//                    16501 + "/Subjects/" + sub + "/Year").document("2018").collection("/Months");
-//
-//            toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                    if (task.isSuccessful()) {
-//                        db.runTransaction(new Transaction.Function<Void>() {
-//                            @Override
-//                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-//                                final DocumentReference sfDocRef = toUpdateTotal.document(getMonth);
-//                                DocumentSnapshot snapshot = transaction.get(sfDocRef);
-//                                newTotal = (snapshot.getDouble("total")) + 1;
-//                                transaction.update(sfDocRef, "total", newTotal);
-//                                //  default_map2.put("attendance" ,newAttendence);
-//                                Log.i(TAG, "Total updated");
-//                                return null;
-//                            }
-//                        });
-//                    }
-//                }
-//            });
-//
         }
+    }
+
+    private void updateTotal(final CollectionReference toUpdateTotal, final String s) {
+        toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    db.runTransaction(new Transaction.Function<Void>() {
+                        @Override
+                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                            final DocumentReference sfDocRef = toUpdateTotal.document(getMonth);
+                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
+                            newTotal = (snapshot.getDouble("total")) + 1;
+                            transaction.update(sfDocRef, "total", newTotal);
+                            Log.i(TAG, "Total updated-> " + s);
+                            return null;
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public class bfiaExcelSheet extends AsyncTask<Void, Void, Void> {
