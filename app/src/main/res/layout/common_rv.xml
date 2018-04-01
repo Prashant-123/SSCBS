@@ -57,7 +57,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center|bottom|right"
         android:layout_margin="16dp"
-        android:onClick="bscSave"
+        android:onClick="bfiaMixSave"
         android:text="Save" />
     </android.support.design.widget.CoordinatorLayout>
 

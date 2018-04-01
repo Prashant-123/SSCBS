@@ -249,7 +249,7 @@ public class AttendanceMain extends AppCompatActivity {
     public void bfiaMixSave(View view) {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
-        if (type.equals("1") || type.equals("2")) { //If there's LAB.
+        if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
                 while (i < AttendanceAdapter.saveRoll.size()) {
                     for (int g = 0; g < Home_frag.bfia3List.size(); g++) {
                         final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
@@ -260,7 +260,7 @@ public class AttendanceMain extends AppCompatActivity {
                     }
                     i++;
             }
-        } else if (type.equals("3") || type.equals("4") || type.equals("5")) { //If there's TUTE.
+        } else if (type.contains("Tute-G1") || type.contains("Tute-G2") || type.contains("Tute-G3")) { //If there's TUTE.
             while (i < AttendanceAdapter.saveRoll.size()) {
                 for (int g = 0; g < Home_frag.bfia3List.size(); g++) {
                     final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
