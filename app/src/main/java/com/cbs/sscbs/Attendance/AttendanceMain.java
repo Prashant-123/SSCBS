@@ -118,7 +118,6 @@ public class AttendanceMain extends AppCompatActivity {
     }
 
     public void update(final CollectionReference getStu) {
-
         getStu.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -126,7 +125,6 @@ public class AttendanceMain extends AppCompatActivity {
                     db.runTransaction(new Transaction.Function<Void>() {
                         @Override
                         public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                            Log.i(TAG, "Transaction Error");
                             final DocumentReference sfDocRef = getStu.document(getMonth);
                             DocumentSnapshot snapshot = transaction.get(sfDocRef);
                             newAttendence = (snapshot.getDouble("attendance")) + 1;
@@ -217,7 +215,7 @@ public class AttendanceMain extends AppCompatActivity {
     public void bfiaSave(View view) {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
-        if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
+        if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                         + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
@@ -226,7 +224,7 @@ public class AttendanceMain extends AppCompatActivity {
                 update(getStu);
                 i++;
             }
-        } else if (type.contains("Tute-G1") || type.contains("Tute-G2") || type.contains("Tute-G3")) { //If there's TUTE.
+        } else if (type.equals(" Tute-G1") || type.equals(" Tute-G2") || type.equals(" Tute-G3")) { //If there's TUTE.
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                         + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
@@ -235,7 +233,7 @@ public class AttendanceMain extends AppCompatActivity {
                 update(getStu);
                 i++;
             }
-        } else {
+        } else if(type.contains("Theory")){
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                         + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
@@ -273,26 +271,26 @@ public class AttendanceMain extends AppCompatActivity {
                 }
                 i++;
             }
-        } else {
-            //Attendance/BFIA-3A/Students/15302/Year/2018/Subjects/Strategic Corporate Finance /Months/Mar
+        } else if(type.contains("Theory")) {
+            Log.wtf(TAG , "dsfs");
             while (i < AttendanceAdapter.saveRoll.size()) {
                 for (int g = 0; g < Home_frag.bfia3List.size(); g++) {
                     final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                             + Home_frag.bfia3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
                             .collection("/Subjects/").document(sub)
-                            .collection("/Months/");
+                            .collection("/Months");
                     update(getStu);
                 }
                 i++;
             }
         }
-//        switch_to_main();
+        switch_to_main();
     }
 
     public void bmsSave(View view) {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
-        if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
+        if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                         + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
@@ -301,7 +299,7 @@ public class AttendanceMain extends AppCompatActivity {
                 update(getStu);
                 i++;
             }
-        } else if (type.contains(" Tute-G1") || type.contains(" Tute-G2") || type.contains(" Tute-G3")) { //If there's TUTE.
+        } else if (type.equals(" Tute-G1") || type.equals(" Tute-G2") || type.equals(" Tute-G3")) { //If there's TUTE.
             while (i < AttendanceAdapter.saveRoll.size()) {
                 final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
                         + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
@@ -340,12 +338,12 @@ public class AttendanceMain extends AppCompatActivity {
                     String grp = c.getString("Lab_Group");
 
                     if (type.contains("Lab-G1")) {
-                        if (grp.contains("1")) {
+                        if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
                     } else if (type.contains("Lab-G2")) {
-                        if (grp.contains("2")) {
+                        if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
@@ -390,28 +388,28 @@ public class AttendanceMain extends AppCompatActivity {
                     Log.wtf(TAG, type);
 
                     if (type.contains("Lab-G1")) {
-                        if (grp.contains("1")) {
+                        if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
                     } else if (type.contains("Lab-G2")) {
-                        if (grp.contains("2")) {
+                        if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
                     } else if (type.contains("Tute-G1")) {
-                        if (tute.contains("1")) {
+                        if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
 
                     } else if (type.contains("Tute-G2")) {
-                        if (tute.contains("2")) {
+                        if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
                     } else if (type.contains("Tute-G3")) {
-                        if (tute.contains("3")) {
+                        if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
@@ -454,28 +452,28 @@ public class AttendanceMain extends AppCompatActivity {
                     Log.wtf(TAG, type);
 
                     if (type.contains("Lab-G1")) {
-                        if (grp.contains("1")) {
+                        if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
                     } else if (type.contains("Lab-G2")) {
-                        if (grp.contains("2")) {
+                        if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
                     } else if (type.contains("Tute-G1")) {
-                        if (tute.contains("1")) {
+                        if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
 
                     } else if (type.contains("Tute-G2")) {
-                        if (tute.contains("2")) {
+                        if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
                     } else if (type.contains("Tute-G3")) {
-                        if (tute.contains("3")) {
+                        if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
                         }
@@ -568,7 +566,7 @@ public class AttendanceMain extends AppCompatActivity {
                 }
 
                 Log.wtf(TAG , "Sub type is : " + getType);
-                if(getType.contains("0")){
+                if(getType.equals("0")){
                     Log.wtf(TAG , "ssdfdsfsfw");
                     JSONArray sheet = object.getJSONArray(clas);
                     for (int i = 0; i < sheet.length(); i++) {
@@ -580,28 +578,28 @@ public class AttendanceMain extends AppCompatActivity {
                         Log.wtf(TAG, type);
 
                         if (type.contains("Lab-G1")) {
-                            if (grp.contains("1")) {
+                            if (grp.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
                             }
                         } else if (type.contains("Lab-G2")) {
-                            if (grp.contains("2")) {
+                            if (grp.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
                             }
                         } else if (type.contains("Tute-G1")) {
-                            if (tute.contains("1")) {
+                            if (tute.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
                             }
 
                         } else if (type.contains("Tute-G2")) {
-                            if (tute.contains("2")) {
+                            if (tute.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
                             }
                         } else if (type.contains("Tute-G3")) {
-                            if (tute.contains("3")) {
+                            if (tute.equals("3")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
                             }
@@ -626,24 +624,24 @@ public class AttendanceMain extends AppCompatActivity {
 
                         if (type.contains("Lab-G1")) {
                             Log.i(TAG, "Yes-1");
-                            if (grp.contains("1")) {
-                                if (sub1.contains(getType) || sub2.contains(getType) ) {
+                            if (grp.equals("1")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
                         } else if (type.contains(" Lab-G2")) {
                             Log.i(TAG, "Yes-2");
-                            if (grp.contains("2")) {
-                                if (sub1.contains(getType) || sub2.contains(getType) ) {
+                            if (grp.equals("2")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
                         } else if (type.contains(" Tute-G1")) {
                             Log.i(TAG, "Yes");
-                            if (tute.contains("1")) {
-                                if (sub1.contains(getType) || sub2.contains(getType) ) {
+                            if (tute.equals("1")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
@@ -651,23 +649,23 @@ public class AttendanceMain extends AppCompatActivity {
 
                         } else if (type.contains(" Tute-G2")) {
                             Log.i(TAG, "Yes-3");
-                            if (tute.contains("2")) {
-                                if (sub1.contains(getType) || sub2.contains(getType) ) {
+                            if (tute.equals("2")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
                         } else if (type.contains(" Tute-G3")) {
                             Log.i(TAG, "Yes-4");
-                            if (tute.contains("3")) {
-                                if (sub1.contains(getType) || sub2.contains(getType) ) {
+                            if (tute.equals("3")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
                         } else {
                             Log.i(TAG, "no");
-                            if (sub1.contains(getType) || sub2.contains(getType) || getType.contains("0")) {
+                            if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
                             }
@@ -736,7 +734,7 @@ public class AttendanceMain extends AppCompatActivity {
 ////                        String typesub = c2.getString("Sub");
 ////                        if (sub == subj) {
 //                        if (type == 0) {
-//                            if (sub1.contains("2") || sub2.contains("2")) {
+//                            if (sub1.equals("2") || sub2.equals("2")) {
 //                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                showdata.add(dataClass);
 //                            }
@@ -745,50 +743,50 @@ public class AttendanceMain extends AppCompatActivity {
 ////                    }
 //
 //                        if (type == 1) {
-//                            if (grp.contains("1") && Labtype == 1) {
-//                                if (sub1.contains("2") || sub2.contains("2")) {
+//                            if (grp.equals("1") && Labtype == 1) {
+//                                if (sub1.equals("2") || sub2.equals("2")) {
 //                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                    showdata.add(dataClass);
 //                                }
 //                            }
 //
-//                            if (grp.contains("2") && Labtype == 2) {
-//                                if (sub1.contains("2") || sub2.contains("2")) {
+//                            if (grp.equals("2") && Labtype == 2) {
+//                                if (sub1.equals("2") || sub2.equals("2")) {
 //                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                    showdata.add(dataClass);
 //                                }
 //                            }
 //
 //                            if (Labtype == 3) {
-//                                if (sub1.contains("2") || sub2.contains("2")) {
+//                                if (sub1.equals("2") || sub2.equals("2")) {
 //                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                    showdata.add(dataClass);
 //                                }
 //                            }
 //                        } else if (type == 2) {
 //
-//                            if (tute.contains("1") && TutType == 1) {
-//                                if (sub1.contains("2") || sub2.contains("2")) {
+//                            if (tute.equals("1") && TutType == 1) {
+//                                if (sub1.equals("2") || sub2.equals("2")) {
 //                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                    showdata.add(dataClass);
 //                                }
 //                            }
 //
-//                            if (tute.contains("2") && TutType == 2) {
-//                                if (sub1.contains("2") || sub2.contains("2")) {
+//                            if (tute.equals("2") && TutType == 2) {
+//                                if (sub1.equals("2") || sub2.equals("2")) {
 //                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                    showdata.add(dataClass);
 //                                }
 //                            }
-//                            if (tute.contains("3") && TutType == 3) {
-//                                if (sub1.contains("2") || sub2.contains("2")) {
+//                            if (tute.equals("3") && TutType == 3) {
+//                                if (sub1.equals("2") || sub2.equals("2")) {
 //                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                    showdata.add(dataClass);
 //                                }
 //                            }
 //
 //                            if (TutType == 4) {
-//                                if (sub1.contains("2") || sub2.contains("2")) {
+//                                if (sub1.equals("2") || sub2.equals("2")) {
 //                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
 //                                    showdata.add(dataClass);
 //                                }
