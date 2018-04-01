@@ -132,10 +132,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 final EditText roll = alertLayout.findViewById(R.id.roll);
                 bar = alertLayout.findViewById(R.id.wait_bar);
 
-
-
-
-
                 getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

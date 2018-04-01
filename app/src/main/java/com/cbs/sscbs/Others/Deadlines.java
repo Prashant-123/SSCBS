@@ -23,34 +23,33 @@ public class Deadlines extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlines);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deadlines);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        text = (EditText) findViewById(R.id.textNew);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deadlines);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        text = (EditText) findViewById(R.id.textNew);
 
-        text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (isValidPassword(charSequence.toString()))
-                {
-                    Toast.makeText(Deadlines.this, "Cool, Proceed", Toast.LENGTH_SHORT).show();
-                }
-                else Toast.makeText(Deadlines.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-
+//        text.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if (isValidPassword(charSequence.toString()))
+//                {
+//                    Toast.makeText(Deadlines.this, "Cool, Proceed", Toast.LENGTH_SHORT).show();
+//                }
+//                else Toast.makeText(Deadlines.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
+//
     }
-
 
     public boolean isValidPassword(final String password) {
 

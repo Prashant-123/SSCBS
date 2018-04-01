@@ -1,49 +1,342 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.cbs.sscbs.Others.Deadlines">
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_deadlines"
+    android:background="#ffffff"
+>
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="#610B21"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_height="wrap_content" />
+        android:layout_height="210dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="4dp">
 
-        <EditText
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapseToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textNew"
-            android:hint="Regex 4 digits (custom error msg)"/>
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    <com.wajahatkarim3.easyflipview.EasyFlipView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp">
+                <FrameLayout
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/e_profileimage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:padding="8dp"
+                       />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+              />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp">
+                    <TextView
+                        android:id="@+id/f_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="#fff"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Hello"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "/>
+                    <TextView
+                        android:id="@+id/l_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="#fff"
+                        android:layout_gravity="center_horizontal"
+                        android:text="User!"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:flipOnTouch="true"
-        app:flipDuration="500"
-        app:flipEnabled="true">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:src="@drawable/logo"
-            android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp">
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:src="@drawable/admin_img"
-            android:visibility="invisible"
-            android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#339966"
+                android:text="Personal"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"/>
 
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_username"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="text"
+                    android:hint="Username"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_firstname"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="text"
+                    android:hint="First Name"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_lastname"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="text"
+                    android:hint="Last Name"
+                    android:maxLines="1"
+                    android:fontFamily="sans-serif-light"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#339966"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Contact"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_email"
+                    android:layout_width="match_parent"
+                    android:singleLine="true"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"
+                    android:textSize="16sp"
+                    android:layout_height="50dp"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_mobile"
+                    android:layout_width="match_parent"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="Mobile No."
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:layout_height="50dp"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_phone"
+                    android:layout_width="match_parent"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="Phone No."
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:layout_height="50dp"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#339966"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="About"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_location"
+                    android:layout_width="match_parent"
+                    android:inputType="textPersonName"
+                    android:hint="Location"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:layout_height="50dp"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_profession"
+                    android:layout_width="match_parent"
+                    android:singleLine="false"
+                    android:inputType="textPersonName"
+                    android:hint="Profession"
+                    android:textSize="16sp"
+                    android:layout_height="50dp"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_aboutme"
+                    android:layout_width="match_parent"
+                    android:singleLine="false"
+                    android:inputType="textPersonName"
+                    android:hint="About me"
+                    android:textSize="16sp"
+                    android:layout_height="50dp"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/e_profiletag"
+                    android:layout_width="match_parent"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Profile tag"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
 
 
-</LinearLayout>
+            <Spinner
+                android:padding="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="50dp"
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:backgroundTint="#d3e68d"
+                android:splitMotionEvents="true" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <Button
+        android:background="@color/colorPrimary"
+        android:padding="4dp"
+        android:layout_height="50dp"
+        android:id="@+id/updateProfileButton"
+        android:layout_width="match_parent"
+        android:textSize="18sp"
+        android:layout_gravity="bottom"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="sans-serif-light"
+        android:textAllCaps="false"
+        android:text="Update" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_cyclic"
+        android:layout_width="70dp"
+        android:indeterminateTint="@color/colorPrimary"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        />
+</android.support.design.widget.CoordinatorLayout>

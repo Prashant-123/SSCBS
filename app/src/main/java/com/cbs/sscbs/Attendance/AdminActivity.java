@@ -161,6 +161,7 @@ public class AdminActivity extends AppCompatActivity {
                     db.collection("Attendance").document("Bsc-2").collection("Students").document(stu_roll).set(default_map1);
 
                     for(int j = 0 ; j < subjectsListArray.length(); j++){
+
                         JSONObject  jsonObject1 = subjectsListArray.getJSONObject(j);
                         String subject = jsonObject1.getString("Semester_A");
 
@@ -386,5 +387,10 @@ public class AdminActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public String[] theMonth() {
+        return new String[]{"Select Month", "Jan", "Feb", "Mar", "Apr", "May",
+                "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     }
 }
