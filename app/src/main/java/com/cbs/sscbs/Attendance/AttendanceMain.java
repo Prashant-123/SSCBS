@@ -565,6 +565,49 @@ public class AttendanceMain extends AppCompatActivity {
                 }
 
                 Log.wtf(TAG , "Sub type is : " + getType);
+                if(getType.equals("0")){
+                    Log.wtf(TAG , "ssdfdsfsfw");
+                    JSONArray sheet = object.getJSONArray(clas);
+                    for (int i = 0; i < sheet.length(); i++) {
+                        JSONObject c = sheet.getJSONObject(i);
+                        String name = c.getString("Name");
+                        String roll_no = c.getString("Roll_No");
+                        String grp = c.getString("Lab_Group");
+                        String tute = c.getString("Tute");
+                        Log.wtf(TAG, type);
+
+                        if (type.contains("Lab-G1")) {
+                            if (grp.equals("1")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else if (type.contains("Lab-G2")) {
+                            if (grp.equals("2")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else if (type.contains("Tute-G1")) {
+                            if (tute.equals("1")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+
+                        } else if (type.contains("Tute-G2")) {
+                            if (tute.equals("2")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else if (type.contains("Tute-G3")) {
+                            if (tute.equals("3")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                    }
+                }else{
 
                 for(int h= 0 ; h < Home_frag.bfia3List.size();h++) {
                     JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
@@ -581,7 +624,7 @@ public class AttendanceMain extends AppCompatActivity {
                         if (type.contains("Lab-G1")) {
                             Log.i(TAG, "Yes-1");
                             if (grp.equals("1")) {
-                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
@@ -589,7 +632,7 @@ public class AttendanceMain extends AppCompatActivity {
                         } else if (type.contains(" Lab-G2")) {
                             Log.i(TAG, "Yes-2");
                             if (grp.equals("2")) {
-                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
@@ -597,7 +640,7 @@ public class AttendanceMain extends AppCompatActivity {
                         } else if (type.contains(" Tute-G1")) {
                             Log.i(TAG, "Yes");
                             if (tute.equals("1")) {
-                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
@@ -606,7 +649,7 @@ public class AttendanceMain extends AppCompatActivity {
                         } else if (type.contains(" Tute-G2")) {
                             Log.i(TAG, "Yes-3");
                             if (tute.equals("2")) {
-                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
@@ -614,7 +657,7 @@ public class AttendanceMain extends AppCompatActivity {
                         } else if (type.contains(" Tute-G3")) {
                             Log.i(TAG, "Yes-4");
                             if (tute.equals("3")) {
-                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
@@ -626,6 +669,7 @@ public class AttendanceMain extends AppCompatActivity {
                                 showdata.add(dataClass);
                             }
                         }
+                    }
                     }
                 }
             } catch (Exception ex) {
