@@ -220,10 +220,14 @@ public class AdminActivity extends AppCompatActivity {
 
                         default_map2.put("attendance", 0);
                         default_map2.put("total", 0);
+                        String [] months = theMonth();
 
-                        db.collection("Attendance").document("BFIA-1B").collection("Students")
-                                .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
-                                .collection("Months").document(getMonth).set(default_map2);
+                        for(int k = 1 ; k< months.length;k++) {
+
+                            db.collection("Attendance").document("BFIA-1B").collection("Students")
+                                    .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
+                                    .collection("Months").document(months[k]).set(default_map2);
+                        }
                     }
                 }
 
@@ -246,8 +250,8 @@ public class AdminActivity extends AppCompatActivity {
                 JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
                 JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
 
-                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-3B");
-                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-3B");
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-3A");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-3A");
 
                 Log.wtf("TAG", "ok  "+studentsListArray.length());
 
@@ -259,7 +263,7 @@ public class AdminActivity extends AppCompatActivity {
                     String sub2 = jsonObject.getString("Sub_Type_2");
 
                     default_map1.put("Name" , stu_name);
-                    db.collection("Attendance").document("BFIA-3B").collection("Students").document(stu_roll).set(default_map1);
+                    db.collection("Attendance").document("BFIA-3A").collection("Students").document(stu_roll).set(default_map1);
 
                     for(int j = 0 ; j < subjectsListArray.length(); j++) {
                         JSONObject jsonObject1 = subjectsListArray.getJSONObject(j);
@@ -267,16 +271,21 @@ public class AdminActivity extends AppCompatActivity {
                         String type = jsonObject1.getString("Sub");
 
                         if (type == sub1 || type == sub2 || type.toString().equals(String.valueOf(("0")))) {
-                            db.collection("Attendance").document("BFIA-3B").collection("Students")
+                            db.collection("Attendance").document("BFIA-3A").collection("Students")
                                     .document(stu_roll).collection("Year").document(getYear).collection("Subjects")
                                     .document(subject).set(default_map3);
 
                             default_map2.put("attendance", 0);
                             default_map2.put("total", 0);
 
-                            db.collection("Attendance").document("BFIA-3B").collection("Students")
-                                    .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
-                                    .collection("Months").document(getMonth).set(default_map2);
+                            String [] months = theMonth();
+
+                            for(int k = 1 ; k< months.length;k++) {
+
+                                db.collection("Attendance").document("BFIA-3A").collection("Students")
+                                        .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
+                                        .collection("Months").document(months[k]).set(default_map2);
+                            }
                         }
                     }
                 }
@@ -389,7 +398,7 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    public String[] theMonth() {
+    public static String[] theMonth() {
         return new String[]{"Select Month", "Jan", "Feb", "Mar", "Apr", "May",
                 "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     }
