@@ -46,7 +46,7 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String bfiaSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
     String link;
-    String clas, sub, type;
+    String clas, sub, type , getType;
     ProgressBar bar;
     TextView tv;
     int size;
@@ -75,6 +75,7 @@ public class AttendanceMain extends AppCompatActivity {
         size = AttendanceAdapter.to_update_Total.size();
 
         getDataFromIntent();
+        //new getTypeofSubjects().execute();
 
         if(clas.contains("Bsc")){
             new bscExcelSheet().execute();
@@ -495,6 +496,43 @@ public class AttendanceMain extends AppCompatActivity {
         }
     }
 
+    public class getTypeofSubjects extends AsyncTask<Void , Void , Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                HttpHandler sh = new HttpHandler();
+                String jsonStr = sh.makeServiceCall(SUBURL);
+                JSONObject object = new JSONObject(jsonStr);
+                JSONArray sheet = object.getJSONArray(clas);
+
+                for(int i = 0 ; i<sheet.length() ; i++){
+                    JSONObject jsonObject1 = sheet.getJSONObject(i);
+                    String subject = jsonObject1.getString("Semester_A");
+                    String type = jsonObject1.getString("Sub");
+                    Log.wtf(TAG , subject + " ______________ " + sub);
+
+                    if(subject.contains(sub)){
+                        Log.wtf(TAG, "Inside if");
+                        getType = type;
+                        break;
+                    }else {
+                        Log.wtf(TAG, "Inside not if");
+                    }
+
+
+                }
+
+                Log.wtf(TAG , "Sub type is : " + getType);
+
+
+            } catch (Exception ex) {
+//                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
+    }
+
     public class bfiaMixExcelSheet extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -503,6 +541,30 @@ public class AttendanceMain extends AppCompatActivity {
                 HttpHandler sh = new HttpHandler();
                 String jsonStr = sh.makeServiceCall(bfiaSheet);
                 JSONObject object = new JSONObject(jsonStr);
+
+                HttpHandler sh1 = new HttpHandler();
+                String jsonStr1 = sh1.makeServiceCall(SUBURL);
+                JSONObject object1 = new JSONObject(jsonStr1);
+                JSONArray sheet1 = object1.getJSONArray(clas);
+
+                for(int i = 0 ; i<sheet1.length() ; i++){
+                    JSONObject jsonObject1 = sheet1.getJSONObject(i);
+                    String subject = jsonObject1.getString("Semester_A");
+                    String type = jsonObject1.getString("Sub");
+                    Log.wtf(TAG , subject + " ______________ " + sub);
+
+                    if(subject.contains(sub)){
+                        Log.wtf(TAG, "Inside if");
+                        getType = type;
+                        break;
+                    }else {
+                        Log.wtf(TAG, "Inside not if");
+                    }
+
+
+                }
+
+                Log.wtf(TAG , "Sub type is : " + getType);
 
                 for(int h= 0 ; h < Home_frag.bfia3List.size();h++) {
                     JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
@@ -515,52 +577,51 @@ public class AttendanceMain extends AppCompatActivity {
                         String sub1 = c.getString("Sub_Type_1");
                         String sub2 = c.getString("Sub_Type_2");
 
-                        Log.wtf(TAG, type);
 
-                        if (type.equals("Lab-G1")) {
+                        if (type.contains("Lab-G1")) {
                             Log.i(TAG, "Yes-1");
                             if (grp.equals("1")) {
-                                if (sub1.equals("2") || sub2.equals("2")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
-                        } else if (type.equals("Lab-G2")) {
+                        } else if (type.contains(" Lab-G2")) {
                             Log.i(TAG, "Yes-2");
                             if (grp.equals("2")) {
-                                if (sub1.equals("2") || sub2.equals("2")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
-                        } else if (type.equals(" Tute-G1")) {
+                        } else if (type.contains(" Tute-G1")) {
                             Log.i(TAG, "Yes");
                             if (tute.equals("1")) {
-                                if (sub1.equals("2") || sub2.equals("2")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
 
-                        } else if (type.equals("Tute-G2")) {
+                        } else if (type.contains(" Tute-G2")) {
                             Log.i(TAG, "Yes-3");
                             if (tute.equals("2")) {
-                                if (sub1.equals("2") || sub2.equals("2")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
-                        } else if (type.equals("Tute-G3")) {
+                        } else if (type.contains(" Tute-G3")) {
                             Log.i(TAG, "Yes-4");
                             if (tute.equals("3")) {
-                                if (sub1.equals("2") || sub2.equals("2")) {
+                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
                                 }
                             }
                         } else {
                             Log.i(TAG, "no");
-                            if (sub1.equals("2") || sub2.equals("2")) {
+                            if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
                             }
