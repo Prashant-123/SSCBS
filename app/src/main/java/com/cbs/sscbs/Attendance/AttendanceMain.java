@@ -688,6 +688,160 @@ public class AttendanceMain extends AppCompatActivity {
         }
     }
 
+    public class bmsMixExcelSheet extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                HttpHandler sh = new HttpHandler();
+                String jsonStr = sh.makeServiceCall(bmsSheet);
+                JSONObject object = new JSONObject(jsonStr);
+
+                HttpHandler sh1 = new HttpHandler();
+                String jsonStr1 = sh1.makeServiceCall(SUBURL);
+                JSONObject object1 = new JSONObject(jsonStr1);
+                JSONArray sheet1 = object1.getJSONArray(clas);
+
+                for(int i = 0 ; i<sheet1.length() ; i++){
+                    JSONObject jsonObject1 = sheet1.getJSONObject(i);
+                    String subject = jsonObject1.getString("Semester_A");
+                    String type = jsonObject1.getString("Sub");
+                    Log.wtf(TAG , subject + " ______________ " + sub);
+
+                    if(subject.contains(sub)){
+                        Log.wtf(TAG, "Inside if");
+                        getType = type;
+                        break;
+                    }else {
+                        Log.wtf(TAG, "Inside not if");
+                    }
+
+
+                }
+
+                Log.wtf(TAG , "Sub type is : " + getType);
+                if(getType.equals("0")){
+                    Log.wtf(TAG , "ssdfdsfsfw");
+                    JSONArray sheet = object.getJSONArray(clas);
+                    for (int i = 0; i < sheet.length(); i++) {
+                        JSONObject c = sheet.getJSONObject(i);
+                        String name = c.getString("Name");
+                        String roll_no = c.getString("Roll_No");
+                        String grp = c.getString("Lab_Group");
+                        String tute = c.getString("Tute");
+                        Log.wtf(TAG, type);
+
+                        if (type.contains("Lab-G1")) {
+                            if (grp.equals("1")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else if (type.contains("Lab-G2")) {
+                            if (grp.equals("2")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else if (type.contains("Tute-G1")) {
+                            if (tute.equals("1")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+
+                        } else if (type.contains("Tute-G2")) {
+                            if (tute.equals("2")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else if (type.contains("Tute-G3")) {
+                            if (tute.equals("3")) {
+                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                showdata.add(dataClass);
+                            }
+                        } else {
+                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            showdata.add(dataClass);
+                        }
+                    }
+                }else{
+
+                    for(int h= 0 ; h < Home_frag.bfia3List.size();h++) {
+                        JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
+                        for (int i = 0; i < sheet.length(); i++) {
+                            JSONObject c = sheet.getJSONObject(i);
+                            String name = c.getString("Name");
+                            String roll_no = c.getString("Roll_No");
+                            String grp = c.getString("Lab_Group");
+                            String tute_mix = c.getString("Tute_Mix");
+                            String sub1 = c.getString("Sub_Type_1");
+                            String sub2 = c.getString("Sub_Type_2");
+
+
+                            if (type.contains("Lab-G1")) {
+                                Log.i(TAG, "Yes-1");
+                                if (grp.equals("1")) {
+                                    if (sub1.equals(getType) || sub2.equals(getType) ) {
+                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                        showdata.add(dataClass);
+                                    }
+                                }
+                            } else if (type.contains(" Lab-G2")) {
+                                Log.i(TAG, "Yes-2");
+                                if (grp.equals("2")) {
+                                    if (sub1.equals(getType) || sub2.equals(getType) ) {
+                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                        showdata.add(dataClass);
+                                    }
+                                }
+                            } else if (type.contains(" Tute-G1")) {
+                                Log.i(TAG, "Yes");
+                                if (tute_mix.equals("1")) {
+                                    if (sub1.equals(getType) || sub2.equals(getType) ) {
+                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                        showdata.add(dataClass);
+                                    }
+                                }
+
+                            } else if (type.contains(" Tute-G2")) {
+                                Log.i(TAG, "Yes-3");
+                                if (tute_mix.equals("2")) {
+                                    if (sub1.equals(getType) || sub2.equals(getType) ) {
+                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                        showdata.add(dataClass);
+                                    }
+                                }
+                            } else if (type.contains(" Tute-G3")) {
+                                Log.i(TAG, "Yes-4");
+                                if (tute_mix.equals("3")) {
+                                    if (sub1.equals(getType) || sub2.equals(getType) ) {
+                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                        showdata.add(dataClass);
+                                    }
+                                }
+                            } else {
+                                Log.i(TAG, "no");
+                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                                    showdata.add(dataClass);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e("TAG", "getListFromExcel", ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            adapter.notifyDataSetChanged();
+            bar.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.INVISIBLE);
+        }
+    }
+
 //    public class getMixListFromExcel extends AsyncTask<Void, Void, Void> {
 //        @Override
 //        protected void onPreExecute() {
