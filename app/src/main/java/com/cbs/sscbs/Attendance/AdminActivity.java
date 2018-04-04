@@ -132,7 +132,7 @@ public class AdminActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
                         new uploadBfiaList().execute();
-                       // new uploadBfiaMixList().execute();
+                        new uploadBfiaMixList().execute();
                         Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
