@@ -77,6 +77,9 @@ public class AttendanceMain extends AppCompatActivity {
         getDataFromIntent();
         //new getTypeofSubjects().execute();
 
+        Log.wtf(TAG,Home_frag.bms3List.toString());
+
+
         if(clas.contains("Bsc")){
             new bscExcelSheet().execute();
         }
@@ -88,6 +91,8 @@ public class AttendanceMain extends AppCompatActivity {
         }
         else if(clas.contains("BFIA-3")){
             new bfiaMixExcelSheet().execute();
+        }else if(clas.contains("BMS-3F")){
+            new bmsMixExcelSheet().execute();
         }
 
         adapter.notifyDataSetChanged();
@@ -246,19 +251,66 @@ public class AttendanceMain extends AppCompatActivity {
         switch_to_main();
     }
 
-    public void bfiaMixSave(View view) {
+    public void bmsMixSave(View view) {
+
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+        Log.wtf(TAG,Home_frag.bms3List.toString());
         if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
                 while (i < AttendanceAdapter.saveRoll.size()) {
-                    for (int g = 0; g < Home_frag.bfia3List.size(); g++) {
+                    for (int g = 0; g < Home_frag.bms3List.size(); g++) {
                         final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                                + Home_frag.bfia3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                                + Home_frag.bms3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
                                 .collection("/Subjects/").document(sub + " [L]")
                                 .collection("/Months");
                         update(getStu);
                     }
                     i++;
+            }
+        } else if (type.contains("Tute-G1") || type.contains("Tute-G2") || type.contains("Tute-G3")) { //If there's TUTE.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                for (int g = 0; g < Home_frag.bms3List.size(); g++) {
+                    final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                            + Home_frag.bms3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                            .collection("/Subjects/").document(sub + " [T]")
+                            .collection("/Months");
+                    update(getStu);
+                }
+                i++;
+            }
+        } else if(type.contains("Theory")) {
+
+            Log.wtf(TAG , "getG:  "+Home_frag.bms3List.size());
+
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                for (int g = 0; g < Home_frag.bms3List.size(); g++) {
+                    Log.wtf(TAG , "getG:  "+Home_frag.bms3List.get(g));
+                    final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                            + Home_frag.bms3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                            .collection("/Subjects/").document(sub)
+                            .collection("/Months");
+                    update(getStu);
+//                    /Attendance/BMS-3FA/Students/15001/Year/2018/Subjects/Business Policy & Strategy/Months/Apr
+                }
+                i++;
+            }
+        }
+        switch_to_main();
+    }
+
+    public void bfiaMixSave(View view) {
+        int i = 0;
+        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+        if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                for (int g = 0; g < Home_frag.bfia3List.size(); g++) {
+                    final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                            + Home_frag.bfia3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                            .collection("/Subjects/").document(sub + " [L]")
+                            .collection("/Months");
+                    update(getStu);
+                }
+                i++;
             }
         } else if (type.contains("Tute-G1") || type.contains("Tute-G2") || type.contains("Tute-G3")) { //If there's TUTE.
             while (i < AttendanceAdapter.saveRoll.size()) {
@@ -763,9 +815,8 @@ public class AttendanceMain extends AppCompatActivity {
                         }
                     }
                 }else{
-
-                    for(int h= 0 ; h < Home_frag.bfia3List.size();h++) {
-                        JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
+                    for(int h= 0 ; h < Home_frag.bms3List.size();h++) {
+                        JSONArray sheet = object.getJSONArray(Home_frag.bms3List.get(h));
                         for (int i = 0; i < sheet.length(); i++) {
                             JSONObject c = sheet.getJSONObject(i);
                             String name = c.getString("Name");
@@ -842,151 +893,5 @@ public class AttendanceMain extends AppCompatActivity {
         }
     }
 
-//    public class getMixListFromExcel extends AsyncTask<Void, Void, Void> {
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... params) {
-//            try {
-//                HttpHandler sh = new HttpHandler();
-//                String jsonStr = sh.makeServiceCall(link);
-//                String jsonStr2 = sh.makeServiceCall(SUBURL);
-//                JSONObject object = new JSONObject(jsonStr);
-////                ArrayList<String> cl = new ArrayList<>();
-////                cl.add("BFIA 3A");
-////                cl.add("BFIA 3B");
-//                for (int h = 0; h < Home_frag.list.size(); h++) {
-//                    JSONArray contacts = object.getJSONArray(Home_frag.list.get(h));
-////                    JSONObject object2 = new JSONObject(jsonStr2);
-////                    JSONArray contacts2 = object2.getJSONArray(clas);
-//                    String tute, sub1, sub2;
-//
-//                    for (int i = 0; i < contacts.length(); i++) {
-//                        JSONObject c = contacts.getJSONObject(i);
-//                        String name = c.getString("Name");
-//                        String roll_no = c.getString("Roll_No");
-//                        String grp = c.getString("Lab_Group");
-//                        if (clas.contains("BFIA 3")) {
-//                            sub1 = c.getString("Sub_Type_1");
-//                            sub2 = c.getString("Sub_Type_2");
-//
-//                        } else {
-//                            sub1 = "";
-//                            sub2 = "";
-//
-//                        }
-//                        if (clas.contains("BMS") || clas.contains("BFIA")) {
-//                            tute = c.getString("Tute");
-//                        } else tute = "";
-//
-////                    for (int k = 0; k < contacts2.length(); k++) {
-////                        JSONObject c2 = contacts2.getJSONObject(k);
-////                        String subj = c2.getString("Semester_A");
-////                        String typesub = c2.getString("Sub");
-////                        if (sub == subj) {
-//                        if (type == 0) {
-//                            if (sub1.equals("2") || sub2.equals("2")) {
-//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                showdata.add(dataClass);
-//                            }
-//                        }
-////                        }
-////                    }
-//
-//                        if (type == 1) {
-//                            if (grp.equals("1") && Labtype == 1) {
-//                                if (sub1.equals("2") || sub2.equals("2")) {
-//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                    showdata.add(dataClass);
-//                                }
-//                            }
-//
-//                            if (grp.equals("2") && Labtype == 2) {
-//                                if (sub1.equals("2") || sub2.equals("2")) {
-//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                    showdata.add(dataClass);
-//                                }
-//                            }
-//
-//                            if (Labtype == 3) {
-//                                if (sub1.equals("2") || sub2.equals("2")) {
-//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                    showdata.add(dataClass);
-//                                }
-//                            }
-//                        } else if (type == 2) {
-//
-//                            if (tute.equals("1") && TutType == 1) {
-//                                if (sub1.equals("2") || sub2.equals("2")) {
-//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                    showdata.add(dataClass);
-//                                }
-//                            }
-//
-//                            if (tute.equals("2") && TutType == 2) {
-//                                if (sub1.equals("2") || sub2.equals("2")) {
-//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                    showdata.add(dataClass);
-//                                }
-//                            }
-//                            if (tute.equals("3") && TutType == 3) {
-//                                if (sub1.equals("2") || sub2.equals("2")) {
-//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                    showdata.add(dataClass);
-//                                }
-//                            }
-//
-//                            if (TutType == 4) {
-//                                if (sub1.equals("2") || sub2.equals("2")) {
-//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
-//                                    showdata.add(dataClass);
-//                                }
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            } catch (Exception ex) {
-//                Log.e("TAG", "getListFromExcel", ex);
-//            }
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void result) {
-//            super.onPostExecute(result);
-//            adapter.notifyDataSetChanged();
-//            bar.setVisibility(View.INVISIBLE);
-//            tv.setVisibility(View.INVISIBLE);
-//
-//            final CollectionReference toUpdateTotal = FirebaseFirestore.getInstance().collection("Attendance/" + clas + "/Students/" +
-//                    16501 + "/Subjects/" + sub + "/Year").document("2018").collection("/Months");
-//
-//            toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                    if (task.isSuccessful()) {
-//                        db.runTransaction(new Transaction.Function<Void>() {
-//                            @Override
-//                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-//                                final DocumentReference sfDocRef = toUpdateTotal.document(getMonth);
-//                                DocumentSnapshot snapshot = transaction.get(sfDocRef);
-//                                newTotal = (snapshot.getDouble("total")) + 1;
-//                                transaction.update(sfDocRef, "total", newTotal);
-//                                //  default_map2.put("attendance" ,newAttendence);
-//                                Log.i(TAG, "Total updated");
-//                                return null;
-//                            }
-//                        });
-//                    }
-//                }
-//            });
-//
-//        }
-//    }
 
 }
