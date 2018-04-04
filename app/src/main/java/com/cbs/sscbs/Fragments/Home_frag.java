@@ -84,7 +84,7 @@ public class Home_frag extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
-                        if (snapshot.getId().toString().contains("BMS-3"))
+                        if (snapshot.getId().toString().contains("BMS-3F"))
                             bms3List.add(snapshot.getId().toString());
             }
         });

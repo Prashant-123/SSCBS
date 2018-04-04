@@ -155,6 +155,7 @@ public class AdminActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog,int which) {
                         // new uploadBmsList().execute();
                         new uploadBmsMixList().execute();
+                        //new uploadBms3MList().execute();
                         Toast.makeText(AdminActivity.this, "List Uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -243,8 +244,8 @@ public class AdminActivity extends AppCompatActivity {
                 JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
                 JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
 
-                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-2A");
-                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-2A");
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BFIA-2B");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BFIA-2B");
 
                 Log.wtf("TAG", "ok  "+studentsListArray.length());
 
@@ -254,13 +255,13 @@ public class AdminActivity extends AppCompatActivity {
                     String stu_roll = jsonObject.getString("Roll_No");
 
                     default_map1.put("Name" , stu_name);
-                    db.collection("Attendance").document("BFIA-2A").collection("Students").document(stu_roll).set(default_map1);
+                    db.collection("Attendance").document("BFIA-2B").collection("Students").document(stu_roll).set(default_map1);
 
                     for(int j = 0 ; j < subjectsListArray.length(); j++){
                         JSONObject  jsonObject1 = subjectsListArray.getJSONObject(j);
                         String subject = jsonObject1.getString("Semester_A");
 
-                        db.collection("Attendance").document("BFIA-2A").collection("Students")
+                        db.collection("Attendance").document("BFIA-2B").collection("Students")
                                 .document(stu_roll).collection("Year").document(getYear).collection("Subjects")
                                 .document(subject).set(default_map3);
 
@@ -271,7 +272,7 @@ public class AdminActivity extends AppCompatActivity {
 
                         for(int k = 1 ; k< months.length;k++) {
 
-                            db.collection("Attendance").document("BFIA-2A").collection("Students")
+                            db.collection("Attendance").document("BFIA-2B").collection("Students")
                                     .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
                                     .collection("Months").document(months[k]).set(default_map2);
                             Log.i("TAG", getYear + stu_name + stu_roll + subject);
@@ -414,8 +415,8 @@ public class AdminActivity extends AppCompatActivity {
                 JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
                 JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
 
-                JSONArray studentsListArray = studentsListObject.getJSONArray("BMS-3FA");
-                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BMS-3FA");
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BMS-3FC");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BMS-3FC");
 
                 Log.wtf("TAG", "ok  "+studentsListArray.length());
 
@@ -427,7 +428,7 @@ public class AdminActivity extends AppCompatActivity {
                     String sub2 = jsonObject.getString("Sub_Type_2");
 
                     default_map1.put("Name" , stu_name);
-                    db.collection("Attendance").document("BMS-3FA").collection("Students").document(stu_roll).set(default_map1);
+                    db.collection("Attendance").document("BMS-3FC").collection("Students").document(stu_roll).set(default_map1);
 
                     for(int j = 0 ; j < subjectsListArray.length(); j++) {
                         JSONObject jsonObject1 = subjectsListArray.getJSONObject(j);
@@ -435,7 +436,7 @@ public class AdminActivity extends AppCompatActivity {
                         String type = jsonObject1.getString("Sub");
 
                         if (type == sub1 || type == sub2 || type.toString().equals(String.valueOf(("0")))) {
-                            db.collection("Attendance").document("BMS-3FA").collection("Students")
+                            db.collection("Attendance").document("BMS-3FC").collection("Students")
                                     .document(stu_roll).collection("Year").document(getYear).collection("Subjects")
                                     .document(subject).set(default_map3);
 
@@ -446,7 +447,7 @@ public class AdminActivity extends AppCompatActivity {
 
                             for(int k = 1 ; k< months.length;k++) {
 
-                                db.collection("Attendance").document("BMS-3FA").collection("Students")
+                                db.collection("Attendance").document("BMS-3FC").collection("Students")
                                         .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
                                         .collection("Months").document(months[k]).set(default_map2);
                             }
@@ -461,53 +462,57 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    public class uploadListFromExcel extends AsyncTask<Void, Void, Void> {
+    public static class uploadBms3MList extends AsyncTask<Void , Void , Void>{
+
         @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                HttpHandler sh = new HttpHandler();
-//                String jsonStr1 = sh.makeServiceCall(CLASSURL);
-                String jsonStr = sh.makeServiceCall(bfiaURL);
-                String jsonStr2 = sh.makeServiceCall(SUBURL);
-                JSONObject object = new JSONObject(jsonStr);
-                JSONArray contacts = object.getJSONArray("BFIA 3A");
-                JSONObject object2 = new JSONObject(jsonStr2);
-                JSONArray contacts2 = object2.getJSONArray("BFIA 3A");
+        protected Void doInBackground(Void... voids) {
+            try{
+                HttpHandler httpHandler = new HttpHandler();
+                String bfiaStudentsList = httpHandler.makeServiceCall(bmsLIST);
+                String bfiaSubjectsList = httpHandler.makeServiceCall(SUBURL);
 
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
-                    String name = c.getString("Name");
-                    String roll_no = c.getString("Roll_No");
-                    String sub1 = c.getString("Sub_Type_1");
-                    String sub2 = c.getString("Sub_Type_2");
-                   // String core = c.getString("Sub_Type_3");
-                    default_map1.put("name", name);
-                    db.collection("Attendance").document("BFIA 3A").collection("Students")
-                            .document(roll_no).set(default_map1);
+                JSONObject studentsListObject = new JSONObject(bfiaStudentsList);
+                JSONObject subjectsListObject = new JSONObject(bfiaSubjectsList);
 
-                    for (int j = 0; j < contacts2.length(); j++) {
-                        JSONObject c2 = contacts2.getJSONObject(j);
-                        String sub = c2.getString("Semester_A");
-                        String type = c2.getString("Sub");
+                JSONArray studentsListArray = studentsListObject.getJSONArray("BMS-3M");
+                JSONArray subjectsListArray = subjectsListObject.getJSONArray("BMS-3M");
 
-                        if(type == sub1 || type == sub2 || type.toString().equals(String.valueOf(( "0")))) {
+                for(int i = 0 ; i < studentsListArray.length() ; i++){
+                    JSONObject jsonObject = studentsListArray.getJSONObject(i);
+                    String stu_name = jsonObject.getString("Name");
+                    String stu_roll = jsonObject.getString("Roll_No");
+                    String sub1 = jsonObject.getString("Sub_Type_1");
 
-                            db.collection("Attendance").document("BFIA 3A").collection("Students")
-                                    .document(roll_no).collection("Year").document(getYear).collection("Subjects").document(sub).set(default_map3);
+                    default_map1.put("Name" , stu_name);
+                    db.collection("Attendance").document("BMS-3M").collection("Students").document(stu_roll).set(default_map1);
+
+                    for(int j = 0 ; j < subjectsListArray.length(); j++) {
+                        JSONObject jsonObject1 = subjectsListArray.getJSONObject(j);
+                        String subject = jsonObject1.getString("Semester_A");
+                        String type = jsonObject1.getString("Sub");
+
+                        if (type == sub1 || type.toString().equals(String.valueOf(("0")))) {
+                            db.collection("Attendance").document("BMS-3M").collection("Students")
+                                    .document(stu_roll).collection("Year").document(getYear).collection("Subjects")
+                                    .document(subject).set(default_map3);
 
                             default_map2.put("attendance", 0);
                             default_map2.put("total", 0);
 
-                            db.collection("Attendance").document("BFIA 3A").collection("Students")
-                                    .document(roll_no).collection("Year").document(getYear).collection("Subjects").document(sub)
-                                    .collection("Months").document(getMonth).set(default_map2);
+                            String [] months = theMonth();
+
+                            for(int k = 1 ; k< months.length;k++) {
+
+                                db.collection("Attendance").document("BMS-3M").collection("Students")
+                                        .document(stu_roll).collection("Year").document(getYear).collection("Subjects").document(subject)
+                                        .collection("Months").document(months[k]).set(default_map2);
+                            }
                         }
                     }
                 }
 
             } catch (Exception ex) {
-                Log.e("TAG", "getListFromExcel", ex);
-                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
+//                Toast.makeText(AdminActivity.this, "An Error Occured! Please try Again", Toast.LENGTH_LONG).show();
             }
             return null;
         }
