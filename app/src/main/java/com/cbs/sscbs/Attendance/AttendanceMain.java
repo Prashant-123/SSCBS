@@ -21,6 +21,11 @@ import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -61,6 +66,7 @@ public class AttendanceMain extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     AttendanceAdapter adapter = null;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +101,30 @@ public class AttendanceMain extends AppCompatActivity {
             new bfiaMixExcelSheet().execute();
         }
 
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(clas.contains("Bsc")){
+                   bscSave();
+                }
+                else if((clas.contains("BMS-1"))||(clas.contains("BMS-2"))){
+                    bmsSave();
+                }
+                else if(clas.contains("BMS-3F")){
+                    bmsMixSave();
+                }
+                else if(clas.contains("BMS-3M")){
+                    bms3MSave();
+                }
+                else if((clas.contains("BFIA-1"))||(clas.contains("BFIA-2"))){
+                    bfiaSave();
+                }
+                else if(clas.contains("BFIA-3")){
+                    bfiaMixSave();
+                }
+
+            }
+        });
         adapter.notifyDataSetChanged();
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
         toolbar.setTitle(clas + " / " + sub);
@@ -168,7 +198,7 @@ public class AttendanceMain extends AppCompatActivity {
         });
     }
 
-    public void bscSave(View view) {
+     void bscSave() {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
 
@@ -176,20 +206,42 @@ public class AttendanceMain extends AppCompatActivity {
 
         if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
             while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub + " [L]")
-                        .collection("/Months");
-                update(getStu);
+//                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+//                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+//                        .collection("/Subjects/").document(sub + " [L]")
+//                        .collection("/Months");
+//                update(getStu);
                 i++;
             }
         } else {
             while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub)
-                        .collection("/Months");
-                update(getStu);
+//                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+//                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+//                        .collection("/Subjects/").document(sub)
+//                        .collection("/Months");
+//                update(getStu);
+
+//                database.child("Attendance").child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub).child(getMonth).child("attendance").setValue(1);
+
+                database.runTransaction(new com.google.firebase.database.Transaction.Handler() {
+                    @Override
+                    public com.google.firebase.database.Transaction.Result doTransaction(MutableData mutableData) {
+                        if (mutableData.child("attendance").getValue() == null){
+                            mutableData.child("attendance").setValue("1");
+                        } else {
+                            int current = Integer.valueOf((String.valueOf(mutableData.child("attendance").getValue())));
+                            mutableData.child("attendance").setValue(++current);
+                        }
+                        return com.google.firebase.database.Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    }
+                });
+
                 i++;
             }
         }
@@ -217,7 +269,7 @@ public class AttendanceMain extends AppCompatActivity {
 //        switch_to_main();
     }
 
-    public void bfiaSave(View view) {
+     void bfiaSave() {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
         if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
@@ -251,7 +303,7 @@ public class AttendanceMain extends AppCompatActivity {
         switch_to_main();
     }
 
-    public void bfiaMixSave(View view) {
+     void bfiaMixSave() {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
         if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
@@ -267,13 +319,17 @@ public class AttendanceMain extends AppCompatActivity {
             }
         } else if (type.contains("Tute-G1") || type.contains("Tute-G2") || type.contains("Tute-G3")) { //If there's TUTE.
             while (i < AttendanceAdapter.saveRoll.size()) {
-                for (int g = 0; g < Home_frag.bfia3List.size(); g++) {
-                    final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                            + Home_frag.bfia3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                            .collection("/Subjects/").document(sub + " [T]")
-                            .collection("/Months");
-                    update(getStu);
-                }
+//                for (int g = 0; g < Home_frag.bfia3List.size(); g++) {
+//                    final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+//                            + Home_frag.bfia3List.get(g) + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+//                            .collection("/Subjects/").document(sub + " [T]")
+//                            .collection("/Months");
+//                    update(getStu);
+
+                database.child("Attendance").child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+                        .child(sub).child(getMonth).child("attendance").setValue(1);
+
+//                }
                 i++;
             }
         } else if(type.contains("Theory")) {
@@ -285,6 +341,7 @@ public class AttendanceMain extends AppCompatActivity {
                             .collection("/Subjects/").document(sub)
                             .collection("/Months");
                     update(getStu);
+
                 }
                 i++;
             }
@@ -292,7 +349,7 @@ public class AttendanceMain extends AppCompatActivity {
         switch_to_main();
     }
 
-    public void bmsMixSave(View view) {
+     void bmsMixSave() {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
         if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
@@ -333,7 +390,7 @@ public class AttendanceMain extends AppCompatActivity {
         switch_to_main();
     }
 
-    public void bmsSave(View view) {
+     void bmsSave() {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
         if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
@@ -367,7 +424,7 @@ public class AttendanceMain extends AppCompatActivity {
         switch_to_main();
     }
 
-    public void bms3MSave(View view) {
+     void bms3MSave() {
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
         if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
