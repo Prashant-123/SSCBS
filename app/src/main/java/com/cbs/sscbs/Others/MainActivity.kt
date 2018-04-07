@@ -67,7 +67,7 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
 //            }
 //
 //            override fun onDataChange(p0: DataSnapshot?) {
-//                for (dsp: DataSnapshot in p0!!.children) {
+//                for (dsp: DataSnapshot in p0!!.children) {6
 //                    Log.wtf("TAG", dsp.key.toString())
 //                    list?.add(dsp.value.toString())
 //                }
@@ -199,18 +199,17 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
         navigationView = findViewById(R.id.navigation_view)
         navigationView.itemIconTintList = null
         val header = navigationView.getHeaderView(0)
-//        val userPic: ImageView = header.findViewById(R.id.user_profile_picture)
+        val userPic: ImageView = header.findViewById(R.id.user_profile_picture)
         val username: TextView = header.findViewById(R.id.user_display_name)
-//        if (user.photoUrl != null) {
-//            Glide.with(this)
-//                    .load(user.photoUrl)
-//                    .into(userPic)
-//        }
+        if (user.photoUrl != null) {
+            Glide.with(this)
+                    .load(user.photoUrl)
+                    .into(userPic)
+        }
         username.text = user.displayName?.capitalize()
         navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
             val id = item.itemId
             Handler().postDelayed({ casebyid(id) }, 500)
-
 
             // mDrawerLayout.closeDrawers();
             mDrawerLayout.closeDrawer(GravityCompat.START)

@@ -181,7 +181,6 @@ class TimeTable_frag : Fragment() {
                                     }
                                     1 -> {
                                             DownloadFile().execute(url, "Image.jpg")
-                                            Log.wtf("TAG", "ok")
                                     }
                                 }
                             }
@@ -190,6 +189,7 @@ class TimeTable_frag : Fragment() {
                     }
 
                     override fun onError() {
+                        Log.wtf("TAG" , "dsg");
                         Snackbar.make(drawerLayout, "New Time Table may not have been upoaded ! ", Snackbar.LENGTH_LONG).show()
                     }
                 })
