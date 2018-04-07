@@ -154,7 +154,7 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
                             this.toolbar.setTitle("Events")
                             nm.replace(R.id.main_Frame, nf).commit()
                         }
-
+//
                         R.id.ic_home -> {
                             val main_fragment = Home_frag()
                             val ft = supportFragmentManager.beginTransaction()
