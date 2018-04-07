@@ -61,7 +61,6 @@ public class AttendanceMain extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     AttendanceAdapter adapter = null;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -293,42 +292,7 @@ public class AttendanceMain extends AppCompatActivity {
         switch_to_main();
     }
 
-    public void bmsSave(View view) {
-        int i = 0;
-        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
-        if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
-            while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub + " [L]")
-                        .collection("/Months");
-                update(getStu);
-                i++;
-            }
-        } else if (type.equals(" Tute-G1") || type.equals(" Tute-G2") || type.equals(" Tute-G3")) { //If there's TUTE.
-            while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub + " [T]")
-                        .collection("/Months");
-                update(getStu);
-                i++;
-            }
-        } else {
-            while (i < AttendanceAdapter.saveRoll.size()) {
-                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
-                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
-                        .collection("/Subjects/").document(sub)
-                        .collection("/Months");
-                update(getStu);
-                i++;
-            }
-        }
-        switch_to_main();
-    }
-
     public void bmsMixSave(View view) {
-        this.view = view;
         int i = 0;
         Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
         if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
@@ -363,6 +327,40 @@ public class AttendanceMain extends AppCompatActivity {
                             .collection("/Months");
                     update(getStu);
                 }
+                i++;
+            }
+        }
+        switch_to_main();
+    }
+
+    public void bmsSave(View view) {
+        int i = 0;
+        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+        if (type.equals("Lab-G1") || type.equals("Lab-G2")) { //If there's LAB.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub + " [L]")
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        } else if (type.equals(" Tute-G1") || type.equals(" Tute-G2") || type.equals(" Tute-G3")) { //If there's TUTE.
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub + " [T]")
+                        .collection("/Months");
+                update(getStu);
+                i++;
+            }
+        } else {
+            while (i < AttendanceAdapter.saveRoll.size()) {
+                final CollectionReference getStu = FirebaseFirestore.getInstance().collection("Attendance/"
+                        + clas + "/Students/" + AttendanceAdapter.saveRoll.get(i) + "/Year/").document(getYear)
+                        .collection("/Subjects/").document(sub)
+                        .collection("/Months");
+                update(getStu);
                 i++;
             }
         }
