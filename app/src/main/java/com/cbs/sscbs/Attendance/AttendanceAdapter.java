@@ -67,7 +67,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
                 }
                 else saveRoll.remove(checkRoll);
             }
-        }); 
+        });
         holder.setData(current);
     }
 

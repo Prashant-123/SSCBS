@@ -143,8 +143,8 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
 //                            simpleAlert.setTitle("Coming Soon...")
 //                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
 //                            simpleAlert.show()
-                            val intent1 = Intent(this, Deadlines::class.java)
-                            startActivity(intent1)
+//                            val intent1 = Intent(this, Deadlines::class.java)
+//                            startActivity(intent1)
 
 
                         }
@@ -210,6 +210,7 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
         navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
             val id = item.itemId
             Handler().postDelayed({ casebyid(id) }, 500)
+
 
             // mDrawerLayout.closeDrawers();
             mDrawerLayout.closeDrawer(GravityCompat.START)
