@@ -5,15 +5,15 @@ package com.cbs.sscbs.Attendance;
  */
 
 public class StudentsDataClass {
-    public StudentsDataClass(String subject, int attendance, int total) {
+    public StudentsDataClass(String subject, Integer attendance, Integer total) {
         this.subject = subject;
         this.attendance = attendance;
         this.total = total;
     }
 
     private String subject;
-    private int attendance;
-    private int total;
+    private Integer attendance;
+    private Integer total;
 
     public int getAttendance() {
         return attendance;

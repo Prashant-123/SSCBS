@@ -26,10 +26,7 @@ public class ShowToStudents extends AppCompatActivity {
 
     RecyclerView recyclerView;
     StudentsAdapter studentsAdapter;
-    ImageView pic;
-    String link;
-    String clas, roll, naam, month, year;
-    TextView textView , setRollText, monthText;
+    TextView textView , setRollText, monthText, yearText;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance");
 
 //    private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
@@ -47,14 +44,24 @@ public class ShowToStudents extends AppCompatActivity {
 
         textView = findViewById(R.id.r_name);
         monthText = findViewById(R.id.monthText);
+        yearText = findViewById(R.id.yearText);
         setRollText = findViewById(R.id.roll_text);
-        studentsAdapter.notifyDataSetChanged();
-        clas = getIntent().getStringExtra("class");
-        roll = getIntent().getStringExtra("roll");
-        month = getIntent().getStringExtra("month");
-        year = getIntent().getStringExtra("year");
 
-//        new showStudentName().execute();
+        yearText.setText("Year: " + getIntent().getStringExtra("year"));
+        monthText.setText("Month: " + getIntent().getStringExtra("month"));
+        setRollText.setText(getIntent().getStringExtra("roll"));
+
+        reference.child(getIntent().getStringExtra("class"))
+                .child(getIntent().getStringExtra("roll")).child("Name")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                textView.setText(dataSnapshot.getValue().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         studentsAdapter.notifyDataSetChanged();
 
     }
