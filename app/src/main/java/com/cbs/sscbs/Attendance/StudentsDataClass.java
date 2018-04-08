@@ -5,29 +5,29 @@ package com.cbs.sscbs.Attendance;
  */
 
 public class StudentsDataClass {
-    public StudentsDataClass(String subject, Double attendance, Double total) {
+    public StudentsDataClass(String subject, int attendance, int total) {
         this.subject = subject;
         this.attendance = attendance;
         this.total = total;
     }
 
     private String subject;
-    private Double attendance;
-    private Double total;
+    private int attendance;
+    private int total;
 
-    public Double getAttendance() {
+    public int getAttendance() {
         return attendance;
     }
 
-    public void setAttendance(Double attendance) {
+    public void setAttendance(int attendance) {
         this.total = attendance;
     }
 
-    public Double getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(int total) {
         this.attendance = total;
     }
 

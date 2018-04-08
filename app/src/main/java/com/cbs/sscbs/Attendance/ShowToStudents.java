@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.cbs.sscbs.Fragments.Attendance_Frag;
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,8 +54,7 @@ public class ShowToStudents extends AppCompatActivity {
         month = getIntent().getStringExtra("month");
         year = getIntent().getStringExtra("year");
 
-
-        new showStudentName().execute();
+//        new showStudentName().execute();
         studentsAdapter.notifyDataSetChanged();
 
     }
@@ -64,34 +66,33 @@ public class ShowToStudents extends AppCompatActivity {
         Attendance_Frag.allSub.clear();
     }
 
-    public class showStudentName extends AsyncTask<Void, Void, Void>
-    {
-        @Override
-        protected Void doInBackground(Void... params)
-        {
-            try
-            {
-//                reference.child(clas).child(year).
-            }
-            catch(Exception ex)
-            {
-                Log.e("TAG", "getListFromExcel", ex);
-            }
-
-            return null;
-
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result){
-            super.onPostExecute(result);
-            textView.setText(naam);
-            setRollText.setText(roll);
-        }
-
-
-    }
+//    public class showStudentName extends AsyncTask<Void, Void, Void>
+//    {
+//        @Override
+//        protected Void doInBackground(Void... params)
+//        {
+//            try
+//            {
+//            }
+//            catch(Exception ex)
+//            {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//
+//            return null;
+//
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result){
+//            super.onPostExecute(result);
+//            textView.setText(naam);
+//            setRollText.setText(roll);
+//        }
+//
+//
+//    }
 
 
 }
