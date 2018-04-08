@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.cbs.sscbs.Fragments.Attendance_Frag;
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,10 +25,12 @@ public class ShowToStudents extends AppCompatActivity {
     StudentsAdapter studentsAdapter;
     ImageView pic;
     String link;
-    String classIntent, roll, naam, month, year;
+    String clas, roll, naam, month, year;
     TextView textView , setRollText, monthText;
-    private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
-    private static final String bscURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance");
+
+//    private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
+//    private static final String bscURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +46,7 @@ public class ShowToStudents extends AppCompatActivity {
         monthText = findViewById(R.id.monthText);
         setRollText = findViewById(R.id.roll_text);
         studentsAdapter.notifyDataSetChanged();
-        classIntent = getIntent().getStringExtra("class");
-        if (classIntent.contains("Bsc"))
-        {
-            link = bscURL;
-        }
-//        else if (classIntent.contains("BFIA"))
-//        {
-//            link = bfiaURL;
-//        }
-        else if (classIntent.contains("BMS"))
-            link = bmsURL;
-
+        clas = getIntent().getStringExtra("class");
         roll = getIntent().getStringExtra("roll");
         month = getIntent().getStringExtra("month");
         year = getIntent().getStringExtra("year");
@@ -78,19 +71,7 @@ public class ShowToStudents extends AppCompatActivity {
         {
             try
             {
-                HttpHandler sh = new HttpHandler();
-                String jsonStr = sh.makeServiceCall(link);
-                JSONObject object = new JSONObject(jsonStr);
-                JSONArray contacts = object.getJSONArray(classIntent);
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
-                    if (roll.compareToIgnoreCase(c.getString("Roll_No"))==0)
-                    {
-                        naam = c.getString("Name");
-                        break;
-                    }
-                }
-
+//                reference.child(clas).child(year).
             }
             catch(Exception ex)
             {
@@ -107,7 +88,6 @@ public class ShowToStudents extends AppCompatActivity {
             super.onPostExecute(result);
             textView.setText(naam);
             setRollText.setText(roll);
-            monthText.setText("Month: "+ month);
         }
 
 

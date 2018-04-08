@@ -137,7 +137,7 @@ public class AttendanceMain extends AppCompatActivity {
                 updateAtt(reference);
                 i++;
             }
-        } else {
+        } else if (type.contains("Theory")) {
             while (i < AttendanceAdapter.saveRoll.size()){
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance")
                         .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear).child(sub).child(getMonth);
@@ -146,7 +146,7 @@ public class AttendanceMain extends AppCompatActivity {
             }
         }
 
-        switch_to_main();
+//        switch_to_main();
     }
 
     public void updateAtt(DatabaseReference reference){
@@ -184,7 +184,7 @@ public class AttendanceMain extends AppCompatActivity {
                 initAttendance(reference);
                 i++;
             }
-        } else {
+        } else if (type.contains("Theory")) {
             while (i < AttendanceAdapter.to_update_Total.size()){
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance")
                         .child(clas).child(AttendanceAdapter.to_update_Total.get(i)).child(getYear).child(sub).child(getMonth);
@@ -195,6 +195,7 @@ public class AttendanceMain extends AppCompatActivity {
     }
 
     public void initAttendance(DatabaseReference reference){
+        Log.i(TAG, "Init");
         reference.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {

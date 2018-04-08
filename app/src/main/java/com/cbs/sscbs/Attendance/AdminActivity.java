@@ -1,60 +1,24 @@
 package com.cbs.sscbs.Attendance;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AdminActivity extends AppCompatActivity {
-
-//    private static final String bscSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
-//    private static final String bfiaURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
-//    private static final String bmsLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
-//    private static final String CLASSURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=16WP-U687v4q2MtsJbHM-yCkqQK856tJ5IkiYvgowe90";
-//    private static final String bms3 = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1x61Klq4PLhwXpZwzeMbax3tlgANRJ8b0q2g_J-1D1DA";
-//    private static final String SUBURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
-//    static Calendar c = Calendar.getInstance();
-//
-//    private static final String TAG = "TAG";
-//
-//    static SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-//    static String formattedDate = df.format(c.getTime());
-//    static String getYear = formattedDate.substring(7, 11);
-//    static String getMonth = formattedDate.substring(3, 6);
-//    static Map<String, Object> default_map1 = new HashMap<>();
-//    static Map<String, Object> default_map2 = new HashMap<>();
-//    static Map<String, Object> default_map3 = new HashMap<>();
-//    static Map<String, Object> default_map4 = new HashMap<>();
-//    static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance/Bsc-2/16501/2018/Algorithms/Apr");
 
@@ -67,7 +31,6 @@ public class AdminActivity extends AppCompatActivity {
         toolbar.setTitle("Admin");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        default_map3.put("field" ,"");
 
         Button uploadClassList = findViewById(R.id.uploadClassList);
         Button uploadBscClassList = findViewById(R.id.uploadBscClassList);
