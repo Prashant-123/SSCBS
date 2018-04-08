@@ -65,6 +65,7 @@
                           android:textStyle="bold"
                           android:gravity="right"
                           android:textColor="@color/white"
+                          android:text="Year: "
                           android:fontFamily="@font/raleway_light"/>
 
                       <TextView

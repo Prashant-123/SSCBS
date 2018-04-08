@@ -9,6 +9,10 @@
     <string name="google_maps_key">AIzaSyAQoHJRH9p-6V-plOI9IlUUw-V7t6Upq-g</string>
     <!--API key-->
 
+    <!--EXCEL SHEETS-->
+    <string name="bsc">https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y</string>
+
+
     <string name="contribute_text">I WANT TO CONTRIBUTE</string>
     <string name="contribute_message">Dear user, let\'s work on this app together.</string>
     <string name="repository_text">Go to SSCBS App repository and Contribute !</string>
@@ -27,16 +31,6 @@
     <string name="alertFailedWifiTitle">Connection Error</string>
     <string name="alertFailedWifiPositiveButton">Retry</string>
     <string name="alertFailedWifiNegativeButton">Open Wifi Settings</string>
-    <string name="bsc_sem1">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/I%20SEM/</string>
-    <string name="bsc_sem2">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/I%20YEAR/II%20SEM/</string>
-    <string name="bsc_sem3">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/II%20YEAR/III%20SEM/</string>
-    <string name="bsc_sem4">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/II%20YEAR/IV%20SEM/</string>
-    <string name="bsc_sem5">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/III%20YEAR/V%20SEM/</string>
-    <string name="bsc_sem6">http://web.du.ac.in/PreviousQuestionPapers/UNDER%20GRADUATE/B%20SC.%20HONS/COMPUTER%20SC/III%20YEAR/VI%20SEM/</string>
-
-
-    //firebas ui strings
-
 
     <string name="description_image_2">Image 2</string>
     <string name="description_zoom_touch_close">Expanded image (touch to close)</string>

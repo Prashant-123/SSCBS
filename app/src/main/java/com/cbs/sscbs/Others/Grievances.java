@@ -1,5 +1,6 @@
 package com.cbs.sscbs.Others;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,7 +27,6 @@ import android.widget.Toast;
 
 import com.cbs.sscbs.Attendance.AttendanceDataClass;
 import com.cbs.sscbs.Fragments.Home_frag;
-import com.cbs.sscbs.Manifest;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -66,10 +66,11 @@ public class Grievances extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //new getMixListFromExcel().execute();
-        Toast.makeText(this, StringUtils.substringAfterLast(emailID, "@"), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, StringUtils.substringAfterLast(emailID, "@"), Toast.LENGTH_SHORT).show();
 
         askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,WRITE_EXST);
-        askForPermission(android.Manifest.permission.SEND_SMS, 1);
+        askForPermission(Manifest.permission.SEND_SMS, 123);
+        askForPermission(Manifest.permission.READ_PHONE_STATE, 1);
 
         setContentView(R.layout.activity_grievances);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_grievances);
@@ -120,7 +121,7 @@ public class Grievances extends AppCompatActivity {
         try {
             String redefinedMessage = "Dear Sir/Ma'am,\nI have the following concern: \n" + message + " \n\n\n Name: " + displayName;
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage("+918527753545", null, redefinedMessage, null, null);
+            smsManager.sendTextMessage("+919711414586", null, redefinedMessage, null, null);
             Toast.makeText(getApplicationContext(), "SMS Sent!",
                     Toast.LENGTH_LONG).show();
         } catch (Exception e) {
@@ -201,36 +202,4 @@ public class Grievances extends AppCompatActivity {
             }
         }
     }
-
-    public class getMixListFromExcel extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params)
-        {
-            try
-            {
-                CollectionReference getLink = FirebaseFirestore.getInstance().collection("Attendance");
-                getLink.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                            for (DocumentSnapshot snapshot: task.getResult())
-                            {
-                                list.add(snapshot.getId().toString());
-                            }
-                    }
-                });
-            }
-            catch(Exception ex)
-            {
-                Log.e("TAG", "getListFromExcel", ex);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
-    }
-
 }

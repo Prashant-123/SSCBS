@@ -13,6 +13,11 @@ import android.widget.TextView;
 import com.cbs.sscbs.Fragments.Attendance_Frag;
 import com.cbs.sscbs.Others.HttpHandler;
 import com.cbs.sscbs.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,12 +26,11 @@ public class ShowToStudents extends AppCompatActivity {
 
     RecyclerView recyclerView;
     StudentsAdapter studentsAdapter;
-    ImageView pic;
-    String link;
-    String classIntent, roll, naam, month, year;
-    TextView textView , setRollText, monthText;
-    private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
-    private static final String bscURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
+    TextView textView , setRollText, monthText, yearText;
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance");
+
+//    private static final String bmsURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
+//    private static final String bscURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +44,24 @@ public class ShowToStudents extends AppCompatActivity {
 
         textView = findViewById(R.id.r_name);
         monthText = findViewById(R.id.monthText);
+        yearText = findViewById(R.id.yearText);
         setRollText = findViewById(R.id.roll_text);
-        studentsAdapter.notifyDataSetChanged();
-        classIntent = getIntent().getStringExtra("class");
-        if (classIntent.contains("Bsc"))
-        {
-            link = bscURL;
-        }
-//        else if (classIntent.contains("BFIA"))
-//        {
-//            link = bfiaURL;
-//        }
-        else if (classIntent.contains("BMS"))
-            link = bmsURL;
 
-        roll = getIntent().getStringExtra("roll");
-        month = getIntent().getStringExtra("month");
-        year = getIntent().getStringExtra("year");
+        yearText.setText("Year: " + getIntent().getStringExtra("year"));
+        monthText.setText("Month: " + getIntent().getStringExtra("month"));
+        setRollText.setText(getIntent().getStringExtra("roll"));
 
-
-        new showStudentName().execute();
+        reference.child(getIntent().getStringExtra("class"))
+                .child(getIntent().getStringExtra("roll")).child("Name")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                textView.setText(dataSnapshot.getValue().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         studentsAdapter.notifyDataSetChanged();
 
     }
@@ -71,47 +73,33 @@ public class ShowToStudents extends AppCompatActivity {
         Attendance_Frag.allSub.clear();
     }
 
-    public class showStudentName extends AsyncTask<Void, Void, Void>
-    {
-        @Override
-        protected Void doInBackground(Void... params)
-        {
-            try
-            {
-                HttpHandler sh = new HttpHandler();
-                String jsonStr = sh.makeServiceCall(link);
-                JSONObject object = new JSONObject(jsonStr);
-                JSONArray contacts = object.getJSONArray(classIntent);
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
-                    if (roll.compareToIgnoreCase(c.getString("Roll_No"))==0)
-                    {
-                        naam = c.getString("Name");
-                        break;
-                    }
-                }
-
-            }
-            catch(Exception ex)
-            {
-                Log.e("TAG", "getListFromExcel", ex);
-            }
-
-            return null;
-
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result){
-            super.onPostExecute(result);
-            textView.setText(naam);
-            setRollText.setText(roll);
-            monthText.setText("Month: "+ month);
-        }
-
-
-    }
+//    public class showStudentName extends AsyncTask<Void, Void, Void>
+//    {
+//        @Override
+//        protected Void doInBackground(Void... params)
+//        {
+//            try
+//            {
+//            }
+//            catch(Exception ex)
+//            {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//
+//            return null;
+//
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result){
+//            super.onPostExecute(result);
+//            textView.setText(naam);
+//            setRollText.setText(roll);
+//        }
+//
+//
+//    }
 
 
 }

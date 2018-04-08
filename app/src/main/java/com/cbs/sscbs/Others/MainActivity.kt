@@ -67,7 +67,7 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
 //            }
 //
 //            override fun onDataChange(p0: DataSnapshot?) {
-//                for (dsp: DataSnapshot in p0!!.children) {
+//                for (dsp: DataSnapshot in p0!!.children) {6
 //                    Log.wtf("TAG", dsp.key.toString())
 //                    list?.add(dsp.value.toString())
 //                }
@@ -139,10 +139,14 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
                         }
 
                         R.id.ic_updates -> {
-                            val simpleAlert = AlertDialog.Builder(this@MainActivity).create()
-                            simpleAlert.setTitle("Coming Soon...")
-                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
-                            simpleAlert.show()
+//                            val simpleAlert = AlertDialog.Builder(this@MainActivity).create()
+//                            simpleAlert.setTitle("Coming Soon...")
+//                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
+//                            simpleAlert.show()
+//                            val intent1 = Intent(this, Deadlines::class.java)
+//                            startActivity(intent1)
+
+
                         }
                         R.id.ic_events -> {
                             val nf = Events_Fragment()
@@ -150,7 +154,7 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
                             this.toolbar.setTitle("Events")
                             nm.replace(R.id.main_Frame, nf).commit()
                         }
-
+//
                         R.id.ic_home -> {
                             val main_fragment = Home_frag()
                             val ft = supportFragmentManager.beginTransaction()

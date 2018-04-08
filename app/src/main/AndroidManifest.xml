@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -15,12 +15,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
-    <uses-permission
-        android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
-        android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -45,7 +40,6 @@
         <activity
             android:name=".Others.MainActivity"
             android:label="SSCBS"
-
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -112,16 +106,17 @@
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.GuestEventsActivity" />
         <activity android:name=".Attendance.ShowToStudents" />
-        <activity android:name=".Attendance.AdminActivity"
+        <activity
+            android:name=".Attendance.AdminActivity"
             android:label="Admin"
-            android:parentActivityName=".Others.MainActivity"/>
+            android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".utils.FinestWebViewActivity" />
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor"
             android:theme="@style/FinestWebViewTheme.Light" />
-
+        <activity android:name=".Attendance.UploadLists" />
     </application>
 
 </manifest>

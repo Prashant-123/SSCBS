@@ -24,9 +24,16 @@ import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.Attendance.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -44,116 +51,98 @@ import java.util.TimerTask;
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
+    static String name;
     String classs, monthIntent, yearIntent;
+    Button faculty, stu, admin;
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance");
+
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
+    CollectionReference getTeachers = FirebaseFirestore.getInstance().collection("Teachers");
     CollectionReference getYears = FirebaseFirestore.getInstance().collection("Academic Year");
     String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
     //String user = "Sonika Thakral";
     ArrayList<String> getYearss = new ArrayList<>();
     LinearLayout stuLayout, facultyLayout;
-    String adminId = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
     public Attendance_Frag() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
-        stuLayout = myView.findViewById(R.id.stuLayout);
-        facultyLayout = myView.findViewById(R.id.facultyLayout);
-        Button faculty = myView.findViewById(R.id.faculty);
-        Button stu = myView.findViewById(R.id.students);
-        Button admin = myView.findViewById(R.id.admin);
+        initView(myView);
+//        verifyAdmin();
 
         getYears.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                 if(task.isSuccessful()){
                     for (DocumentSnapshot document : task.getResult()) {
                         getYearss.add(document.getId());
                     }
-
                 }
             }
         });
 
-        CollectionReference subType = FirebaseFirestore.getInstance().collection("Teachers");
 
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adminId.compareTo("goyaltanvi94@gmail.com")==0){
+
+                if(user.equals("goyaltanvi94@gmail.com")){
                     Intent intent = new Intent(getContext(),AdminActivity.class);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(getContext(), "Sorry! You do not have the admin access ", Toast.LENGTH_SHORT).show();
                 }
+//                getTeachers.get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    for (DocumentSnapshot document : task.getResult()) {
+//                                        Log.d(TAG, document.getId() + " => " + document.getData());
+//                                        if(user.equals(document.getId())){
+//                                            if(document.getData().toString().substring(7,document.getData().toString().length()-1).equals("true")){
+//                                                Intent intent = new Intent(getContext(),AdminActivity.class);
+//                                                startActivity(intent);
+//                                            }else{
+//                                                Toast.makeText(getContext(), "You Do not have the admin rights of the software", Toast.LENGTH_SHORT).show();
+//                                            }
+//
+//                                        }
+//                                    }
+//                                } else {
+//                                    Log.d(TAG, "Error getting documents: ", task.getException());
+//                                }
+//                            }
+//                        });
+
             }
+
         });
 
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final int[] flag = {0};
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setTitle("Verify Credentials");
-                alert.setView(null);
-                alert.setCancelable(false);
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "Verification Cancelled", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                alert.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        CollectionReference subType = FirebaseFirestore.getInstance().collection("Teachers");
-                        subType
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (DocumentSnapshot document : task.getResult()) {
-                                                if (document.getId().compareToIgnoreCase(user) == 0) {
-                                                     flag[0] = 1;
-                                                    Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
-                                                    intent.putExtra("getUser", user);
-                                                    startActivity(intent);
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        if(flag[0] ==0){
-                                            Toast.makeText(getContext(), "Please make sure you are registered as a faculty of SSCBS", Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-                    }
-                });
-                AlertDialog dialog = alert.create();
-                dialog.show();
+                if (Home_frag.faculty_list.contains(user)){
+                    Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
+                    intent.putExtra("getUser", user);
+                    startActivity(intent);
+                } else Toast.makeText(getContext(), "Please Log-In with your official Email-Id.", Toast.LENGTH_SHORT).show();
             }
         });
 
         stu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                                   @Override
+                                   public void onClick(View v) {
+
+                                       Log.i(TAG, ""+getNameFromRno(""));
+
                 final LayoutInflater inflater = getLayoutInflater();
                 final View alertLayout = inflater.inflate(R.layout.studentverify, null);
                 final EditText roll = alertLayout.findViewById(R.id.roll);
                 bar = alertLayout.findViewById(R.id.wait_bar);
-
-
-
-
 
                 getCls.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -264,12 +253,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                         }
                         else {
                             bar.setVisibility(View.VISIBLE);
-                            new Timer().schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    startActivity(intent);
-                                }
-                            }, 2000);
+                            startActivity(intent);
                             bar.setVisibility(View.INVISIBLE);
                         }
                     }
@@ -282,84 +266,96 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     }
 
     public void showAttendance(final String clas, final String roll_no, final String year, final String month) {
-        getCls.document(clas).collection("Students").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (final DocumentSnapshot getRoll : task.getResult()) {
-                                if (getRoll.getId().compareToIgnoreCase(roll_no) == 0) {
-                                    Log.wtf(TAG, getRoll.getId());
+        reference.child(clas).child(roll_no).child(year).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.i(TAG, String.valueOf(dataSnapshot.getKey()));
+                Log.wtf(TAG, String.valueOf(dataSnapshot.child(month).child("attendance").getValue()));
+                Log.wtf(TAG, String.valueOf(dataSnapshot.child(month).child("total").getValue()));
 
-                                    getCls.document(clas).collection("Students").document(getRoll.getId()).collection("Year").document(year)
-                                            .collection("Subjects").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()){
-                                                for (final DocumentSnapshot getSubject : task.getResult()){
-                                                    Log.wtf(TAG, getSubject.getId());
+                String attendance = "0";
 
-//                                                    getCls.document(clas).collection("Students").document(documentSnapshot.getId()).collection("Year").document(year)
-//                                                            .collection("Subjects").document("Months").collection(month);
+                try {
+                    attendance = dataSnapshot.child(month).child("attendance").getValue().toString();
+                } catch (Exception ex){
+                }
+                
+                StudentsDataClass data = new StudentsDataClass(dataSnapshot.getKey(), Integer.valueOf(attendance),
+                        Integer.valueOf(dataSnapshot.child(month).child("total").getValue().toString()));
+                allSub.add(data);
+            }
 
-                                                    DocumentReference reference = getCls.document(clas).collection("Students").document(getRoll.getId()).collection("Year").document(year)
-                                                            .collection("Subjects").document(getSubject.getId()).collection("Months").document(month);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                                                    reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                            if (documentSnapshot.exists()){
-                                                                StudentsDataClass dataClass = new StudentsDataClass(getSubject.getId(), documentSnapshot.getDouble("attendance" ), documentSnapshot.getDouble("total"));
-                                                                        allSub.add(dataClass);
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                        }
-                                    });
-//                                    getCls.document(clas).collection("Students")
-//                                            .document(documentSnapshot.getId()).collection("Year")
-//                                            .get()
-//                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                                @Override
-//                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                                    if (task.isSuccessful()) {
-//                                                        for (final DocumentSnapshot ds : task.getResult()) {
-//
-//                                                            DocumentReference reference = getCls
-//                                                                    .document(clas).collection("Students")
-//                                                                    .document(documentSnapshot.getId()).collection("Year")
-//                                                                    .document(ds.getId()).collection("Subjects").document(year)
-//                                                                    .collection("Months").document(month);
-//                                                            reference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                                                                @Override
-//                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                                                                    if (documentSnapshot.exists()) {
-//                                                                        StudentsDataClass dataClass = new StudentsDataClass(ds.getId(), documentSnapshot.getDouble("attendance" ), documentSnapshot.getDouble("total"));
-//                                                                        allSub.add(dataClass);
-//                                                                    }
-//                                                                }
-//                                                            });
-//                                                        }
-//                                                    }
-//                                                }
-//                                            });
-//                                    break;
-                                }
-                            }
-                        }
-                    }
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                });
-
-        Log.i(TAG, "allSub"+allSub.toString());
+            }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
     }
 
     public String[] theMonth() {
         return new String[]{"Select Month", "Jan", "Feb", "Mar", "Apr", "May",
                 "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    }
+
+    public boolean checkSemester(String month){
+        if (month.contains("Jan")||month.contains("Feb")||month.contains("Mar")||month.contains("Apr")
+                ||month.contains("May")) return true;
+        else return false;
+    }
+
+    public void initView(View myView) {
+        stuLayout = myView.findViewById(R.id.stuLayout);
+        facultyLayout = myView.findViewById(R.id.facultyLayout);
+        faculty = myView.findViewById(R.id.faculty);
+        stu = myView.findViewById(R.id.students);
+        admin = myView.findViewById(R.id.admin);
+    }
+
+    public void verifyAdmin(){
+        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+        CollectionReference teachers = FirebaseFirestore.getInstance().collection("Teachers");
+        teachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                    for (DocumentSnapshot snapshot : task.getResult())
+                    {
+                        if (snapshot.getBoolean("admin")!= null) {
+                            if (snapshot.getId().equals(currentUser) && snapshot.getBoolean("admin") == true) {
+                                Log.i(TAG, "VERIFIED...");
+                                break;
+                            }
+                            if (snapshot.getId().equals(currentUser) && snapshot.getBoolean("admin") == false)
+                                Toast.makeText(getContext(), "Sorry! You do not have the admin access ", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "Admin not Verified...");
+            }
+        });
+    }
+
+    public String getNameFromRno(String roll_no){
+
+
+
+
+        return name;
     }
 
 }

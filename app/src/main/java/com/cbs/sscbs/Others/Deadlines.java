@@ -1,69 +1,972 @@
-package com.cbs.sscbs.Others;
-
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.cbs.sscbs.R;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class Deadlines extends AppCompatActivity {
-
-    private static final String TAG = "TAG";
-    EditText text;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deadlines);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deadlines);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        text = (EditText) findViewById(R.id.textNew);
-
-        text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (isValidPassword(charSequence.toString()))
-                {
-                    Toast.makeText(Deadlines.this, "Cool, Proceed", Toast.LENGTH_SHORT).show();
-                }
-                else Toast.makeText(Deadlines.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-
-    }
-
-
-    public boolean isValidPassword(final String password) {
-
-        Pattern pattern;
-        Matcher matcher;
-
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
-
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
-
-    }
-}
-
+//package com.cbs.sscbs.Attendance;
+//
+//import android.content.Intent;
+//import android.os.AsyncTask;
+//import android.os.Bundle;
+//import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.widget.DefaultItemAnimator;
+//import android.support.v7.widget.GridLayoutManager;
+//import android.support.v7.widget.RecyclerView;
+//import android.util.Log;
+//import android.view.View;
+//import android.widget.Button;
+//import android.widget.ProgressBar;
+//import android.widget.TextView;
+//
+//import com.google.firebase.database.MutableData;
+//import com.google.firebase.database.Transaction;
+//
+//import com.cbs.sscbs.Fragments.Home_frag;
+//import com.cbs.sscbs.Others.HttpHandler;
+//import com.cbs.sscbs.Others.MainActivity;
+//import com.cbs.sscbs.R;
+//import com.google.firebase.database.DataSnapshot;
+//import com.google.firebase.database.DatabaseError;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.firestore.CollectionReference;
+//import com.google.firebase.firestore.FirebaseFirestore;
+//
+//import org.json.JSONArray;
+//import org.json.JSONObject;
+//
+//import java.text.SimpleDateFormat;
+//import java.util.ArrayList;
+//import java.util.Calendar;
+//
+//public class AttendanceMain extends AppCompatActivity {
+//
+//    private static final String TAG = "TAG";
+//    private static final String bscSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
+//    private static final String SUBURL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1ztpTfrOZ-Ntehx01ab5jRNqQa96cvqbDcDS0nPekVDI";
+//    private static final String bscLIST = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y";
+//    private static final String bmsSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
+//    private static final String bfiaSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
+//    public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
+//    String link;
+//    String clas, sub, type, getType;
+//    ProgressBar bar;
+//    TextView tv;
+//    int size;
+//    double newAttendence = 0, newTotal = 0;
+//    Button button1;
+//    CollectionReference getLink = FirebaseFirestore.getInstance().collection("Attendance");
+//    Calendar c = Calendar.getInstance();
+//    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+//    String formattedDate = df.format(c.getTime());
+//    String getYear = formattedDate.substring(7, 11);
+//    String getMonth = formattedDate.substring(3, 6);
+//    RecyclerView recyclerView;
+//    FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    AttendanceAdapter adapter = null;
+//    DatabaseReference setName = FirebaseDatabase.getInstance().getReference("Attendance");
+//
+//    Button save;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        button1 = findViewById(R.id.save_at);
+//        setContentView(R.layout.common_rv);
+//        recyclerView = (RecyclerView) findViewById(R.id.rv);
+//        recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        adapter = new AttendanceAdapter(this, showdata);
+//        recyclerView.setAdapter(adapter);
+//        size = AttendanceAdapter.to_update_Total.size();
+//
+//        getDataFromIntent();
+//
+//        if (clas.contains("Bsc")) {
+//            new bscExcelSheet().execute();
+//        } else if ((clas.contains("BMS-1")) || (clas.contains("BMS-2"))) {
+//            new bmsExcelSheet().execute();
+//        } else if (clas.contains("BMS-3F")) {
+//            new bmsMixExcelSheet().execute();
+//        } else if (clas.contains("BMS-3M")) {
+//            new bms3MExcelSheet().execute();
+//        } else if ((clas.contains("BFIA-1")) || (clas.contains("BFIA-2"))) {
+//            new bfiaExcelSheet().execute();
+//        } else if (clas.contains("BFIA-3")) {
+//            new bfiaMixExcelSheet().execute();
+//        }
+//
+////        button1.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                if(clas.contains("Bsc")){
+//////                    bscSave();
+////                }
+//////                else if((clas.contains("BMS-1"))||(clas.contains("BMS-2"))){
+//////                    bmsSave();
+//////                }
+//////                else if(clas.contains("BMS-3F")){
+//////                    bmsMixSave();
+//////                }
+//////                else if(clas.contains("BMS-3M")){
+//////                    bms3MSave();
+//////                }
+//////                else if((clas.contains("BFIA-1"))||(clas.contains("BFIA-2"))){
+//////                    bfiaSave();
+//////                }
+//////                else if(clas.contains("BFIA-3")){
+//////                    bfiaMixSave();
+//////                }
+////            }
+////        });
+//        adapter.notifyDataSetChanged();
+//        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
+//        toolbar.setTitle(clas + " / " + sub);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        bar = (ProgressBar) findViewById(R.id.list_progress_bar);
+//        tv = (TextView) findViewById(R.id.loading_lists);
+//        adapter.notifyDataSetChanged();
+//        save = findViewById(R.id.save_at);
+//
+//        save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (clas.contains("Bsc")) {
+//                    bscSave();
+//                }
+//                else if((clas.contains("BMS"))||(clas.contains("BMS"))){
+//                    bmsSave();
+//                }
+//                else if((clas.contains("BFIA"))||(clas.contains("BFIA"))){
+//                    bfiaSave();
+//                }
+//            }
+//        });
+//    }
+//
+//    private void getDataFromIntent() {
+//        Intent data = getIntent();
+//        clas = data.getStringExtra("class");
+//        sub = data.getStringExtra("subject");
+//        type = data.getStringExtra("type");
+//        Log.wtf(TAG, "ok" + type);
+//    }
+//
+//    private void switch_to_main() {
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        AttendanceAdapter.saveRoll.clear();
+//        startActivity(intent);
+//        finish();
+//    }
+//
+////    public void update(final CollectionReference getStu) {
+////        getStu.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+////            @Override
+////            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+////                if (task.isSuccessful()) {
+////                    db.runTransaction(new Transaction.Function<Void>() {
+////                        @Override
+////                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+////                            final DocumentReference sfDocRef = getStu.document(getMonth);
+////                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
+////                            newAttendence = (snapshot.getDouble("attendance")) + 1;
+////                            transaction.update(sfDocRef, "attendance", newAttendence);
+////                            return null;
+////                        }
+////                    }).addOnSuccessListener(new OnSuccessListener<Void>() {
+////                        @Override
+////                        public void onSuccess(Void aVoid) {
+////                            Log.i(TAG, "Attendence updated");
+////                        }
+////                    });
+////                }
+////            }
+////        });
+////    }
+//
+//
+////    private void initAttendance(final CollectionReference toUpdateTotal, final String s) {
+////        toUpdateTotal.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+////            @Override
+////            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+////                if (task.isSuccessful()) {
+////                    db.runTransaction(new Transaction.Function<Void>() {
+////                        @Override
+////                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+////                            final DocumentReference sfDocRef = toUpdateTotal.document(getMonth);
+////                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
+////                            newTotal = (snapshot.getDouble("total")) + 1;
+////                            transaction.update(sfDocRef, "total", newTotal);
+////                            Log.i(TAG, "Total updated-> " + s);
+////                            return null;
+////                        }
+////                    });
+////                }
+////            }
+////        });
+////    }
+//
+//    public void updateAtt(DatabaseReference database) {
+//        database.runTransaction(new Transaction.Handler() {
+//            @Override
+//            public Transaction.Result doTransaction(MutableData mutableData) {
+//
+//                if (mutableData.child("attendance").getValue() == null) {
+//                    mutableData.child("attendance").setValue(1);
+//                } else {
+//                    int current = Integer.valueOf((String.valueOf(mutableData.child("attendance").getValue())));
+//                    mutableData.child("attendance").setValue(current + 1);
+//                }
+//                return Transaction.success(mutableData);
+//            }
+//
+//            @Override
+//            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+//
+//            }
+//        });
+//
+//    }
+//
+//    public void init(DatabaseReference database) {
+//        database.runTransaction(new Transaction.Handler() {
+//            @Override
+//            public com.google.firebase.database.Transaction.Result doTransaction(MutableData mutableData) {
+//                if (mutableData.child("total").getValue() == null) {
+//                    mutableData.child("total").setValue(1);
+//                } else {
+//                    int current = Integer.valueOf((String.valueOf(mutableData.child("total").getValue())));
+//                    mutableData.child("total").setValue(current + 1);
+//                }
+//                return Transaction.success(mutableData);
+//            }
+//
+//            @Override
+//            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+//            }
+//        });
+//    }
+//
+//    public void bscSave() {
+//        initAttendance();
+//        Log.wtf(TAG, "Bsc-IN");
+//        int i = 0;
+//        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+//        if (type.contains("Lab-G1") || type.contains("Lab-G2")) { //If there's LAB.
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub + " - Lab").child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        } else {
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.to_update_Total.get(i)).child(getYear)
+//                        .child(sub).child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        }
+////        switch_to_main();
+//    }
+//
+//    public void initAttendance() {
+//
+//        int i = 0;
+//        if (type.contains("Lab")) { //If there's LAB.
+//            while (i < AttendanceAdapter.to_update_Total.size()) {
+//                DatabaseReference update_total = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.to_update_Total.get(i)).child(getYear)
+//                        .child(sub + " - Lab").child(getMonth);
+//                init(update_total);
+//                i++;
+//            }
+//        } else if (type.contains("Tute")) { //If there's TUTE.
+//            while (i < AttendanceAdapter.to_update_Total.size()) {
+//                DatabaseReference update_total = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.to_update_Total.get(i)).child(getYear)
+//                        .child(sub + " - Tute").child(getMonth);
+//                init(update_total);
+//                i++;
+//            }
+//        } else if (type.contains("Theory")) {
+//            while (i < AttendanceAdapter.to_update_Total.size()) {
+//                DatabaseReference update_total = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.to_update_Total.get(i)).child(getYear)
+//                        .child(sub).child(getMonth);
+//                init(update_total);
+//                i++;
+//            }
+//        }
+//    }
+//
+//    public void bfiaSave() {
+//        initAttendance();
+//        Log.wtf(TAG, "BFIA-IN");
+//        int i = 0;
+//        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+//        if (type.contains("Lab")) { //If there's LAB.
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub + " - Lab").child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        } else if (type.contains("Tute")) { //If there's TUTE.
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub + " - Tute").child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        } else if(type.contains("Theory")){
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub).child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        }
+//        switch_to_main();
+//    }
+//
+//    public void bmsSave() {
+//        initAttendance();
+//        Log.wtf(TAG, "BMS-IN");
+//        int i = 0;
+//        Log.wtf(TAG, AttendanceAdapter.saveRoll.toString());
+//        if (type.contains("Lab")) { //If there's LAB.
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub + " - Lab").child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        } else if (type.contains("Tute")) { //If there's TUTE.
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub + " - Tute").child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        } else if(type.contains("Theory")){
+//            while (i < AttendanceAdapter.saveRoll.size()) {
+//                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Attendance")
+//                        .child(clas).child(AttendanceAdapter.saveRoll.get(i)).child(getYear)
+//                        .child(sub).child(getMonth);
+//                updateAtt(database);
+//                i++;
+//            }
+//        }
+//        switch_to_main();
+//    }
+//
+//    public class bscExcelSheet extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            try {
+//                HttpHandler sh = new HttpHandler();
+//                String jsonStr = sh.makeServiceCall(bscSheet);
+//                JSONObject object = new JSONObject(jsonStr);
+//                JSONArray sheet = object.getJSONArray(clas);
+//
+//                for (int i = 0; i < sheet.length(); i++) {
+//                    JSONObject c = sheet.getJSONObject(i);
+//                    String name = c.getString("Name");
+//                    String roll_no = c.getString("Roll_No");
+//                    String grp = c.getString("Lab_Group");
+//
+//                    if (type.contains("Lab-G1")) {
+//                        if (grp.equals("1")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else if (type.contains("Lab-G2")) {
+//                        if (grp.equals("2")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else {
+//                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                        showdata.add(dataClass);
+//                    }
+//                }
+//            } catch (Exception ex) {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//            adapter.notifyDataSetChanged();
+//            bar.setVisibility(View.INVISIBLE);
+//            tv.setVisibility(View.INVISIBLE);
+//        }
+//    }
+//
+//    public class bfiaExcelSheet extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            try {
+//                HttpHandler sh = new HttpHandler();
+//                String jsonStr = sh.makeServiceCall(bfiaSheet);
+//                JSONObject object = new JSONObject(jsonStr);
+//                JSONArray sheet = object.getJSONArray(clas);
+//
+//                for (int i = 0; i < sheet.length(); i++) {
+//                    JSONObject c = sheet.getJSONObject(i);
+//                    String name = c.getString("Name");
+//                    String roll_no = c.getString("Roll_No");
+//                    String grp = c.getString("Lab_Group");
+//                    String tute = c.getString("Tute");
+//                    Log.wtf(TAG, type);
+//
+//                    if (type.contains("Lab-G1")) {
+//                        if (grp.equals("1")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else if (type.contains("Lab-G2")) {
+//                        if (grp.equals("2")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else if (type.contains("Tute-G1")) {
+//                        if (tute.equals("1")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//
+//                    } else if (type.contains("Tute-G2")) {
+//                        if (tute.equals("2")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else if (type.contains("Tute-G3")) {
+//                        if (tute.equals("3")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else {
+//                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                        showdata.add(dataClass);
+//                    }
+//                }
+//            } catch (Exception ex) {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//            adapter.notifyDataSetChanged();
+//            bar.setVisibility(View.INVISIBLE);
+//            tv.setVisibility(View.INVISIBLE);
+//        }
+//    }
+//
+//    public class bmsExcelSheet extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            try {
+//                HttpHandler sh = new HttpHandler();
+//                String jsonStr = sh.makeServiceCall(bmsSheet);
+//                JSONObject object = new JSONObject(jsonStr);
+//                JSONArray sheet = object.getJSONArray(clas);
+//
+//                for (int i = 0; i < sheet.length(); i++) {
+//                    JSONObject c = sheet.getJSONObject(i);
+//                    String name = c.getString("Name");
+//                    String roll_no = c.getString("Roll_No");
+//                    String grp = c.getString("Lab_Group");
+//                    String tute = c.getString("Tute");
+//                    Log.wtf(TAG, type);
+//
+//                    if (type.contains("Lab-G1")) {
+//                        if (grp.equals("1")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else if (type.contains("Lab-G2")) {
+//                        if (grp.equals("2")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else if (type.contains("Tute-G1")) {
+//                        if (tute.equals("1")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//
+//                    } else if (type.contains("Tute-G2")) {
+//                        if (tute.equals("2")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else if (type.contains("Tute-G3")) {
+//                        if (tute.equals("3")) {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    } else {
+//                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                        showdata.add(dataClass);
+//                    }
+//                }
+//            } catch (Exception ex) {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//            adapter.notifyDataSetChanged();
+//            bar.setVisibility(View.INVISIBLE);
+//            tv.setVisibility(View.INVISIBLE);
+//        }
+//    }
+//
+//    public class bfiaMixExcelSheet extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            try {
+//                HttpHandler sh = new HttpHandler();
+//                String jsonStr = sh.makeServiceCall(bfiaSheet);
+//                JSONObject object = new JSONObject(jsonStr);
+//
+//                HttpHandler sh1 = new HttpHandler();
+//                String jsonStr1 = sh1.makeServiceCall(SUBURL);
+//                JSONObject object1 = new JSONObject(jsonStr1);
+//                JSONArray sheet1 = object1.getJSONArray(clas);
+//
+//                for (int i = 0; i < sheet1.length(); i++) {
+//                    JSONObject jsonObject1 = sheet1.getJSONObject(i);
+//                    String subject = jsonObject1.getString("Semester_A");
+//                    String type = jsonObject1.getString("Sub");
+//                    Log.wtf(TAG, subject + " ______________ " + sub);
+//
+//                    if (subject.contains(sub)) {
+//                        Log.wtf(TAG, "Inside if");
+//                        getType = type;
+//                        break;
+//                    } else {
+//                        Log.wtf(TAG, "Inside not if");
+//                    }
+//
+//
+//                }
+//
+//                Log.wtf(TAG, "Sub type is : " + getType);
+//                if (getType.equals("0")) {
+//                    Log.wtf(TAG, "ssdfdsfsfw");
+//                    JSONArray sheet = object.getJSONArray(clas);
+//                    for (int i = 0; i < sheet.length(); i++) {
+//                        JSONObject c = sheet.getJSONObject(i);
+//                        String name = c.getString("Name");
+//                        String roll_no = c.getString("Roll_No");
+//                        String grp = c.getString("Lab_Group");
+//                        String tute = c.getString("Tute");
+//                        Log.wtf(TAG, type);
+//
+//                        if (type.contains("Lab-G1")) {
+//                            if (grp.equals("1")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else if (type.contains("Lab-G2")) {
+//                            if (grp.equals("2")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else if (type.contains("Tute-G1")) {
+//                            if (tute.equals("1")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//
+//                        } else if (type.contains("Tute-G2")) {
+//                            if (tute.equals("2")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else if (type.contains("Tute-G3")) {
+//                            if (tute.equals("3")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    }
+//                } else {
+//
+//                    for (int h = 0; h < Home_frag.bfia3List.size(); h++) {
+//                        JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
+//                        for (int i = 0; i < sheet.length(); i++) {
+//                            JSONObject c = sheet.getJSONObject(i);
+//                            String name = c.getString("Name");
+//                            String roll_no = c.getString("Roll_No");
+//                            String grp = c.getString("Lab_Group");
+//                            String tute = c.getString("Tute");
+//                            String sub1 = c.getString("Sub_Type_1");
+//                            String sub2 = c.getString("Sub_Type_2");
+//
+//
+//                            if (type.contains("Lab-G1")) {
+//                                Log.i(TAG, "Yes-1");
+//                                if (grp.equals("1")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else if (type.contains(" Lab-G2")) {
+//                                Log.i(TAG, "Yes-2");
+//                                if (grp.equals("2")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else if (type.contains(" Tute-G1")) {
+//                                Log.i(TAG, "Yes");
+//                                if (tute.equals("1")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//
+//                            } else if (type.contains(" Tute-G2")) {
+//                                Log.i(TAG, "Yes-3");
+//                                if (tute.equals("2")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else if (type.contains(" Tute-G3")) {
+//                                Log.i(TAG, "Yes-4");
+//                                if (tute.equals("3")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else {
+//                                Log.i(TAG, "no");
+//                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                    showdata.add(dataClass);
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            } catch (Exception ex) {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//            adapter.notifyDataSetChanged();
+//            bar.setVisibility(View.INVISIBLE);
+//            tv.setVisibility(View.INVISIBLE);
+//        }
+//    }
+//
+//    public class bmsMixExcelSheet extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            try {
+//                HttpHandler sh = new HttpHandler();
+//                String jsonStr = sh.makeServiceCall(bmsSheet);
+//                JSONObject object = new JSONObject(jsonStr);
+//
+//                HttpHandler sh1 = new HttpHandler();
+//                String jsonStr1 = sh1.makeServiceCall(SUBURL);
+//                JSONObject object1 = new JSONObject(jsonStr1);
+//                JSONArray sheet1 = object1.getJSONArray(clas);
+//
+//                for (int i = 0; i < sheet1.length(); i++) {
+//                    JSONObject jsonObject1 = sheet1.getJSONObject(i);
+//                    String subject = jsonObject1.getString("Semester_A");
+//                    String type = jsonObject1.getString("Sub");
+//                    Log.wtf(TAG, subject + " ______________ " + sub);
+//
+//                    if (subject.contains(sub)) {
+//                        Log.wtf(TAG, "Inside if");
+//                        getType = type;
+//                        break;
+//                    } else {
+//                        Log.wtf(TAG, "Inside not if");
+//                    }
+//
+//
+//                }
+//
+//                Log.wtf(TAG, "Sub type is : " + getType);
+//                if (getType.equals("0")) {
+//                    Log.wtf(TAG, "ssdfdsfsfw");
+//                    JSONArray sheet = object.getJSONArray(clas);
+//                    for (int i = 0; i < sheet.length(); i++) {
+//                        JSONObject c = sheet.getJSONObject(i);
+//                        String name = c.getString("Name");
+//                        String roll_no = c.getString("Roll_No");
+//                        String grp = c.getString("Lab_Group");
+//                        String tute = c.getString("Tute");
+//                        Log.wtf(TAG, type);
+//
+//                        if (type.contains("Lab-G1")) {
+//                            if (grp.equals("1")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else if (type.contains("Lab-G2")) {
+//                            if (grp.equals("2")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else if (type.contains("Tute-G1")) {
+//                            if (tute.equals("1")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//
+//                        } else if (type.contains("Tute-G2")) {
+//                            if (tute.equals("2")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else if (type.contains("Tute-G3")) {
+//                            if (tute.equals("3")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    }
+//                } else {
+//
+//                    for (int h = 0; h < Home_frag.bfia3List.size(); h++) {
+//                        JSONArray sheet = object.getJSONArray(Home_frag.bfia3List.get(h));
+//                        for (int i = 0; i < sheet.length(); i++) {
+//                            JSONObject c = sheet.getJSONObject(i);
+//                            String name = c.getString("Name");
+//                            String roll_no = c.getString("Roll_No");
+//                            String grp = c.getString("Lab_Group");
+//                            String tute_mix = c.getString("Tute_Mix");
+//                            String sub1 = c.getString("Sub_Type_1");
+//                            String sub2 = c.getString("Sub_Type_2");
+//
+//
+//                            if (type.contains("Lab-G1")) {
+//                                Log.i(TAG, "Yes-1");
+//                                if (grp.equals("1")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else if (type.contains(" Lab-G2")) {
+//                                Log.i(TAG, "Yes-2");
+//                                if (grp.equals("2")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else if (type.contains(" Tute-G1")) {
+//                                Log.i(TAG, "Yes");
+//                                if (tute_mix.equals("1")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//
+//                            } else if (type.contains(" Tute-G2")) {
+//                                Log.i(TAG, "Yes-3");
+//                                if (tute_mix.equals("2")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else if (type.contains(" Tute-G3")) {
+//                                Log.i(TAG, "Yes-4");
+//                                if (tute_mix.equals("3")) {
+//                                    if (sub1.equals(getType) || sub2.equals(getType)) {
+//                                        AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                        showdata.add(dataClass);
+//                                    }
+//                                }
+//                            } else {
+//                                Log.i(TAG, "no");
+//                                if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
+//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                    showdata.add(dataClass);
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            } catch (Exception ex) {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//            adapter.notifyDataSetChanged();
+//            bar.setVisibility(View.INVISIBLE);
+//            tv.setVisibility(View.INVISIBLE);
+//        }
+//    }
+//
+//    public class bms3MExcelSheet extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            try {
+//                HttpHandler sh = new HttpHandler();
+//                String jsonStr = sh.makeServiceCall(bmsSheet);
+//                JSONObject object = new JSONObject(jsonStr);
+//
+//                HttpHandler sh1 = new HttpHandler();
+//                String jsonStr1 = sh1.makeServiceCall(SUBURL);
+//                JSONObject object1 = new JSONObject(jsonStr1);
+//                JSONArray sheet1 = object1.getJSONArray(clas);
+//
+//                for (int i = 0; i < sheet1.length(); i++) {
+//                    JSONObject jsonObject1 = sheet1.getJSONObject(i);
+//                    String subject = jsonObject1.getString("Semester_A");
+//                    String type = jsonObject1.getString("Sub");
+//                    Log.wtf(TAG, subject + " ______________ " + sub);
+//
+//                    if (subject.contains(sub)) {
+//                        Log.wtf(TAG, "Inside if");
+//                        getType = type;
+//                        break;
+//                    } else {
+//                        Log.wtf(TAG, "Inside not if");
+//                    }
+//                }
+//
+//                Log.wtf(TAG, "Sub type is : " + getType);
+//                if (getType.equals("0")) {
+//                    Log.wtf(TAG, "ssdfdsfsfw");
+//                    JSONArray sheet = object.getJSONArray(clas);
+//                    for (int i = 0; i < sheet.length(); i++) {
+//                        JSONObject c = sheet.getJSONObject(i);
+//                        String name = c.getString("Name");
+//                        String roll_no = c.getString("Roll_No");
+//                        String tute = c.getString("Tute");
+//                        Log.wtf(TAG, type);
+//
+//                        if (type.contains("Tute-G1")) {
+//                            if (tute.equals("1")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//
+//                        } else if (type.contains("Tute-G2")) {
+//                            if (tute.equals("2")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else if (type.contains("Tute-G3")) {
+//                            if (tute.equals("3")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        } else {
+//                            AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                            showdata.add(dataClass);
+//                        }
+//                    }
+//                } else {
+//
+//                    JSONArray sheet = object.getJSONArray(clas);
+//                    for (int i = 0; i < sheet.length(); i++) {
+//                        JSONObject c = sheet.getJSONObject(i);
+//                        String name = c.getString("Name");
+//                        String roll_no = c.getString("Roll_No");
+//                        String tute = c.getString("Tute_Mix");
+//                        String sub1 = c.getString("Sub_Type_1");
+//
+//                        if (type.contains(" Tute-G1")) {
+//                            Log.i(TAG, "Yes");
+//                            if (tute.equals("1")) {
+//                                if (sub1.equals(getType)) {
+//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                    showdata.add(dataClass);
+//                                }
+//                            }
+//
+//                        } else if (type.contains(" Tute-G2")) {
+//                            Log.i(TAG, "Yes-3");
+//                            if (tute.equals("2")) {
+//                                if (sub1.equals(getType)) {
+//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                    showdata.add(dataClass);
+//                                }
+//                            }
+//                        } else if (type.contains(" Tute-G3")) {
+//                            Log.i(TAG, "Yes-4");
+//                            if (tute.equals("3")) {
+//                                if (sub1.equals(getType)) {
+//                                    AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                    showdata.add(dataClass);
+//                                }
+//                            }
+//                        } else {
+//                            Log.i(TAG, "no");
+//                            if (sub1.equals(getType) || getType.equals("0")) {
+//                                AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+//                                showdata.add(dataClass);
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            } catch (Exception ex) {
+//                Log.e("TAG", "getListFromExcel", ex);
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            super.onPostExecute(result);
+//            adapter.notifyDataSetChanged();
+//            bar.setVisibility(View.INVISIBLE);
+//            tv.setVisibility(View.INVISIBLE);
+//        }
+//    }
+//
+//}
