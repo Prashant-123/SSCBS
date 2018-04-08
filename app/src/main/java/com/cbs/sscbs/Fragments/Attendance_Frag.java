@@ -279,7 +279,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     attendance = dataSnapshot.child(month).child("attendance").getValue().toString();
                 } catch (Exception ex){
                 }
-
+                
                 StudentsDataClass data = new StudentsDataClass(dataSnapshot.getKey(), Integer.valueOf(attendance),
                         Integer.valueOf(dataSnapshot.child(month).child("total").getValue().toString()));
                 allSub.add(data);
