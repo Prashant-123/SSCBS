@@ -70,7 +70,7 @@ public class TeachersAdapter extends RecyclerView.Adapter<MyHolder> implements F
 
         if(filter == null)
         {
-            filter = new CustomFilter(filterList , this) ;
+            //filter = new CustomFilter(filterList , this) ;
         }
         return filter;
     }
