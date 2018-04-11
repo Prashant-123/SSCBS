@@ -81,6 +81,8 @@ dependencies {
 
     implementation 'com.libRG:customtextview:1.2'
     compile 'com.thefinestartist:finestwebview:1.2.7'
+    compile 'jp.wasabeef:blurry:2.1.1'
+
 
 //    compile('com.google.api-client:google-api-client-android:1.23.0') {
 //        exclude group: 'org.apache.httpcomponents'

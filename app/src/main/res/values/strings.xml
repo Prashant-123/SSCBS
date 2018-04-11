@@ -52,7 +52,7 @@
     <!-- strings for Auth UI demo activities -->
     <eat-comment />
     <string name="launch_title">SSCBS</string>
-    <string name="sign_in">Sign Up</string>
+    <string name="sign_in">Step In</string>
     <string name="green_theme">Green Theme</string>
     <string name="purple_theme">Purple Theme</string>
     <string name="dark_theme">Dark Theme</string>
@@ -120,4 +120,7 @@
     <string name="life_at_cbs_text">⁠⁠⁠⁠⁠To begin with some cliched, always enchanted phrases that raise University of Delhi to a pedestal of eminent universities of the world, take my word for it, this fact can never be overstated. University of Delhi is indeed one of the finest places to be at, SSCBS is another.</string>
     <string name="vid_url"><![CDATA[https://firebasestorage.googleapis.com/v0/b/sscbs-74a4d.appspot.com/o/Life%20At%20CBS%20New%20campus%20-%20converted%20with%20Clipchamp.mp4?alt=media&token=713590af-5cd1-49dc-8f00-1cd2a3931679]]></string>
     <string name="Address">PSP Area IV, Dr. K.N. Katju Marg, Sector 16, Rohini, New Delhi, Delhi 110089</string>
+    <string name="LibraryLink">http://sscbs.bestbookbuddies.com/cgi-bin/koha/question-papers.pl</string>
+    <string name="welcome_text">SSCBS is an official app for the students of Shaheed Sukhdev College of Bussiness Studies . It helps students be up to date with all the college related announcements,events,timetable,attendance and much more ..</string>
+    <string name="non_sscbs_events">Non SSCBite ? Tap to view upcoming events</string>
 </resources>

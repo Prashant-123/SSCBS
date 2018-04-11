@@ -86,7 +86,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
 
         public void setData(TeacherDataClass currentObject, int position) {
             this.name.setText(currentObject.getTName());
-            this.img.setImageResource((currentObject.getImg()));
+            this.img.setImageResource((int) currentObject.getImg());
             this.currentObject = currentObject;
         }
         @Override

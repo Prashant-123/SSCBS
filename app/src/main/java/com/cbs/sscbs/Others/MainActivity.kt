@@ -1,11 +1,12 @@
 package com.cbs.sscbs.Others
 
-//import com.cbs.sscbs.utils.web
-//import com.rom4ek.arcnavigationview.ArcNavigationView
 import am.appwise.components.ni.NoInternetDialog
 import android.content.Context
 import android.content.Intent
-import android.os.*
+import android.os.Bundle
+import android.os.Handler
+import android.os.Parcel
+import android.os.Parcelable
 import android.support.annotation.MainThread
 import android.support.annotation.StringRes
 import android.support.design.widget.BottomNavigationView
@@ -16,9 +17,8 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.cbs.sscbs.Fragments.*
@@ -29,20 +29,18 @@ import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.thefinestartist.finestwebview.FinestWebView
+import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.timetable_fragment.*
+import kotlinx.android.synthetic.main.navheader.*
 
 
- class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity() {
 
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var mDrawerLayout: DrawerLayout
@@ -52,41 +50,11 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
     private lateinit var mDatabase: FirebaseDatabase
     private var reference: DatabaseReference? = null
 
-
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //-------------------------------------------------------------------
         mDatabase = FirebaseDatabase.getInstance()
         reference = mDatabase.getReference("title/")
-//        reference!!.child("title").child("child").setValue("Hi, there")
-
-//        reference!!.addValueEventListener(object : ValueEventListener {
-//            override fun onCancelled(p0: DatabaseError?) {
-//                progress_br.visibility = View.INVISIBLE
-//            }
-//
-//            override fun onDataChange(p0: DataSnapshot?) {
-//                for (dsp: DataSnapshot in p0!!.children) {6
-//                    Log.wtf("TAG", dsp.key.toString())
-//                    list?.add(dsp.value.toString())
-//                }
-//                Log.wtf("TAG", "bhhihh"+list.toString())
-//            }
-//        })
-
-        //-------------------------------------------------------------------
-
-//         val getLink = FirebaseFirestore.getInstance().collection("Attendance")
-//         getLink.get().addOnCompleteListener { task ->
-//             if (task.isSuccessful)
-//                 for (snapshot in task.result) {
-//                     listBfia?.add(snapshot.id)
-////                     Log.i("TAG", snapshot.id)
-//                 }
-//         }
-
-
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null || currentUser!!.email!!.contains("gmail.com") == false) {
@@ -100,13 +68,6 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
         setbottomnavigator(savedInstanceState)
         NoInternetDialog.Builder(this).build()
     }
-
-//    fun getDetails(users: Map<String, Object>){
-//        val names: ArrayList<String>
-//        for (entry: Map<String, Object> : users.entries){
-//
-//        }
-//    }
 
     fun setToolbar() {
         setSupportActionBar(toolbar)
@@ -123,14 +84,20 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
         var getCls = FirebaseFirestore.getInstance().collection("Attendance")
         var  classesList = ArrayList<String>()
 
-
-
         bottomNavigationView = this.findViewById(R.id.bottom_navigation)
        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
         val fragmentManager = supportFragmentManager
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 BottomNavigationView.OnNavigationItemSelectedListener { item ->
                     when (item.itemId) {
+
+                        R.id.ic_home -> {
+                            val main_fragment = Home_frag()
+                            val ft = supportFragmentManager.beginTransaction()
+                            this.toolbar.setTitle("Welcome to SSCBS")
+                            ft.replace(R.id.main_Frame, main_fragment).commit()
+                        }
+
                         R.id.ic_timetable -> {
                             val f = TimeTable_frag()
                             val fragmentTransaction = fragmentManager.beginTransaction()
@@ -138,29 +105,6 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
                             fragmentTransaction.replace(R.id.main_Frame, f).commit()
                         }
 
-                        R.id.ic_updates -> {
-//                            val simpleAlert = AlertDialog.Builder(this@MainActivity).create()
-//                            simpleAlert.setTitle("Coming Soon...")
-//                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
-//                            simpleAlert.show()
-//                            val intent1 = Intent(this, Deadlines::class.java)
-//                            startActivity(intent1)
-
-
-                        }
-                        R.id.ic_events -> {
-                            val nf = Events_Fragment()
-                            val nm = fragmentManager.beginTransaction()
-                            this.toolbar.setTitle("Events")
-                            nm.replace(R.id.main_Frame, nf).commit()
-                        }
-//
-                        R.id.ic_home -> {
-                            val main_fragment = Home_frag()
-                            val ft = supportFragmentManager.beginTransaction()
-                            this.toolbar.setTitle("Welcome to CBS")
-                            ft.replace(R.id.main_Frame, main_fragment).commit()
-                        }
                         R.id.ic_attendence -> {
                             val pf = Attendance_Frag()
                             val fm = fragmentManager.beginTransaction()
@@ -175,6 +119,20 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
                             }
 
                             fm.replace(R.id.main_Frame, pf).commit()
+                        }
+
+                        R.id.ic_events -> {
+                            val nf = Events_Fragment()
+                            val nm = fragmentManager.beginTransaction()
+                            this.toolbar.setTitle("Events")
+                            nm.replace(R.id.main_Frame, nf).commit()
+                        }
+
+                        R.id.ic_updates -> {
+                            val simpleAlert = AlertDialog.Builder(this@MainActivity).create()
+                            simpleAlert.setTitle("Coming Soon...")
+                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
+                            simpleAlert.show()
                         }
                     }
                     true
@@ -210,9 +168,6 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
         navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
             val id = item.itemId
             Handler().postDelayed({ casebyid(id) }, 500)
-
-
-            // mDrawerLayout.closeDrawers();
             mDrawerLayout.closeDrawer(GravityCompat.START)
             false
         })
@@ -237,7 +192,7 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
                 startActivity(intent1)
             }
             R.id.qppr -> {
-                FinestWebView.Builder(this).show("http://sscbs.bestbookbuddies.com/cgi-bin/koha/question-papers.pl")
+                FinestWebView.Builder(this).show(getString(R.string.LibraryLink))
             }
             R.id.about_college -> {
                 val intent = Intent(this, About_Activity::class.java)
@@ -285,15 +240,7 @@ import kotlinx.android.synthetic.main.timetable_fragment.*
             return startIntent.setClass(context, MainActivity::class.java)
                     .putExtra(EXTRA_SIGNED_IN_CONFIG, signedInConfig)
         }
-
-//        @JvmStatic
-//        fun getBMS(): String {
-//            Log.i("TAG", listBfia.toString())
-//            return listBfia.toString()
-//        }
-
     }
-
 
     override fun onBackPressed() {
         AlertDialog.Builder(this@MainActivity)

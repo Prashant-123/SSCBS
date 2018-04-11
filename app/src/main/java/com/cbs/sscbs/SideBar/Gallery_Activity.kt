@@ -58,6 +58,8 @@ class Gallery_Activity : AppCompatActivity() {
             }
         })
 
+//        firebaseref.
+
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper1) as ViewFlipper
         showImage(R.id.flipper1, "infrastructure", infraCount)
 
@@ -91,6 +93,10 @@ class Gallery_Activity : AppCompatActivity() {
         }
     }
 
+    private fun checkNoofPics(str: String){
+
+    }
+
     private fun showImage(id: Int, folder: String, noOfPics: Int) {
 
         for (i in 0 until noOfPics)
@@ -122,7 +128,7 @@ class Gallery_Activity : AppCompatActivity() {
         frame.setInAnimation(fade_in)
         frame.setOutAnimation(fade_out)
         frame.setAutoStart(true)
-        frame.setFlipInterval(1500)
+        frame.setFlipInterval(1300)
         frame.startFlipping()
     }
 

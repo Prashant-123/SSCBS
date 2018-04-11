@@ -47,7 +47,6 @@ class Developer_Frag : Fragment() {
             }
         })
 
-        val goToRepo = view.findViewById<TextView>(R.id.GoToRepo) as TextView
         val mem1ln = view.findViewById<ImageView>(R.id.mem1linkedIn_image) as ImageView
         val mem2ln = view.findViewById<ImageView>(R.id.mem2linkedIn_image) as ImageView
         val mem1fb = view.findViewById<ImageView>(R.id.mem1facebook_image) as ImageView
@@ -55,11 +54,6 @@ class Developer_Frag : Fragment() {
         val mem1gt = view.findViewById<ImageView>(R.id.mem1github_image) as ImageView
         val mem2gt = view.findViewById<ImageView>(R.id.mem2github_image) as ImageView
 
-        goToRepo.setOnClickListener(View.OnClickListener { view ->
-            val uri = Uri.parse("https:/github.com/Prashant-123/SSCBS")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
-        })
         mem1ln.setOnClickListener(View.OnClickListener { view ->
             val uri = Uri.parse("https://www.linkedin.com/in/prashant-kumar-86785012b/")
             val intent = Intent(Intent.ACTION_VIEW, uri)
