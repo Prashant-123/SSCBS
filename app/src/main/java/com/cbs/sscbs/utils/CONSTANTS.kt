@@ -1,4 +1,4 @@
-package com.cbs.sscbs.TeachersTimetable
+package com.cbs.sscbs.utils
 
 /**
  * Created by gauti on 29/10/17.

@@ -31,7 +31,7 @@ public class CustomFilter extends Filter {
 
             for(int i = 0 ; i < filterList.size() ; i++)
             {
-                if(filterList.get(i).getTName().toUpperCase().contains(charSequence))
+                if(filterList.get(i).getName().toUpperCase().contains(charSequence))
                 {
                     filteredTeacher.add(filterList.get(i)) ;
                 }

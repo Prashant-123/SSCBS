@@ -2,36 +2,35 @@ package com.cbs.sscbs.TeachersTimetable;
 
 public class TeacherDataClass {
     private String name ;
-    private long  imageUrl , timetableUrl;
+    private String  imageUrl , timetableUrl;
 
-    public TeacherDataClass(String name, long imageUrl, long timetableUrl) {
+    public TeacherDataClass(String name, String imageUrl, String timetableUrl) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.timetableUrl = timetableUrl;
-        }
-    public TeacherDataClass() {}
-
-
-    public long getImg() { return imageUrl; }
-
-    public void setImg(long img) {
-        this.imageUrl = img;
     }
 
-    public String getTName() {
+    public String getName() {
         return name;
     }
 
-    public void setTName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public long getTimeTableUrl() {
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getTimetableUrl() {
         return timetableUrl;
     }
 
-    public void setDesc(long timetableUrl) {
+    public void setTimetableUrl(String timetableUrl) {
         this.timetableUrl = timetableUrl;
     }
-
 }

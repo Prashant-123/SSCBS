@@ -1,53 +1,33 @@
 package com.cbs.sscbs.Others;
 
 import android.Manifest;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Attendance.AttendanceDataClass;
-import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
-
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Grievances extends AppCompatActivity {
 
@@ -66,10 +46,8 @@ public class Grievances extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,WRITE_EXST);
+        checkAndRequestPermissions();
 
-        askForPermission(Manifest.permission.SEND_SMS, 1234);
-        askForPermission(Manifest.permission.READ_PHONE_STATE, 1);
         setContentView(R.layout.activity_grievances);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_grievances);
         setSupportActionBar(toolbar);
@@ -82,9 +60,6 @@ public class Grievances extends AppCompatActivity {
 
     public void sendMSG(View view)
     {
-        askForPermission(Manifest.permission.SEND_SMS, 1234);
-        askForPermission(Manifest.permission.READ_PHONE_STATE, 1);
-
         EditText subject = (EditText)findViewById(R.id.subject);
         EditText body = (EditText) findViewById(R.id.body);
         final String emailBody = body.getText().toString();
@@ -203,13 +178,23 @@ public class Grievances extends AppCompatActivity {
         return Uri.parse(path);
     }
 
-    private void askForPermission(String permission, Integer requestCode) {
-        if (ContextCompat.checkSelfPermission(Grievances.this, permission) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(Grievances.this, permission)) {
-                ActivityCompat.requestPermissions(Grievances.this, new String[]{permission}, requestCode);
-            } else {
-                ActivityCompat.requestPermissions(Grievances.this, new String[]{permission}, requestCode);
-            }
+    private boolean checkAndRequestPermissions() {
+
+        int storagePermission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (storagePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
+            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
         }
+
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), CAMERA_REQUEST);
+            return false;
+        }
+
+        return true;
     }
 }

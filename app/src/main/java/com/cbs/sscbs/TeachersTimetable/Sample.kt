@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.TextView
 import com.cbs.sscbs.utils.FullScreenImage
 import com.cbs.sscbs.R
+import com.cbs.sscbs.utils.CONSTANTS
 import com.cbs.sscbs.utils.FileDownloader
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback

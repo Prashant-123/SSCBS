@@ -11,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cbs.sscbs.Events.DataClass;
 import com.cbs.sscbs.Events.EventsAdapter;
 import com.cbs.sscbs.R;
@@ -45,12 +46,12 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
     public void onBindViewHolder(TeacherAdapter.MyViewHolder holder, int position) {
 
         final TeacherDataClass current = teachers.get(position);
-        Log.wtf("TAG" , "as " + current.getTName());
-        holder.name.setText(current.getTName());
-        holder.setData(current, position);
+        holder.name.setText(current.getName());
+        holder.setData(current);
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+
             }
         });
     }
@@ -84,9 +85,9 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
             itemView.setOnClickListener(this);
         }
 
-        public void setData(TeacherDataClass currentObject, int position) {
-            this.name.setText(currentObject.getTName());
-            this.img.setImageResource((int) currentObject.getImg());
+        public void setData(TeacherDataClass currentObject) {
+            this.name.setText(currentObject.getName());
+            Glide.with(itemView).load(currentObject.getImageUrl()).into(img);
             this.currentObject = currentObject;
         }
         @Override

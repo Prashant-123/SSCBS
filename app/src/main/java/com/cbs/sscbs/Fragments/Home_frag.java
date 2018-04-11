@@ -10,10 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cbs.sscbs.R;
+import com.cbs.sscbs.TeachersTimetable.TeacherDataClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,6 +36,7 @@ public class Home_frag extends Fragment {
     public static ArrayList<String> bfia3List = new ArrayList<>();
     public static ArrayList<String> bms3List = new ArrayList<>();
     String user;
+    public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     public static ArrayList<String> classes_alloted = new ArrayList<>();
     public static ArrayList<String> myClasses = new ArrayList<>();
 
@@ -44,6 +51,7 @@ public class Home_frag extends Fragment {
         Bfia_3_List();
         Class_List();
         Bms_3_List();
+        loadTimeTable();
         return myView;
     }
 
@@ -119,6 +127,32 @@ public class Home_frag extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.i("TAG", "Faculty Subjects ERROR");
+            }
+        });
+    }
+
+    public void loadTimeTable(){
+        DatabaseReference databaseRef;
+
+        databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable");
+        databaseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                TeacherDataClass teacher_data = new TeacherDataClass(dataSnapshot.child("name").getValue().toString(),
+                        dataSnapshot.child("image").getValue().toString(), dataSnapshot.child("timetable").getValue().toString());
+                data.add(teacher_data);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
