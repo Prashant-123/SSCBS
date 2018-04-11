@@ -19,13 +19,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cbs.sscbs.Attendance.AdminActivity;
+import com.cbs.sscbs.Attendance.ShowToStudents;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
-import com.cbs.sscbs.Attendance.ShowToStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -33,16 +32,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Prashant on 09-01-2018.
@@ -59,10 +54,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     ProgressBar bar;
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
-    CollectionReference getTeachers = FirebaseFirestore.getInstance().collection("Teachers");
     CollectionReference getYears = FirebaseFirestore.getInstance().collection("Academic Year");
     String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
-    //String user = "Sonika Thakral";
     ArrayList<String> getYearss = new ArrayList<>();
     LinearLayout stuLayout, facultyLayout;
 
@@ -73,8 +66,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
 
         final View myView = inflater.inflate(R.layout.attendence_fragment, container, false);
         initView(myView);
-//        verifyAdmin();
-
         getYears.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -95,29 +86,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     Intent intent = new Intent(getContext(),AdminActivity.class);
                     startActivity(intent);
                 }
-//                getTeachers.get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if (task.isSuccessful()) {
-//                                    for (DocumentSnapshot document : task.getResult()) {
-//                                        Log.d(TAG, document.getId() + " => " + document.getData());
-//                                        if(user.equals(document.getId())){
-//                                            if(document.getData().toString().substring(7,document.getData().toString().length()-1).equals("true")){
-//                                                Intent intent = new Intent(getContext(),AdminActivity.class);
-//                                                startActivity(intent);
-//                                            }else{
-//                                                Toast.makeText(getContext(), "You Do not have the admin rights of the software", Toast.LENGTH_SHORT).show();
-//                                            }
-//
-//                                        }
-//                                    }
-//                                } else {
-//                                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                                }
-//                            }
-//                        });
-
             }
 
         });
@@ -136,8 +104,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         stu.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View v) {
-
-                                       Log.i(TAG, ""+getNameFromRno(""));
 
                 final LayoutInflater inflater = getLayoutInflater();
                 final View alertLayout = inflater.inflate(R.layout.studentverify, null);
@@ -169,10 +135,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                     @Override
                                     public void onItemSelected(final AdapterView<?> adapterView0, View view, int i, long l) {
 
-
-//                                        Spinner year = alertLayout.findViewById(R.id.year);
-                                        Log.i(TAG, "ok" + getYearss.toString());
-
                                         String[] yrs = new String[getYearss.size() + 1];
                                         int li = 0;
                                         yrs[0] = "Select Year";
@@ -199,23 +161,21 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                             classs = adapterView0.getSelectedItem().toString();
                                                             monthIntent = adapterView2.getSelectedItem().toString();
                                                             yearIntent = adapterView1.getSelectedItem().toString();
-                                                            if (i!=0)
+                                                            if (i != 0)
                                                                 showAttendance(adapterView0.getSelectedItem().toString(), roll.getText().toString(), adapterView1.getSelectedItem().toString(), adapterView2.getSelectedItem().toString());
                                                         }
+
                                                         @Override
                                                         public void onNothingSelected(AdapterView<?> adapterView) {
                                                         }
                                                     });
                                                 }
+
                                                 @Override
                                                 public void onNothingSelected(AdapterView<?> adapterView) {
                                                 }
                                             });
                                         }
-//                                        ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(getContext(),
-//                                                android.R.layout.simple_spinner_item, theMonth());
-//                                        subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                                        month.setAdapter(subjectAdapter);
                                     }
 
                                     @Override
@@ -308,12 +268,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     }
 
-    public boolean checkSemester(String month){
-        if (month.contains("Jan")||month.contains("Feb")||month.contains("Mar")||month.contains("Apr")
-                ||month.contains("May")) return true;
-        else return false;
-    }
-
     public void initView(View myView) {
         stuLayout = myView.findViewById(R.id.stuLayout);
         facultyLayout = myView.findViewById(R.id.facultyLayout);
@@ -348,14 +302,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 Log.i(TAG, "Admin not Verified...");
             }
         });
-    }
-
-    public String getNameFromRno(String roll_no){
-
-
-
-
-        return name;
     }
 
 }

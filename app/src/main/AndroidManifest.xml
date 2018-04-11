@@ -77,7 +77,6 @@
             android:label="GALLERY"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
-        <activity android:name=".auth.SignedInActivity" />
         <activity
             android:name=".utils.FullScreenImage"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -96,10 +95,6 @@
         <activity
             android:name=".Others.Grievances"
             android:label="Grievances"
-            android:parentActivityName=".Others.MainActivity" />
-        <activity
-            android:name=".Events.Bookings"
-            android:label="All Bookings"
             android:parentActivityName=".Others.MainActivity" />
         <activity
             android:name=".Attendance.TeacherCourseDetails"

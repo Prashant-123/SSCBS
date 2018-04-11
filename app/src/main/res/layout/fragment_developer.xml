@@ -7,26 +7,27 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="15dp"
                 android:background="@drawable/shadow_1"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
+                android:layout_weight="1"
                 android:showDividers="none">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:background="#ffffffff"
                     android:orientation="horizontal"
@@ -37,7 +38,7 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -54,7 +55,7 @@
                                 app:riv_oval="true" />
 
                             <LinearLayout
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:padding="10dp">
@@ -139,7 +140,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
-                                android:text="Developer"
+                                android:text="Full Stack Developer"
                                 android:textSize="16sp" />
 
                             <ImageView
@@ -169,6 +170,7 @@
                 </FrameLayout>
 
                 <LinearLayout
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:background="@color/colorPrimary"></LinearLayout>
@@ -178,7 +180,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
@@ -190,7 +192,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:background="#ffffffff"
                     android:orientation="horizontal"
@@ -303,7 +305,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
-                                android:text="Developer"
+                                android:text="Full Stack Developer"
                                 android:textSize="16sp" />
 
                             <ImageView
@@ -337,77 +339,6 @@
                     android:layout_height="5dp"
                     android:background="@color/colorPrimary"></LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/shadow_1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:showDividers="none">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@color/colorPrimary"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:padding="8dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:background="#ffffff"
-                                android:gravity="center_horizontal"
-                                android:weightSum="1">
-
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:src="@drawable/github_logo" />
-
-                                <ImageView
-                                    android:id="@+id/git"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:src="@drawable/github" />
-
-                                <TextView
-                                    android:id="@+id/GoToRepo"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="0.57"
-                                    android:background="#ffededed"
-                                    android:gravity="center"
-                                    android:padding="10dp"
-                                    android:text="@string/repository_text"
-                                    android:textAppearance="?android:attr/textAppearanceSmall"
-                                    android:textColor="#000000" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

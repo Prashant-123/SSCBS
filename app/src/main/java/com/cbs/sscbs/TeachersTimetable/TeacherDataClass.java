@@ -2,9 +2,9 @@ package com.cbs.sscbs.TeachersTimetable;
 
 public class TeacherDataClass {
     private String name ;
-    private int  imageUrl , timetableUrl;
+    private long  imageUrl , timetableUrl;
 
-    public TeacherDataClass(String name, int imageUrl, int timetableUrl) {
+    public TeacherDataClass(String name, long imageUrl, long timetableUrl) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.timetableUrl = timetableUrl;
@@ -12,9 +12,9 @@ public class TeacherDataClass {
     public TeacherDataClass() {}
 
 
-    public int getImg() { return imageUrl; }
+    public long getImg() { return imageUrl; }
 
-    public void setImg(int img) {
+    public void setImg(long img) {
         this.imageUrl = img;
     }
 
@@ -26,11 +26,11 @@ public class TeacherDataClass {
         this.name = name;
     }
 
-    public int getTimeTableUrl() {
+    public long getTimeTableUrl() {
         return timetableUrl;
     }
 
-    public void setDesc(int timetableUrl) {
+    public void setDesc(long timetableUrl) {
         this.timetableUrl = timetableUrl;
     }
 

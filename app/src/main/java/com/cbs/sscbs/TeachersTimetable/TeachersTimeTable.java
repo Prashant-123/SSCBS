@@ -1,6 +1,7 @@
 package com.cbs.sscbs.TeachersTimetable;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.cbs.sscbs.Events.DataClass;
@@ -22,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class TeachersTimeTable extends AppCompatActivity {
-    public ArrayList<TeacherDataClass> data = new ArrayList<>();
+    public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
     TeacherDataClass teacherDataClass;
@@ -43,7 +45,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         });
 
         database = FirebaseDatabase.getInstance();
-        databaseRef = database.getReference();
+        databaseRef = database.getReference("TeacherTimeTable");
 
         final SearchView sv = (SearchView) findViewById(R.id.mSearch);
         RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler) ;
@@ -73,27 +75,11 @@ public class TeachersTimeTable extends AppCompatActivity {
             }
         });
 
-        databaseRef.child("TeacherTimeTable").addChildEventListener(new ChildEventListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TeacherTimeTable");
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                teacherDataClass = dataSnapshot.getValue(TeacherDataClass.class);
-                data.add(teacherDataClass);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.wtf("TAG", String.valueOf(dataSnapshot.getValue()));
             }
 
             @Override
@@ -101,6 +87,33 @@ public class TeachersTimeTable extends AppCompatActivity {
 
             }
         });
+
+
+//        databaseRef.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+////                teacherDataClass = dataSnapshot.getValue(TeacherDataClass.class);
+////                data.add(teacherDataClass);
+////                adapter.notifyDataSetChanged();
+//
+////                for(int i=0; i< dataSnapshot.getChildrenCount(); i++){
+//                    Log.wtf("TAG", String.valueOf(dataSnapshot.child("1").getValue()).toString());
+////                }
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//            }
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//            }
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
     }
 
     private ArrayList<Teacher> getTeachers()

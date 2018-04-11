@@ -65,11 +65,9 @@ public class Grievances extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //new getMixListFromExcel().execute();
-//        Toast.makeText(this, StringUtils.substringAfterLast(emailID, "@"), Toast.LENGTH_SHORT).show();
 
         askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,WRITE_EXST);
-        askForPermission(Manifest.permission.SEND_SMS, 123);
+        askForPermission(Manifest.permission.SEND_SMS, 1234);
         askForPermission(Manifest.permission.READ_PHONE_STATE, 1);
 
         setContentView(R.layout.activity_grievances);

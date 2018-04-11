@@ -44,10 +44,6 @@
         <item>@color/indigo500</item>
     </array>
 
-
-
-
-
     <!-- Text -->
     <color name="text_default_material_dark_primary">#ffffffff</color>
     <color name="colorPrimary">#3F51B5</color>
@@ -56,7 +52,7 @@
     <color name="cyan">#B2EBF2</color>
     <color name="brown">#7B241C</color>
     <color name="black">#000000</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#610B21</color>
     <color name = "tan_background">#FFF9C4</color>
     <color name="c0">#FCB03B</color>
     <color name="c1">#FC8D3B</color>
