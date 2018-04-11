@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.cbs.sscbs.Events.DataClass;
@@ -76,8 +77,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         databaseRef.child("TeacherTimeTable").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                teacherDataClass = dataSnapshot.getValue(TeacherDataClass.class);
-                data.add(teacherDataClass);
+                data.add((TeacherDataClass) dataSnapshot.getValue());
                 adapter.notifyDataSetChanged();
             }
 

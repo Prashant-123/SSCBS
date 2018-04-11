@@ -72,13 +72,32 @@
         android:text="Upload Image"
         android:background="@drawable/shape2"
         android:onClick="btnBrowse"/>
-    <Button
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Send your Concern"
-        android:background="@drawable/shape2"
-        android:onClick="sendMail"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Send SMS"
+            android:background="@drawable/shape2"
+            android:onClick="sendMSG"
+           />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Send Mail"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape2"
+            android:onClick="sendMail"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

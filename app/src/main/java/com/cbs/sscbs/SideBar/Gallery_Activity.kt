@@ -2,6 +2,7 @@ package com.cbs.sscbs.SideBar
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -21,14 +22,44 @@ class Gallery_Activity : AppCompatActivity() {
 
     lateinit var firebasedb: FirebaseDatabase
     lateinit var firebaseref: DatabaseReference
+    lateinit var dataSnapshot : DataSnapshot
+
+    var infraCount = 0
+    private var database: FirebaseDatabase? = null
+    private  var databaseRef: DatabaseReference? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery_)
         setToolbar()
+        database = FirebaseDatabase.getInstance()
+        databaseRef = FirebaseDatabase.getInstance().getReference()
+
+
+        databaseRef!!.child("infrastructure").addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String) {
+                 infraCount = dataSnapshot.childrenCount.toInt()
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {
+
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+
+            }
+
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper1) as ViewFlipper
-        showImage(R.id.flipper1, "infrastructure", 6)
+        showImage(R.id.flipper1, "infrastructure", infraCount)
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper2) as ViewFlipper
         showImage(R.id.flipper2, "highlights", 6)

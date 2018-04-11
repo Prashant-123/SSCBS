@@ -65,12 +65,8 @@ public class Grievances extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //new getMixListFromExcel().execute();
-//        Toast.makeText(this, StringUtils.substringAfterLast(emailID, "@"), Toast.LENGTH_SHORT).show();
 
         askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,WRITE_EXST);
-        askForPermission(Manifest.permission.SEND_SMS, 123);
-        askForPermission(Manifest.permission.READ_PHONE_STATE, 1);
 
         setContentView(R.layout.activity_grievances);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_grievances);
@@ -82,8 +78,11 @@ public class Grievances extends AppCompatActivity {
     }
 
 
-    public void sendMail(View view)
+    public void sendMSG(View view)
     {
+        askForPermission(Manifest.permission.SEND_SMS, 1234);
+        askForPermission(Manifest.permission.READ_PHONE_STATE, 1);
+
         EditText subject = (EditText)findViewById(R.id.subject);
         EditText body = (EditText) findViewById(R.id.body);
         final String emailBody = body.getText().toString();
@@ -108,13 +107,22 @@ public class Grievances extends AppCompatActivity {
         b.create();
         b.show();
 
-//        Intent intent = new Intent(Intent.ACTION_SEND);
-//        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pk021998@gmail.com"});
-//        intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
-//        intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
-//        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(String.valueOf(imgUri)));
-//        intent.setType("image/*");
-//        startActivity(Intent.createChooser(intent,"Send Email Using"));
+    }
+
+    public void sendMail(View view){
+
+        EditText subject = (EditText)findViewById(R.id.subject);
+        EditText body = (EditText) findViewById(R.id.body);
+        final String emailBody = body.getText().toString();
+        String emailSubject = subject.getText().toString();
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pk021998@gmail.com"});
+        intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
+        intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(String.valueOf(imgUri)));
+        intent.setType("image/*");
+        startActivity(Intent.createChooser(intent,"Send Email Using"));
     }
 
     public void sendSMS(String message){
