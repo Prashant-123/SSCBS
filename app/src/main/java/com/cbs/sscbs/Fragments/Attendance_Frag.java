@@ -78,17 +78,17 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         });
 
 
-        admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(user.equals("goyaltanvi94@gmail.com")){
-                    Intent intent = new Intent(getContext(),AdminActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-        });
+//        admin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if(user.equals("goyaltanvi94@gmail.com")){
+//                    Intent intent = new Intent(getContext(),AdminActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//
+//        });
 
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,7 +273,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         facultyLayout = myView.findViewById(R.id.facultyLayout);
         faculty = myView.findViewById(R.id.faculty);
         stu = myView.findViewById(R.id.students);
-        admin = myView.findViewById(R.id.admin);
+//        admin = myView.findViewById(R.id.admin);
     }
 
     public void verifyAdmin(){

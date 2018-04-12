@@ -2,8 +2,6 @@ package com.cbs.sscbs.TeachersTimetable;
 
 import android.widget.Filter;
 
-import com.cbs.sscbs.TeachersTimetable.Teacher;
-
 import java.util.ArrayList;
 
 /**
