@@ -64,11 +64,13 @@ public class AttendanceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         button1 = findViewById(R.id.save_at);
         setContentView(R.layout.common_rv);
+        TextView title = (TextView) findViewById(R.id.titleTextView);
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
+        title.setText(clas);
         size = AttendanceAdapter.to_update_Total.size();
 
         getDataFromIntent();
@@ -94,7 +96,7 @@ public class AttendanceMain extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
-        toolbar.setTitle(clas + " / " + sub);
+        toolbar.setTitle(clas);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

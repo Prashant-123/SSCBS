@@ -1,6 +1,7 @@
 package com.cbs.sscbs.TeachersTimetable;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cbs.sscbs.Events.DataClass;
 import com.cbs.sscbs.Events.EventsAdapter;
+import com.cbs.sscbs.Others.MainActivity;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;
 
@@ -26,8 +28,6 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
 
     ArrayList<TeacherDataClass> filterList;
     CustomFilter filter;
-    //public ArrayList<TeacherDataClass> teachers;
-
     public TeacherAdapter(Context context, ArrayList<TeacherDataClass> data) {
 
         inflater = LayoutInflater.from(context);
@@ -43,7 +43,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
     }
 
     @Override
-    public void onBindViewHolder(TeacherAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final TeacherAdapter.MyViewHolder holder, int position) {
 
         final TeacherDataClass current = teachers.get(position);
         holder.name.setText(current.getName());
@@ -51,6 +51,8 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                Glide.with(v).load(current.getTimetableUrl()).into(holder.showtt);
+                Intent i  = new Intent(v.getContext() , MainActivity.class);
 
             }
         });
@@ -75,6 +77,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
         ItemClickListener itemClickListener;
         ImageView img;
         TextView name;
+        ImageView showtt;
         TeacherDataClass currentObject;
 
 
@@ -82,6 +85,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
             super(itemView);
             this.img = (ImageView) itemView.findViewById(R.id.teacherImage);
             this.name = (TextView) itemView.findViewById(R.id.nameTxt);
+            this.showtt = (ImageView) itemView.findViewById(R.id.image_timetable);
             itemView.setOnClickListener(this);
         }
 
