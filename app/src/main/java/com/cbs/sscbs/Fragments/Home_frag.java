@@ -1,16 +1,22 @@
 package com.cbs.sscbs.Fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.TeachersTimetable.TeacherDataClass;
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +33,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import static com.cbs.sscbs.Events.CreateEvent.TAG;
+import static com.cbs.sscbs.Events.CreateEvent.theMonth;
+
 public class Home_frag extends Fragment {
     public Home_frag() {
         // Required empty public constructor
@@ -35,7 +44,9 @@ public class Home_frag extends Fragment {
     public static ArrayList<String> faculty_list = new ArrayList<>();
     public static ArrayList<String> bfia3List = new ArrayList<>();
     public static ArrayList<String> bms3List = new ArrayList<>();
+//    public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     String user;
+    public static int flag = 0;
     public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     public static ArrayList<String> classes_alloted = new ArrayList<>();
     public static ArrayList<String> myClasses = new ArrayList<>();
@@ -51,7 +62,7 @@ public class Home_frag extends Fragment {
         Bfia_3_List();
         Class_List();
         Bms_3_List();
-        loadTimeTable();
+//        loadTimeTable();
         return myView;
     }
 
@@ -131,29 +142,51 @@ public class Home_frag extends Fragment {
         });
     }
 
-    public void loadTimeTable(){
-        DatabaseReference databaseRef;
+    public class loadTT extends AsyncTask<Void,Void,Void> {
+            private Context context;
 
-        databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable");
-        databaseRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TeacherDataClass teacher_data = new TeacherDataClass(dataSnapshot.child("name").getValue().toString(),
-                        dataSnapshot.child("image").getValue().toString(), dataSnapshot.child("timetable").getValue().toString());
-                data.add(teacher_data);
+            public loadTT(Context context){
+                this.context=context;
             }
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            protected void onPreExecute() {
+                // write show progress Dialog code here
+                super.onPreExecute();
             }
+
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            protected Void doInBackground(Void... params) {
+                DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable");
+                databaseRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        if (dataSnapshot.hasChild("name") && dataSnapshot.hasChild("image") && dataSnapshot.hasChild("timetable")){
+                            TeacherDataClass teacher_data = new TeacherDataClass(dataSnapshot.child("name").getValue().toString(),
+                                    dataSnapshot.child("image").getValue().toString(), dataSnapshot.child("timetable").getValue().toString());
+                            data.add(teacher_data);
+                            data.lastIndexOf(dataSnapshot.getChildrenCount());
+                        }
+                        else Log.wtf("TAG", "Nope");
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    }
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    }
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+                return null;
             }
+
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
 }
