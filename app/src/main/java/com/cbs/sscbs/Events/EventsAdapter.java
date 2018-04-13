@@ -2,6 +2,8 @@ package com.cbs.sscbs.Events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,9 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import static com.thefinestartist.utils.content.ContextUtil.startActivity;
-
 /**
  * Created by Prashant on 25-11-2017.
  */
@@ -160,14 +159,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String m = dataSnapshot.getValue(String.class);
                 mobNo.setText(m);
-//                mobNo.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(Intent.ACTION_DIAL);
-//                        intent.setData(Uri.parse("tel:01122154581"));
-//                        startActivity(intent);
-//                    }
-//                });
             }
 
             @Override
@@ -180,6 +171,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         alert1.setTitle("Event-Description");
         alert1.setView(alertLayout1);
         alert1.setCancelable(true);
+
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(view.getContext(), Uri.parse(link.getText().toString()));
+            }
+        });
 
         AlertDialog dialog = alert1.create();
         dialog.show();

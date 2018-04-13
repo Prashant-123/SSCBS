@@ -3,9 +3,11 @@ package com.cbs.sscbs.Others
 import am.appwise.components.ni.NoInternetDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.*
 import android.support.annotation.MainThread
 import android.support.annotation.StringRes
+import android.support.customtabs.CustomTabsIntent
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
@@ -31,7 +33,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
-import com.thefinestartist.finestwebview.FinestWebView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -188,7 +189,12 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent1)
             }
             R.id.qppr -> {
-                FinestWebView.Builder(this).show("https://www.google.co.in/?gfe_rd=cr&dcr=0&ei=WJDQWoiIIIKdX5fBqsgP")
+
+                val builder = CustomTabsIntent.Builder()
+                val customTabsIntent = builder.build()
+                builder.setToolbarColor(titleColor)
+                customTabsIntent.launchUrl(this, Uri.parse(getString(R.string.LibraryLink)))
+
             }
             R.id.about_college -> {
                 val intent = Intent(this, About_Activity::class.java)

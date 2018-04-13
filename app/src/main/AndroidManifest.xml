@@ -101,12 +101,6 @@
             android:name=".Attendance.AdminActivity"
             android:label="Admin"
             android:parentActivityName=".Others.MainActivity" />
-        <activity
-            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="sensor"
-            android:theme="@style/FinestWebViewTheme.Light" />
-        <activity android:name=".Attendance.UploadLists" />
     </application>
 
 </manifest>

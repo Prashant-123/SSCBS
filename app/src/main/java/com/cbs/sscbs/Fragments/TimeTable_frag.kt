@@ -24,9 +24,6 @@ import com.cbs.sscbs.utils.FileDownloader
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import com.thefinestartist.utils.content.ContextUtil
-import com.thefinestartist.utils.content.ContextUtil.getApplicationContext
-import com.thefinestartist.utils.content.ContextUtil.startActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
 import java.io.File
