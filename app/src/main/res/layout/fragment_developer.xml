@@ -50,7 +50,7 @@
                                 android:id="@+id/mem1"
                                 android:layout_width="120dp"
                                 android:layout_height="120dp"
-                                android:src="@drawable/p"
+                                android:src="@drawable/prashant"
                                 app:riv_border_width="0.8dp"
                                 app:riv_oval="true" />
 
@@ -118,7 +118,7 @@
                             android:layout_height="4dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="15dp"
-                            android:background="@color/colorPrimary" />
+                            android:background="@color/colorAccent" />
 
                         <LinearLayout
                             android:layout_width="fill_parent"
@@ -173,7 +173,9 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@color/colorPrimary"></LinearLayout>
+                    android:background="@color/colorAccent">
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -216,6 +218,7 @@
                                 android:layout_width="120dp"
                                 android:layout_height="120dp"
                                 app:riv_border_width="0.8dp"
+                                android:src="@drawable/tanvi"
                                 app:riv_oval="true" />
 
                             <LinearLayout
@@ -282,7 +285,7 @@
                             android:layout_height="4dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="15dp"
-                            android:background="@color/colorPrimary" />
+                            android:background="@color/colorAccent" />
 
                         <LinearLayout
                             android:layout_width="fill_parent"
@@ -336,7 +339,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@color/colorPrimary"></LinearLayout>
+                    android:background="@color/colorAccent"></LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

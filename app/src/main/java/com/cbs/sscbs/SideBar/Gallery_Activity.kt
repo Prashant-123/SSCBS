@@ -67,9 +67,8 @@ class Gallery_Activity : AppCompatActivity() {
         for (i in 0 until noOfPics)
         {
         firebasedb = FirebaseDatabase.getInstance()
-        firebaseref = firebasedb.getReference("${folder}/${i}")
+        firebaseref = firebasedb.getReference("Gallery/${folder}/${i}")
             progressbarEnable()
-
 
         firebaseref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {

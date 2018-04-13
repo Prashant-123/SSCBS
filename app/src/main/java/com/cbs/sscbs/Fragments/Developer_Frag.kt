@@ -25,28 +25,6 @@ class Developer_Frag : Fragment() {
         val view = inflater!!.inflate(R.layout.fragment_developer, container, false)
         activity.toolbar.setTitle("Developers")
 
-        var image = view.findViewById<ImageView>(R.id.mem1)
-        reference = FirebaseDatabase.getInstance().getReference("Developers/0")
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val url = dataSnapshot.getValue(String::class.java)
-                Picasso.with(view.context).load(url).into(image)
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-            }
-        })
-
-        var image1 = view.findViewById<ImageView>(R.id.mem2)
-        reference = FirebaseDatabase.getInstance().getReference("Developers/1")
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val url = dataSnapshot.getValue(String::class.java)
-                Picasso.with(context).load(url).into(image1)
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-            }
-        })
-
         val mem1ln = view.findViewById<ImageView>(R.id.mem1linkedIn_image) as ImageView
         val mem2ln = view.findViewById<ImageView>(R.id.mem2linkedIn_image) as ImageView
         val mem1fb = view.findViewById<ImageView>(R.id.mem1facebook_image) as ImageView
