@@ -57,20 +57,21 @@ public class Grievances extends AppCompatActivity {
 
     }
 
-
     public void sendMSG(View view)
     {
         EditText subject = (EditText)findViewById(R.id.subject);
         EditText body = (EditText) findViewById(R.id.body);
         final String emailBody = body.getText().toString();
-        String emailSubject = subject.getText().toString();
 
         AlertDialog.Builder b =  new  AlertDialog.Builder(this)
                 .setTitle("Do you want to send a text message for immediate action?")
                 .setPositiveButton("Leave a Message",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                if(!emailBody.isEmpty())
                                 sendSMS(emailBody);
+                                else
+                                    Toast.makeText(Grievances.this, "Fill in your concern appropriately.", Toast.LENGTH_SHORT).show();
                             }
                         }
                 )
@@ -86,22 +87,6 @@ public class Grievances extends AppCompatActivity {
 
     }
 
-    public void sendMail(View view){
-
-        EditText subject = (EditText)findViewById(R.id.subject);
-        EditText body = (EditText) findViewById(R.id.body);
-        final String emailBody = body.getText().toString();
-        String emailSubject = subject.getText().toString();
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pk021998@gmail.com"});
-        intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
-        intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(String.valueOf(imgUri)));
-        intent.setType("image/*");
-        startActivity(Intent.createChooser(intent,"Send Email Using"));
-    }
-
     public void sendSMS(String message){
         try {
             String redefinedMessage = "Dear Sir/Ma'am,\nI have the following concern: \n" + message + " \n\n\n Name: " + displayName;
@@ -115,6 +100,27 @@ public class Grievances extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+    }
+
+    public void sendMail(View view){
+
+        EditText subject = (EditText)findViewById(R.id.subject);
+        EditText body = (EditText) findViewById(R.id.body);
+        final String emailBody = body.getText().toString();
+        String emailSubject = subject.getText().toString();
+
+        if(!emailBody.isEmpty()&& !emailSubject.isEmpty()){
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pk021998@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT , emailSubject);
+            intent.putExtra(Intent.EXTRA_TEXT ,emailBody );
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(String.valueOf(imgUri)));
+            intent.setType("image/*");
+            startActivity(Intent.createChooser(intent,"Send Email Using"));
+        }else
+            Toast.makeText(this, "Fill in your concern appropriately.", Toast.LENGTH_SHORT).show();
+
     }
 
     public void btnBrowse(View view) {

@@ -24,44 +24,13 @@ class Gallery_Activity : AppCompatActivity() {
     lateinit var firebaseref: DatabaseReference
     lateinit var dataSnapshot : DataSnapshot
 
-    var infraCount = 0
-    private var database: FirebaseDatabase? = null
-    private  var databaseRef: DatabaseReference? =null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery_)
         setToolbar()
-        database = FirebaseDatabase.getInstance()
-        databaseRef = FirebaseDatabase.getInstance().getReference()
-
-
-        databaseRef!!.child("infrastructure").addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String) {
-                 infraCount = dataSnapshot.childrenCount.toInt()
-            }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {
-
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-
-            }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        })
-
-//        firebaseref.
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper1) as ViewFlipper
-        showImage(R.id.flipper1, "infrastructure", infraCount)
+        showImage(R.id.flipper1, "infrastructure", 5)
 
         viewFlipper = this.findViewById<ViewFlipper>(R.id.flipper2) as ViewFlipper
         showImage(R.id.flipper2, "highlights", 6)
@@ -93,10 +62,6 @@ class Gallery_Activity : AppCompatActivity() {
         }
     }
 
-    private fun checkNoofPics(str: String){
-
-    }
-
     private fun showImage(id: Int, folder: String, noOfPics: Int) {
 
         for (i in 0 until noOfPics)
@@ -118,6 +83,7 @@ class Gallery_Activity : AppCompatActivity() {
             }
         })}
 }
+
     private fun setImageInFlipr(frame: ViewFlipper, imgUrl: String?) {
 
         val image = ImageView(applicationContext)
@@ -132,8 +98,7 @@ class Gallery_Activity : AppCompatActivity() {
         frame.startFlipping()
     }
 
-    private fun progressbarEnable()
-    {
+    private fun progressbarEnable() {
         pr1.visibility = View.VISIBLE
         pr2.visibility = View.VISIBLE
         pr3.visibility = View.VISIBLE
@@ -143,8 +108,7 @@ class Gallery_Activity : AppCompatActivity() {
 
     }
 
-    private fun progressbarDisable()
-    {
+    private fun progressbarDisable() {
         pr1.visibility = View.INVISIBLE
         pr2.visibility = View.INVISIBLE
         pr3.visibility = View.INVISIBLE

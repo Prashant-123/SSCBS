@@ -58,19 +58,19 @@
 
     </LinearLayout>
 
-    <!--<Button-->
-        <!--android:id="@+id/admin"-->
-        <!--style="@style/Widget.AppCompat.Button.Colored"-->
-        <!--android:layout_width="250dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:text="Admin"-->
-        <!--android:textColor="@color/black"-->
-        <!--android:background="@drawable/shape2"-->
-        <!--/>-->
+    <Button
+        android:id="@+id/admin"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Admin"
+        android:textColor="@color/black"
+        android:background="@drawable/shape2"
+        />
 
 </LinearLayout>
