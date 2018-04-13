@@ -63,7 +63,7 @@ class TimeTable_frag : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progress_br.visibility = View.INVISIBLE
-        loadTT().execute()
+//        loadTT().execute()
 
         students_card.setOnClickListener {
             MaterialDialog.Builder(activity)
@@ -237,12 +237,6 @@ class TimeTable_frag : Fragment() {
         }
 
     class loadTT : AsyncTask<String, Void, Void>() {
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-
-        }
-
         override fun doInBackground(vararg strings: String): Void? {
             val databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable")
             databaseRef.addChildEventListener(object : ChildEventListener {

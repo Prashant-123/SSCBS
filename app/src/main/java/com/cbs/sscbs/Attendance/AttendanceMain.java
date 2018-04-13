@@ -2,7 +2,9 @@ package com.cbs.sscbs.Attendance;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,8 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.Others.HttpHandler;
@@ -48,7 +52,7 @@ public class AttendanceMain extends AppCompatActivity {
     TextView tv;
     int size;
     double newAttendence = 0, newTotal = 0;
-    Button button1;
+    ImageView button1;
     CollectionReference getLink = FirebaseFirestore.getInstance().collection("Attendance");
     Calendar c = Calendar.getInstance();
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -64,13 +68,14 @@ public class AttendanceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         button1 = findViewById(R.id.save_at);
         setContentView(R.layout.common_rv);
-        TextView title = (TextView) findViewById(R.id.titleTextView);
+        /* TextView title = (TextView) findViewById(R.id.titleTextView); */
+
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new AttendanceAdapter(this, showdata);
         recyclerView.setAdapter(adapter);
-        title.setText(clas);
+        /* title.setText(clas); */
         size = AttendanceAdapter.to_update_Total.size();
 
         getDataFromIntent();

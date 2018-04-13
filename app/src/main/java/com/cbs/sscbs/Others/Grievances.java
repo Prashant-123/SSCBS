@@ -34,13 +34,10 @@ public class Grievances extends AppCompatActivity {
     ImageView image ;
     ArrayList<String> list = new ArrayList<>();
     private Uri imgUri;
-    static final Integer WRITE_EXST = 0x3;
     public static final int REQUEST_CODE = 1234;
     private static final int CAMERA_REQUEST = 1888;
 
     String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
-    String emailID = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,10 +137,14 @@ public class Grievances extends AppCompatActivity {
                 }
                 else if (options[item].equals("Choose from Gallery"))
                 {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select-File"), REQUEST_CODE);
+                    try{
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select-File"), REQUEST_CODE);
+                    } catch (Exception e){
+                        Toast.makeText(Grievances.this, "Select image to upload", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
@@ -155,25 +156,28 @@ public class Grievances extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            image.setImageBitmap(photo);
-            imgUri = getImageUri(getApplicationContext(), photo);
-            grantUriPermission("com.cbs.sscbs", imgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        try {
+            if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                image.setImageBitmap(photo);
+                imgUri = getImageUri(getApplicationContext(), photo);
+                grantUriPermission("com.cbs.sscbs", imgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-
-        } else
-        {
-            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!= null && data.getData()!=null)
-                imgUri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
-                image.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else
+            {
+                if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!= null && data.getData()!=null)
+                    imgUri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
+                    image.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        } catch (Exception e){
+            Toast.makeText(this, "Select any image to upload", Toast.LENGTH_SHORT).show();
         }
     }
 

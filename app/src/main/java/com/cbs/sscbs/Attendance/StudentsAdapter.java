@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.cbs.sscbs.R;
 import com.libRG.CustomTextView;
-import com.wajahatkarim3.easyflipview.EasyFlipView;
-
 import java.util.List;
 
 /**
@@ -56,7 +54,6 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
         TextView tot;
         CustomTextView perc;
         TextView textView;
-        EasyFlipView flipView;
 
         public MyViewHolder(View itemView) {
             super(itemView);

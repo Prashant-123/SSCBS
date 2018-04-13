@@ -47,6 +47,9 @@ public class ShowToStudents extends AppCompatActivity {
         yearText = findViewById(R.id.yearText);
         setRollText = findViewById(R.id.roll_text);
 
+        if (Attendance_Frag.allSub.size() == 0)
+        Log.i("TAG", "myList");
+
         yearText.setText("Year: " + getIntent().getStringExtra("year"));
         monthText.setText("Month: " + getIntent().getStringExtra("month"));
         setRollText.setText(getIntent().getStringExtra("roll"));

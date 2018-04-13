@@ -40,6 +40,7 @@
         android:drawableLeft="@drawable/ic_subject_black_24dp"
         android:id="@+id/subject"
         android:hint="Enter Subject"
+        android:lines="1"
         android:layout_gravity="center"/>
     </android.support.design.widget.TextInputLayout>
 
@@ -53,6 +54,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/body"
         android:hint="Enter Description"
+        android:lines="1"
         android:drawableLeft="@drawable/ic_description_black_24dp"
         android:layout_gravity="center"/>
     </android.support.design.widget.TextInputLayout>
@@ -61,6 +63,7 @@
         android:layout_width="250dp"
         android:layout_height="175dp"
         android:layout_gravity="center"
+        android:background="@drawable/image_icon"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:id="@+id/imgComplaint"

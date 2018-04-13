@@ -3,10 +3,7 @@ package com.cbs.sscbs.Others
 import am.appwise.components.ni.NoInternetDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.Handler
-import android.os.Parcel
-import android.os.Parcelable
+import android.os.*
 import android.support.annotation.MainThread
 import android.support.annotation.StringRes
 import android.support.design.widget.BottomNavigationView
@@ -17,27 +14,25 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.cbs.sscbs.Fragments.*
 import com.cbs.sscbs.R
 import com.cbs.sscbs.SideBar.About_Activity
 import com.cbs.sscbs.SideBar.Gallery_Activity
+import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.thefinestartist.finestwebview.FinestWebView
-import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.navheader.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -67,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         setNavigationView()
         setbottomnavigator(savedInstanceState)
         NoInternetDialog.Builder(this).build()
+         loadTT().execute()
     }
 
     fun setToolbar() {
@@ -192,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent1)
             }
             R.id.qppr -> {
-                FinestWebView.Builder(this).show(getString(R.string.LibraryLink))
+                FinestWebView.Builder(this).show("https://www.google.co.in/?gfe_rd=cr&dcr=0&ei=WJDQWoiIIIKdX5fBqsgP")
             }
             R.id.about_college -> {
                 val intent = Intent(this, About_Activity::class.java)
@@ -307,6 +303,37 @@ class MainActivity : AppCompatActivity() {
                     return arrayOfNulls(size)
                 }
             }
+        }
+    }
+
+    class loadTT : AsyncTask<String, Void, Void>() {
+
+        override fun doInBackground(vararg strings: String): Void? {
+            val databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable")
+            databaseRef.addChildEventListener(object : ChildEventListener {
+
+                override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
+                    if (p0!!.hasChild("name") && p0!!.hasChild("image") && p0!!.hasChild("timetable")) {
+                        val teacher_data = TeacherDataClass(p0!!.child("name").value?.toString(),
+                                p0!!.child("image").value?.toString(), p0!!.child("timetable").value?.toString())
+                        Home_frag.data.add(teacher_data)
+                    } else
+                        Log.wtf("TAG", "Nope")
+                }
+
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {}
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
+                override fun onCancelled(databaseError: DatabaseError) {
+                    //                    Log.i(TAG, "hugiyujv");
+                }
+            })
+            return null
+        }
+
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            Home_frag.data.clear()
         }
     }
 }

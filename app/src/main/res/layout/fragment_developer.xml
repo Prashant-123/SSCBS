@@ -215,7 +215,6 @@
                                 android:id="@+id/mem2"
                                 android:layout_width="120dp"
                                 android:layout_height="120dp"
-                                android:src="@drawable/t"
                                 app:riv_border_width="0.8dp"
                                 app:riv_oval="true" />
 

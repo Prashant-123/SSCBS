@@ -89,10 +89,6 @@
             android:label="Create New Event"
             android:parentActivityName=".Others.MainActivity" />
         <activity
-            android:name=".Others.Deadlines"
-            android:label="Deadlines"
-            android:parentActivityName=".Others.MainActivity" />
-        <activity
             android:name=".Others.Grievances"
             android:label="Grievances"
             android:parentActivityName=".Others.MainActivity" />
@@ -105,7 +101,6 @@
             android:name=".Attendance.AdminActivity"
             android:label="Admin"
             android:parentActivityName=".Others.MainActivity" />
-        <activity android:name=".utils.FinestWebViewActivity" />
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

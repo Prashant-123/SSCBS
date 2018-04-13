@@ -236,6 +236,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 Log.wtf(TAG, String.valueOf(dataSnapshot.child(month).child("attendance").getValue()));
                 Log.wtf(TAG, String.valueOf(dataSnapshot.child(month).child("total").getValue()));
 
+                Log.i(TAG, "ok"+ dataSnapshot.getValue());
+
                 String attendance = "0";
 
                 try {
