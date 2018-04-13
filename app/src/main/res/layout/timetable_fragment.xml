@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:fbutton="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,10 +17,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="8dp">
         <ImageView
             android:id="@+id/image_timetable"
-            android:layout_width="450dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
@@ -42,20 +42,15 @@
             android:background="#610B21">
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-
             <TextView
                 android:id="@+id/tt_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:gravity="center"
                 android:text="TIME TABLE"
                 android:textColor="#000"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-        </LinearLayout>
 
         <ProgressBar
             android:layout_width="40dp"
@@ -63,99 +58,38 @@
             android:layout_marginTop="10dp"
             android:id="@+id/progress_br"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/tt_choice"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="40dp"
-            android:orientation="horizontal">
+            <info.hoang8f.widget.FButton
+                android:id="@+id/teachers_card"
+                android:layout_width="150dp"
+                android:layout_height="90dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="28dp"
+                android:textColor="@color/white"
+                fbutton:buttonColor="#610B21"
+                android:text="Teacher's TimeTable"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="28dp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="40dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+            <info.hoang8f.widget.FButton
+                android:id="@+id/students_card"
+                android:layout_width="150dp"
+                android:layout_height="90dp"
+                android:textColor="@color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="27dp"
+                fbutton:buttonColor="#610B21"
+                android:textAlignment="center"
+                android:text="Student's TimeTable"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="27dp" />
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/teachers_card"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="15dp"
-                    android:elevation="100dp"
-                    android:backgroundTint="#610B21"
-                    app:cardCornerRadius="30dp"
-                    android:layout_weight="1">
-
-
-                        <TextView
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.6"
-                            android:gravity="center"
-                            android:layout_gravity="center"
-                            android:text="Teacher's Time          Table"
-                            android:textColor="@android:color/white"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-
-
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="0.2"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="92dp"
-                    android:layout_height="6dp"
-                    android:layout_marginTop="60dp"
-                    android:background="#c3bfb5" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:layout_marginBottom="40dp"
-                android:orientation="horizontal">
-
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/students_card"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="15dp"
-                    android:elevation="100dp"
-                    android:backgroundTint="#610B21"
-                    app:cardCornerRadius="30dp"
-                    android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.6"
-                            android:gravity="center"
-                            android:text="   Student's Time               Table"
-                            android:textColor="@android:color/white"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-        </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

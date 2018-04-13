@@ -13,15 +13,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.utils.CONSTANTS
 import com.cbs.sscbs.utils.FullScreenImage
 import com.cbs.sscbs.R
+import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
 import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable
 import com.cbs.sscbs.utils.FileDownloader
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import com.thefinestartist.utils.content.ContextUtil
+import com.thefinestartist.utils.content.ContextUtil.getApplicationContext
+import com.thefinestartist.utils.content.ContextUtil.startActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
 import java.io.File
@@ -35,6 +40,7 @@ class TimeTable_frag : Fragment() {
     lateinit var firebasedb: FirebaseDatabase
     lateinit var firebaseref: DatabaseReference
     internal var bundle: Bundle? = null
+//    var data = ArrayList<TeacherDataClass>()
     var mProgressDialog: ProgressDialog? = null
     var courselist: ArrayList<String> = ArrayList(Arrays.asList("Bsc 1", "Bsc 2", "Bsc 3", "BMS", "BFIA"))
     var years: ArrayList<String> = ArrayList(Arrays.asList("First Year", "Second Year", "Third Year"))
@@ -57,6 +63,7 @@ class TimeTable_frag : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progress_br.visibility = View.INVISIBLE
+        loadTT().execute()
 
         students_card.setOnClickListener {
             MaterialDialog.Builder(activity)
@@ -77,8 +84,8 @@ class TimeTable_frag : Fragment() {
 
         teachers_card.setOnClickListener {
             val intent: Intent = Intent(context, TeachersTimeTable::class.java)
-            //.putExtra(CONSTANTS.imageurl, url)
             startActivity(intent)
+
         }
     }
 
@@ -207,7 +214,7 @@ class TimeTable_frag : Fragment() {
         }
     }
 
-        class DownloadFile : AsyncTask<String, Void, Void>() {
+    class DownloadFile : AsyncTask<String, Void, Void>() {
 
             override fun doInBackground(vararg strings: String): Void? {
                 val fileUrl = strings[0]   // -> http://maven.apache.org/maven-1.x/maven.pdf
@@ -229,18 +236,39 @@ class TimeTable_frag : Fragment() {
             }
         }
 
-    private inner class GetDataFromFirebase : AsyncTask<Void, Void, Boolean>() {
+    class loadTT : AsyncTask<String, Void, Void>() {
 
         override fun onPreExecute() {
             super.onPreExecute()
+
         }
 
-        override fun doInBackground(vararg voids: Void): Boolean? {
-            return false
+        override fun doInBackground(vararg strings: String): Void? {
+            val databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable")
+            databaseRef.addChildEventListener(object : ChildEventListener {
+
+                override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
+                    if (p0!!.hasChild("name") && p0!!.hasChild("image") && p0!!.hasChild("timetable")) {
+                        val teacher_data = TeacherDataClass(p0!!.child("name").value?.toString(),
+                                p0!!.child("image").value?.toString(), p0!!.child("timetable").value?.toString())
+                        Home_frag.data.add(teacher_data)
+                    } else
+                        Log.wtf("TAG", "Nope")
+                }
+
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {}
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
+                override fun onCancelled(databaseError: DatabaseError) {
+                    //                    Log.i(TAG, "hugiyujv");
+                }
+            })
+            return null
         }
 
-        override fun onPostExecute(aBoolean: Boolean?) {
-            super.onPostExecute(aBoolean)
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            Home_frag.data.clear()
         }
     }
 }

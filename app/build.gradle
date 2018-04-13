@@ -82,6 +82,9 @@ dependencies {
     implementation 'com.libRG:customtextview:1.2'
     compile 'com.thefinestartist:finestwebview:1.2.7'
     compile 'jp.wasabeef:blurry:2.1.1'
+    compile 'com.github.chathuralakmal:AndroidImagePopup:1.2.1'
+    compile 'info.hoang8f:fbutton:1.0.5'
+
 
 
 //    compile('com.google.api-client:google-api-client-android:1.23.0') {
