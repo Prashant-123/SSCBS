@@ -24,9 +24,6 @@ class Developer_Frag : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_developer, container, false)
         activity.toolbar.setTitle("Developers")
-
-
-
         return view
     }
 

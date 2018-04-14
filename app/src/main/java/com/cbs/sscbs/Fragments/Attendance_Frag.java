@@ -19,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.cbs.sscbs.Attendance.AdminActivity;
 import com.cbs.sscbs.Attendance.ShowToStudents;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
@@ -102,7 +100,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
                     intent.putExtra("getUser", user);
                     startActivity(intent);
-                } else Toast.makeText(getContext(), "Please Log-In with your official Email-Id.", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(getContext(), "You are not authorised to access this.", Toast.LENGTH_SHORT).show();
             }
         });
 

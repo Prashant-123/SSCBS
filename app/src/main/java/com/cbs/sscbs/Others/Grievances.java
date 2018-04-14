@@ -177,7 +177,7 @@ public class Grievances extends AppCompatActivity {
                 }
             }
         } catch (Exception e){
-            Toast.makeText(this, "Select any image to upload", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select / Click any image to upload", Toast.LENGTH_SHORT).show();
         }
     }
 
