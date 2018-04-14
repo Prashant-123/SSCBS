@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -25,7 +26,6 @@ import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -213,7 +213,9 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 noData.setMessage("Please make sure that following details are correct: \n 1.Class \n 2.Roll No. \n 3.Year \n 4.Month");
                                 noData.show();
                                 final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                                Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getView()).getWindowToken(), 0);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getView()).getWindowToken(), 0);
+                                }
                             }
                             else startActivity(intent);
                         }
@@ -237,12 +239,17 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 String attendance = "0";
 
                 try {
-                    attendance = Objects.requireNonNull(dataSnapshot.child(month).child("attendance").getValue()).toString();
-                } catch (Exception ex){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        attendance = Objects.requireNonNull(dataSnapshot.child(month).child("attendance").getValue()).toString();
+                    }
+                } catch (Exception ignored){
                 }
-                
-                StudentsDataClass data = new StudentsDataClass(dataSnapshot.getKey(), Integer.valueOf(attendance),
-                        Integer.valueOf(Objects.requireNonNull(dataSnapshot.child(month).child("total").getValue()).toString()));
+
+                StudentsDataClass data = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    data = new StudentsDataClass(dataSnapshot.getKey(), Integer.valueOf(attendance),
+                            Integer.valueOf(Objects.requireNonNull(dataSnapshot.child(month).child("total").getValue()).toString()));
+                }
                 allSub.add(data);
                 Log.i(TAG, allSub.toString());
             }

@@ -8,20 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
-import com.cbs.sscbs.Events.DataClass;
 import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.R;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class TeachersTimeTable extends AppCompatActivity {
@@ -31,9 +23,8 @@ public class TeachersTimeTable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachers_time_table);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_tt);
+        Toolbar toolbar = findViewById(R.id.toolbar_tt);
         setSupportActionBar(toolbar);
-        ;
         ActionBar actionBar = getSupportActionBar();
         Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -43,8 +34,8 @@ public class TeachersTimeTable extends AppCompatActivity {
             }
         });
 
-        final SearchView sv = (SearchView) findViewById(R.id.mSearch);
-        RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler);
+        final SearchView sv = findViewById(R.id.mSearch);
+        RecyclerView rv = findViewById(R.id.myRecycler);
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setItemAnimator(new DefaultItemAnimator());

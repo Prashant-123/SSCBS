@@ -47,8 +47,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.events_sample_list, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -73,11 +72,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
         public MyViewHolder(final View itemView) {
             super(itemView);
-            this.title = (TextView) itemView.findViewById(R.id.title);
-            this.date = (TextView) itemView.findViewById(R.id.date);
-            this.organiser = (TextView) itemView.findViewById(R.id.organiser);
-            this.venue = (TextView) itemView.findViewById(R.id.venue);
-            this.img = (ImageView) itemView.findViewById(R.id.eventImage);
+            this.title = itemView.findViewById(R.id.title);
+            this.date = itemView.findViewById(R.id.date);
+            this.organiser = itemView.findViewById(R.id.organiser);
+            this.venue = itemView.findViewById(R.id.venue);
+            this.img = itemView.findViewById(R.id.eventImage);
             this.readmore = itemView.findViewById(R.id.read);
         }
 
@@ -159,7 +158,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             }
         });
 
-        imageView = (ImageView) alertLayout1.findViewById(R.id.imageEvent);
+        imageView = alertLayout1.findViewById(R.id.imageEvent);
         final View thumb1View = alertLayout1.findViewById(R.id.imageEvent);
         Picasso.with(c).load(url).into((ImageView) thumb1View);
 

@@ -57,14 +57,14 @@ public class GuestEventsActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.addEventButton);
         fab.setVisibility(View.GONE);
-        RecyclerView rv = (RecyclerView) findViewById(R.id.rView) ;
+        RecyclerView rv = findViewById(R.id.rView);
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setItemAnimator(new DefaultItemAnimator());
         final EventsAdapter adapter = new EventsAdapter(this, data);
         rv.setAdapter(adapter);
-        final ProgressBar bar = (ProgressBar) findViewById(R.id.event_progress_bar);
-        final TextView tv = (TextView) findViewById(R.id.loading_events);
+        final ProgressBar bar = findViewById(R.id.event_progress_bar);
+        final TextView tv = findViewById(R.id.loading_events);
 
         bar.setVisibility(View.VISIBLE);
 

@@ -8,9 +8,11 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -75,14 +77,17 @@ public class CreateEvent extends AppCompatActivity {
         return monthNames[month];
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_create);
+        Toolbar toolbar = findViewById(R.id.toolbar_create);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EventThings");
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -105,8 +110,11 @@ public class CreateEvent extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                             String time = dataSnapshot.getValue(String.class);
-                            String t = Objects.requireNonNull(time).substring(18, 20) + time.substring(23, 25);
-                            String d = time.substring(0, 16);
+                                    String t = null;
+                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                                        t = Objects.requireNonNull(time).substring(18, 20) + time.substring(23, 25);
+                                    }
+                                    String d = Objects.requireNonNull(time).substring(0, 16);
                             TimeThings.add(t);
                             TimeThings.add(d);
                                 }
@@ -144,7 +152,7 @@ public class CreateEvent extends AppCompatActivity {
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
-        image = (ImageView) findViewById(R.id.newEventImage);
+        image = findViewById(R.id.newEventImage);
         year_x = cal.get(Calendar.YEAR);
         month_x = cal.get(Calendar.MONTH);
         date_x = cal.get(Calendar.DAY_OF_MONTH);
@@ -212,12 +220,12 @@ public class CreateEvent extends AppCompatActivity {
 
     public void save(View view)
     {
-        final EditText et3 = (EditText) findViewById(R.id.newVenue);
-        final EditText et1 = (EditText) findViewById(R.id.newTitle);
-        final EditText et2 = (EditText) findViewById(R.id.newOrganiser);
-        final EditText desc = (EditText) findViewById(R.id.eventDescription);
-        final EditText link = (EditText) findViewById(R.id.registrationLink);
-        final EditText mobNo = (EditText) findViewById(R.id.mobNo);
+        final EditText et3 = findViewById(R.id.newVenue);
+        final EditText et1 = findViewById(R.id.newTitle);
+        final EditText et2 = findViewById(R.id.newOrganiser);
+        final EditText desc = findViewById(R.id.eventDescription);
+        final EditText link = findViewById(R.id.registrationLink);
+        final EditText mobNo = findViewById(R.id.mobNo);
 
 
         try{
@@ -248,14 +256,16 @@ public class CreateEvent extends AppCompatActivity {
                         Intent intent = getIntent();
                         int count = intent.getIntExtra("COUNT", 0);
                         Log.i("venue" ,et3.getText().toString() );
-                        DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(),
-                                et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
-                                link.getText().toString(), mobNo.getText().toString(), Objects.requireNonNull(taskSnapshot.getDownloadUrl()).toString());
+                        DataClass data = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                            data = new DataClass(et1.getText().toString(), et2.getText().toString(),
+                                    et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
+                                    link.getText().toString(), mobNo.getText().toString(), Objects.requireNonNull(taskSnapshot.getDownloadUrl()).toString());
+                        }
                         database = FirebaseDatabase.getInstance();
                         databaseRef = database.getReference();
 
                         String ctr = String.valueOf(count);
-                        Log.i("tag", "count:  " + count);
                         databaseRef.child("EventThings").child(ctr).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

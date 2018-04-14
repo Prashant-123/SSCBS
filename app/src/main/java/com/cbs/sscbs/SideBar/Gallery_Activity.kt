@@ -2,7 +2,6 @@ package com.cbs.sscbs.SideBar
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -57,7 +56,7 @@ class Gallery_Activity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar_gallery.setNavigationOnClickListener {
             onBackPressed()
-            setTitle("Gallery")
+            title = "Gallery"
         }
     }
 
@@ -89,9 +88,9 @@ class Gallery_Activity : AppCompatActivity() {
         frame.addView(image)
         fade_in = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
         fade_out = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)
-        frame.setInAnimation(fade_in)
-        frame.setOutAnimation(fade_out)
-        frame.setAutoStart(true)
+        frame.inAnimation = fade_in
+        frame.outAnimation = fade_out
+        frame.isAutoStart = true
         frame.setFlipInterval(1300)
         frame.startFlipping()
     }

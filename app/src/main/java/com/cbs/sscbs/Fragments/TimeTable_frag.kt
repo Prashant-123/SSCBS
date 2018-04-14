@@ -33,7 +33,7 @@ class TimeTable_frag : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.timetable_fragment, container, false)
-        activity.toolbar.setTitle("Time Table")
+        activity.toolbar.title = "Time Table"
         return view
     }
 
@@ -164,6 +164,5 @@ class TimeTable_frag : Fragment() {
         })
     }
 
-    companion object {
-    }
+    companion object
 }
