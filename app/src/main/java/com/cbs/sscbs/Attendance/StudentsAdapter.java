@@ -2,6 +2,7 @@ package com.cbs.sscbs.Attendance;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
 
         StudentsDataClass object = objectList.get(position);
         holder.setData(object);
-//                holder.flipView.flipTheView();
     }
 
     @Override
@@ -49,11 +49,10 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView sub;
+        TextView sub, afterText;
         TextView att;
         TextView tot;
         CustomTextView perc;
-        TextView textView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -61,15 +60,19 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.MyView
             this.att = itemView.findViewById(R.id.stuAtt);
             this.tot = itemView.findViewById(R.id.tt);
             this.perc = itemView.findViewById(R.id.c6);
-
-//           this.flipView = itemView.findViewById(R.id.flipView1);
-        }
+            this.afterText = itemView.findViewById(R.id.afterText);
+            }
 
         public void setData(StudentsDataClass currentObject) {
             this.sub.setText(currentObject.getSubject());
             this.att.setText(String.valueOf(currentObject.getAttendance()));
             this.tot.setText(String.valueOf(currentObject.getTotal()));
-            String perc = String.valueOf(currentObject.getAttendance()/(currentObject.getTotal())*100);
+
+            if (((float) currentObject.getAttendance()/(float) currentObject.getTotal())*100 < 67.7)
+                afterText.setText("Please be in class, Attendance matters :)");
+            else afterText.setText("Cool , You're doing good");
+
+            String perc = String.valueOf(((float) currentObject.getAttendance()/(float) currentObject.getTotal())*100);
             this.perc.setText(perc + "%");
         }
     }

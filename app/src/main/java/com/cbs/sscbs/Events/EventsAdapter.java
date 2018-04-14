@@ -23,6 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import info.hoang8f.widget.FButton;
+
 /**
  * Created by Prashant on 25-11-2017.
  */
@@ -55,12 +58,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
         final DataClass current = objectList.get(position);
         holder.setData(current, position);
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                inflateDescription(v.getContext(), String.valueOf(current.getDelId()), String.valueOf(current.getImageUrl()));
-            }
-        });
     }
 
     @Override
@@ -74,25 +71,32 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         ImageView img;
         TextView title, date, organiser, venue;
         DataClass currentObject;
+        FButton readmore;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
             this.title = (TextView) itemView.findViewById(R.id.title);
             this.date = (TextView) itemView.findViewById(R.id.date);
             this.organiser = (TextView) itemView.findViewById(R.id.organiser);
             this.venue = (TextView) itemView.findViewById(R.id.venue);
             this.img = (ImageView) itemView.findViewById(R.id.eventImage);
-            itemView.setOnClickListener(this);
-
+            this.readmore = itemView.findViewById(R.id.read);
         }
 
-        public void setData(DataClass currentObject, int position) {
+        public void setData(final DataClass currentObject, int position) {
             this.title.setText(currentObject.getTitle());
             this.date.setText(currentObject.getTime());
             this.organiser.setText(currentObject.getOrganiser());
             this.venue.setText(currentObject.getVenue());
             this.img.setImageResource((currentObject.getImg()));
             this.currentObject = currentObject;
+            this.readmore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    inflateDescription(itemView.getContext(), String.valueOf(currentObject.getDelId()),
+                            String.valueOf(currentObject.getImageUrl()));
+                }
+            });
         }
 
         @Override
@@ -102,6 +106,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
         public void setItemClickListener(ItemClickListener ic) {
             this.itemClickListener = ic;
+
         }
     }
 

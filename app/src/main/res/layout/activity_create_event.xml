@@ -16,29 +16,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#610B21"
-            android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:fontFamily="@font/raleway_light"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Event Details" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="20dp">
         <EditText
             android:id="@+id/newTitle"
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_title_black_24dp"
             android:fontFamily="@font/raleway_light"
             android:hint="Enter Title" />
         </android.support.design.widget.TextInputLayout>
@@ -46,12 +59,13 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="10dp">
 
         <EditText
             android:id="@+id/newOrganiser"
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_organiser_center_black_24dp"
             android:layout_gravity="center"
             android:hint="Enter Organiser" />
         </android.support.design.widget.TextInputLayout>
@@ -62,12 +76,13 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="10dp">
         <EditText
             android:id="@+id/newVenue"
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_location_black_24dp"
             android:hint="Enter Venue" />
         </android.support.design.widget.TextInputLayout>
 
@@ -97,10 +112,11 @@
 
             <EditText
                 android:id="@+id/eventDescription"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_description_black_24dp"
                 android:gravity="center"
                 android:hint="Your description"
                 android:textSize="14dp"
@@ -122,13 +138,39 @@
 
             <EditText
                 android:id="@+id/registrationLink"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:hint="Reg Link"
+                android:drawableLeft="@drawable/ic_link_black_24dp"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/ContactTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/raleway_light"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginTop="20dp"
+                android:text="Organiser Contact Details" />
+
+            <EditText
+                android:id="@+id/mobNo"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:drawableLeft="@drawable/ic_phone_black_24dp"
+                android:inputType="number"
+                android:hint="Mobile Number"
                 android:textSize="14dp" />
 
             <TextView
@@ -153,7 +195,7 @@
                 android:layout_gravity="center"
                 android:onClick="btnBrowse"
                 android:background="@drawable/shape2"
-                android:text="Upload Event Image" />
+                android:text="Upload Image" />
 
             <ImageView
                 android:id="@+id/newEventImage"
@@ -161,31 +203,6 @@
                 android:layout_height="170dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp" />
-
-            <TextView
-                android:id="@+id/ContactTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/raleway_light"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:layout_marginTop="20dp"
-                android:text="Organiser Contact Details" />
-
-            <EditText
-                android:id="@+id/mobNo"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:inputType="number"
-                android:hint="Mobile Number"
-                android:textSize="14dp" />
 
 
         </LinearLayout>
