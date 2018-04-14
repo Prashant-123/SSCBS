@@ -232,9 +232,7 @@ public class CreateEvent extends AppCompatActivity {
         {
             Snackbar.make(view, "This location is already booked for the time you selected.", Snackbar.LENGTH_SHORT);
         } else {
-            if (!et1.getText().toString().isEmpty() && !et2.getText().toString().isEmpty() &&
-                    !et3.getText().toString().isEmpty() && !et4.isEmpty() && sot.isEmpty() && !desc.getText().toString().isEmpty() &&
-                    !link.getText().toString().isEmpty() && !mobNo.getText().toString().isEmpty() ) {
+            if (imgUri != null) {
                 final ProgressDialog dialogue = new ProgressDialog(this);
                 dialogue.setTitle("Uploading...");
                 dialogue.show();
@@ -249,12 +247,10 @@ public class CreateEvent extends AppCompatActivity {
 
                         Intent intent = getIntent();
                         int count = intent.getIntExtra("COUNT", 0);
-                        Log.i("venue", et3.getText().toString());
-
+                        Log.i("venue" ,et3.getText().toString() );
                         DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(),
                                 et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
-                                link.getText().toString(), mobNo.getText().toString(),
-                                Objects.requireNonNull(taskSnapshot.getDownloadUrl()).toString());
+                                link.getText().toString(), mobNo.getText().toString(), Objects.requireNonNull(taskSnapshot.getDownloadUrl()).toString());
                         database = FirebaseDatabase.getInstance();
                         databaseRef = database.getReference();
 
@@ -273,8 +269,7 @@ public class CreateEvent extends AppCompatActivity {
                             }
                         });
 
-
-                }
+                    }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -289,16 +284,7 @@ public class CreateEvent extends AppCompatActivity {
                     }
                 });
             }
-            else {
-                Snackbar.make(view, "Fill all required details", Snackbar.LENGTH_SHORT).show();
-                Log.wtf(TAG,et1.getText().toString() + "--" +  et2.getText().toString() + "--" +
-                        et3.getText().toString() + "--" +  et4 + "--" +  sot + "--" +  desc.getText().toString() + "--" +
-                        link.getText().toString() + "--" +  mobNo.getText().toString());
-//                Log.wtf(TAG , String.valueOf(!et1.getText().toString().isEmpty()) +  String.valueOf(et2.getText().toString().isEmpty()) +
-//                        String.valueOf(et3.getText().toString().isEmpty()) + String.valueOf(et4.isEmpty()) + String.valueOf(sot.isEmpty()) +
-//                        String.valueOf(desc.getText().toString().isEmpty()) + String.valueOf(link.getText().toString().isEmpty()) +
-//                        String.valueOf(mobNo.getText().toString().isEmpty()));
-            }
+            else Snackbar.make(view, "Fill all required details", Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -319,7 +305,6 @@ public class CreateEvent extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
                 image.setImageBitmap(bitmap);
-                image.setBackgroundColor(000000);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

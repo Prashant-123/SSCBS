@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -46,17 +47,19 @@ public class Grievances extends AppCompatActivity {
         checkAndRequestPermissions();
 
         setContentView(R.layout.activity_grievances);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_grievances);
+        Toolbar toolbar = findViewById(R.id.toolbar_grievances);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        image = (ImageView) findViewById(R.id.imgComplaint ) ;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        image = findViewById(R.id.imgComplaint );
 
     }
 
     public void sendMSG(View view)
     {
-        EditText body = (EditText) findViewById(R.id.body);
+        EditText body = findViewById(R.id.body);
         final String emailBody = body.getText().toString();
 
         AlertDialog.Builder b =  new  AlertDialog.Builder(this)
@@ -100,8 +103,8 @@ public class Grievances extends AppCompatActivity {
 
     public void sendMail(View view){
 
-        EditText subject = (EditText)findViewById(R.id.subject);
-        EditText body = (EditText) findViewById(R.id.body);
+        EditText subject = findViewById(R.id.subject);
+        EditText body = findViewById(R.id.body);
         final String emailBody = body.getText().toString();
         String emailSubject = subject.getText().toString();
 
@@ -156,7 +159,10 @@ public class Grievances extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
-                Bitmap photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                Bitmap photo = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                }
                 image.setImageBitmap(photo);
                 imgUri = getImageUri(getApplicationContext(), photo);
                 grantUriPermission("com.cbs.sscbs", imgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);

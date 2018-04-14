@@ -27,11 +27,11 @@ class LifeAtCbs : AppCompatActivity() {
         videoView.setVideoURI(Uri.parse(getString(R.string.vid_url)))
         videoView.requestFocus()
 
-        bar.setVisibility(View.VISIBLE)
+        bar.visibility = View.VISIBLE
 
         videoView.setOnPreparedListener { mp ->
             mp.start()
-            bar.setVisibility(View.GONE)
+            bar.visibility = View.GONE
             }
         }
 }

@@ -3,7 +3,6 @@ package com.cbs.sscbs.TeachersTimetable;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.cbs.sscbs.Events.DataClass;
-import com.cbs.sscbs.Events.EventsAdapter;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> implements Filterable {
     public ArrayList<TeacherDataClass> teachers;
@@ -39,8 +35,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
     @Override
     public TeacherAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_model, null);
-        MyViewHolder holder = new MyViewHolder(v);
-        return holder;
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -82,8 +77,8 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            this.img = (ImageView) itemView.findViewById(R.id.teacherImage);
-            this.name = (TextView) itemView.findViewById(R.id.nameTxt);
+            this.img = itemView.findViewById(R.id.teacherImage);
+            this.name = itemView.findViewById(R.id.nameTxt);
             itemView.setOnClickListener(this);
         }
 

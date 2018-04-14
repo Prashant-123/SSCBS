@@ -1,6 +1,6 @@
 package com.cbs.sscbs.Others
 
-import am.appwise.components.ni.NoInternetDialog
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
-        NoInternetDialog.Builder(this).build()
+//        NoInternetDialog.Builder(this).build()
          loadTT().execute()
     }
 
@@ -92,21 +92,21 @@ class MainActivity : AppCompatActivity() {
                         R.id.ic_home -> {
                             val main_fragment = Home_frag()
                             val ft = supportFragmentManager.beginTransaction()
-                            this.toolbar.setTitle("Welcome to SSCBS")
+                            this.toolbar.title = "Welcome to SSCBS"
                             ft.replace(R.id.main_Frame, main_fragment).commit()
                         }
 
                         R.id.ic_timetable -> {
                             val f = TimeTable_frag()
                             val fragmentTransaction = fragmentManager.beginTransaction()
-                            this.toolbar.setTitle("Time Table")
+                            this.toolbar.title = "Time Table"
                             fragmentTransaction.replace(R.id.main_Frame, f).commit()
                         }
 
                         R.id.ic_attendence -> {
                             val pf = Attendance_Frag()
                             val fm = fragmentManager.beginTransaction()
-                            this.toolbar.setTitle("Attendance")
+                            this.toolbar.title = "Attendance"
 
                             getCls.get().addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                         R.id.ic_events -> {
                             val nf = Events_Fragment()
                             val nm = fragmentManager.beginTransaction()
-                            this.toolbar.setTitle("Events")
+                            this.toolbar.title = "Events"
                             nm.replace(R.id.main_Frame, nf).commit()
                         }
 
@@ -271,6 +271,7 @@ class MainActivity : AppCompatActivity() {
                 .show()
     }
 
+    @SuppressLint("ParcelCreator")
     class SignedInConfig : Parcelable {
         var logo: Int = 0
         var theme: Int = 0
@@ -293,16 +294,6 @@ class MainActivity : AppCompatActivity() {
             this.isHintSelectorEnabled = isHintSelectorEnabled
         }
 
-        constructor(`in`: Parcel) {
-            logo = `in`.readInt()
-            theme = `in`.readInt()
-            providerInfo = ArrayList()
-            `in`.readList(providerInfo, AuthUI.IdpConfig::class.java.classLoader)
-            tosUrl = `in`.readString()
-            isCredentialSelectorEnabled = `in`.readInt() != 0
-            isHintSelectorEnabled = `in`.readInt() != 0
-        }
-
         override fun describeContents(): Int {
             return 0
         }
@@ -316,9 +307,7 @@ class MainActivity : AppCompatActivity() {
             dest.writeInt(if (isHintSelectorEnabled) 1 else 0)
         }
 
-        companion object {
-
-        }
+        companion object
     }
 
     class loadTT : AsyncTask<String, Void, Void>() {

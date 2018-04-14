@@ -2,7 +2,9 @@ package com.cbs.sscbs.Fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,13 +64,13 @@ public class Events_Fragment extends Fragment {
         toolbar = myView.findViewById(R.id.toolbar_events);
         toolbar.setVisibility(View.GONE);
 
-        recyclerView = (RecyclerView) myView.findViewById(R.id.rView);
+        recyclerView = myView.findViewById(R.id.rView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         final EventsAdapter adapter = new EventsAdapter(getContext(), data);
         recyclerView.setAdapter(adapter);
-        final ProgressBar bar = (ProgressBar) myView.findViewById(R.id.event_progress_bar);
-        final TextView tv = (TextView) myView.findViewById(R.id.loading_events);
+        final ProgressBar bar = myView.findViewById(R.id.event_progress_bar);
+        final TextView tv = myView.findViewById(R.id.loading_events);
 
         bar.setVisibility(View.VISIBLE);
 
@@ -77,6 +78,7 @@ public class Events_Fragment extends Fragment {
         databaseRef = database.getReference();
 
         databaseRef.child("EventThings").orderByChild("sot").addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 i++;
@@ -94,6 +96,7 @@ public class Events_Fragment extends Fragment {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
@@ -116,7 +119,7 @@ public class Events_Fragment extends Fragment {
             }
         });
 
-        com.github.clans.fab.FloatingActionButton fb = (com.github.clans.fab.FloatingActionButton) myView.findViewById(R.id.addEventButton);
+        com.github.clans.fab.FloatingActionButton fb = myView.findViewById(R.id.addEventButton);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

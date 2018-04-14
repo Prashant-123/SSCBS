@@ -2,20 +2,16 @@ package com.cbs.sscbs.Attendance;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.Others.HttpHandler;
@@ -71,7 +67,7 @@ public class AttendanceMain extends AppCompatActivity {
         setContentView(R.layout.common_rv);
         /* TextView title = (TextView) findViewById(R.id.titleTextView); */
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv);
+        recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new AttendanceAdapter(this, showdata);
@@ -106,8 +102,8 @@ public class AttendanceMain extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        bar = (ProgressBar) findViewById(R.id.list_progress_bar);
-        tv = (TextView) findViewById(R.id.loading_lists);
+        bar = findViewById(R.id.list_progress_bar);
+        tv = findViewById(R.id.loading_lists);
         adapter.notifyDataSetChanged();
 
     }

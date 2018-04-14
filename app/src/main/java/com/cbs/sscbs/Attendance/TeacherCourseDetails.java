@@ -1,18 +1,17 @@
 package com.cbs.sscbs.Attendance;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Fragments.*;
 import com.cbs.sscbs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,14 +37,16 @@ public class TeacherCourseDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_course_details);
-         classSpinner = (Spinner) findViewById(R.id.getClassSpinner);
-         subSpinner = (Spinner) findViewById(R.id.getSubSpinner);
-         typeSpinner = (Spinner) findViewById(R.id.getTypeSpinner);
+         classSpinner = findViewById(R.id.getClassSpinner);
+         subSpinner = findViewById(R.id.getSubSpinner);
+         typeSpinner = findViewById(R.id.getTypeSpinner);
          Toolbar toolbar = findViewById(R.id.toolbar_course_details);
          toolbar.setTitle("Attendance");
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
         final String getName = getIntent().getStringExtra("getUser");
         String[] classes = new String[classes_alloted.size() + 1];

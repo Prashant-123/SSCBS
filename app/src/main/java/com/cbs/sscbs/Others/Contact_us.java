@@ -27,7 +27,7 @@ public class Contact_us extends AppCompatActivity implements OnMapReadyCallback{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_contact_us);
+        Toolbar toolbar = findViewById(R.id.toolbar_contact_us);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
