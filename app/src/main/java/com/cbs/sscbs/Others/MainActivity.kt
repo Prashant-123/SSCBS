@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         reference = mDatabase.getReference("title/")
 
         val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser == null || currentUser!!.email!!.contains("gmail.com") == false) {
+        if (currentUser == null || currentUser.email!!.contains("gmail.com") == false) {
             startActivity(AuthUiActivity.createIntent(this))
             finish()
             return
@@ -247,7 +247,7 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this@MainActivity)
                 .setMessage("Are you sure you want to exit?")
                 .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, id -> finish() }
+                .setPositiveButton("Yes") { _, _ -> finish() }
                 .setNegativeButton("No", null)
                 .show()
     }
@@ -318,9 +318,9 @@ class MainActivity : AppCompatActivity() {
             databaseRef.addChildEventListener(object : ChildEventListener {
 
                 override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
-                    if (p0!!.hasChild("name") && p0!!.hasChild("image") && p0!!.hasChild("timetable")) {
-                        val teacher_data = TeacherDataClass(p0!!.child("name").value?.toString(),
-                                p0!!.child("image").value?.toString(), p0!!.child("timetable").value?.toString())
+                    if (p0!!.hasChild("name") && p0.hasChild("image") && p0.hasChild("timetable")) {
+                        val teacher_data = TeacherDataClass(p0.child("name").value?.toString(),
+                                p0.child("image").value?.toString(), p0.child("timetable").value?.toString())
                         Home_frag.data.add(teacher_data)
                     } else
                         Log.wtf("TAG", "Nope")

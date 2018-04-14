@@ -28,7 +28,6 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
 
     ArrayList<TeacherDataClass> filterList;
     CustomFilter filter;
-    //public ArrayList<TeacherDataClass> teachers;
 
     public TeacherAdapter(Context context, ArrayList<TeacherDataClass> data) {
 
@@ -49,7 +48,6 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
 
         final TeacherDataClass current = teachers.get(position);
         final ImagePopup imagePopup = new ImagePopup(holder.itemView.getContext());
-
 
         holder.name.setText(current.getName());
         holder.setData(current, imagePopup);

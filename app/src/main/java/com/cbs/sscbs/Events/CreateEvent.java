@@ -84,7 +84,6 @@ public class CreateEvent extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EventThings");
 
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -284,6 +283,7 @@ public class CreateEvent extends AppCompatActivity {
                     }
                 });
             }
+            else Snackbar.make(view, "Fill all required details", Snackbar.LENGTH_SHORT).show();
         }
     }
 

@@ -1,7 +1,7 @@
 package com.cbs.sscbs.Events;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.app.AlertDialog;
@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cbs.sscbs.utils.FullScreenImage;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +36,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     private LayoutInflater inflater;
     ImageView imageView;
 
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public EventsAdapter(Context context, List<DataClass> objectList) {
@@ -54,7 +53,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final Context c;
 
         final DataClass current = objectList.get(position);
         holder.setData(current, position);
@@ -103,16 +101,18 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         public void onClick(View view) {
             this.itemClickListener.onItemClick(view, getLayoutPosition());
         }
-
-        public void setItemClickListener(ItemClickListener ic) {
-            this.itemClickListener = ic;
-
-        }
     }
 
     public void inflateDescription(final Context c, String pos, final String url) {
         LayoutInflater inflater = LayoutInflater.from(c);
         alertLayout1 = inflater.inflate(R.layout.event_click_frag, null);
+        final ImagePopup imagePopup = new ImagePopup(alertLayout1.getContext());
+        imagePopup.setWindowHeight(800);
+        imagePopup.setWindowWidth(800);
+        imagePopup.setBackgroundColor(Color.BLACK);
+        imagePopup.setFullScreen(true);
+        imagePopup.initiatePopupWithGlide(url);
+
 
         final TextView desc = alertLayout1.findViewById(R.id.tvDesc);
         final TextView link = alertLayout1.findViewById(R.id.tvLink);
@@ -121,19 +121,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         DatabaseReference descRef = database.getReference("EventThings").child(pos).child("desc");
         DatabaseReference linkRef = database.getReference("EventThings").child(pos).child("link");
         DatabaseReference mobNoRef = database.getReference("EventThings").child(pos).child("mobNo");
-
-        imageView = (ImageView) alertLayout1.findViewById(R.id.imageEvent);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(alertLayout1.getContext(), FullScreenImage.class);
-                intent.putExtra("url", url);
-                alertLayout1.getContext().startActivity(intent);
-            }
-        });
-
-        final View thumb1View = alertLayout1.findViewById(R.id.imageEvent);
-        Picasso.with(c).load(url).into((ImageView) thumb1View);
 
         descRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -172,6 +159,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             }
         });
 
+        imageView = (ImageView) alertLayout1.findViewById(R.id.imageEvent);
+        final View thumb1View = alertLayout1.findViewById(R.id.imageEvent);
+        Picasso.with(c).load(url).into((ImageView) thumb1View);
+
         AlertDialog.Builder alert1 = new AlertDialog.Builder(c);
         alert1.setTitle("Event-Description");
         alert1.setView(alertLayout1);
@@ -186,7 +177,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             }
         });
 
-        AlertDialog dialog = alert1.create();
+        final AlertDialog dialog = alert1.create();
         dialog.show();
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagePopup.viewPopup();
+                dialog.dismiss();
+            }
+        });
     }
 }

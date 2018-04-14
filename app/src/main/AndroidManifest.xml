@@ -97,10 +97,6 @@
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.GuestEventsActivity" />
         <activity android:name=".Attendance.ShowToStudents" />
-        <activity
-            android:name=".Attendance.AdminActivity"
-            android:label="Admin"
-            android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".Others.Developers"
             android:label="Developers"></activity>
     </application>

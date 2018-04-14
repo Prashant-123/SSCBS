@@ -32,7 +32,6 @@ import java.util.List;
 public class Grievances extends AppCompatActivity {
 
     ImageView image ;
-    ArrayList<String> list = new ArrayList<>();
     private Uri imgUri;
     public static final int REQUEST_CODE = 1234;
     private static final int CAMERA_REQUEST = 1888;
@@ -56,7 +55,6 @@ public class Grievances extends AppCompatActivity {
 
     public void sendMSG(View view)
     {
-        EditText subject = (EditText)findViewById(R.id.subject);
         EditText body = (EditText) findViewById(R.id.body);
         final String emailBody = body.getText().toString();
 
@@ -121,7 +119,6 @@ public class Grievances extends AppCompatActivity {
     }
 
     public void btnBrowse(View view) {
-
 
         final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
         AlertDialog.Builder builder = new AlertDialog.Builder(Grievances.this);

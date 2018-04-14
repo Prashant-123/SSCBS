@@ -29,15 +29,12 @@ import java.util.ArrayList;
 
 public class Home_frag extends Fragment {
     public Home_frag() {
-        // Required empty public constructor
     }
 
     public static ArrayList<String> faculty_list = new ArrayList<>();
     public static ArrayList<String> bfia3List = new ArrayList<>();
     public static ArrayList<String> bms3List = new ArrayList<>();
-//    public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     String user;
-    public static int flag = 0;
     public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     public static ArrayList<String> classes_alloted = new ArrayList<>();
     public static ArrayList<String> myClasses = new ArrayList<>();
@@ -53,7 +50,6 @@ public class Home_frag extends Fragment {
         Bfia_3_List();
         Class_List();
         Bms_3_List();
-//        new loadTT().execute();
         return myView;
     }
 
@@ -131,47 +127,5 @@ public class Home_frag extends Fragment {
                 Log.i("TAG", "Faculty Subjects ERROR");
             }
         });
-    }
-
-    public class loadTT extends AsyncTask<Void,Void,Void> {
-
-        @Override
-        protected void onPreExecute(){
-            DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable");
-            databaseRef.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    if (dataSnapshot.hasChild("name") && dataSnapshot.hasChild("image") && dataSnapshot.hasChild("timetable")){
-                        TeacherDataClass teacher_data = new TeacherDataClass(dataSnapshot.child("name").getValue().toString(),
-                                dataSnapshot.child("image").getValue().toString(), dataSnapshot.child("timetable").getValue().toString());
-                        data.add(teacher_data);
-                    }
-                    else Log.wtf("TAG", "Nope");
-                }
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                }
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                }
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                data.clear();
-            }
     }
 }

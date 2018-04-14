@@ -47,7 +47,6 @@ public class Events_Fragment extends Fragment {
     public static final String PASSWORD = "password";
     public ArrayList<DataClass> data = new ArrayList<>();
     int count, i = 1; Toolbar toolbar;
-    int flag = 0;
     RecyclerView recyclerView;
     private FirebaseDatabase database;
     private DatabaseReference databaseRef;
@@ -121,7 +120,6 @@ public class Events_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //inflateDescription();
                 LayoutInflater inflater = getLayoutInflater();
                 View alertLayout = inflater.inflate(R.layout.fragment_login, null);
                 final EditText username = alertLayout.findViewById(R.id.User);
@@ -183,69 +181,6 @@ public class Events_Fragment extends Fragment {
 
         return myView;
 
-    }
-
-
-    public void login(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.fragment_login, null);
-        final EditText username = alertLayout.findViewById(R.id.User);
-        final EditText password = alertLayout.findViewById(R.id.Pass);
-        final CheckBox cbToggle = alertLayout.findViewById(R.id.cb_show_pass);
-
-        cbToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                else
-                    password.setInputType(129);
-            }
-        });
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-        alert.setTitle("Sign-In");
-        alert.setView(alertLayout);
-        alert.setCancelable(false);
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(), "Log-In Cancelled", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        alert.setPositiveButton("Log In", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                DocumentReference mDocRef = FirebaseFirestore.getInstance().document("username/society");
-                Log.i("tag", "Log-1");
-                mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                        Log.i("tag", "Log-2");
-                        if (documentSnapshot.exists()) {
-
-                            Log.i("tag", "Log-3");
-                            String u = documentSnapshot.getString(USERNAME);
-                            String p = documentSnapshot.getString(PASSWORD);
-                            if (username.getText().toString().equals(u) && password.getText().toString().equals(p)) {
-                                Toast.makeText(getContext(), "Authentication Successfull", Toast.LENGTH_SHORT).show();
-                                createEvent();
-                            } else
-                                Toast.makeText(getContext(), "You Lost it :)", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
     }
 
     public void createEvent() {

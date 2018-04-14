@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import com.cbs.sscbs.R
-import kotlinx.android.synthetic.main.activity_developers.*
+import com.cbs.sscbs.R.id.toolbar
 
 class Developers : AppCompatActivity() {
 
@@ -15,12 +15,6 @@ class Developers : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_developers)
 
-        setSupportActionBar(toolbar_developers)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbar_developers.setTitle("Developers")
-        toolbar_developers.setNavigationOnClickListener {
-            onBackPressed()
-        }
 
         val mem1ln = findViewById<ImageView>(R.id.mem1linkedIn_image) as ImageView
         val mem2ln = findViewById<ImageView>(R.id.mem2linkedIn_image) as ImageView

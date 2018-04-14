@@ -1,45 +1,30 @@
 package com.cbs.sscbs.Fragments
 
 
-import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Environment
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.R
-import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
 import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable
-import com.cbs.sscbs.utils.CONSTANTS
-import com.cbs.sscbs.utils.FileDownloader
-import com.cbs.sscbs.utils.FullScreenImage
 import com.ceylonlabs.imageviewpopup.ImagePopup
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
-import java.io.File
-import java.io.IOException
 import java.util.*
 
 class TimeTable_frag : Fragment() {
 
-    lateinit var processBar: ProgressDialog
-
-    lateinit var firebasedb: FirebaseDatabase
     lateinit var firebaseref: DatabaseReference
     internal var bundle: Bundle? = null
-//    var data = ArrayList<TeacherDataClass>()
     var mProgressDialog: ProgressDialog? = null
     var courselist: ArrayList<String> = ArrayList(Arrays.asList("Bsc 1", "Bsc 2", "Bsc 3", "BMS", "BFIA"))
     var years: ArrayList<String> = ArrayList(Arrays.asList("First Year", "Second Year", "Third Year"))
@@ -62,7 +47,6 @@ class TimeTable_frag : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progress_br.visibility = View.INVISIBLE
-//        loadTT().execute()
 
         students_card.setOnClickListener {
             MaterialDialog.Builder(activity)
@@ -197,58 +181,6 @@ class TimeTable_frag : Fragment() {
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
-        }
-    }
-
-    class DownloadFile : AsyncTask<String, Void, Void>() {
-
-            override fun doInBackground(vararg strings: String): Void? {
-                val fileUrl = strings[0]   // -> http://maven.apache.org/maven-1.x/maven.pdf
-                val fileName = strings[1]  // -> maven.pdf
-                val extStorageDirectory = Environment.getExternalStorageDirectory().toString()
-                val folder = File(extStorageDirectory, "Download")
-                folder.mkdir()
-
-                val pdfFile = File(folder, fileName)
-
-                try {
-                    pdfFile.createNewFile()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-
-                FileDownloader.downloadFile(fileUrl, pdfFile)
-                return null
-            }
-        }
-
-    class loadTT : AsyncTask<String, Void, Void>() {
-        override fun doInBackground(vararg strings: String): Void? {
-            val databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable")
-            databaseRef.addChildEventListener(object : ChildEventListener {
-
-                override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
-                    if (p0!!.hasChild("name") && p0!!.hasChild("image") && p0!!.hasChild("timetable")) {
-                        val teacher_data = TeacherDataClass(p0!!.child("name").value?.toString(),
-                                p0!!.child("image").value?.toString(), p0!!.child("timetable").value?.toString())
-                        Home_frag.data.add(teacher_data)
-                    } else
-                        Log.wtf("TAG", "Nope")
-                }
-
-                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {}
-                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
-                override fun onCancelled(databaseError: DatabaseError) {
-                    //                    Log.i(TAG, "hugiyujv");
-                }
-            })
-            return null
-        }
-
-        override fun onPostExecute(result: Void?) {
-            super.onPostExecute(result)
-            Home_frag.data.clear()
         }
     }
 }

@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cbs.sscbs.Attendance.AdminActivity;
 import com.cbs.sscbs.Attendance.ShowToStudents;
 import com.cbs.sscbs.Attendance.StudentsDataClass;
 import com.cbs.sscbs.Attendance.TeacherCourseDetails;
@@ -48,9 +47,8 @@ import java.util.ArrayList;
 public class Attendance_Frag extends android.support.v4.app.Fragment {
 
     static String TAG = "TAG";
-    static String name;
     String classs, monthIntent, yearIntent;
-    Button faculty, stu, admin;
+    Button faculty, stu;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance");
 
     ProgressBar bar;
@@ -79,21 +77,8 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
             }
         });
 
-
-//        admin = myView.findViewById(R.id.admin);
         faculty = myView.findViewById(R.id.faculty);
         stu = myView.findViewById(R.id.students);
-//        admin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if(user.equals("goyaltanvi94@gmail.com")){
-//                    Intent intent = new Intent(getContext(),AdminActivity.class);
-//                    startActivity(intent);
-//                }
-//            }
-//
-//        });
 
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,33 +276,4 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         stu = myView.findViewById(R.id.students);
 //        admin = myView.findViewById(R.id.admin);
     }
-
-    public void verifyAdmin(){
-        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
-        CollectionReference teachers = FirebaseFirestore.getInstance().collection("Teachers");
-        teachers.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful())
-                    for (DocumentSnapshot snapshot : task.getResult())
-                    {
-                        if (snapshot.getBoolean("admin")!= null) {
-                            if (snapshot.getId().equals(currentUser) && snapshot.getBoolean("admin") == true) {
-                                Log.i(TAG, "VERIFIED...");
-                                break;
-                            }
-                            if (snapshot.getId().equals(currentUser) && snapshot.getBoolean("admin") == false)
-                                Toast.makeText(getContext(), "Sorry! You do not have the admin access ", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i(TAG, "Admin not Verified...");
-            }
-        });
-    }
-
 }
