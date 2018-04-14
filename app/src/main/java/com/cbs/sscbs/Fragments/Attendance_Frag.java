@@ -87,7 +87,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                     Intent intent = new Intent(getContext(), TeacherCourseDetails.class);
                     intent.putExtra("getUser", user);
                     startActivity(intent);
-                } else Toast.makeText(getContext(), "Please Log-In with your official Email-Id.", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(getContext(), "You are not authorised to proceed in this section", Toast.LENGTH_SHORT).show();
             }
         });
 

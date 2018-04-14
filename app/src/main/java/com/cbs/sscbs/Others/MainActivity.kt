@@ -1,6 +1,7 @@
 package com.cbs.sscbs.Others
 
 import am.appwise.components.ni.NoInternetDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -138,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setDrawer() {
         mDrawerLayout = findViewById(R.id.drawerLayout)
-        if (mDrawerLayout != null && toolbar != null) {
+        if ( toolbar != null) {
             mActionBarDrawerToggle = object : ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.close, R.string.close) {
 
             }
@@ -204,6 +205,8 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, Developers::class.java)
                 startActivity(intent)
             }
+
+            R.id.share -> Rateus()
             R.id.sign_out ->
                 AuthUI.getInstance()
                         .signOut(this)
@@ -219,8 +222,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     @MainThread
-    private fun showSnackbar(@StringRes errorMessageRes: Int) {0
+    private fun showSnackbar(@StringRes errorMessageRes: Int) {
         Snackbar.make(drawerLayout, errorMessageRes, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun Rateus() {
+
+        val uri = Uri.parse("market://details?id=" + packageName)
+        val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        try {
+            startActivity(goToMarket)
+        } catch (e: ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)))
+        }
+
     }
 
     companion object {

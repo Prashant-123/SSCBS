@@ -51,11 +51,7 @@
             android:name=".TeachersTimetable.TeachersTimeTable"
             android:label="Teacher&apos;s Time Table"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TeachersTimetable.Model" />
-        <activity
-            android:name=".TeachersTimetable.Sample"
-            android:label="Info"
-            android:parentActivityName=".TeachersTimetable.TeachersTimeTable" />
+
         <activity
             android:name=".SideBar.About_Activity"
             android:label="About Us"
@@ -77,9 +73,7 @@
             android:label="GALLERY"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
-        <activity
-            android:name=".utils.FullScreenImage"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".Others.Contact_us"
             android:label="Contact Details"

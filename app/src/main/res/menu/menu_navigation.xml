@@ -34,7 +34,7 @@
             android:title="DEVELOPERS"
             />
         <item
-            android:id="@+id/rec_friend"
+            android:id="@+id/share"
             android:icon="@drawable/ic_share"
             android:title="SHARE"
             />

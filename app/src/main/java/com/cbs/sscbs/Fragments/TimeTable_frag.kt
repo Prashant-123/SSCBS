@@ -1,7 +1,6 @@
 package com.cbs.sscbs.Fragments
 
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -25,7 +24,6 @@ class TimeTable_frag : Fragment() {
 
     lateinit var firebaseref: DatabaseReference
     internal var bundle: Bundle? = null
-    var mProgressDialog: ProgressDialog? = null
     var courselist: ArrayList<String> = ArrayList(Arrays.asList("Bsc 1", "Bsc 2", "Bsc 3", "BMS", "BFIA"))
     var years: ArrayList<String> = ArrayList(Arrays.asList("First Year", "Second Year", "Third Year"))
     var bms_sections: ArrayList<String> = ArrayList(Arrays.asList("BMS-A", "BMS-B", "BMS-C", "BMS-D"))
@@ -36,11 +34,6 @@ class TimeTable_frag : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.timetable_fragment, container, false)
         activity.toolbar.setTitle("Time Table")
-        mProgressDialog = ProgressDialog(view.context);
-        mProgressDialog!!.setMessage("A message");
-        mProgressDialog!!.setIndeterminate(true);
-        mProgressDialog!!.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        mProgressDialog!!.setCancelable(true);
         return view
     }
 
@@ -52,8 +45,7 @@ class TimeTable_frag : Fragment() {
             MaterialDialog.Builder(activity)
                     .title("Select Course")
                     .items(courselist)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, selectCourse, text ->
-                        var selectedindes: Int = selectCourse
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, selectCourse, _ ->
                         text_course.text = courselist.get(selectCourse)
                         if (selectCourse == 3 || selectCourse == 4)
                             others(selectCourse)
@@ -76,8 +68,7 @@ class TimeTable_frag : Fragment() {
         MaterialDialog.Builder(activity)
                 .title("Select Year")
                 .items(years)
-                .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, Year, text ->
-                    var selectedindes: Int = Year
+                .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, Year, _ ->
                     text_course.text = years.get(Year)
                     if (index == 3)
                         getTimeTable_bms(Year)
@@ -103,8 +94,7 @@ class TimeTable_frag : Fragment() {
             MaterialDialog.Builder(activity)
                     .title("Select Section")
                     .items(bms_sections)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, indexBmsSection, text ->
-                        var selectedindes: Int = indexBmsSection
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, indexBmsSection, _ ->
                         text_course.text = bms_sections.get(indexBmsSection)
                         showTimeTable(indexBmsSection)
 
@@ -129,8 +119,7 @@ class TimeTable_frag : Fragment() {
             MaterialDialog.Builder(activity)
                     .title("Select Section")
                     .items(bfia_sections)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, indexBmsSection, text ->
-                        var selectedindes: Int = indexBmsSection
+                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, indexBmsSection, _ ->
                         text_course.text = bms_sections.get(indexBmsSection)
                         showTimeTable(indexBmsSection)
                         true
