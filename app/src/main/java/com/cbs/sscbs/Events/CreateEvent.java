@@ -51,10 +51,10 @@ public class CreateEvent extends AppCompatActivity {
     ArrayList<String> TimeThings = new ArrayList<>();
 
     final Calendar cal = Calendar.getInstance();
-    final Calendar time = Calendar.getInstance();
 
     private static int CalendarHour, CalendarMinute, child;
     Calendar calendar;
+    String date, time, v;
     TimePickerDialog timepickerdialog;
     String dateStr, timeStr1, timeStr2, et4, sot;
     int year_x, month_x, date_x, img;
@@ -219,15 +219,17 @@ public class CreateEvent extends AppCompatActivity {
         final EditText link = (EditText) findViewById(R.id.registrationLink);
         final EditText mobNo = (EditText) findViewById(R.id.mobNo);
 
-        et4 = dateStr + timeStr1 + timeStr2;
-        String date = et4.substring(0, 16);
-        String time = et4.substring(18, 20) + et4.substring(23, 25);
-        String v = et3.getText().toString();
-        Log.i(TAG, TimeThings.toString());
-//        Log.wtf(TAG, date + "   "+ time);
+
+        try{
+            et4 = dateStr + timeStr1 + timeStr2;
+            date = et4.substring(0, 16);
+            time = et4.substring(18, 20) + et4.substring(23, 25);
+            v = et3.getText().toString();
+        } catch (Exception e){
+            Toast.makeText(view.getContext(), "nope", Toast.LENGTH_LONG);
+        }
         if (VenueThings.contains(v) && TimeThings.contains(date) && TimeThings.contains(time))
         {
-            Log.wtf(TAG, "Neece");
             Snackbar.make(view, "This location is already booked for the time you selected.", Snackbar.LENGTH_SHORT);
         } else {
             if (imgUri != null) {
@@ -295,21 +297,25 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!= null && data.getData()!=null)
-            imgUri = data.getData();
+
         try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
-            image.setImageBitmap(bitmap);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!= null && data.getData()!=null)
+                imgUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
+                image.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e){
+            Toast.makeText(this, "Select any image to upload", Toast.LENGTH_SHORT).show();
         }
     }
 
     public String getImageExt(Uri uri){
         ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return MimeTypeMap.getFileExtensionFromUrl(contentResolver.getType(uri));
     }
 }
