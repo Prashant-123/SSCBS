@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
         val fragmentManager = supportFragmentManager
         bottomNavigationView.setOnNavigationItemSelectedListener(
-                BottomNavigationView.OnNavigationItemSelectedListener { item ->
+                { item ->
                     when (item.itemId) {
 
                         R.id.ic_home -> {
@@ -163,7 +163,7 @@ class MainActivity : AppCompatActivity() {
                     .into(userPic)
         }
         username.text = user.displayName?.capitalize()
-        navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { item ->
+        navigationView.setNavigationItemSelectedListener({ item ->
             val id = item.itemId
             Handler().postDelayed({ casebyid(id) }, 500)
             mDrawerLayout.closeDrawer(GravityCompat.START)
@@ -318,15 +318,6 @@ class MainActivity : AppCompatActivity() {
 
         companion object {
 
-            val CREATOR: Parcelable.Creator<SignedInConfig> = object : Parcelable.Creator<SignedInConfig> {
-                override fun createFromParcel(`in`: Parcel): SignedInConfig {
-                    return SignedInConfig(`in`)
-                }
-
-                override fun newArray(size: Int): Array<SignedInConfig?> {
-                    return arrayOfNulls(size)
-                }
-            }
         }
     }
 

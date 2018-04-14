@@ -26,7 +26,7 @@ public class FileDownloader {
             int totalSize = urlConnection.getContentLength();
 
             byte[] buffer = new byte[MEGABYTE];
-            int bufferLength = 0;
+            int bufferLength;
             while((bufferLength = inputStream.read(buffer))>0 ){
                 fileOutputStream.write(buffer, 0, bufferLength);
             }

@@ -1,9 +1,5 @@
 package com.cbs.sscbs.utils;
 
-/**
- * Created by gautam on 29/7/17.
- */
-
 import android.annotation.SuppressLint;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

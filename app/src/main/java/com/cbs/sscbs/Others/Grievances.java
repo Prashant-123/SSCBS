@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Grievances extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class Grievances extends AppCompatActivity {
     public static final int REQUEST_CODE = 1234;
     private static final int CAMERA_REQUEST = 1888;
 
-    String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
+    String displayName = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class Grievances extends AppCompatActivity {
         setContentView(R.layout.activity_grievances);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_grievances);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         image = (ImageView) findViewById(R.id.imgComplaint ) ;
 
@@ -155,7 +156,7 @@ public class Grievances extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                Bitmap photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                 image.setImageBitmap(photo);
                 imgUri = getImageUri(getApplicationContext(), photo);
                 grantUriPermission("com.cbs.sscbs", imgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);

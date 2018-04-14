@@ -39,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Prashant on 09-01-2018.
@@ -55,7 +56,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
     public static ArrayList<StudentsDataClass> allSub = new ArrayList<>();
     CollectionReference getCls = FirebaseFirestore.getInstance().collection("Attendance");
     CollectionReference getYears = FirebaseFirestore.getInstance().collection("Academic Year");
-    String user = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+    String user = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
     ArrayList<String> getYearss = new ArrayList<>();
     LinearLayout stuLayout, facultyLayout;
 
@@ -117,7 +118,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 k++;
                                 Spinner cls = alertLayout.findViewById(R.id.student_class);
 
-                                ArrayAdapter<String> classAdapter = new ArrayAdapter<String>(getContext(),
+                                ArrayAdapter<String> classAdapter = new ArrayAdapter<>(getContext(),
                                         android.R.layout.simple_spinner_item, classes);
                                 classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 cls.setAdapter(classAdapter);
@@ -132,7 +133,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                             yrs[p] = getYearss.get(li);
                                             li++;
                                             Spinner yr = alertLayout.findViewById(R.id.year);
-                                            ArrayAdapter<String> yrAdapter = new ArrayAdapter<String>(getContext(),
+                                            ArrayAdapter<String> yrAdapter = new ArrayAdapter<>(getContext(),
                                                     android.R.layout.simple_spinner_item, yrs);
                                             yrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                             yr.setAdapter(yrAdapter);
@@ -141,7 +142,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                                 public void onItemSelected(final AdapterView<?> adapterView1, View view, int i, long l) {
                                                     Spinner month = alertLayout.findViewById(R.id.month);
 
-                                                    ArrayAdapter<String> subjectAdapter = new ArrayAdapter<String>(getContext(),
+                                                    ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(getContext(),
                                                             android.R.layout.simple_spinner_item, theMonth());
                                                     subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                     month.setAdapter(subjectAdapter);
@@ -212,7 +213,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                                 noData.setMessage("Please make sure that following details are correct: \n 1.Class \n 2.Roll No. \n 3.Year \n 4.Month");
                                 noData.show();
                                 final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                                Objects.requireNonNull(imm).hideSoftInputFromWindow(Objects.requireNonNull(getView()).getWindowToken(), 0);
                             }
                             else startActivity(intent);
                         }
@@ -236,12 +237,12 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 String attendance = "0";
 
                 try {
-                    attendance = dataSnapshot.child(month).child("attendance").getValue().toString();
+                    attendance = Objects.requireNonNull(dataSnapshot.child(month).child("attendance").getValue()).toString();
                 } catch (Exception ex){
                 }
                 
                 StudentsDataClass data = new StudentsDataClass(dataSnapshot.getKey(), Integer.valueOf(attendance),
-                        Integer.valueOf(dataSnapshot.child(month).child("total").getValue().toString()));
+                        Integer.valueOf(Objects.requireNonNull(dataSnapshot.child(month).child("total").getValue()).toString()));
                 allSub.add(data);
                 Log.i(TAG, allSub.toString());
             }

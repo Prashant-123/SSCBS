@@ -16,9 +16,11 @@ package com.cbs.sscbs.auth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.MainThread;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.Snackbar;
@@ -44,6 +46,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -131,6 +134,7 @@ public class AuthUiActivity extends AppCompatActivity {
         return new Intent(context, AuthUiActivity.class);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +142,7 @@ public class AuthUiActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         ButterKnife.bind(this);
 
@@ -185,8 +189,8 @@ public class AuthUiActivity extends AppCompatActivity {
             mUseTwitterProvider.setText(R.string.twitter_label_missing_config);
         }
 
-        if (isGoogleMisconfigured() || isFacebookMisconfigured() || isTwitterMisconfigured()) {
-            // showSnackbar(R.string.configuration_required);
+        if (!isGoogleMisconfigured() && !isFacebookMisconfigured()) {
+            isTwitterMisconfigured();
         }
     }
 

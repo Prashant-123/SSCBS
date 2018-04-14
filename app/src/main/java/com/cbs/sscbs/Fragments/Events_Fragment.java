@@ -36,6 +36,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Prashant on 18-12-2017.
@@ -81,7 +82,7 @@ public class Events_Fragment extends Fragment {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 newData = dataSnapshot.getValue(DataClass.class);
-                newData.setImg(R.drawable.logo);
+                Objects.requireNonNull(newData).setImg(R.drawable.logo);
                 data.add(newData);
                 adapter.notifyDataSetChanged();
                 bar.setVisibility(View.INVISIBLE);
@@ -98,7 +99,7 @@ public class Events_Fragment extends Fragment {
 
                 DataClass p0 = dataSnapshot.getValue(DataClass.class);
                 for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getDelId() == p0.getDelId()) {
+                    if (data.get(i).getDelId() == Objects.requireNonNull(p0).getDelId()) {
                         data.remove(i);
                         adapter.notifyItemRemoved(i);
                         adapter.notifyItemRangeChanged(i, data.size());

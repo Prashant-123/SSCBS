@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Home_frag extends Fragment {
     public Home_frag() {
@@ -44,7 +45,7 @@ public class Home_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View myView = inflater.inflate(R.layout.fragment_home_frag, container, false);
-        user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        user = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
         faculty_list();                 //Get all teachers from Firebase to verify.
         faculty_subjects();             //Get subjects for Logged in User.
         Bfia_3_List();
@@ -61,7 +62,7 @@ public class Home_frag extends Fragment {
                 faculty_list.clear();
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
-                        faculty_list.add(snapshot.getId().toString());
+                        faculty_list.add(snapshot.getId());
             }
         });
     }
@@ -76,8 +77,8 @@ public class Home_frag extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
-                        if (snapshot.getId().toString().contains("BFIA-3"))
-                            bfia3List.add(snapshot.getId().toString());
+                        if (snapshot.getId().contains("BFIA-3"))
+                            bfia3List.add(snapshot.getId());
             }
         });
     }
@@ -91,8 +92,8 @@ public class Home_frag extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
-                        if (snapshot.getId().toString().contains("BMS-3F"))
-                            bms3List.add(snapshot.getId().toString());
+                        if (snapshot.getId().contains("BMS-3F"))
+                            bms3List.add(snapshot.getId());
             }
         });
     }
@@ -106,7 +107,7 @@ public class Home_frag extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
-                            myClasses.add(snapshot.getId().toString());
+                            myClasses.add(snapshot.getId());
             }
         });
     }
@@ -119,7 +120,7 @@ public class Home_frag extends Fragment {
                 classes_alloted.clear();
                 if (task.isSuccessful())
                     for (DocumentSnapshot snapshot : task.getResult())
-                        classes_alloted.add(snapshot.getId().toString());
+                        classes_alloted.add(snapshot.getId());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

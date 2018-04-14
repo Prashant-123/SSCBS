@@ -23,13 +23,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static com.cbs.sscbs.Fragments.Home_frag.classes_alloted;
 
 public class TeacherCourseDetails extends AppCompatActivity {
 
-    private static final String TAG = "TAG";
-    public ArrayList<String> classesList = new ArrayList<>();
     String getSub, getClass;
 //    String[] type;
 //    ArrayList listTypes;
@@ -45,7 +44,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
          Toolbar toolbar = findViewById(R.id.toolbar_course_details);
          toolbar.setTitle("Attendance");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final String getName = getIntent().getStringExtra("getUser");
@@ -57,7 +56,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
             k++;
         }
 
-        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
+        ArrayAdapter<String> areasAdapter = new ArrayAdapter<>(TeacherCourseDetails.this,
                 android.R.layout.simple_spinner_item, classes);
         areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         classSpinner.setAdapter(areasAdapter);
@@ -94,7 +93,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
                     for (int i = 1; i <= subjectList.size(); i++) {
                         subjects[i] = subjectList.get(k);
                         k++;
-                        final ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
+                        final ArrayAdapter<String> areasAdapter = new ArrayAdapter<>(TeacherCourseDetails.this,
                                 android.R.layout.simple_spinner_item, subjects);
                         areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         subSpinner.setAdapter(areasAdapter);
@@ -127,8 +126,8 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                         k++;
                                                     }
 
-                                                    ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(TeacherCourseDetails.this,
-                                                            android.R.layout.simple_spinner_item,typ);
+                                                    ArrayAdapter<String> areasAdapter = new ArrayAdapter<>(TeacherCourseDetails.this,
+                                                            android.R.layout.simple_spinner_item, typ);
                                                     areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                     typeSpinner.setAdapter(areasAdapter);
                                                     typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Objects;
+
 
 public class Contact_us extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -27,7 +29,7 @@ public class Contact_us extends AppCompatActivity implements OnMapReadyCallback{
         setContentView(R.layout.activity_contact_us);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_contact_us);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         findViewById(R.id.call).setOnClickListener(new View.OnClickListener() {
             @Override

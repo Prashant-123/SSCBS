@@ -40,6 +40,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 
 public class CreateEvent extends AppCompatActivity {
@@ -80,7 +81,7 @@ public class CreateEvent extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_create);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EventThings");
 
@@ -104,7 +105,7 @@ public class CreateEvent extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                             String time = dataSnapshot.getValue(String.class);
-                            String t = time.substring(18, 20) + time.substring(23, 25);
+                            String t = Objects.requireNonNull(time).substring(18, 20) + time.substring(23, 25);
                             String d = time.substring(0, 16);
                             TimeThings.add(t);
                             TimeThings.add(d);
@@ -249,7 +250,7 @@ public class CreateEvent extends AppCompatActivity {
                         Log.i("venue" ,et3.getText().toString() );
                         DataClass data = new DataClass(et1.getText().toString(), et2.getText().toString(),
                                 et3.getText().toString(), et4, sot, img, count, desc.getText().toString(),
-                                link.getText().toString(), mobNo.getText().toString(), taskSnapshot.getDownloadUrl().toString());
+                                link.getText().toString(), mobNo.getText().toString(), Objects.requireNonNull(taskSnapshot.getDownloadUrl()).toString());
                         database = FirebaseDatabase.getInstance();
                         databaseRef = database.getReference();
 

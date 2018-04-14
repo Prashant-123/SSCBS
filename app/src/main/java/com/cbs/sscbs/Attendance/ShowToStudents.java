@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class ShowToStudents extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -65,7 +67,7 @@ public class ShowToStudents extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                textView.setText(dataSnapshot.getValue().toString());
+                textView.setText(Objects.requireNonNull(dataSnapshot.getValue()).toString());
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

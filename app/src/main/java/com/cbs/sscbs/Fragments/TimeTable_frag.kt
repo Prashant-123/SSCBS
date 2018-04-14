@@ -45,7 +45,7 @@ class TimeTable_frag : Fragment() {
             MaterialDialog.Builder(activity)
                     .title("Select Course")
                     .items(courselist)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, selectCourse, _ ->
+                    .itemsCallbackSingleChoice(-1, { _, _, selectCourse, _ ->
                         text_course.text = courselist.get(selectCourse)
                         if (selectCourse == 3 || selectCourse == 4)
                             others(selectCourse)
@@ -68,7 +68,7 @@ class TimeTable_frag : Fragment() {
         MaterialDialog.Builder(activity)
                 .title("Select Year")
                 .items(years)
-                .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, Year, _ ->
+                .itemsCallbackSingleChoice(-1, { _, _, Year, _ ->
                     text_course.text = years.get(Year)
                     if (index == 3)
                         getTimeTable_bms(Year)
@@ -94,7 +94,7 @@ class TimeTable_frag : Fragment() {
             MaterialDialog.Builder(activity)
                     .title("Select Section")
                     .items(bms_sections)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, indexBmsSection, _ ->
+                    .itemsCallbackSingleChoice(-1, { _, _, indexBmsSection, _ ->
                         text_course.text = bms_sections.get(indexBmsSection)
                         showTimeTable(indexBmsSection)
 
@@ -119,7 +119,7 @@ class TimeTable_frag : Fragment() {
             MaterialDialog.Builder(activity)
                     .title("Select Section")
                     .items(bfia_sections)
-                    .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { _, _, indexBmsSection, _ ->
+                    .itemsCallbackSingleChoice(-1, { _, _, indexBmsSection, _ ->
                         text_course.text = bms_sections.get(indexBmsSection)
                         showTimeTable(indexBmsSection)
                         true
@@ -129,7 +129,7 @@ class TimeTable_frag : Fragment() {
     }
 
     private fun showTimeTable(number: Int) {
-        firebaseref = FirebaseDatabase.getInstance().getReference("${folder}/${number}")
+        firebaseref = FirebaseDatabase.getInstance().getReference("$folder/$number")
         progress_br.visibility = View.VISIBLE
         val imagePopup = ImagePopup(context)
 
@@ -165,11 +165,5 @@ class TimeTable_frag : Fragment() {
     }
 
     companion object {
-        fun newInstance(): TimeTable_frag {
-            val fragment = TimeTable_frag()
-            val bundle = Bundle()
-            fragment.arguments = bundle
-            return fragment
-        }
     }
 }

@@ -36,6 +36,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class AttendanceMain extends AppCompatActivity {
 
@@ -103,7 +104,7 @@ public class AttendanceMain extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
         toolbar.setTitle(clas);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         bar = (ProgressBar) findViewById(R.id.list_progress_bar);
         tv = (TextView) findViewById(R.id.loading_lists);

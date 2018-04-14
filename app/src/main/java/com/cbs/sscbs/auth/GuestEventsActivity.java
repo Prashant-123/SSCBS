@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Tanya on 1/26/2018.
@@ -44,7 +45,7 @@ public class GuestEventsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_events);
         toolbar.setTitle("Upcoming Events");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -78,7 +79,7 @@ public class GuestEventsActivity extends AppCompatActivity {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 newData = dataSnapshot.getValue(DataClass.class);
-                newData.setImg(R.drawable.logo);
+                Objects.requireNonNull(newData).setImg(R.drawable.logo);
                 data.add(newData);
                 adapter.notifyDataSetChanged();
                 bar.setVisibility(View.INVISIBLE);
@@ -95,7 +96,7 @@ public class GuestEventsActivity extends AppCompatActivity {
 
                 DataClass p0 = dataSnapshot.getValue(DataClass.class);
                 for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getDelId() == p0.getDelId()) {
+                    if (data.get(i).getDelId() == Objects.requireNonNull(p0).getDelId()) {
                         data.remove(i);
                         adapter.notifyItemRemoved(i);
                         adapter.notifyItemRangeChanged(i, data.size());

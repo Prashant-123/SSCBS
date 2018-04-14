@@ -22,7 +22,6 @@ class Gallery_Activity : AppCompatActivity() {
 
     lateinit var firebasedb: FirebaseDatabase
     lateinit var firebaseref: DatabaseReference
-    lateinit var dataSnapshot : DataSnapshot
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +66,7 @@ class Gallery_Activity : AppCompatActivity() {
         for (i in 0 until noOfPics)
         {
         firebasedb = FirebaseDatabase.getInstance()
-        firebaseref = firebasedb.getReference("Gallery/${folder}/${i}")
+        firebaseref = firebasedb.getReference("Gallery/$folder/$i")
             progressbarEnable()
 
         firebaseref.addValueEventListener(object : ValueEventListener {

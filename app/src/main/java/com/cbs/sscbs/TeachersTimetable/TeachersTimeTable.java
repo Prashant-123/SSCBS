@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TeachersTimeTable extends AppCompatActivity {
     private FirebaseDatabase database;
@@ -34,7 +35,7 @@ public class TeachersTimeTable extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ;
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

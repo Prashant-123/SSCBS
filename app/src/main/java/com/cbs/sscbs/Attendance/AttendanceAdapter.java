@@ -1,9 +1,5 @@
 package com.cbs.sscbs.Attendance;
 
-/**
- * Created by Prashant on 31-12-2017.
- */
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -61,7 +57,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 objectList.get(holder.getAdapterPosition()).setChecked(b);
-                checkRoll = objectList.get(holder.getAdapterPosition()).getRoll().toString();
+                checkRoll = objectList.get(holder.getAdapterPosition()).getRoll();
                 if (objectList.get(holder.getAdapterPosition()).isChecked()) {
                     saveRoll.add(checkRoll);
                 }
