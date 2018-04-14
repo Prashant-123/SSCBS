@@ -1,5 +1,7 @@
 package com.cbs.sscbs.Attendance;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,8 +9,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cbs.sscbs.Fragments.Attendance_Frag;
 import com.cbs.sscbs.Others.HttpHandler;
@@ -40,6 +45,7 @@ public class ShowToStudents extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         studentsAdapter = new StudentsAdapter(this  ,Attendance_Frag.allSub);
+
         recyclerView.setAdapter(studentsAdapter);
 
         textView = findViewById(R.id.r_name);

@@ -101,6 +101,8 @@
             android:name=".Attendance.AdminActivity"
             android:label="Admin"
             android:parentActivityName=".Others.MainActivity" />
+        <activity android:name=".Others.Developers"
+            android:label="Developers"></activity>
     </application>
 
 </manifest>

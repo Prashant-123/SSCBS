@@ -18,7 +18,7 @@
             android:title="GRIEVANECS"
             />
         <item
-            android:id="@+id/qppr"
+            android:id="@+id/library"
             android:icon="@drawable/library"
             android:title="DIGITAL LIBRARY"
             />
@@ -30,7 +30,7 @@
 
         <item
             android:id="@+id/developers"
-            android:icon="@drawable/ic_gallery"
+            android:icon="@drawable/ic_developer_mode_black_24dp"
             android:title="DEVELOPERS"
             />
         <item

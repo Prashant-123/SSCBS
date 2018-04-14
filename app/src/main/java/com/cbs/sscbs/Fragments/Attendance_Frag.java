@@ -1,6 +1,7 @@
 package com.cbs.sscbs.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -78,20 +80,20 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
         });
 
 
-        admin = myView.findViewById(R.id.admin);
+//        admin = myView.findViewById(R.id.admin);
         faculty = myView.findViewById(R.id.faculty);
         stu = myView.findViewById(R.id.students);
-        admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(user.equals("goyaltanvi94@gmail.com")){
-                    Intent intent = new Intent(getContext(),AdminActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-        });
+//        admin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if(user.equals("goyaltanvi94@gmail.com")){
+//                    Intent intent = new Intent(getContext(),AdminActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//
+//        });
 
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,19 +207,29 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         final Intent intent = new Intent(getContext(), ShowToStudents.class);
                         intent.putExtra("class", classs);
                         intent.putExtra("roll", roll.getText().toString());
                         intent.putExtra("month", monthIntent);
                         intent.putExtra("year", yearIntent);
 
-                        if(classs.isEmpty()||roll.getText().toString().isEmpty()){
-                            Toast.makeText(getContext(), "Please fill all the required details correctly ! ", Toast.LENGTH_SHORT).show();
+                        if(monthIntent.contains("Select")||yearIntent.contains("Select")||classs.contains("Select")||roll.getText().toString().isEmpty()){
+                            Toast.makeText(getContext(), "Please fill all the required details correctly ", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             bar.setVisibility(View.VISIBLE);
-                            startActivity(intent);
-                            bar.setVisibility(View.INVISIBLE);
+
+                            if (Attendance_Frag.allSub.isEmpty())
+                            {
+                                AlertDialog noData = new AlertDialog.Builder(alertLayout.getContext()).create();
+                                noData.setTitle("No Data Found \uD83D\uDE41");
+                                noData.setMessage("Please make sure that following details are correct: \n 1.Class \n 2.Roll No. \n 3.Year \n 4.Month");
+                                noData.show();
+                                final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                            }
+                            else startActivity(intent);
                         }
                     }
                 });
@@ -236,8 +248,6 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 Log.wtf(TAG, String.valueOf(dataSnapshot.child(month).child("attendance").getValue()));
                 Log.wtf(TAG, String.valueOf(dataSnapshot.child(month).child("total").getValue()));
 
-                Log.i(TAG, "ok"+ dataSnapshot.getValue());
-
                 String attendance = "0";
 
                 try {
@@ -248,6 +258,7 @@ public class Attendance_Frag extends android.support.v4.app.Fragment {
                 StudentsDataClass data = new StudentsDataClass(dataSnapshot.getKey(), Integer.valueOf(attendance),
                         Integer.valueOf(dataSnapshot.child(month).child("total").getValue().toString()));
                 allSub.add(data);
+                Log.i(TAG, allSub.toString());
             }
 
             @Override

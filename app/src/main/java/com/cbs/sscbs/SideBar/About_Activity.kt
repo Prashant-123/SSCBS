@@ -35,8 +35,6 @@ class About_Activity : AppCompatActivity() {
     fun setToolbar() {
         setSupportActionBar(toolbar_about)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-
         toolbar_about.setNavigationOnClickListener {
             onBackPressed()
         }

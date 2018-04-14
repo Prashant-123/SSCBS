@@ -4,6 +4,7 @@ package com.cbs.sscbs.Fragments
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
@@ -15,12 +16,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
-import com.cbs.sscbs.utils.CONSTANTS
-import com.cbs.sscbs.utils.FullScreenImage
 import com.cbs.sscbs.R
 import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
 import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable
+import com.cbs.sscbs.utils.CONSTANTS
 import com.cbs.sscbs.utils.FileDownloader
+import com.cbs.sscbs.utils.FullScreenImage
+import com.ceylonlabs.imageviewpopup.ImagePopup
 import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -154,9 +156,9 @@ class TimeTable_frag : Fragment() {
     }
 
     private fun showTimeTable(number: Int) {
-        firebasedb = FirebaseDatabase.getInstance()
-        firebaseref = firebasedb.getReference("${folder}/${number}")
+        firebaseref = FirebaseDatabase.getInstance().getReference("${folder}/${number}")
         progress_br.visibility = View.VISIBLE
+        val imagePopup = ImagePopup(context)
 
         firebaseref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
@@ -164,40 +166,27 @@ class TimeTable_frag : Fragment() {
             }
 
             override fun onDataChange(p0: DataSnapshot?) {
-                val url: String? = p0?.getValue(String::class.java)
 
-                Picasso.with(context).load(url).into(image_timetable, object : Callback {
-                    override fun onSuccess() {
-                        image_timetable.setOnClickListener {
+                    val url: String? = p0?.getValue(String::class.java)
 
-                            val builder = AlertDialog.Builder(context)
-                            builder.setTitle("Select")
-                            builder.setItems(arrayOf<CharSequence>("View Image", "Download")
-                            ) { dialog, which ->
-                                // The 'which' argument contains the index position
-                                // of the selected item
-                                when (which) {
-                                    0 -> {
-                                        val intent: Intent = Intent(context, FullScreenImage::class.java)
-                                        intent.putExtra("orientation", "LANDSCAPE")
-                                        intent.putExtra(CONSTANTS.imageurl, url)
-                                        startActivity(intent)
-                                    }
-                                    1 -> {
-                                            DownloadFile().execute(url, "Image.jpg")
-                                    }
-                                }
+                    imagePopup.windowHeight = 800
+                    imagePopup.windowWidth = 800
+                    imagePopup.backgroundColor = Color.BLACK
+                    imagePopup.isFullScreen = true
+                    imagePopup.initiatePopupWithGlide(url)
+
+                    Picasso.with(context).load(url).into(image_timetable, object : Callback {
+                        override fun onSuccess() {
+                            image_timetable.setOnClickListener {
+                                imagePopup.viewPopup()
                             }
-                            builder.create().show()
                         }
-                    }
 
-                    override fun onError() {
-                        Log.wtf("TAG" , "dsg");
-                        Snackbar.make(drawerLayout, "New Time Table may not have been upoaded ! ", Snackbar.LENGTH_LONG).show()
-                    }
-                })
-                progress_br.visibility = View.INVISIBLE
+                        override fun onError() {
+                            Toast.makeText(context, "Error getting your timetable :(", Toast.LENGTH_LONG).show()
+                        }
+                    })
+                    progress_br.visibility = View.INVISIBLE
             }
         })
     }
@@ -217,7 +206,7 @@ class TimeTable_frag : Fragment() {
                 val fileUrl = strings[0]   // -> http://maven.apache.org/maven-1.x/maven.pdf
                 val fileName = strings[1]  // -> maven.pdf
                 val extStorageDirectory = Environment.getExternalStorageDirectory().toString()
-                val folder = File(extStorageDirectory, "Down")
+                val folder = File(extStorageDirectory, "Download")
                 folder.mkdir()
 
                 val pdfFile = File(folder, fileName)

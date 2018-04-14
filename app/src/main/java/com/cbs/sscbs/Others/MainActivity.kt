@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                 val intent1 = Intent(this, Grievances::class.java)
                 startActivity(intent1)
             }
-            R.id.qppr -> {
+            R.id.library -> {
 
                 val builder = CustomTabsIntent.Builder()
                 val customTabsIntent = builder.build()
@@ -201,9 +201,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.developers -> {
-                val main_fragment = Developer_Frag()
-                val ft = supportFragmentManager.beginTransaction()
-                ft.replace(R.id.main_Frame, main_fragment).commit()
+                val intent = Intent(this, Developers::class.java)
+                startActivity(intent)
             }
             R.id.sign_out ->
                 AuthUI.getInstance()
