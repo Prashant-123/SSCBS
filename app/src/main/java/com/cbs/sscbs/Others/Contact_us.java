@@ -33,7 +33,7 @@ public class Contact_us extends AppCompatActivity implements OnMapReadyCallback{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:01122154581"));
+                intent.setData(Uri.parse("tel:01127573447"));
                 startActivity(intent);
             }
         });
