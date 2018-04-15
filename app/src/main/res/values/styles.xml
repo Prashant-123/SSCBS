@@ -13,34 +13,6 @@
     </style>
 
 
-    <style name="color_change">
-        <item name="android:actionMenuTextColor">@color/black</item>
-        />
-    </style>
-
-    <style name="mytoast">
-        <item name="textBold">true</item>
-        <item name="textColor">#fff</item>
-        <item name="textSize">14sp</item>
-        <item name="android:layout_margin">5dp</item>
-     <item name="android:layout_gravity">center</item>
-        <item name="android:layout_centerInParent">true</item>
-        <item name="android:elevation" tools:targetApi="lollipop">50dp</item>
-        <item name="colorBackground">#6d1717</item>
-        <item name="android:height">50dp</item>
-        <item name="solidBackground">true</item>
-        <item name="strokeWidth">25dp</item>     API 21+
-        <item name="strokeColor">#6d1717</item>    API 21+
-        <item name="iconLeft">@drawable/email</item>
-        <item name="iconRight">@drawable/email</item>
-        <item name="length">LONG</item>         ENUM: LONG | SHORT
-        <item name="cornerRadius">5dp</item>
-    </style>
-
-    <style name="AppTheme.Title">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">20sp</item>
-    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -49,11 +21,6 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="CollapsedAppBarTab" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <style name="PurpleTheme">
         <item name="colorPrimary">@color/material_deep_purple_500</item>
@@ -84,11 +51,6 @@
             @color/text_default_material_light_secondary
         </item>
         <item name="android:windowBackground">@color/material_gray_850</item>
-    </style>
-
-    <style name="WarnButton" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/material_red_a200</item>
-        <item name="android:textColor">@android:color/white</item>
     </style>
 
 

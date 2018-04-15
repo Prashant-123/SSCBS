@@ -241,7 +241,8 @@ public class CreateEvent extends AppCompatActivity {
             Snackbar.make(view, "This location is already booked for the time you selected.", Snackbar.LENGTH_SHORT);
         } else {
             if (!et1.getText().toString().isEmpty() &&!et2.getText().toString().isEmpty() && !et3.getText().toString().isEmpty() &&
-                    !et4.isEmpty() && !desc.getText().toString().isEmpty() && !mobNo.getText().toString().isEmpty() && imgUri!=null) {
+                    !et4.isEmpty() && !desc.getText().toString().isEmpty() && !mobNo.getText().toString().isEmpty() && dateStr!=null &&
+                    timeStr1!= null && timeStr2!=null && imgUri!=null) {
                 final ProgressDialog dialogue = new ProgressDialog(this);
                 dialogue.setTitle("Uploading...");
                 dialogue.show();

@@ -1,6 +1,7 @@
 package com.cbs.sscbs.auth;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -45,7 +46,9 @@ public class GuestEventsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_events);
         toolbar.setTitle("Upcoming Events");
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -79,7 +82,9 @@ public class GuestEventsActivity extends AppCompatActivity {
                 i++;
                 count = (int) dataSnapshot.getChildrenCount();
                 newData = dataSnapshot.getValue(DataClass.class);
-                Objects.requireNonNull(newData).setImg(R.drawable.logo);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    Objects.requireNonNull(newData).setImg(R.drawable.logo);
+                }
                 data.add(newData);
                 adapter.notifyDataSetChanged();
                 bar.setVisibility(View.INVISIBLE);
@@ -96,10 +101,12 @@ public class GuestEventsActivity extends AppCompatActivity {
 
                 DataClass p0 = dataSnapshot.getValue(DataClass.class);
                 for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getDelId() == Objects.requireNonNull(p0).getDelId()) {
-                        data.remove(i);
-                        adapter.notifyItemRemoved(i);
-                        adapter.notifyItemRangeChanged(i, data.size());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        if (data.get(i).getDelId() == Objects.requireNonNull(p0).getDelId()) {
+                            data.remove(i);
+                            adapter.notifyItemRemoved(i);
+                            adapter.notifyItemRangeChanged(i, data.size());
+                        }
                     }
                 }
             }

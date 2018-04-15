@@ -1,43 +1,14 @@
 <resources>
     <string name="app_name">SSCBS</string>
-    <string name="about_college">About College</string>
-    <string name="college_gallery">Gallery</string>
     <string name="close">close</string>
-    <string-array name="event_images" />
 
     <!--Google maps API key-->
     <string name="google_maps_key">AIzaSyAQoHJRH9p-6V-plOI9IlUUw-V7t6Upq-g</string>
     <!--API key-->
 
     <!--EXCEL SHEETS-->
-    <string name="bsc">https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1E9NuomsFVbCqIu_HwG5EXO9XSWDDAcnLw470JlF6Q-Y</string>
 
 
-    <string name="contribute_text">I WANT TO CONTRIBUTE</string>
-    <string name="contribute_message">Dear user, let\'s work on this app together.</string>
-    <string name="repository_text">Go to SSCBS App repository and Contribute !</string>
-
-    <string name="alertMobileDataTitle">Use mobile data while using application?</string>
-    <string name="alertMobileDataNegativeButton">Proceed anyway</string>
-    <string name="alertMobileDataPositiveButton">Enable Wifi</string>
-    <string name="alertMobileDataCheckBox">Dont show again</string>
-
-    <string name="alertNoInternetTitle">Error</string>
-    <string name="alertNoInternetMessage">You have no Internet connection on your phone</string>
-    <string name="alertNoInternetPositiveButton">Retry</string>
-    <string name="alertNoInternetNegativeButton">Cancel</string>
-    <string name="alertNoInternetNeutralButton">Enable Wifi</string>
-
-    <string name="alertFailedWifiTitle">Connection Error</string>
-    <string name="alertFailedWifiPositiveButton">Retry</string>
-    <string name="alertFailedWifiNegativeButton">Open Wifi Settings</string>
-
-    <string name="description_image_2">Image 2</string>
-    <string name="description_zoom_touch_close">Expanded image (touch to close)</string>
-    <string name="description_image_1">Image 1</string>
-
-    <string name="name_chat">ChatActivity</string>
-    <string name="name_image">Storage Image Demo</string>
     <string name="bmsFirstYear">bmsFirstYear</string>
     <string name="bmsSecondYear">bmsSecondYear</string>
     <string name="bmsThirdYear">bmsThirdYear</string>
@@ -45,13 +16,9 @@
     <string name="timetable">timetable</string>
     <string name="bfiaSecondYear">bfiaSecondYear</string>
     <string name="bfiaThirdYear">bfiaThirdYear</string>
-    <string name="desc_chat">Demonstrates using a FirebaseRecyclerAdapter to load data from Firebase Database into a RecyclerView for a basic chat app.</string>
-    <string name="desc_auth_ui">Demonstrates the Firebase Auth UI flow, with customization options.</string>
-    <string name="desc_image">Demonstrates displaying an image from Cloud Storage using Glide.</string>
 
     <!-- strings for Auth UI demo activities -->
     <eat-comment />
-    <string name="launch_title">SSCBS</string>
     <string name="sign_in">Step In</string>
     <string name="green_theme">Green Theme</string>
     <string name="purple_theme">Purple Theme</string>
@@ -80,47 +47,27 @@
     <string name="unknown_sign_in_response">Unknown response from AuthUI sign-in</string>
     <string name="sign_in_cancelled">Sign in cancelled</string>
     <string name="no_internet_connection">No internet connection</string>
-    <string name="signed_in_header">You are signed in!</string>
-    <string name="sign_out">Sign out</string>
-    <string name="delete_account_label">Delete account</string>
     <string name="sign_out_failed">Sign out failed</string>
-    <string name="delete_account_failed">Delete account failed</string>
-    <string name="user_profile_header">User profile:</string>
     <string name="profile_picture_content_desc">Profile picture</string>
     <string name="default_theme">Default theme</string>
-    <string name="configuration_required">Configuration is required - see README.md</string>
     <string name="other_options_header">Other Options:</string>
-    <string name="rational_image_perm">This sample will read an image from local storage to upload to Cloud Storage.</string>
-    <string name="anonymous_auth_failed_msg">Anonymous authentication failed, various components of the demo will not work. Make sure your device is online and that Anonymous Auth is configured in your Firebase project(https://console.firebase.google.com/project/_/authentication/providers)</string>
     <string name="extra_google_scopes">Example extra Google scopes</string>
     <string name="drive_file_scope">Drive File</string>
     <string name="youtube_data_scope">Youtube data</string>
     <string name="extra_facebook_scopes">Example extra Facebook scopes</string>
     <string name="friends">Friends</string>
     <string name="photos">Photos</string>
-    <string name="idp_token">IDP Token</string>
-    <string name="idp_secret">IDP Secret</string>
     <string name="unknown_error">An unknown error occurred</string>
-    <string name="send">Send</string>
-    <string name="download">Download</string>
-    <string name="upload">Upload</string>
-    <string name="choose_image">Choose Image</string>
-    <string name="accessibility_downloaded_image">Downloaded image</string>
     <string name="allow_new_email_acccount">Allow account creation if email does not exist.</string>
 
     <!-- strings for database demo activities -->
-    <string name="start_chatting">No messages. Start chatting at the bottom!</string>
-    <string name="signed_in">Signed In</string>
     <string name="enable_credential_selector">Enable Smart Lock\'s credential selector</string>
     <string name="enable_hint_selector">Enable Smart Lock\'s hint selector</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_sta">STa</string>
     <string name="life_at_cbs_text">⁠⁠⁠⁠⁠To begin with some cliched, always enchanted phrases that raise University of Delhi to a pedestal of eminent universities of the world, take my word for it, this fact can never be overstated. University of Delhi is indeed one of the finest places to be at, SSCBS is another.</string>
     <string name="vid_url"><![CDATA[https://firebasestorage.googleapis.com/v0/b/sscbs-74a4d.appspot.com/o/Life%20At%20CBS%20New%20campus%20-%20converted%20with%20Clipchamp.mp4?alt=media&token=713590af-5cd1-49dc-8f00-1cd2a3931679]]></string>
     <string name="Address">PSP Area IV, Dr. K.N. Katju Marg, Sector 16, Rohini, New Delhi, Delhi 110089</string>
     <string name="LibraryLink">http://sscbs.bestbookbuddies.com/cgi-bin/koha/question-papers.pl</string>
     <string name="welcome_text">SSCBS is an official app for the students of Shaheed Sukhdev College of Bussiness Studies . It helps students be up to date with all the college related announcements,events,timetable,attendance and much more ..</string>
-    <string name="non_sscbs_events">Non SSCBite ? Tap to view upcoming events</string>
 </resources>
