@@ -36,7 +36,6 @@ import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     lateinit var bottomNavigationView: BottomNavigationView
@@ -63,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
-//        NoInternetDialog.Builder(this).build()
          loadTT().execute()
     }
 
