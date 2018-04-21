@@ -47,13 +47,10 @@ public class CreateEvent extends AppCompatActivity {
 
     public static final String FB_STORAGE_PATH = "image/", FB_DATABASE_PATH = "image", TAG = "TAG";
     public static final int REQUEST_CODE = 1234;
-
+    private static int CalendarHour, CalendarMinute, child;
+    final Calendar cal = Calendar.getInstance();
     ArrayList<String> VenueThings = new ArrayList<>();
     ArrayList<String> TimeThings = new ArrayList<>();
-
-    final Calendar cal = Calendar.getInstance();
-
-    private static int CalendarHour, CalendarMinute, child;
     Calendar calendar;
     String date, time, v;
     TimePickerDialog timepickerdialog;
@@ -62,12 +59,11 @@ public class CreateEvent extends AppCompatActivity {
     ImageView image;
 
     TimePickerDialog.OnTimeSetListener t = null;
+    DatePickerDialog.OnDateSetListener dpickerListener;
     private FirebaseDatabase database, db;
     private StorageReference storageReference;
     private DatabaseReference databaseRef;
     private Uri imgUri;
-
-    DatePickerDialog.OnDateSetListener dpickerListener;
 
     public static String theMonth(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May",
@@ -233,7 +229,10 @@ public class CreateEvent extends AppCompatActivity {
             Snackbar.make(view, "This location is already booked for the time you selected.", Snackbar.LENGTH_SHORT);
         } else {
             if (!et1.getText().toString().isEmpty() &&!et2.getText().toString().isEmpty() && !et3.getText().toString().isEmpty() &&
-                    !et4.isEmpty() && !desc.getText().toString().isEmpty() && !mobNo.getText().toString().isEmpty() && imgUri!=null) {
+
+                    !desc.getText().toString().isEmpty() && !mobNo.getText().toString().isEmpty() &&
+                    dateStr!=null &&
+                     timeStr1!= null && timeStr2!=null && imgUri!=null) {
                 final ProgressDialog dialogue = new ProgressDialog(this);
                 dialogue.setTitle("Uploading...");
                 dialogue.show();

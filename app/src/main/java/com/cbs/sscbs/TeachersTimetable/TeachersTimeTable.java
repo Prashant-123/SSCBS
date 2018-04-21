@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.cbs.sscbs.Fragments.Home_frag;
@@ -39,6 +40,7 @@ public class TeachersTimeTable extends AppCompatActivity {
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setItemAnimator(new DefaultItemAnimator());
+        Log.wtf("TAG" , Home_frag.dayData.toString());
 
         final TeacherAdapter adapter = new TeacherAdapter(this, Home_frag.data);
         rv.setAdapter(adapter);

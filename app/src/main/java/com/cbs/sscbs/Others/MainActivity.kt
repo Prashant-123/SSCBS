@@ -25,6 +25,7 @@ import com.cbs.sscbs.Fragments.*
 import com.cbs.sscbs.R
 import com.cbs.sscbs.SideBar.About_Activity
 import com.cbs.sscbs.SideBar.Gallery_Activity
+import com.cbs.sscbs.TeachersTimetable.DayWiseTTDataClass
 import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         setNavigationView()
         setbottomnavigator(savedInstanceState)
          loadTT().execute()
+         loadDayWiseTT().execute()
     }
 
     fun setToolbar() {
@@ -336,6 +338,40 @@ class MainActivity : AppCompatActivity() {
         override fun onPostExecute(result: Void?) {
             super.onPostExecute(result)
             Home_frag.data.clear()
+        }
+    }
+
+    class loadDayWiseTT : AsyncTask<String, Void, Void>() {
+
+        override fun doInBackground(vararg strings: String): Void? {
+            val databaseRef = FirebaseDatabase.getInstance().getReference("DayWiseTeacherTimeTable/Vipin Rathi/Monday")
+            databaseRef.addChildEventListener(object : ChildEventListener {
+
+                override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
+                    if (p0!!.hasChild("9:00am-10:00am") && p0.hasChild("10:00am-11:00am") && p0.hasChild("11:00am-12:00pm")
+                             && p0!!.hasChild("12:00pm-01:00pm") &&p0!!.hasChild("01:00pm-02:00pm") &&p0!!.hasChild("02:00pm-03:00pm")
+                            &&p0!!.hasChild("03:00pm-04:00pm") &&p0!!.hasChild("04:00pm-05:00pm") ) {
+                        val teacher_DayData = DayWiseTTDataClass(p0.child("9:00am-10:00am").value?.toString(),
+                                p0.child("10:00am-11:00am").value?.toString(), p0.child("11:00am-12:00pm").value?.toString(), p0.child("12:00pm-01:00pm").value?.toString(),
+                                p0.child("01:00pm-02:00pm").value?.toString(), p0.child("02:00pm-03:00pm").value?.toString(),
+                                p0.child("03:00pm-04:00pm").value?.toString(), p0.child("04:00pm-05:00pm").value?.toString())
+                        Home_frag.dayData.add(teacher_DayData)
+                    } else
+                        Log.wtf("TAG", "Nope")
+                }
+
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {}
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            })
+            return null
+        }
+
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            Home_frag.dayData.clear()
         }
     }
 }
