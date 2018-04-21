@@ -357,7 +357,7 @@ class MainActivity : AppCompatActivity() {
                                 p0.child("03:00pm-04:00pm").value?.toString(), p0.child("04:00pm-05:00pm").value?.toString())
                         Home_frag.dayData.add(teacher_DayData)
                     } else
-                        Log.wtf("TAG", "Nope")
+                        Log.wtf("TAG", "Nope")//
                 }
 
                 override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {}
