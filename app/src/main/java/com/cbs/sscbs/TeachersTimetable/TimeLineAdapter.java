@@ -1,6 +1,7 @@
 package com.cbs.sscbs.TeachersTimetable;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;
 import com.github.vipulasri.timelineview.TimelineView;
@@ -16,17 +18,12 @@ import com.github.vipulasri.timelineview.TimelineView;
 import java.util.ArrayList;
 
 class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewHolder> {
-    private ArrayList<DayWiseTTDataClass> mFeedList;
-//    private Context mContext;
-//    private Orientation mOrientation;
-//    private boolean mWithLinePadding;
+    private ArrayList<TeacherDataClass> mFeedList;
     private LayoutInflater mLayoutInflater;
 
-    public TimeLineAdapter(Context context , ArrayList<DayWiseTTDataClass> feedList) {
+    public TimeLineAdapter(Context context , ArrayList<TeacherDataClass> feedList) {
         mLayoutInflater = LayoutInflater.from(context);
         mFeedList = feedList;
-//        mOrientation = orientation;
-//        mWithLinePadding = withLinePadding;
     }
 
     @Override
@@ -43,16 +40,7 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
     @Override
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
 
-        DayWiseTTDataClass timeLineModel = mFeedList.get(position);
-//        holder.title.setText(timeLineModel.nine);
-        holder.setData(timeLineModel);
-//        holder.setItemClickListener(new ItemClickListener() {
-//            @Override
-//            public void onItemClick(View v, int pos) {
-//
-//
-//            }
-//        });
+        holder.setData();
         holder.timelineView_eleven.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
         holder.timelineView_twelve.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
         holder.timelineView_one.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
@@ -61,21 +49,11 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
         holder.timelineView_four.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
         holder.timelineView_ten.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
         holder.timelineView_nine.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-//
-////
-//        if(!timeLineModel.getDate().isEmpty()) {
-//            holder.mDate.setVisibility(View.VISIBLE);
-//            holder.mDate.setText(DateTimeUtils.parseDateTime(timeLineModel.getDate(), "yyyy-MM-dd HH:mm", "hh:mm a, dd-MMM-yyyy"));
-//        }
-//        else
-//            holder.mDate.setVisibility(View.GONE);
-//
-//        holder.mMessage.setText(timeLineModel.getMessage());
     }
 
     @Override
     public int getItemCount() {
-        return (mFeedList!=null? mFeedList.size():0);
+        return 1;
     }
 
     class TimeLineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -85,7 +63,6 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
         ItemClickListener itemClickListener;
         TextView title_nine , title_ten , title_eleven , title_twelve , title_one , title_two,title_three , title_four;
         TextView subj_nine , subj_ten , subj_eleven , subj_twelve ,subj_one , subj_two , subj_three , subj_four ;
-        DayWiseTTDataClass currentObject;
         public TimeLineViewHolder(View itemView , int viewType) {
             super(itemView);
             this.title_nine = itemView.findViewById(R.id.text_timeline_title_nine);
@@ -105,7 +82,6 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
             this.subj_two = itemView.findViewById(R.id.text_timeline_subj_two) ;
             this.subj_three = itemView.findViewById(R.id.text_timeline_subj_three) ;
             this.subj_four = itemView.findViewById(R.id.text_timeline_subj_four) ;
-
 
             timelineView_nine = (TimelineView) itemView.findViewById(R.id.time_marker_nine);
             timelineView_ten = (TimelineView) itemView.findViewById(R.id.time_marker_ten);
@@ -127,49 +103,30 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
 
         }
 
-        public void setData(DayWiseTTDataClass currentObject ){
-            this.title_nine.setText(currentObject.nine_title);
-            this.title_ten.setText(currentObject.ten_title);
-            this.title_eleven.setText(currentObject.eleven_title);
-            this.title_twelve.setText(currentObject.twelve_title);
-            this.title_one.setText(currentObject.one_title);
-            this.title_two.setText(currentObject.two_title);
-            this.title_three.setText(currentObject.three_title);
-            this.title_four.setText(currentObject.four_title);
+        public void setData(){
+            this.title_nine.setText(Home_frag.data.get(TeacherAdapter.index).getNine_title());
+            this.title_ten.setText(Home_frag.data.get(TeacherAdapter.index).getTen_title());
+            this.title_eleven.setText(Home_frag.data.get(TeacherAdapter.index).getEleven_title());
+            this.title_twelve.setText(Home_frag.data.get(TeacherAdapter.index).getTwelve_title());
+            this.title_one.setText(Home_frag.data.get(TeacherAdapter.index).getOne_title());
+            this.title_two.setText(Home_frag.data.get(TeacherAdapter.index).getTwo_title());
+            this.title_three.setText(Home_frag.data.get(TeacherAdapter.index).getThree_title());
+            this.title_four.setText(Home_frag.data.get(TeacherAdapter.index).getFour_title());
 
-            this.subj_nine.setText(currentObject.nine_subj);
-            this.subj_ten.setText(currentObject.ten_subj);
-            this.subj_eleven.setText(currentObject.eleven_subj);
-            this.subj_twelve.setText(currentObject.twelve_subj);
-            this.subj_one.setText(currentObject.one_subj);
-            this.subj_two.setText(currentObject.two_subj);
-            this.subj_three.setText(currentObject.three_subj);
-            this.subj_four.setText(currentObject.four_subj);
+            this.subj_nine.setText(Home_frag.data.get(TeacherAdapter.index).getNine_subj());
+            this.subj_ten.setText(Home_frag.data.get(TeacherAdapter.index).getTen_subj());
+            this.subj_eleven.setText(Home_frag.data.get(TeacherAdapter.index).getEleven_subj());
+            this.subj_twelve.setText(Home_frag.data.get(TeacherAdapter.index).getTwelve_subj());
+            this.subj_one.setText(Home_frag.data.get(TeacherAdapter.index).getOne_subj());
+            this.subj_two.setText(Home_frag.data.get(TeacherAdapter.index).getTwo_subj());
+            this.subj_three.setText(Home_frag.data.get(TeacherAdapter.index).getThree_subj());
+            this.subj_four.setText(Home_frag.data.get(TeacherAdapter.index).getFour_subj());
 
-            this.currentObject = currentObject;
+//            this.currentObject = currentObject;
         }
         @Override
         public void onClick(View view) {
             this.itemClickListener.onItemClick(view, getLayoutPosition());
         }
-        public void setItemClickListener(ItemClickListener ic) {
-            this.itemClickListener = ic;
-        }
     }
-//    public class TimeLineViewHolder extends RecyclerView.ViewHolder {
-//
-//        @BindView(R.id.text_timeline_date)
-//        TextView mDate;
-//        @BindView(R.id.text_timeline_title)
-//        TextView mMessage;
-//        @BindView(R.id.time_marker)
-//        TimelineView mTimelineView;
-//
-//        public TimeLineViewHolder(View itemView, int viewType) {
-//            super(itemView);
-//
-//            ButterKnife.bind(this, itemView);
-//            mTimelineView.initLine(viewType);
-//        }
-//    }
 }

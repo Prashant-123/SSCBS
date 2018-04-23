@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.cbs.sscbs.NewsUpdates.NewsAdapter;
 import com.cbs.sscbs.R;
-import com.cbs.sscbs.TeachersTimetable.DayWiseTTDataClass;
 import com.cbs.sscbs.TeachersTimetable.TeacherDataClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,7 +40,6 @@ public class Home_frag extends Fragment {
     public static ArrayList<String> bfia3List = new ArrayList<>();
     public static ArrayList<String> bms3List = new ArrayList<>();
     String user;
-    public static ArrayList<DayWiseTTDataClass> dayData= new ArrayList<>();
     public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     public static ArrayList<String> classes_alloted = new ArrayList<>();
     public static ArrayList<String> myClasses = new ArrayList<>();

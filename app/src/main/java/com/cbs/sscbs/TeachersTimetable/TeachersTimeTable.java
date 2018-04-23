@@ -21,8 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class TeachersTimeTable extends AppCompatActivity {
-    private FirebaseDatabase database;
-    TeacherDataClass teacherDataClass;
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,8 @@ public class TeachersTimeTable extends AppCompatActivity {
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setItemAnimator(new DefaultItemAnimator());
-        Log.wtf("TAG" , Home_frag.data.toString());
-
+//        Log.wtf("TAG" , Home_frag.data.toString());
+//        Log.wtf("TAG", Home_frag.data.get(0).getOne_title());
         final TeacherAdapter adapter = new TeacherAdapter(this, Home_frag.data);
         rv.setAdapter(adapter);
         adapter.notifyDataSetChanged();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.R;
@@ -16,7 +17,6 @@ public class DayWiseTT extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private TimeLineAdapter mTimeLineAdapter;
-    private ArrayList<DayWiseTTDataClass> mDataList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,9 @@ public class DayWiseTT extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);
 
-        mTimeLineAdapter = new TimeLineAdapter(this, Home_frag.dayData);
+        Log.wtf("TAG",Home_frag.data.get(1).one_subj);
+
+        mTimeLineAdapter = new TimeLineAdapter(this, Home_frag.data);
         mRecyclerView.setAdapter(mTimeLineAdapter);
         mTimeLineAdapter.notifyDataSetChanged();
 //        initView();

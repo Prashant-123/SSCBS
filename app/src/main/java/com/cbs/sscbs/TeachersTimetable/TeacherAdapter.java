@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
 
     ArrayList<TeacherDataClass> filterList;
     CustomFilter filter;
+    public static int index;
 
     public TeacherAdapter(Context context, ArrayList<TeacherDataClass> data) {
 
@@ -40,7 +42,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
     }
 
     @Override
-    public void onBindViewHolder(final TeacherAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final TeacherAdapter.MyViewHolder holder, final int position) {
         final TeacherDataClass current = teachers.get(position);
         final ImagePopup imagePopup = new ImagePopup(holder.itemView.getContext());
 
@@ -50,8 +52,8 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
             @Override
             public void onItemClick(View v, int pos) {
                 Intent intent = new Intent(holder.itemView.getContext() , DayWiseTT.class);
+                index = pos;
                 holder.itemView.getContext().startActivity(intent);
-
             }
         });
     }
@@ -87,13 +89,13 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
         public void setData(TeacherDataClass currentObject, final ImagePopup imagePopup) {
             this.name.setText(currentObject.getName());
 
-            Glide.with(itemView).load(currentObject.getImageUrl()).into(img);
+            Glide.with(itemView).load(currentObject.getTimetableUrl()).into(img);
 
             imagePopup.setWindowHeight(800);
             imagePopup.setWindowWidth(800);
             imagePopup.setBackgroundColor(Color.BLACK);
             imagePopup.setFullScreen(true);
-            imagePopup.initiatePopupWithGlide(currentObject.getImageUrl());
+            imagePopup.initiatePopupWithGlide(currentObject.getTimetableUrl());
 
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
