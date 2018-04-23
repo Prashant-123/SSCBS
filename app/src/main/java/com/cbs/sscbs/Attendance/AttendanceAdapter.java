@@ -50,6 +50,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
 //        Log.i(TAG, to_update_Total.get(holder.getAdapterPosition()));
 
         holder.checkBox.setOnCheckedChangeListener(null);
+
         holder.checkBox.setTag(position);
 
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -61,6 +62,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
                     saveRoll.add(checkRoll);
                 }
                 else saveRoll.remove(checkRoll);
+
             }
         });
         holder.setData(current);
