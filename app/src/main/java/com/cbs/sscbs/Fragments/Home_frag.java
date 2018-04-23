@@ -1,13 +1,17 @@
 package com.cbs.sscbs.Fragments;
 
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cbs.sscbs.NewsUpdates.NewsAdapter;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.TeachersTimetable.TeacherDataClass;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +23,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Home_frag extends Fragment {
@@ -33,8 +43,11 @@ public class Home_frag extends Fragment {
     public static ArrayList<TeacherDataClass> data = new ArrayList<>();
     public static ArrayList<String> classes_alloted = new ArrayList<>();
     public static ArrayList<String> myClasses = new ArrayList<>();
+    public static String url = "http://sscbs.du.ac.in/";
+    public static ArrayList<NewsAdapter.NewsDataClass> news = new ArrayList<>();
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +58,7 @@ public class Home_frag extends Fragment {
         Bfia_3_List();
         Class_List();
         Bms_3_List();
+        new Fetch_News().execute();
         return myView;
     }
 
@@ -122,5 +136,35 @@ public class Home_frag extends Fragment {
                 Log.i("TAG", "Faculty Subjects ERROR");
             }
         });
+    }
+
+    public class Fetch_News extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            try {
+                Document document = Jsoup.connect(url).get();
+                Elements text = document.select("div[class=gn_news]");
+
+                List<String> desc = text.eachText();
+                List<String> link = text.select("a").eachAttr("href");
+                for (int i=0; i<desc.size(); i++){
+                    NewsAdapter.NewsDataClass data = new NewsAdapter.NewsDataClass(desc.get(i), link.get(i));
+                    news.add(data);
+                }
+
+
+            } catch (IOException e) {
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Void s) {
+        }
     }
 }
