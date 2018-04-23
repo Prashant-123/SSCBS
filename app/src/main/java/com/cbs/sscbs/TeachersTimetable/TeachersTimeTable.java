@@ -1,6 +1,9 @@
 package com.cbs.sscbs.TeachersTimetable;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,6 +23,7 @@ import java.util.Objects;
 public class TeachersTimeTable extends AppCompatActivity {
     private FirebaseDatabase database;
     TeacherDataClass teacherDataClass;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +44,7 @@ public class TeachersTimeTable extends AppCompatActivity {
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setItemAnimator(new DefaultItemAnimator());
-        Log.wtf("TAG" , Home_frag.dayData.toString());
+        Log.wtf("TAG" , Home_frag.data.toString());
 
         final TeacherAdapter adapter = new TeacherAdapter(this, Home_frag.data);
         rv.setAdapter(adapter);

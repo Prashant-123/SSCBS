@@ -51,7 +51,6 @@
             android:name=".TeachersTimetable.TeachersTimeTable"
             android:label="Teacher&apos;s Time Table"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SideBar.About_Activity"
             android:label="About Us"
@@ -73,7 +72,6 @@
             android:label="GALLERY"
             android:parentActivityName=".Others.MainActivity" />
         <activity android:name=".auth.AuthUiActivity" />
-
         <activity
             android:name=".Others.Contact_us"
             android:label="Contact Details"
@@ -94,6 +92,7 @@
         <activity
             android:name=".Others.Developers"
             android:label="Developers" />
+        <activity android:name=".TeachersTimetable.DayWiseTT" />
     </application>
 
 </manifest>

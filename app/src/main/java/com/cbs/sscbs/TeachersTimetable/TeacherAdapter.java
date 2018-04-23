@@ -1,6 +1,7 @@
 package com.cbs.sscbs.TeachersTimetable;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,8 +40,7 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
     }
 
     @Override
-    public void onBindViewHolder(TeacherAdapter.MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(final TeacherAdapter.MyViewHolder holder, int position) {
         final TeacherDataClass current = teachers.get(position);
         final ImagePopup imagePopup = new ImagePopup(holder.itemView.getContext());
 
@@ -49,6 +49,8 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                Intent intent = new Intent(holder.itemView.getContext() , DayWiseTT.class);
+                holder.itemView.getContext().startActivity(intent);
 
             }
         });
