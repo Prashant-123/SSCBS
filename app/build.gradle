@@ -80,5 +80,7 @@ dependencies {
     implementation 'com.github.chathuralakmal:AndroidImagePopup:1.2.1'
     implementation 'info.hoang8f:fbutton:1.0.5'
     implementation 'com.android.support:customtabs:26.1.0'
+    implementation 'org.jsoup:jsoup:1.11.3'
+
 }
 apply plugin: 'com.google.gms.google-services'

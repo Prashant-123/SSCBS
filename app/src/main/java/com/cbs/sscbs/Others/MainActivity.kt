@@ -127,10 +127,15 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         R.id.ic_updates -> {
-                            val simpleAlert = AlertDialog.Builder(this@MainActivity).create()
-                            simpleAlert.setTitle("Coming Soon...")
-                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
-                            simpleAlert.show()
+//                            val simpleAlert = AlertDialog.Builder(this@MainActivity).create()
+//                            simpleAlert.setTitle("Coming Soon...")
+//                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
+//                            simpleAlert.show()
+
+                            val main_fragment = News_Frag()
+                            val ft = supportFragmentManager.beginTransaction()
+                            ft.replace(R.id.main_Frame, main_fragment).commit()
+
                         }
                     }
                     true
