@@ -62,7 +62,7 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
         holder.timelineView_ten.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
         holder.timelineView_nine.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
 //
-//
+////
 //        if(!timeLineModel.getDate().isEmpty()) {
 //            holder.mDate.setVisibility(View.VISIBLE);
 //            holder.mDate.setText(DateTimeUtils.parseDateTime(timeLineModel.getDate(), "yyyy-MM-dd HH:mm", "hh:mm a, dd-MMM-yyyy"));
