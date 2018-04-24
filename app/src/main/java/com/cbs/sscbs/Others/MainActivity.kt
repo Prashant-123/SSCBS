@@ -22,10 +22,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.cbs.sscbs.Fragments.*
+import com.cbs.sscbs.Fragments.Home_frag.news
+import com.cbs.sscbs.Fragments.Home_frag.url
+import com.cbs.sscbs.NewsUpdates.NewsAdapter
+import com.cbs.sscbs.NewsUpdates.News_Frag
 import com.cbs.sscbs.R
 import com.cbs.sscbs.SideBar.About_Activity
 import com.cbs.sscbs.SideBar.Gallery_Activity
-import com.cbs.sscbs.TeachersTimetable.DayWiseTTDataClass
 import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
@@ -36,6 +39,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jsoup.Jsoup
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mDatabase: FirebaseDatabase
     private var reference: DatabaseReference? = null
 
-     override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mDatabase = FirebaseDatabase.getInstance()
@@ -63,8 +68,9 @@ class MainActivity : AppCompatActivity() {
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
-         loadTT().execute()
-         loadDayWiseTT().execute()
+        loadTT().execute()
+        Fetch_News().execute()
+//         loadDayWiseTT().execute()
     }
 
     fun setToolbar() {
@@ -79,11 +85,8 @@ class MainActivity : AppCompatActivity() {
             ft.replace(R.id.main_Frame, main_fragment).commit()
         }
 
-        var getCls = FirebaseFirestore.getInstance().collection("Attendance")
-        var  classesList = ArrayList<String>()
-
         bottomNavigationView = this.findViewById(R.id.bottom_navigation)
-       BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView)
         val fragmentManager = supportFragmentManager
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 { item ->
@@ -103,20 +106,9 @@ class MainActivity : AppCompatActivity() {
                             fragmentTransaction.replace(R.id.main_Frame, f).commit()
                         }
 
-                        R.id.ic_attendence -> {
-                            val pf = Attendance_Frag()
-                            val fm = fragmentManager.beginTransaction()
-                            this.toolbar.title = "Attendance"
-
-                            getCls.get().addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    for (document in task.result) {
-                                        classesList.add(document.id)
-                                    }
-                                }
-                            }
-
-                            fm.replace(R.id.main_Frame, pf).commit()
+                        R.id.ic_grievance -> {
+                            val intent1 = Intent(this, Grievances::class.java)
+                            startActivity(intent1)
                         }
 
                         R.id.ic_events -> {
@@ -127,11 +119,6 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         R.id.ic_updates -> {
-//                            val simpleAlert = AlertDialog.Builder(this@MainActivity).create()
-//                            simpleAlert.setTitle("Coming Soon...")
-//                            simpleAlert.setMessage("Waiting for API \uD83D\uDE42")
-//                            simpleAlert.show()
-
                             val main_fragment = News_Frag()
                             val ft = supportFragmentManager.beginTransaction()
                             ft.replace(R.id.main_Frame, main_fragment).commit()
@@ -188,10 +175,6 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.college_gallery -> {
                 val intent1 = Intent(this, Gallery_Activity::class.java)
-                startActivity(intent1)
-            }
-            R.id.grievances -> {
-                val intent1 = Intent(this, Grievances::class.java)
                 startActivity(intent1)
             }
             R.id.library -> {
@@ -318,14 +301,24 @@ class MainActivity : AppCompatActivity() {
     class loadTT : AsyncTask<String, Void, Void>() {
 
         override fun doInBackground(vararg strings: String): Void? {
+            val day : String = "Monday"
             val databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable")
             databaseRef.addChildEventListener(object : ChildEventListener {
 
                 override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
-                    if (p0!!.hasChild("name") && p0.hasChild("image") && p0.hasChild("timetable")) {
-                        val teacher_data = TeacherDataClass(p0.child("name").value?.toString(),
-                                p0.child("image").value?.toString(), p0.child("timetable").value?.toString())
+                    if (p0!!.hasChild("name") && p0.hasChild("timetable")) {
+                        val teacher_data = TeacherDataClass(
+                                p0.child("name").value?.toString(),p0.child("timetable").value?.toString(),
+                                p0.child(p0.key+day+"/09:00am-10:00am/title").value?.toString(),p0.child(day+"/10:00am-11:00am/title").value?.toString(),
+                                p0.child(day+"/11:00am-12:00pm/title").value?.toString(),p0.child(day+"/12:00pm-01:00pm/title").value?.toString(),
+                                p0.child(day+"/01:00pm-02:00pm/title").value?.toString(),p0.child(day+"/02:00pm-03:00pm/title").value?.toString(),
+                                p0.child(day+"/03:00pm-04:00pm/title").value?.toString(),p0.child(day+"/04:00pm-05:00pm/title").value?.toString(),
+                                p0.child(day+"/09:00am-10:00am/subj").value?.toString(), p0.child(day+"/10:00am-11:00am/subj").value?.toString(),
+                                p0.child(day+"/11:00am-12:00pm/subj").value?.toString(), p0.child(day+"/12:00pm-01:00pm/subj").value?.toString(),
+                                p0.child(day+"/01:00pm-02:00pm/subj").value?.toString(), p0.child(day+"/02:00pm-03:00pm/subj").value?.toString(),
+                                p0.child(day+"/03:00pm-04:00pm/subj").value?.toString(), p0.child(day+"/04:00pm-05:00pm/subj").value?.toString())
                         Home_frag.data.add(teacher_data)
+                        Log.i("TAG", teacher_data.one_subj)
                     } else
                         Log.wtf("TAG", "Nope")
                 }
@@ -334,7 +327,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
                 override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
                 override fun onCancelled(databaseError: DatabaseError) {
-                    //                    Log.i(TAG, "hugiyujv");
                 }
             })
             return null
@@ -346,37 +338,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class loadDayWiseTT : AsyncTask<String, Void, Void>() {
 
-        override fun doInBackground(vararg strings: String): Void? {
-            val databaseRef = FirebaseDatabase.getInstance().getReference("DayWiseTeacherTimeTable/Vipin Rathi/Monday")
-            databaseRef.addChildEventListener(object : ChildEventListener {
 
-                override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
-                    if (p0!!.hasChild("9:00am-10:00am") && p0.hasChild("10:00am-11:00am") && p0.hasChild("11:00am-12:00pm")
-                             && p0!!.hasChild("12:00pm-01:00pm") &&p0!!.hasChild("01:00pm-02:00pm") &&p0!!.hasChild("02:00pm-03:00pm")
-                            &&p0!!.hasChild("03:00pm-04:00pm") &&p0!!.hasChild("04:00pm-05:00pm") ) {
-                        val teacher_DayData = DayWiseTTDataClass(p0.child("9:00am-10:00am").value?.toString(),
-                                p0.child("10:00am-11:00am").value?.toString(), p0.child("11:00am-12:00pm").value?.toString(), p0.child("12:00pm-01:00pm").value?.toString(),
-                                p0.child("01:00pm-02:00pm").value?.toString(), p0.child("02:00pm-03:00pm").value?.toString(),
-                                p0.child("03:00pm-04:00pm").value?.toString(), p0.child("04:00pm-05:00pm").value?.toString())
-                        Home_frag.dayData.add(teacher_DayData)
-                    } else
-                        Log.wtf("TAG", "Nope")
+    class Fetch_News : AsyncTask<String, Void, Void>() {
+
+        override fun onPreExecute() {}
+
+        override fun doInBackground(vararg params: String): Void? {
+
+            try {
+                val document = Jsoup.connect(url).get()
+                val text = document.select("div[class=gn_news]")
+
+                val desc = text.eachText()
+                val link = text.select("a").eachAttr("href")
+                for (i in desc.indices) {
+                    val data = NewsAdapter.NewsDataClass(desc[i], link[i])
+                    news.add(data)
                 }
 
-                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {}
-                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
-                override fun onCancelled(databaseError: DatabaseError) {
-                }
-            })
+
+            } catch (e: IOException) {
+            }
+
             return null
         }
-
-        override fun onPostExecute(result: Void?) {
-            super.onPostExecute(result)
-            Home_frag.dayData.clear()
-        }
     }
+
 }
