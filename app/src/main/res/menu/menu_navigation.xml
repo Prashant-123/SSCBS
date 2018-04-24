@@ -12,11 +12,6 @@
             android:title="The SSCBS"
             />
         <item
-            android:id="@+id/grievances"
-            android:icon="@drawable/grievances"
-            android:title="GRIEVANECS"
-            />
-        <item
             android:id="@+id/library"
             android:icon="@drawable/library"
             android:title="DIGITAL LIBRARY"

@@ -4,14 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.R;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -65,7 +72,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
                 @Override
                 public void onClick(View view) {
                     CustomTabsIntent intent = new CustomTabsIntent.Builder().setToolbarColor(000).build();
-                    intent.launchUrl(view.getContext(), Uri.parse("http://sscbs.du.ac.in/"+currentObject.getLink()));
+                    intent.launchUrl(view.getContext(), Uri.parse(Home_frag.url+currentObject.getLink()));
                 }
             });
         }

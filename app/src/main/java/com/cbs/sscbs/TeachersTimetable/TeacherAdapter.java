@@ -96,7 +96,6 @@ class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.MyViewHolder> i
             imagePopup.setBackgroundColor(Color.BLACK);
             imagePopup.setFullScreen(true);
             imagePopup.initiatePopupWithGlide(currentObject.getTimetableUrl());
-
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
