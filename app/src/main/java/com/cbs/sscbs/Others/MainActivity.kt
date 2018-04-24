@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -30,6 +31,7 @@ import com.cbs.sscbs.R
 import com.cbs.sscbs.SideBar.About_Activity
 import com.cbs.sscbs.SideBar.Gallery_Activity
 import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
+import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable
 import com.cbs.sscbs.auth.AuthUiActivity
 import com.cbs.sscbs.utils.BottomNavigationViewHelper
 import com.firebase.ui.auth.AuthUI
@@ -41,6 +43,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jsoup.Jsoup
 import java.io.IOException
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,12 +67,15 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
+
+//        loadTT().execute()
         setToolbar()
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
-        loadTT().execute()
+
         Fetch_News().execute()
+
 //         loadDayWiseTT().execute()
     }
 
@@ -297,11 +303,12 @@ class MainActivity : AppCompatActivity() {
 
         companion object
     }
-
+//
     class loadTT : AsyncTask<String, Void, Void>() {
 
         override fun doInBackground(vararg strings: String): Void? {
-            val day : String = "Monday"
+            val day : String = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
+
             val databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable")
             databaseRef.addChildEventListener(object : ChildEventListener {
 
@@ -317,8 +324,7 @@ class MainActivity : AppCompatActivity() {
                                 p0.child(day+"/11:00am-12:00pm/subj").value?.toString(), p0.child(day+"/12:00pm-01:00pm/subj").value?.toString(),
                                 p0.child(day+"/01:00pm-02:00pm/subj").value?.toString(), p0.child(day+"/02:00pm-03:00pm/subj").value?.toString(),
                                 p0.child(day+"/03:00pm-04:00pm/subj").value?.toString(), p0.child(day+"/04:00pm-05:00pm/subj").value?.toString())
-                        Home_frag.data.add(teacher_data)
-                        Log.i("TAG", teacher_data.one_subj)
+                        TeachersTimeTable.data.add(teacher_data)
                     } else
                         Log.wtf("TAG", "Nope")
                 }
@@ -329,16 +335,15 @@ class MainActivity : AppCompatActivity() {
                 override fun onCancelled(databaseError: DatabaseError) {
                 }
             })
+
             return null
         }
 
         override fun onPostExecute(result: Void?) {
             super.onPostExecute(result)
-            Home_frag.data.clear()
+            TeachersTimeTable.data.clear()
         }
     }
-
-
 
     class Fetch_News : AsyncTask<String, Void, Void>() {
 

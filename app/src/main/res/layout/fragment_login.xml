@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username"
+        android:fontFamily="@font/raleway_medium"
         android:textColor="#000"
         android:textSize="16dp"/>
 
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Password"
         android:textColor="#000"
+        android:fontFamily="@font/raleway_medium"
         android:textSize="16dp"/>
 
     <EditText
@@ -36,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/raleway_medium"
         android:text="Show Password" />
 
 </LinearLayout>

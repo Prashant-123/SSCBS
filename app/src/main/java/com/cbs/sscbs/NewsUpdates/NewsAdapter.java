@@ -30,7 +30,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     private List<NewsDataClass> objectList;
     private LayoutInflater inflater;
-    private static final String TAG = "TAG";
     public NewsAdapter(Context applicationContext, List<NewsDataClass> objectList) {
         inflater = LayoutInflater.from(applicationContext);
         this.objectList = objectList;
@@ -71,7 +70,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             this.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    CustomTabsIntent intent = new CustomTabsIntent.Builder().setToolbarColor(000).build();
+                    CustomTabsIntent intent = new CustomTabsIntent.Builder().setToolbarColor(0).build();
                     intent.launchUrl(view.getContext(), Uri.parse(Home_frag.url+currentObject.getLink()));
                 }
             });

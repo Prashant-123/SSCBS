@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="Organised by--"
+                android:fontFamily="@font/raleway_medium"
                 android:textColor="#000"
                 android:textSize="16dp" />
 
@@ -72,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="Venue"
+                android:fontFamily="@font/raleway_medium"
                 android:textColor="@color/black"
                 android:textStyle="italic|bold" />
 
@@ -82,6 +84,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="Date and Time"
                 android:textColor="@color/black"
+                android:fontFamily="@font/raleway_medium"
                 android:textSize="14dp"
                 android:textStyle="italic|bold" />
 
@@ -106,6 +109,7 @@
                     android:padding="10dp"
                     fbutton:cornerRadius="5dp"
                     android:text="READ MORE"
+                    android:fontFamily="@font/raleway_medium"
                     android:textColor="#fff"
                     android:textSize="12sp"
                     android:textStyle="bold" />
