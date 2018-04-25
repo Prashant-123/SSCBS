@@ -22,8 +22,6 @@ public class Home_frag extends Fragment {
 
     String user;
     public static String url = "http://sscbs.du.ac.in/";
-    public static ArrayList<NewsAdapter.NewsDataClass> news = new ArrayList<>();
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override

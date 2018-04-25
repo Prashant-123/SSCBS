@@ -18,14 +18,12 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.cbs.sscbs.Fragments.*
-import com.cbs.sscbs.Fragments.Home_frag.news
-import com.cbs.sscbs.Fragments.Home_frag.url
-import com.cbs.sscbs.NewsUpdates.NewsAdapter
+import com.cbs.sscbs.Fragments.Events_Fragment
+import com.cbs.sscbs.Fragments.Home_frag
+import com.cbs.sscbs.Fragments.TimeTable_frag
 import com.cbs.sscbs.NewsUpdates.News_Frag
 import com.cbs.sscbs.R
 import com.cbs.sscbs.SideBar.About_Activity
@@ -39,10 +37,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jsoup.Jsoup
-import java.io.IOException
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -68,13 +63,12 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-//        loadTT().execute()
         setToolbar()
         setDrawer()
         setNavigationView()
         setbottomnavigator(savedInstanceState)
 
-        Fetch_News().execute()
+//        Fetch_News().execute()
 
 //         loadDayWiseTT().execute()
     }
@@ -303,71 +297,4 @@ class MainActivity : AppCompatActivity() {
 
         companion object
     }
-//
-    class loadTT : AsyncTask<String, Void, Void>() {
-
-        override fun doInBackground(vararg strings: String): Void? {
-            val day : String = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
-
-            val databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable")
-            databaseRef.addChildEventListener(object : ChildEventListener {
-
-                override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
-                    if (p0!!.hasChild("name") && p0.hasChild("timetable")) {
-                        val teacher_data = TeacherDataClass(
-                                p0.child("name").value?.toString(),p0.child("timetable").value?.toString(),
-                                p0.child(p0.key+day+"/09:00am-10:00am/title").value?.toString(),p0.child(day+"/10:00am-11:00am/title").value?.toString(),
-                                p0.child(day+"/11:00am-12:00pm/title").value?.toString(),p0.child(day+"/12:00pm-01:00pm/title").value?.toString(),
-                                p0.child(day+"/01:00pm-02:00pm/title").value?.toString(),p0.child(day+"/02:00pm-03:00pm/title").value?.toString(),
-                                p0.child(day+"/03:00pm-04:00pm/title").value?.toString(),p0.child(day+"/04:00pm-05:00pm/title").value?.toString(),
-                                p0.child(day+"/09:00am-10:00am/subj").value?.toString(), p0.child(day+"/10:00am-11:00am/subj").value?.toString(),
-                                p0.child(day+"/11:00am-12:00pm/subj").value?.toString(), p0.child(day+"/12:00pm-01:00pm/subj").value?.toString(),
-                                p0.child(day+"/01:00pm-02:00pm/subj").value?.toString(), p0.child(day+"/02:00pm-03:00pm/subj").value?.toString(),
-                                p0.child(day+"/03:00pm-04:00pm/subj").value?.toString(), p0.child(day+"/04:00pm-05:00pm/subj").value?.toString())
-                        TeachersTimeTable.data.add(teacher_data)
-                    } else
-                        Log.wtf("TAG", "Nope")
-                }
-
-                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String) {}
-                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String) {}
-                override fun onCancelled(databaseError: DatabaseError) {
-                }
-            })
-
-            return null
-        }
-
-        override fun onPostExecute(result: Void?) {
-            super.onPostExecute(result)
-            TeachersTimeTable.data.clear()
-        }
-    }
-
-    class Fetch_News : AsyncTask<String, Void, Void>() {
-
-        override fun onPreExecute() {}
-
-        override fun doInBackground(vararg params: String): Void? {
-
-            try {
-                val document = Jsoup.connect(url).get()
-                val text = document.select("div[class=gn_news]")
-
-                val desc = text.eachText()
-                val link = text.select("a").eachAttr("href")
-                for (i in desc.indices) {
-                    val data = NewsAdapter.NewsDataClass(desc[i], link[i])
-                    news.add(data)
-                }
-
-
-            } catch (e: IOException) {
-            }
-
-            return null
-        }
-    }
-
 }
