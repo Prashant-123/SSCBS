@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.timetable_fragment.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class TimeTable_frag : Fragment() {
 
@@ -30,6 +31,8 @@ class TimeTable_frag : Fragment() {
     var courselist: ArrayList<String> = ArrayList(Arrays.asList("Bsc 1", "Bsc 2", "Bsc 3", "BMS", "BFIA"))
     var years: ArrayList<String> = ArrayList(Arrays.asList("First Year", "Second Year", "Third Year"))
     var bms_sections: ArrayList<String> = ArrayList(Arrays.asList("BMS-A", "BMS-B", "BMS-C", "BMS-D"))
+    var temp_list : ArrayList<String>? = null
+    var bms3_sections: ArrayList<String> = ArrayList(Arrays.asList("BMS-3FA", "BMS-3FB", "BMS-3FC", "BMS-M"))
     var bfia_sections: ArrayList<String> = ArrayList(Arrays.asList("BFIA-A", "BFIA-B"))
 
     var folder = ""
@@ -88,24 +91,29 @@ class TimeTable_frag : Fragment() {
         if (index == 0 || index == 1 || index == 2) {
             if (index == 0) {
                 folder = getString(R.string.bmsFirstYear)
+                temp_list = bms_sections
             }
             if (index == 1) {
                 folder = getString(R.string.bmsSecondYear)
+                temp_list=bms_sections
             }
             if (index == 2) {
                 folder = getString(R.string.bmsThirdYear)
+                temp_list = bms3_sections
             }
 
-            MaterialDialog.Builder(activity)
-                    .title("Select Section")
-                    .items(bms_sections)
-                    .itemsCallbackSingleChoice(-1, { _, _, indexBmsSection, _ ->
-                        text_course.text = bms_sections.get(indexBmsSection)
-                        showTimeTable(indexBmsSection)
+                this!!.temp_list?.let {
+                    MaterialDialog.Builder(activity)
+                            .title("Select Section")
+                            .items(it)
+                            .itemsCallbackSingleChoice(-1, { _, _, indexBmsSection, _ ->
+                                text_course.text = bms_sections.get(indexBmsSection)
+                                showTimeTable(indexBmsSection)
 
-                        true
-                    })
-                    .show()
+                                true
+                            })
+                            .show()
+                }
         }
     }
 
