@@ -173,6 +173,7 @@ public class Grievances extends AppCompatActivity {
                     photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                 }
                 image.setImageBitmap(photo);
+                image.setBackgroundColor(000000);
                 imgUri = getImageUri(getApplicationContext(), photo);
                 grantUriPermission("com.cbs.sscbs", imgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
