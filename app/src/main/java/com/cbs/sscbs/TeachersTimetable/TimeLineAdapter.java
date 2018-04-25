@@ -1,8 +1,6 @@
 package com.cbs.sscbs.TeachersTimetable;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.R;
 import com.cbs.sscbs.utils.ItemClickListener;
 import com.github.vipulasri.timelineview.TimelineView;
@@ -41,14 +38,6 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
 
         holder.setData();
-        holder.timelineView_eleven.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-        holder.timelineView_twelve.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-        holder.timelineView_one.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-        holder.timelineView_two.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-        holder.timelineView_three.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-        holder.timelineView_four.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-        holder.timelineView_ten.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
-        holder.timelineView_nine.setMarker(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_marker), ContextCompat.getColor(holder.itemView.getContext(), R.color.colorAccent));
     }
 
     @Override
@@ -82,47 +71,46 @@ class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewH
             this.subj_two = itemView.findViewById(R.id.text_timeline_subj_two) ;
             this.subj_three = itemView.findViewById(R.id.text_timeline_subj_three) ;
             this.subj_four = itemView.findViewById(R.id.text_timeline_subj_four) ;
+//
+//            timelineView_nine =  itemView.findViewById(R.id.time_marker_nine);
+//            timelineView_ten =  itemView.findViewById(R.id.time_marker_ten);
+//            timelineView_eleven =  itemView.findViewById(R.id.time_marker_eleven);
+//            timelineView_twelve =  itemView.findViewById(R.id.time_marker_twelve);
+//            timelineView_one =  itemView.findViewById(R.id.time_marker_one);
+//            timelineView_two =  itemView.findViewById(R.id.time_marker_two);
+//            timelineView_three =  itemView.findViewById(R.id.time_marker_three);
+//            timelineView_four = itemView.findViewById(R.id.time_marker_four);
 
-            timelineView_nine = (TimelineView) itemView.findViewById(R.id.time_marker_nine);
-            timelineView_ten = (TimelineView) itemView.findViewById(R.id.time_marker_ten);
-            timelineView_eleven = (TimelineView) itemView.findViewById(R.id.time_marker_eleven);
-            timelineView_twelve = (TimelineView) itemView.findViewById(R.id.time_marker_twelve);
-            timelineView_one = (TimelineView) itemView.findViewById(R.id.time_marker_one);
-            timelineView_two = (TimelineView) itemView.findViewById(R.id.time_marker_two);
-            timelineView_three = (TimelineView) itemView.findViewById(R.id.time_marker_three);
-            timelineView_four = (TimelineView) itemView.findViewById(R.id.time_marker_four);
-
-            timelineView_nine.initLine(viewType);
-            timelineView_ten.initLine(viewType);
-            timelineView_eleven.initLine(viewType);
-            timelineView_twelve.initLine(viewType);
-            timelineView_one.initLine(viewType);
-            timelineView_two.initLine(viewType);
-            timelineView_three.initLine(viewType);
-            timelineView_four.initLine(viewType);
+//            timelineView_nine.initLine(viewType);
+//            timelineView_ten.initLine(viewType);
+//            timelineView_eleven.initLine(viewType);
+//            timelineView_twelve.initLine(viewType);
+//            timelineView_one.initLine(viewType);
+//            timelineView_two.initLine(viewType);
+//            timelineView_three.initLine(viewType);
+//            timelineView_four.initLine(viewType);
 
         }
 
         public void setData(){
-            this.title_nine.setText(Home_frag.data.get(TeacherAdapter.index).getNine_title());
-            this.title_ten.setText(Home_frag.data.get(TeacherAdapter.index).getTen_title());
-            this.title_eleven.setText(Home_frag.data.get(TeacherAdapter.index).getEleven_title());
-            this.title_twelve.setText(Home_frag.data.get(TeacherAdapter.index).getTwelve_title());
-            this.title_one.setText(Home_frag.data.get(TeacherAdapter.index).getOne_title());
-            this.title_two.setText(Home_frag.data.get(TeacherAdapter.index).getTwo_title());
-            this.title_three.setText(Home_frag.data.get(TeacherAdapter.index).getThree_title());
-            this.title_four.setText(Home_frag.data.get(TeacherAdapter.index).getFour_title());
+            this.title_nine.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getNine_title());
+            this.title_ten.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getTen_title());
+            this.title_eleven.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getEleven_title());
+            this.title_twelve.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getTwelve_title());
+            this.title_one.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getOne_title());
+            this.title_two.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getTwo_title());
+            this.title_three.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getThree_title());
+            this.title_four.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getFour_title());
 
-            this.subj_nine.setText(Home_frag.data.get(TeacherAdapter.index).getNine_subj());
-            this.subj_ten.setText(Home_frag.data.get(TeacherAdapter.index).getTen_subj());
-            this.subj_eleven.setText(Home_frag.data.get(TeacherAdapter.index).getEleven_subj());
-            this.subj_twelve.setText(Home_frag.data.get(TeacherAdapter.index).getTwelve_subj());
-            this.subj_one.setText(Home_frag.data.get(TeacherAdapter.index).getOne_subj());
-            this.subj_two.setText(Home_frag.data.get(TeacherAdapter.index).getTwo_subj());
-            this.subj_three.setText(Home_frag.data.get(TeacherAdapter.index).getThree_subj());
-            this.subj_four.setText(Home_frag.data.get(TeacherAdapter.index).getFour_subj());
+            this.subj_nine.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getNine_subj());
+            this.subj_ten.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getTen_subj());
+            this.subj_eleven.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getEleven_subj());
+            this.subj_twelve.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getTwelve_subj());
+            this.subj_one.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getOne_subj());
+            this.subj_two.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getTwo_subj());
+            this.subj_three.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getThree_subj());
+            this.subj_four.setText(TeachersTimeTable.data.get(TeacherAdapter.index).getFour_subj());
 
-//            this.currentObject = currentObject;
         }
         @Override
         public void onClick(View view) {

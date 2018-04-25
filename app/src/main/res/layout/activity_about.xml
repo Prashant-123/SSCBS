@@ -32,6 +32,7 @@
             android:layout_height="match_parent"
             android:text="Life at CBS"
             android:textAlignment="center"
+            android:fontFamily="@font/raleway_medium"
             android:layout_marginTop="55dp"
             android:textColor="@color/white"
             android:textSize="40sp"
@@ -51,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="100dp"
+            android:fontFamily="@font/raleway_medium"
             android:text="Contact Us"
             android:textAlignment="center"
             android:textColor="@android:color/white"
@@ -73,6 +75,7 @@
             android:layout_marginTop="90dp"
             android:text="Facilities"
             android:textAlignment="center"
+            android:fontFamily="@font/raleway_medium"
             android:textColor="@android:color/black"
             android:textSize="40sp"
             android:textStyle="bold" />

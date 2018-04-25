@@ -172,7 +172,7 @@ public class Events_Fragment extends Fragment {
                                         Toast.makeText(getContext(), "Authentication Successfull", Toast.LENGTH_SHORT).show();
                                         createEvent();
                                     } else
-                                        Toast.makeText(getContext(), "You Lost it :)", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Enter correct credentials", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

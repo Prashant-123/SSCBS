@@ -20,13 +20,7 @@ public class Home_frag extends Fragment {
     public Home_frag() {
     }
 
-    public static ArrayList<String> faculty_list = new ArrayList<>();
-    public static ArrayList<String> bfia3List = new ArrayList<>();
-    public static ArrayList<String> bms3List = new ArrayList<>();
     String user;
-    public static ArrayList<TeacherDataClass> data = new ArrayList<>();
-    public static ArrayList<String> classes_alloted = new ArrayList<>();
-    public static ArrayList<String> myClasses = new ArrayList<>();
     public static String url = "http://sscbs.du.ac.in/";
     public static ArrayList<NewsAdapter.NewsDataClass> news = new ArrayList<>();
 
@@ -37,7 +31,6 @@ public class Home_frag extends Fragment {
                              Bundle savedInstanceState) {
         final View myView = inflater.inflate(R.layout.fragment_home_frag, container, false);
         user = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
-//        new Fetch_News().execute();
         return myView;
     }
 }

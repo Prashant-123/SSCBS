@@ -26,6 +26,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:text="Faculty"
+            android:fontFamily="@font/raleway_medium"
             android:textColor="@color/black"
             android:background="@drawable/shape2" />
     </LinearLayout>
@@ -51,6 +52,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:fontFamily="@font/raleway_medium"
             android:layout_margin="10dp"
             android:text="Students"
             android:textColor="@color/black"

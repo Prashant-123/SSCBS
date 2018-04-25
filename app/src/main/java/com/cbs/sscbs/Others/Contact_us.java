@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.cbs.sscbs.Fragments.Home_frag;
 import com.cbs.sscbs.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,9 +48,9 @@ public class Contact_us extends AppCompatActivity implements OnMapReadyCallback{
         findViewById(R.id.website).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("http://www.sscbs.du.ac.in"));
-                startActivity(intent);
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Contact_us.this, Uri.parse(Home_frag.url));
             }
         });
 

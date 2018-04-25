@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,7 +30,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -39,6 +42,7 @@ public class Grievances extends AppCompatActivity {
     private Uri imgUri;
     public static final int REQUEST_CODE = 1234;
     private static final int CAMERA_REQUEST = 1888;
+   String currentDay;
 
     String displayName = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
 
@@ -62,15 +66,18 @@ public class Grievances extends AppCompatActivity {
     public void sendMSG(View view)
     {
         EditText body = findViewById(R.id.body);
+        final EditText sub = findViewById(R.id.subject);
         final String emailBody = body.getText().toString();
+        final String subBody = sub.getText().toString();
+
 
         AlertDialog.Builder b =  new  AlertDialog.Builder(this)
                 .setTitle("Do you want to send a text message for immediate action?")
                 .setPositiveButton("Leave a Message",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                if(!emailBody.isEmpty())
-                                sendSMS(emailBody);
+                                if(!emailBody.isEmpty()||!subBody.isEmpty())
+                                sendSMS(emailBody, subBody);
                                 else
                                     Toast.makeText(Grievances.this, "Fill in your concern appropriately.", Toast.LENGTH_SHORT).show();
                             }
@@ -88,9 +95,9 @@ public class Grievances extends AppCompatActivity {
 
     }
 
-    public void sendSMS(String message){
+    public void sendSMS(String message, String body){
         try {
-            String redefinedMessage = "Dear Sir/Ma'am,\nI have the following concern: \n" + message + " \n\n\n Name: " + displayName;
+            String redefinedMessage = "Dear Sir/Ma'am,\nI have the following concern: " + body + "\n " + "Problem/Issue: " + message + " \n\n\n Name: " + displayName;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage("+919711414586", null, redefinedMessage, null, null);
             Toast.makeText(getApplicationContext(), "SMS Sent!",
@@ -176,6 +183,7 @@ public class Grievances extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
                     image.setImageBitmap(bitmap);
+                    image.setBackgroundColor(000000);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

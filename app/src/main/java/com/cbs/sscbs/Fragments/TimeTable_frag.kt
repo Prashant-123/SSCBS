@@ -3,14 +3,17 @@ package com.cbs.sscbs.Fragments
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.cbs.sscbs.R
+import com.cbs.sscbs.TeachersTimetable.TeacherDataClass
 import com.cbs.sscbs.TeachersTimetable.TeachersTimeTable
 import com.ceylonlabs.imageviewpopup.ImagePopup
 import com.google.firebase.database.*
@@ -60,8 +63,10 @@ class TimeTable_frag : Fragment() {
         teachers_card.setOnClickListener {
             val intent: Intent = Intent(context, TeachersTimeTable::class.java)
             startActivity(intent)
+            }
 
-        }
+
+
     }
 
     private fun others(index: Int) {
