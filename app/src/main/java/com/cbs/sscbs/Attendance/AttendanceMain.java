@@ -156,7 +156,8 @@ public class AttendanceMain extends AppCompatActivity {
     }
 
     public void save(View view){
-
+        Log.wtf(TAG , "jh"+AttendanceAdapter.saveRoll.toString());
+        Log.wtf(TAG , "kn"+WaiversAdapter.waiverList.get(0).getRollNo().toString());
         init();
         int i=0;
         if (type.contains("Lab")){

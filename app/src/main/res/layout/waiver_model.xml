@@ -41,8 +41,12 @@
             android:text="Name"/>
 
         <EditText
+            android:id="@+id/waiverText"
             android:layout_width="30dp"
             android:layout_height="43dp"
+            android:inputType="number"
+            android:text="0"
+            android:textSize="18dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"/>
 
