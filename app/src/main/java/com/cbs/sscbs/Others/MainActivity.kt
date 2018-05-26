@@ -21,6 +21,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.cbs.sscbs.Fragments.Events_Fragment
 import com.cbs.sscbs.Fragments.Home_frag
 import com.cbs.sscbs.Fragments.TimeTable_frag
@@ -37,6 +38,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -148,13 +150,16 @@ class MainActivity : AppCompatActivity() {
         navigationView.itemIconTintList = null
         val header = navigationView.getHeaderView(0)
         val userPic: ImageView = header.findViewById(R.id.user_profile_picture)
-        val username: TextView = header.findViewById(R.id.user_display_name)
+        val blurImage: ImageView = header.findViewById(R.id.blur_user_image)
         if (user.photoUrl != null) {
             Glide.with(this)
                     .load(user.photoUrl)
                     .into(userPic)
+            Glide.with(this)
+                    .load(user.photoUrl)
+                    .apply(bitmapTransform(BlurTransformation(20, 1)))
+                    .into(blurImage)
         }
-        username.text = user.displayName?.capitalize()
         navigationView.setNavigationItemSelectedListener({ item ->
             val id = item.itemId
             Handler().postDelayed({ casebyid(id) }, 500)

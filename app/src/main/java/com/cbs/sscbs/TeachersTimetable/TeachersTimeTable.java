@@ -89,7 +89,8 @@ public class TeachersTimeTable extends AppCompatActivity {
     public void getTT(){
 
         data.clear();
-        final String day = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+//        final String day = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+          final String day = "Wednesday";
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("TeacherTimeTable");
         databaseRef.addChildEventListener(new ChildEventListener() {
             @Override
