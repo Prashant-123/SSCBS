@@ -65,9 +65,11 @@ public class AttendanceMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         button1 = findViewById(R.id.save_at);
         setContentView(R.layout.common_rv);
+        AttendanceAdapter.saveRoll.clear();
         /* TextView title = (TextView) findViewById(R.id.titleTextView); */
 
         recyclerView = findViewById(R.id.rv);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new AttendanceAdapter(this, showdata);
@@ -241,15 +243,18 @@ public class AttendanceMain extends AppCompatActivity {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        AttendanceAdapter.saveRoll.add(roll_no);
                     }
                 }
             } catch (Exception ex) {
@@ -294,31 +299,37 @@ public class AttendanceMain extends AppCompatActivity {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G1")) {
                         if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
 
                     } else if (type.contains("Tute-G2")) {
                         if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G3")) {
                         if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        AttendanceAdapter.saveRoll.add(roll_no);
                     }
                 }
             } catch (Exception ex) {
@@ -361,31 +372,37 @@ public class AttendanceMain extends AppCompatActivity {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G1")) {
                         if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
 
                     } else if (type.contains("Tute-G2")) {
                         if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G3")) {
                         if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        AttendanceAdapter.saveRoll.add(roll_no);
                     }
                 }
             } catch (Exception ex) {
@@ -453,31 +470,37 @@ public class AttendanceMain extends AppCompatActivity {
                             if (grp.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Lab-G2")) {
                             if (grp.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G1")) {
                             if (tute.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
 
                         } else if (type.contains("Tute-G2")) {
                             if (tute.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G3")) {
                             if (tute.equals("3")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     }
                 }else{
@@ -503,6 +526,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else if (type.contains(" Lab-G2")) {
@@ -511,6 +535,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else if (type.contains(" Tute-G1")) {
@@ -519,6 +544,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
 
@@ -528,6 +554,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else if (type.contains(" Tute-G3")) {
@@ -536,6 +563,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else {
@@ -543,6 +571,7 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
                         }
@@ -613,31 +642,37 @@ public class AttendanceMain extends AppCompatActivity {
                             if (grp.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Lab-G2")) {
                             if (grp.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G1")) {
                             if (tute.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
 
                         } else if (type.contains("Tute-G2")) {
                             if (tute.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G3")) {
                             if (tute.equals("3")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     }
                 }else{
@@ -663,6 +698,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else if (type.contains(" Lab-G2")) {
@@ -671,6 +707,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else if (type.contains(" Tute-G1")) {
@@ -679,6 +716,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
 
@@ -688,6 +726,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else if (type.contains(" Tute-G3")) {
@@ -696,6 +735,7 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
                             } else {
@@ -703,6 +743,7 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
                         }
@@ -770,21 +811,25 @@ public class AttendanceMain extends AppCompatActivity {
                             if (tute.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
 
                         } else if (type.contains("Tute-G2")) {
                             if (tute.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G3")) {
                             if (tute.equals("3")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     }
                 }else{
@@ -803,6 +848,7 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType)  ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
 
@@ -812,6 +858,7 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
                         } else if (type.contains(" Tute-G3")) {
@@ -820,6 +867,7 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
                         } else {
@@ -827,6 +875,7 @@ public class AttendanceMain extends AppCompatActivity {
                             if (sub1.equals(getType)  || getType.equals("0")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         }
                     }

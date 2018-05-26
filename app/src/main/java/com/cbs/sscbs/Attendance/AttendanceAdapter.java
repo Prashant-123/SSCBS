@@ -2,6 +2,7 @@ package com.cbs.sscbs.Attendance;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,22 +48,20 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
         final AttendanceDataClass current = objectList.get(position);
 
         to_update_Total.add(objectList.get(holder.getAdapterPosition()).getRoll());
-//        Log.i(TAG, to_update_Total.get(holder.getAdapterPosition()));
 
         holder.checkBox.setOnCheckedChangeListener(null);
 
-        holder.checkBox.setTag(position);
-
+        holder.checkBox.setChecked(!current.isChecked());
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                objectList.get(holder.getAdapterPosition()).setChecked(b);
+                current.setChecked(b);
                 checkRoll = objectList.get(holder.getAdapterPosition()).getRoll();
-                if (objectList.get(holder.getAdapterPosition()).isChecked()) {
-                    saveRoll.add(checkRoll);
+                if (!objectList.get(holder.getAdapterPosition()).isChecked()) {
+                    saveRoll.remove(checkRoll);
                 }
-                else saveRoll.remove(checkRoll);
-
+                else saveRoll.add(checkRoll);
+                Log.wtf("ok", saveRoll.toString());
             }
         });
         holder.setData(current);
