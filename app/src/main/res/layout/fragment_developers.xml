@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:id="@+id/dev1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/shadow_1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:showDividers="none"
+        android:layout_alignParentLeft="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/mem1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/prashant"
+                app:riv_border_width="0.8dp"
+                app:riv_oval="true" />
+
+            <TextView
+                android:id="@+id/member1Name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="left"
+                android:layout_marginEnd="31dp"
+                android:layout_marginTop="19dp"
+                android:text="Prashant Kumar"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="31dp" />
+
+            <TextView
+                android:id="@+id/mem1Batch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/member1Name"
+                android:layout_centerVertical="true"
+                android:text="Bsc ( Hons ) Computer Science , 2016-2019"
+                android:layout_alignLeft="@+id/member1Name" />
+
+            <ImageView
+                android:id="@+id/mem1linkedIn_image"
+                android:layout_width="30dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom"
+                android:layout_below="@id/mem1Batch"
+                android:layout_toRightOf="@id/mem1github_image"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/linkedin" />
+
+            <ImageView
+                android:id="@+id/mem1github_image"
+                android:layout_width="30dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom"
+                android:layout_below="@id/mem1Batch"
+                android:layout_toRightOf="@id/mem1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/github1" />
+
+            <ImageView
+                android:id="@+id/mem1facebook_image"
+                android:layout_width="30dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom"
+                android:layout_below="@id/mem1Batch"
+                android:layout_toRightOf="@id/mem1linkedIn_image"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/facebook" />
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/mem1role1image"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:alpha="0.6"
+                android:src="@drawable/android" />
+
+            <TextView
+                android:id="@+id/mem1role1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="Full Stack Developer"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/mem1role2image"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="5dp"
+                android:alpha="0.6"
+                android:src="@drawable/android" />
+
+            <TextView
+                android:id="@+id/mem1role2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginRight="20dp"
+                android:text="Tester"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent" />
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shadow_1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:id="@+id/dev2"
+        android:layout_below="@id/dev1"
+        android:showDividers="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/mem2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/tanvi"
+                app:riv_border_width="0.8dp"
+                app:riv_oval="true" />
+
+            <TextView
+                android:id="@+id/member2Name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="left"
+                android:layout_marginEnd="31dp"
+                android:layout_marginRight="31dp"
+                android:layout_marginTop="19dp"
+                android:text="Tanvi Goyal"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mem2Batch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/member2Name"
+                android:layout_centerVertical="true"
+                android:text="Bsc ( Hons ) Computer Science , 2016-2019"
+                android:layout_alignLeft="@+id/member2Name" />
+
+            <ImageView
+                android:id="@+id/mem2linkedIn_image"
+                android:layout_width="30dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom"
+                android:layout_below="@id/mem2Batch"
+                android:layout_toRightOf="@id/mem2github_image"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/linkedin" />
+
+            <ImageView
+                android:id="@+id/mem2github_image"
+                android:layout_width="30dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom"
+                android:layout_below="@id/mem2Batch"
+                android:layout_toRightOf="@id/mem2"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/github1" />
+
+            <ImageView
+                android:id="@+id/mem2facebook_image"
+                android:layout_width="30dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom"
+                android:layout_below="@id/mem2Batch"
+                android:layout_toRightOf="@id/mem2linkedIn_image"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/facebook" />
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/mem2role1image"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:alpha="0.6"
+                android:src="@drawable/android" />
+
+            <TextView
+                android:id="@+id/mem2role1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="Full Stack Developer"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/mem2role2image"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="5dp"
+                android:alpha="0.6"
+                android:src="@drawable/android" />
+
+            <TextView
+                android:id="@+id/mem2role2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginRight="20dp"
+                android:text="Tester"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+

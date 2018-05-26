@@ -155,6 +155,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.itemIconTintList = null
         val header = navigationView.getHeaderView(0)
         val userPic: ImageView = header.findViewById(R.id.user_profile_picture)
+        val username: TextView = header.findViewById(R.id.user_display_name)
         val blurImage: ImageView = header.findViewById(R.id.blur_user_image)
         if (user.photoUrl != null) {
             Glide.with(this)
@@ -165,6 +166,7 @@ class MainActivity : AppCompatActivity() {
                     .apply(bitmapTransform(BlurTransformation(20, 1)))
                     .into(blurImage)
         }
+        username.text = user.displayName?.capitalize()
         navigationView.setNavigationItemSelectedListener({ item ->
             val id = item.itemId
             Handler().postDelayed({ casebyid(id) }, 500)
