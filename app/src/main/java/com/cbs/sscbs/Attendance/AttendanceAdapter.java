@@ -52,12 +52,15 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.My
         holder.checkBox.setOnCheckedChangeListener(null);
 
         holder.checkBox.setChecked(!current.isChecked());
+//        if (holder.checkBox.isChecked())
+//            holder.checkBox.setChecked(true);
+//        else holder.checkBox.setChecked(false);
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                current.setChecked(b);
+                current.setChecked(!b);
                 checkRoll = objectList.get(holder.getAdapterPosition()).getRoll();
-                if (!objectList.get(holder.getAdapterPosition()).isChecked()) {
+                if (objectList.get(holder.getAdapterPosition()).isChecked()) {
                     saveRoll.remove(checkRoll);
                 }
                 else saveRoll.add(checkRoll);

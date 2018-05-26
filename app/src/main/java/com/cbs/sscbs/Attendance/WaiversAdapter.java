@@ -18,6 +18,13 @@ public class WaiversAdapter extends RecyclerView.Adapter<WaiversAdapter.MyViewHo
         inflater = LayoutInflater.from(context);
         this.objectList = objectList;
     }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        return position;
+    }
+
     @Override
     public WaiversAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new WaiversAdapter.MyViewHolder(inflater.inflate(R.layout.waiver_model, parent, false));
