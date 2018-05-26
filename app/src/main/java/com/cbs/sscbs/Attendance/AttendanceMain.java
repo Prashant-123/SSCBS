@@ -43,7 +43,7 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String bmsSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
     private static final String bfiaSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
-    public ArrayList<WaiverDataClass> shwdata = new ArrayList<>();
+    public ArrayList<WaiverDataClass> showWaiverdata = new ArrayList<>();
     String link;
     String clas, sub, type , getType , btnChoosen;
     ProgressBar bar;
@@ -109,7 +109,7 @@ public class AttendanceMain extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
         else if(btnChoosen.contains("2")){
-            waiversAdapter = new WaiversAdapter(this, shwdata);
+            waiversAdapter = new WaiversAdapter(this, showWaiverdata);
             recyclerView.setAdapter(adapter);
 
             if (clas.contains("Bsc")) {
@@ -272,6 +272,8 @@ public class AttendanceMain extends AppCompatActivity {
                     if (type.contains("Lab-G1")) {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             showdata.add(dataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
@@ -279,11 +281,15 @@ public class AttendanceMain extends AppCompatActivity {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                        showWaiverdata.add(waiverDataClass);
                         AttendanceAdapter.saveRoll.add(roll_no);
                     }
                 }
@@ -332,18 +338,24 @@ public class AttendanceMain extends AppCompatActivity {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G1")) {
                         if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
 
@@ -351,17 +363,23 @@ public class AttendanceMain extends AppCompatActivity {
                         if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G3")) {
                         if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                        showWaiverdata.add(waiverDataClass);
                         AttendanceAdapter.saveRoll.add(roll_no);
                     }
                 }
@@ -408,18 +426,24 @@ public class AttendanceMain extends AppCompatActivity {
                         if (grp.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Lab-G2")) {
                         if (grp.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G1")) {
                         if (tute.equals("1")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
 
@@ -427,17 +451,23 @@ public class AttendanceMain extends AppCompatActivity {
                         if (tute.equals("2")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else if (type.contains("Tute-G3")) {
                         if (tute.equals("3")) {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     } else {
                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                         showdata.add(dataClass);
+                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                        showWaiverdata.add(waiverDataClass);
                         AttendanceAdapter.saveRoll.add(roll_no);
                     }
                 }
@@ -509,18 +539,24 @@ public class AttendanceMain extends AppCompatActivity {
                             if (grp.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Lab-G2")) {
                             if (grp.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G1")) {
                             if (tute.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
 
@@ -528,17 +564,23 @@ public class AttendanceMain extends AppCompatActivity {
                             if (tute.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G3")) {
                             if (tute.equals("3")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     }
@@ -565,6 +607,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -574,6 +618,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -583,6 +629,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -593,6 +641,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -602,6 +652,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -610,6 +662,8 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                    showWaiverdata.add(waiverDataClass);
                                     AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
@@ -684,18 +738,24 @@ public class AttendanceMain extends AppCompatActivity {
                             if (grp.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Lab-G2")) {
                             if (grp.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G1")) {
                             if (tute.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
 
@@ -703,17 +763,23 @@ public class AttendanceMain extends AppCompatActivity {
                             if (tute.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G3")) {
                             if (tute.equals("3")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     }
@@ -740,6 +806,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -749,6 +817,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -758,6 +828,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -768,6 +840,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -777,6 +851,8 @@ public class AttendanceMain extends AppCompatActivity {
                                     if (sub1.equals(getType) || sub2.equals(getType) ) {
                                         AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                         showdata.add(dataClass);
+                                        WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                        showWaiverdata.add(waiverDataClass);
                                         AttendanceAdapter.saveRoll.add(roll_no);
                                     }
                                 }
@@ -785,6 +861,8 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) || sub2.equals(getType) || getType.equals("0")) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                    showWaiverdata.add(waiverDataClass);
                                     AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
@@ -856,6 +934,8 @@ public class AttendanceMain extends AppCompatActivity {
                             if (tute.equals("1")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
 
@@ -863,17 +943,23 @@ public class AttendanceMain extends AppCompatActivity {
                             if (tute.equals("2")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else if (type.contains("Tute-G3")) {
                             if (tute.equals("3")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         } else {
                             AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                             showdata.add(dataClass);
+                            WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                            showWaiverdata.add(waiverDataClass);
                             AttendanceAdapter.saveRoll.add(roll_no);
                         }
                     }
@@ -893,6 +979,8 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType)  ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                    showWaiverdata.add(waiverDataClass);
                                     AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
@@ -903,6 +991,8 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                    showWaiverdata.add(waiverDataClass);
                                     AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
@@ -912,6 +1002,8 @@ public class AttendanceMain extends AppCompatActivity {
                                 if (sub1.equals(getType) ) {
                                     AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                     showdata.add(dataClass);
+                                    WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                    showWaiverdata.add(waiverDataClass);
                                     AttendanceAdapter.saveRoll.add(roll_no);
                                 }
                             }
@@ -920,6 +1012,8 @@ public class AttendanceMain extends AppCompatActivity {
                             if (sub1.equals(getType)  || getType.equals("0")) {
                                 AttendanceDataClass dataClass = new AttendanceDataClass(name, roll_no);
                                 showdata.add(dataClass);
+                                WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
+                                showWaiverdata.add(waiverDataClass);
                                 AttendanceAdapter.saveRoll.add(roll_no);
                             }
                         }
