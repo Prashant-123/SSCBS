@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cbs.sscbs.Fragments.Attendance_Frag;
@@ -25,6 +26,7 @@ public class ShowToStudents extends AppCompatActivity {
     RecyclerView recyclerView;
     StudentsAdapter studentsAdapter;
     TextView textView , setRollText, monthText, yearText;
+    Button showMonthTotal;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance");
 
     @Override
@@ -36,12 +38,14 @@ public class ShowToStudents extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         studentsAdapter = new StudentsAdapter(this  ,Attendance_Frag.allSub);
 
+
         recyclerView.setAdapter(studentsAdapter);
 
         textView = findViewById(R.id.r_name);
         monthText = findViewById(R.id.monthText);
         yearText = findViewById(R.id.yearText);
         setRollText = findViewById(R.id.roll_text);
+        showMonthTotal = findViewById(R.id.monthlyTotalBtn);
 
         if (Attendance_Frag.allSub.size() == 0)
             Log.i("TAG", "myList");

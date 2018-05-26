@@ -297,7 +297,10 @@ public class AttendanceMain extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            adapter.notifyDataSetChanged();
+            if(btnChoosen.contains("1"))
+                adapter.notifyDataSetChanged();
+            else
+                waiversAdapter.notifyDataSetChanged();
             bar.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
 
@@ -447,7 +450,10 @@ public class AttendanceMain extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            adapter.notifyDataSetChanged();
+            if(btnChoosen.contains("1"))
+                adapter.notifyDataSetChanged();
+            else
+                waiversAdapter.notifyDataSetChanged();
             bar.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
         }
@@ -619,7 +625,10 @@ public class AttendanceMain extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            adapter.notifyDataSetChanged();
+            if(btnChoosen.contains("1"))
+                adapter.notifyDataSetChanged();
+            else
+                waiversAdapter.notifyDataSetChanged();
             bar.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
         }
@@ -791,7 +800,10 @@ public class AttendanceMain extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            adapter.notifyDataSetChanged();
+            if(btnChoosen.contains("1"))
+                adapter.notifyDataSetChanged();
+            else
+                waiversAdapter.notifyDataSetChanged();
             bar.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
         }
@@ -923,7 +935,10 @@ public class AttendanceMain extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            adapter.notifyDataSetChanged();
+            if(btnChoosen.contains("1"))
+                adapter.notifyDataSetChanged();
+            else
+                waiversAdapter.notifyDataSetChanged();
             bar.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
         }
