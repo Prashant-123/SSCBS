@@ -8,6 +8,16 @@ class WaiverDataClass {
     private String roll;
     private String attendance;
 
+    public WaiverDataClass(String name, String roll) {
+        this.name = name;
+        this.roll = roll;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getRoll() {
         return roll;
     }
@@ -19,15 +29,5 @@ class WaiverDataClass {
     }
     public void setAttendance(String attendance) {
         this.attendance = attendance;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public WaiverDataClass(String name, String roll) {
-        this.roll = roll;
-        this.name = name;
     }
 }

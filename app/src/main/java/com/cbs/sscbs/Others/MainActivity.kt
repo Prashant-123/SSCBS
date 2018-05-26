@@ -22,10 +22,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
-import com.cbs.sscbs.Fragments.Attendance_Frag
-import com.cbs.sscbs.Fragments.Events_Fragment
-import com.cbs.sscbs.Fragments.Home_frag
-import com.cbs.sscbs.Fragments.TimeTable_frag
+import com.cbs.sscbs.Fragments.*
 import com.cbs.sscbs.NewsUpdates.News_Frag
 import com.cbs.sscbs.R
 import com.cbs.sscbs.SideBar.About_Activity
@@ -128,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                         R.id.ic_updates -> {
                             val main_fragment = News_Frag()
                             val ft = supportFragmentManager.beginTransaction()
+                            this.toolbar.title = "Latest News"
                             ft.replace(R.id.main_Frame, main_fragment).commit()
 
                         }
@@ -206,8 +204,10 @@ class MainActivity : AppCompatActivity() {
                            startActivity(intent1)
             }
             R.id.developers -> {
-                val intent = Intent(this, Developers::class.java)
-                startActivity(intent)
+                val main_fragment = DevelopersFragment()
+                val ft = supportFragmentManager.beginTransaction()
+                this.toolbar.title = "Developers"
+                ft.replace(R.id.main_Frame, main_fragment).commit()
             }
 
             R.id.share -> Rateus()

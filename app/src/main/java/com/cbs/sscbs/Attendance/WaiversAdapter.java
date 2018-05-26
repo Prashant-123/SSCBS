@@ -29,12 +29,10 @@ public class WaiversAdapter extends RecyclerView.Adapter<WaiversAdapter.MyViewHo
     holder.setData(waiverDataClass);
     }
 
-
     @Override
     public int getItemCount() {
         return objectList.size();
     }
-
      class MyViewHolder extends RecyclerView.ViewHolder {
          TextView name, roll;
          public MyViewHolder(View itemView) {

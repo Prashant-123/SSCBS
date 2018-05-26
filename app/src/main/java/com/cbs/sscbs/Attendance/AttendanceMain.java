@@ -110,7 +110,7 @@ public class AttendanceMain extends AppCompatActivity {
         }
         else if(btnChoosen.contains("2")){
             waiversAdapter = new WaiversAdapter(this, showWaiverdata);
-            recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(waiversAdapter);
 
             if (clas.contains("Bsc")) {
                 new bscExcelSheet().execute();
@@ -291,6 +291,7 @@ public class AttendanceMain extends AppCompatActivity {
                         WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
                         showWaiverdata.add(waiverDataClass);
                         AttendanceAdapter.saveRoll.add(roll_no);
+                        Log.i("ok", showWaiverdata.toString());
                     }
                 }
             } catch (Exception ex) {
