@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class TeacherCourseDetails extends AppCompatActivity {
     //    String[] type;
 //    ArrayList listTypes;
     Spinner classSpinner, subSpinner,typeSpinner;
+    Button markAtt , markWaivers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class TeacherCourseDetails extends AppCompatActivity {
         }
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
+        markAtt = findViewById(R.id.markAttendance);
+        markWaivers = findViewById(R.id.markWaivers);
         final String getName = getIntent().getStringExtra("getUser");
         String[] classes = new String[classes_alloted.size() + 1];
         int k = 0;
@@ -133,24 +137,37 @@ public class TeacherCourseDetails extends AppCompatActivity {
                                                         typeSpinner.setAdapter(areasAdapter);
                                                         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                                             @Override
-                                                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                                            public void onItemSelected(final AdapterView<?> adapterView, View view, int i, long l) {
 
                                                                 if (i == 0)
                                                                     Toast.makeText(TeacherCourseDetails.this, "Select type", Toast.LENGTH_SHORT).show();
 
                                                                 else {
-
-                                                                    Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
+                                                                    markAtt.setOnClickListener(new View.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(View view) {
+                                                                            Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
 //                                                                    intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
-                                                                    intent.putExtra("type", String.valueOf(adapterView.getSelectedItem()));
-                                                                    intent.putExtra("class", getClass);
-                                                                    intent.putExtra("subject", getSub);
+                                                                            intent.putExtra("type", String.valueOf(adapterView.getSelectedItem()));
+                                                                            intent.putExtra("class", getClass);
+                                                                            intent.putExtra("subject", getSub);
+                                                                            intent.putExtra("btnChoosen","1");
+                                                                            startActivity(intent);
+                                                                        }
+                                                                    });
 
-
-
-//                                                                    Log.wtf(TAG, ("->" + adapterView.getSelectedItem()) + "->" );
-
-                                                                    startActivity(intent);
+                                                                    markWaivers.setOnClickListener(new View.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(View view) {
+                                                                            Intent intent = new Intent(getApplicationContext(), AttendanceMain.class);
+//                                                                    intent.putExtra("teacherName", "/ClassList/" + getClass + "/Type/" + adapterView.getItemAtPosition(i).toString() + "/StudentList");
+                                                                            intent.putExtra("type", String.valueOf(adapterView.getSelectedItem()));
+                                                                            intent.putExtra("class", getClass);
+                                                                            intent.putExtra("subject", getSub);
+                                                                            intent.putExtra("btnChoosen","2");
+                                                                            startActivity(intent);
+                                                                        }
+                                                                    });
                                                                 }
                                                             }
 

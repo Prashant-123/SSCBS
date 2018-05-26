@@ -43,8 +43,9 @@ public class AttendanceMain extends AppCompatActivity {
     private static final String bmsSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18_YyZhOv3me5QWWPn_ByF_IPiSgvDYcq-W3RfQxkHvQ";
     private static final String bfiaSheet = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1iZWNSlHipbkLyYhtdUPqZdXaq9enLrzUTPxOipxCiDc";
     public ArrayList<AttendanceDataClass> showdata = new ArrayList<>();
+    public ArrayList<WaiverDataClass> shwdata = new ArrayList<>();
     String link;
-    String clas, sub, type , getType;
+    String clas, sub, type , getType , btnChoosen;
     ProgressBar bar;
     TextView tv;
     int size;
@@ -59,6 +60,7 @@ public class AttendanceMain extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     AttendanceAdapter adapter = null;
+    WaiversAdapter waiversAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,50 +74,78 @@ public class AttendanceMain extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new AttendanceAdapter(this, showdata);
-        recyclerView.setAdapter(adapter);
+
         /* title.setText(clas); */
         size = AttendanceAdapter.to_update_Total.size();
 
-        getDataFromIntent();
+        btnChoosen = getDataFromIntent();
+        Log.wtf("TAG" , btnChoosen);
+        if(btnChoosen.contains("1")) {
+            adapter = new AttendanceAdapter(this, showdata);
+            recyclerView.setAdapter(adapter);
 
-        if(clas.contains("Bsc")){
-            new bscExcelSheet().execute();
-        }
-        else if((clas.contains("BMS-1"))||(clas.contains("BMS-2"))){
-            new bmsExcelSheet().execute();
-        }
-        else if(clas.contains("BMS-3F")){
-            new bmsMixExcelSheet().execute();
-        }
-        else if(clas.contains("BMS-3M")){
-            new bms3MExcelSheet().execute();
-        }
-        else if((clas.contains("BFIA-1"))||(clas.contains("BFIA-2"))){
-            new bfiaExcelSheet().execute();
-        }
-        else if(clas.contains("BFIA-3")){
-            new bfiaMixExcelSheet().execute();
-        }
+            if (clas.contains("Bsc")) {
+                new bscExcelSheet().execute();
+            } else if ((clas.contains("BMS-1")) || (clas.contains("BMS-2"))) {
+                new bmsExcelSheet().execute();
+            } else if (clas.contains("BMS-3F")) {
+                new bmsMixExcelSheet().execute();
+            } else if (clas.contains("BMS-3M")) {
+                new bms3MExcelSheet().execute();
+            } else if ((clas.contains("BFIA-1")) || (clas.contains("BFIA-2"))) {
+                new bfiaExcelSheet().execute();
+            } else if (clas.contains("BFIA-3")) {
+                new bfiaMixExcelSheet().execute();
+            }
 
-        adapter.notifyDataSetChanged();
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
-        toolbar.setTitle(clas);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        bar = findViewById(R.id.list_progress_bar);
-        tv = findViewById(R.id.loading_lists);
-        adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+            android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
+            toolbar.setTitle(clas);
+            setSupportActionBar(toolbar);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            bar = findViewById(R.id.list_progress_bar);
+            tv = findViewById(R.id.loading_lists);
+            adapter.notifyDataSetChanged();
+        }
+        else if(btnChoosen.contains("2")){
+            waiversAdapter = new WaiversAdapter(this, shwdata);
+            recyclerView.setAdapter(adapter);
 
+            if (clas.contains("Bsc")) {
+                new bscExcelSheet().execute();
+            } else if ((clas.contains("BMS-1")) || (clas.contains("BMS-2"))) {
+                new bmsExcelSheet().execute();
+            } else if (clas.contains("BMS-3F")) {
+                new bmsMixExcelSheet().execute();
+            } else if (clas.contains("BMS-3M")) {
+                new bms3MExcelSheet().execute();
+            } else if ((clas.contains("BFIA-1")) || (clas.contains("BFIA-2"))) {
+                new bfiaExcelSheet().execute();
+            } else if (clas.contains("BFIA-3")) {
+                new bfiaMixExcelSheet().execute();
+            }
+
+            waiversAdapter.notifyDataSetChanged();
+            android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
+            toolbar.setTitle(clas);
+            setSupportActionBar(toolbar);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            bar = findViewById(R.id.list_progress_bar);
+            tv = findViewById(R.id.loading_lists);
+            waiversAdapter.notifyDataSetChanged();
+        }
     }
 
-    private void getDataFromIntent() {
+    private String getDataFromIntent() {
         Intent data = getIntent();
         clas = data.getStringExtra("class");
         sub = data.getStringExtra("subject");
         type = data.getStringExtra("type");
-        Log.wtf(TAG, "ok"+type);
+        btnChoosen = data.getStringExtra("btnChoosen");
+        Log.wtf(TAG, "ok"+type + btnChoosen);
+        return btnChoosen;
     }
 
     private void switch_to_main() {
@@ -341,7 +371,10 @@ public class AttendanceMain extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            if(btnChoosen.contains("1"))
             adapter.notifyDataSetChanged();
+            else
+                waiversAdapter.notifyDataSetChanged();
             bar.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
         }
