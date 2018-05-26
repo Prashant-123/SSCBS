@@ -40,6 +40,11 @@
             android:textSize="16sp"
             android:text="Name"/>
 
+        <EditText
+            android:layout_width="30dp"
+            android:layout_height="43dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 
