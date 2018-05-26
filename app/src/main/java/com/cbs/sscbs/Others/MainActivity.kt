@@ -22,6 +22,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
+import com.cbs.sscbs.Fragments.Attendance_Frag
 import com.cbs.sscbs.Fragments.Events_Fragment
 import com.cbs.sscbs.Fragments.Home_frag
 import com.cbs.sscbs.Fragments.TimeTable_frag
@@ -109,8 +110,12 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         R.id.ic_grievance -> {
-                            val intent1 = Intent(this, Grievances::class.java)
-                            startActivity(intent1)
+//                            val intent1 = Intent(this, Grievances::class.java)
+//                            startActivity(intent1)
+                            val f = Attendance_Frag()
+                            val fragmentTransaction = fragmentManager.beginTransaction()
+                            this.toolbar.title = "Attendance"
+                            fragmentTransaction.replace(R.id.main_Frame, f).commit()
                         }
 
                         R.id.ic_events -> {
