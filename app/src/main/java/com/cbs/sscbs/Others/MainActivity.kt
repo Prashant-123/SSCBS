@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                             fragmentTransaction.replace(R.id.main_Frame, f).commit()
                         }
 
-                        R.id.ic_grievance -> {
+                        R.id.ic_attendance -> {
 //                            val intent1 = Intent(this, Grievances::class.java)
 //                            startActivity(intent1)
                             val f = Attendance_Frag()
@@ -198,6 +198,10 @@ class MainActivity : AppCompatActivity() {
             R.id.about_college -> {
                 val intent = Intent(this, About_Activity::class.java)
                 startActivity(intent)
+            }
+            R.id.grievances->{
+                val intent1 = Intent(this, Grievances::class.java)
+                           startActivity(intent1)
             }
             R.id.developers -> {
                 val intent = Intent(this, Developers::class.java)

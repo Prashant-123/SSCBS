@@ -94,7 +94,7 @@
             android:label="Developers" />
         <activity android:name=".TeachersTimetable.DayWiseTT"
             android:label="Grievances"
-            android:parentActivityName=".Others.MainActivity"/>
+            android:parentActivityName=".TeachersTimetable.TeachersTimeTable"/>
     </application>
 
 </manifest>

@@ -23,6 +23,11 @@
             />
 
         <item
+            android:id="@+id/grievances"
+            android:icon="@drawable/grievances"
+            android:title="GRIEVANCES"
+            />
+        <item
             android:id="@+id/developers"
             android:icon="@drawable/ic_developer_mode_black_24dp"
             android:title="DEVELOPERS"

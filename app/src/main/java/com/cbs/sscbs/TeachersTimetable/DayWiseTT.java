@@ -31,6 +31,10 @@ public class DayWiseTT extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_wise_tt);
+        Toolbar toolbar = findViewById(R.id.toolbar_dayTT);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 //        bar.setVisibility(View.VISIBLE);
 //
@@ -39,9 +43,9 @@ public class DayWiseTT extends AppCompatActivity {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 //        }
-//        String dayLongName = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setTitle(dayLongName);
+        String dayLongName = Calendar.getInstance().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(dayLongName);
 
         mRecyclerView = findViewById(R.id.dayWiseRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
