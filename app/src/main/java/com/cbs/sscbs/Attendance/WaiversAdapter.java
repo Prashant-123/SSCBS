@@ -45,12 +45,16 @@ public class WaiversAdapter extends RecyclerView.Adapter<WaiversAdapter.MyViewHo
         holder.stuWaiver.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
+                //WaiverListClass waiverListClassAt0 = new WaiverListClass("0","0");
                 WaiverListClass waiverListClass = new WaiverListClass(objectList.get(holder.getAdapterPosition()).getRoll(),holder.stuWaiver.getText().toString());
+                //waiverList.add(0,waiverListClassAt0);
                 if (waiverList.contains(waiverListClass)) {
                     waiverList.remove(waiverListClass);
-                    waiverList.add(position-1, waiverListClass);
-                    waiverList.get(position-1).setWaivers(s.toString());
+                    //Log.wtf("OK" , "if "+String.valueOf(position));
+                    waiverList.add(position, waiverListClass);
+                    waiverList.get(position).setWaivers(s.toString());
                 } else {
+                    //Log.wtf("OK" ,"else "+ String.valueOf(position));
                     waiverList.add(position, waiverListClass);
                     waiverList.get(waiverList.indexOf(waiverListClass)).setWaivers(s.toString());
                 }

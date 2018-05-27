@@ -160,7 +160,7 @@ public class AttendanceMain extends AppCompatActivity {
         }
     }
 
-    public void save(View view){
+    public void saveAtt(View view){
         init();
         int i=0;
         if (type.contains("Lab")){
