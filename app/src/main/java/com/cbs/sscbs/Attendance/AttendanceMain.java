@@ -102,7 +102,6 @@ public class AttendanceMain extends AppCompatActivity {
             android.support.v7.widget.Toolbar toolbar = findViewById(R.id.stu_toolbar);
             toolbar.setTitle(clas);
             setSupportActionBar(toolbar);
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             bar = findViewById(R.id.list_progress_bar);
             tv = findViewById(R.id.loading_lists);
@@ -155,9 +154,13 @@ public class AttendanceMain extends AppCompatActivity {
         finish();
     }
 
+    public void demoSave(View view){
+        for (int i=0; i<WaiversAdapter.waiverList.size(); i++){
+            Log.i("ok", "\n"+showWaiverdata.get(i).getRoll() + "->" + WaiversAdapter.waiverList.get(i).getWaivers());
+        }
+    }
+
     public void save(View view){
-        Log.wtf(TAG , "jh"+AttendanceAdapter.saveRoll.toString());
-        Log.wtf(TAG , "kn"+WaiversAdapter.waiverList.get(0).getRollNo().toString());
         init();
         int i=0;
         if (type.contains("Lab")){
@@ -292,7 +295,6 @@ public class AttendanceMain extends AppCompatActivity {
                         WaiverDataClass waiverDataClass = new WaiverDataClass(name , roll_no);
                         showWaiverdata.add(waiverDataClass);
                         AttendanceAdapter.saveRoll.add(roll_no);
-                        Log.i("ok", showWaiverdata.toString());
                     }
                 }
             } catch (Exception ex) {

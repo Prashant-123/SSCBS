@@ -30,7 +30,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="right"
-                    android:onClick="save"
+                    android:onClick="demoSave"
                     android:layout_marginRight="30dp"
                     android:id="@+id/save_at"
                     app:srcCompat="@drawable/ic_save_black_24dp"

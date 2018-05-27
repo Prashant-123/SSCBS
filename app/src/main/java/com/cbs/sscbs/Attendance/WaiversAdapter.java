@@ -2,6 +2,8 @@ package com.cbs.sscbs.Attendance;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import java.util.List;
 
 public class WaiversAdapter extends RecyclerView.Adapter<WaiversAdapter.MyViewHolder>  {
     private List<WaiverDataClass> objectList;
+    String _waiverText;
     public static ArrayList<WaiverListClass> waiverList = new ArrayList<>();
     private LayoutInflater inflater;
     public WaiversAdapter(Context context, List<WaiverDataClass> objectList) {
@@ -35,15 +38,34 @@ public class WaiversAdapter extends RecyclerView.Adapter<WaiversAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(WaiversAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final WaiversAdapter.MyViewHolder holder, final int position) {
     final WaiverDataClass waiverDataClass = objectList.get(position);
-    holder.setData(waiverDataClass);
-    holder.stuWaiver.getText().toString();
-    Log.wtf("TAG" , holder.stuWaiver.getText().toString());
-    if(!holder.stuWaiver.getText().toString().equals("0")){
-        WaiverListClass waiverListClass = new WaiverListClass(holder.roll.toString(),holder.stuWaiver.getText().toString());
-        waiverList.add(waiverListClass);
-    }
+//    waiverList.clear();
+
+        holder.stuWaiver.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                WaiverListClass waiverListClass = new WaiverListClass(objectList.get(holder.getAdapterPosition()).getRoll(),holder.stuWaiver.getText().toString());
+                if (waiverList.contains(waiverListClass)) {
+                    waiverList.remove(waiverListClass);
+                    waiverList.add(position-1, waiverListClass);
+                    waiverList.get(position-1).setWaivers(s.toString());
+                } else {
+                    waiverList.add(position, waiverListClass);
+                    waiverList.get(waiverList.indexOf(waiverListClass)).setWaivers(s.toString());
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        holder.setData(waiverDataClass);
     }
 
     @Override
